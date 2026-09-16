@@ -190,7 +190,7 @@ static NSDictionary<NSString *, SPKAssetDescriptor *> *SPKAssetOverrides(void) {
             @"left_right" : @{@"candidates" : @[ @"ig_icon_replace_outline_24", @"ig_icon_replace_2_outline_24" ]},
             @"link" : @{@"candidates" : @[ @"ig_icon_link_outline_24" ]},
             @"link_reels" : @{@"candidates" : @[ @"ig_icon_link_outline_44" ]},
-            @"list" : @{@"candidates" : @[ @"ig_icon_edit_list_outline_24" ]},
+            @"list" : @{"candidates" : @[ @"ig_icon_edit_list_outline_24" ]},
             @"lock" : @{@"candidates" : @[ @"ig_icon_lock_prism_outline_24", @"ig_icon_lock_outline_24" ]},
             @"lock_filled" : @{@"candidates" : @[ @"ig_icon_lock_prism_filled_24", @"ig_icon_lock_filled_24" ]},
             @"logs" : @{@"candidates" : @[ @"ig_icon_document_lined_prism_outline_24", @"ig_icon_document_lined_outline_24" ]},
