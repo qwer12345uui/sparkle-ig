@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>General</key><string>通用</string>
+	<key>Interface</key><string>界面</string>
+	<key>Feed</key><string>动态</string>
+	<key>Stories</key><string>快拍</string>
+	<key>Reels</key><string>Reels</string>
+	<key>Downloads</key><string>下载</string>
+	<key>Settings</key><string>设置</string>
+	<key>Gallery</key><string>图库</string>
+	<key>Messages</key><string>消息</string>
+	<key>Disable</key><string>禁用</string>
+</dict>
+</plist>
