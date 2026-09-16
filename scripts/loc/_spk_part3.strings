@@ -1,7 +1,843 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plist version="1.0">
-<dict>
-	<key>t</key>
-	<string>测试</string>
-</dict>
-</plist>
+<key>Hide Flag Button</key>
+	<string>隐藏标记按钮</string>
+<key>Hide Follow-List Suggestions</key>
+	<string>隐藏关注列表推荐</string>
+<key>Hide Friends Map</key>
+	<string>隐藏好友地图</string>
+<key>Hide Gifts Button</key>
+	<string>隐藏礼物按钮</string>
+<key>Hide Global AI Chrome</key>
+	<string>隐藏全局 AI 界面元素</string>
+<key>Hide Instagram Plus Button</key>
+	<string>隐藏 Instagram Plus 按钮</string>
+<key>Hide Join Trending</key>
+	<string>隐藏「Join a trending」</string>
+<key>Hide Like Count</key>
+	<string>隐藏点赞数</string>
+<key>Hide Messages Tab</key>
+	<string>隐藏消息标签</string>
+<key>Hide Notes Bubble</key>
+	<string>隐藏备注气泡</string>
+<key>Hide Notes Tray</key>
+	<string>隐藏便签托盘</string>
+<key>Hide Profile Suggestions</key>
+	<string>隐藏个人资料推荐</string>
+<key>Hide Profile Tab</key>
+	<string>隐藏个人资料标签</string>
+<key>Hide Reels Ads</key>
+	<string>隐藏 Reels 广告</string>
+<key>Hide Reels Blend Button</key>
+	<string>隐藏 Reels 混合按钮</string>
+<key>Hide Reels Header</key>
+	<string>隐藏 Reels 头部</string>
+<key>Hide Reels Shopping CTA</key>
+	<string>隐藏 Reels 购物 CTA</string>
+<key>Hide Reels Suggestions</key>
+	<string>隐藏 Reels 推荐</string>
+<key>Hide Reels Tab</key>
+	<string>隐藏 Reels 标签</string>
+<key>Hide Repost Button</key>
+	<string>隐藏转发按钮</string>
+<key>Hide Repost Count</key>
+	<string>隐藏转发数</string>
+<key>Hide Reshare Count</key>
+	<string>隐藏再分享数</string>
+<key>Hide Save Count</key>
+	<string>隐藏保存计数</string>
+<key>Hide Search Suggestions</key>
+	<string>隐藏搜索推荐</string>
+<key>Hide Stories Tray</key>
+	<string>隐藏故事栏</string>
+<key>Hide Story Ads</key>
+	<string>隐藏故事广告</string>
+<key>Hide Subscription Suggestions</key>
+	<string>隐藏订阅推荐</string>
+<key>Hide Suggested Posts</key>
+	<string>隐藏推荐帖子</string>
+<key>Hide Suggested Reels</key>
+	<string>隐藏推荐 Reels</string>
+<key>Hide Suggested Threads</key>
+	<string>隐藏推荐 Threads 帖子</string>
+<key>Hide Tab Bar</key>
+	<string>隐藏标签栏</string>
+<key>Hide Threads Button</key>
+	<string>隐藏 Threads 按钮</string>
+<key>Hide Trending Searches</key>
+	<string>隐藏热门搜索</string>
+<key>Hide Typing Status</key>
+	<string>隐藏输入状态</string>
+<key>Hide UI on Capture</key>
+	<string>捕获时隐藏界面</string>
+<key>Hide Video Call Button</key>
+	<string>隐藏视频通话按钮</string>
+<key>Hide in Comments</key>
+	<string>在评论中隐藏</string>
+<key>Hide in Creation Tools</key>
+	<string>在创作工具中隐藏</string>
+<key>Hide in Direct</key>
+	<string>在 Direct 中隐藏</string>
+<key>Hide in Explore &amp; Search</key>
+	<string>在探索与搜索中隐藏</string>
+<key>Hide on Scroll</key>
+	<string>滚动时隐藏</string>
+<key>History Limit</key>
+	<string>历史记录上限</string>
+<key>Hold Send to Copy Link</key>
+	<string>长按发送以复制链接</string>
+<key>Hook Bisect</key>
+	<string>Hook 二分排查</string>
+<key>Hook names the one eating the main thread. Turn the meter on, browse </key>
+	<string>Hook 会指出占用主线程的那一项。开启计量器，浏览</string>
+<key>How It Works</key>
+	<string>工作原理</string>
+<key>ID copied</key>
+	<string>ID 已复制</string>
+<key>Icon &amp; Text</key>
+	<string>图标与文字</string>
+<key>Images deleted</key>
+	<string>图片已删除</string>
+<key>Import</key>
+	<string>导入</string>
+<key>Import %lu file%@</key>
+	<string>导入 %lu 个文件%@</string>
+<key>Import Media</key>
+	<string>导入媒体</string>
+<key>Import Settings</key>
+	<string>导入设置</string>
+<key>Import cancelled</key>
+	<string>导入已取消</string>
+<key>Import complete</key>
+	<string>导入完成</string>
+<key>Import failed</key>
+	<string>导入失败</string>
+<key>Import incomplete</key>
+	<string>导入未完成</string>
+<key>Import media from the Files app with full editable metadata.
+</key>
+	<string>从“文件”应用导入媒体并保留可编辑的完整元数据。</string>
+<key>Importing video</key>
+	<string>正在导入视频</string>
+<key>Importing...</key>
+	<string>正在导入…</string>
+<key>Included Chats</key>
+	<string>已包含的聊天</string>
+<key>Included Chats require the eye button or the auto-seen triggers above. Manage them from the eye button, an inbox long press, or the list above.</key>
+	<string>包含的聊天需要使用眼睛按钮或上述自动已读触发器。可通过眼睛按钮、收件箱长按或上方列表进行管理。</string>
+<key>Included Users</key>
+	<string>已包含的用户</string>
+<key>Instagram closed before finishing launch several times in a row, so Sparkle turned its features off to get you back into the app.
+
+</key>
+	<string>Instagram 多次在完成启动前就被关闭，因此 Sparkle 已关闭其功能以帮助您重新进入应用。</string>
+<key>Instagram exposed an unsupported audio URL. Refresh the thread </key>
+	<string>Instagram 暴露了不受支持的音频 URL。刷新帖子</string>
+<key>Instagram is rate-limiting requests. Try again in a few minutes.</key>
+	<string>Instagram 正在限制请求。请几分钟后再试。</string>
+<key>Instagram may not support this media format.</key>
+	<string>Instagram 可能不支持此媒体格式。</string>
+<key>Instagram rejected the selected photo.</key>
+	<string>Instagram 拒绝了所选照片。</string>
+<key>Instagram returned a missing media response.</key>
+	<string>Instagram 返回了缺失的媒体响应。</string>
+<key>Instagram returned an unexpected response.</key>
+	<string>Instagram 返回了意外的响应。</string>
+<key>Instant Capture Blocked</key>
+	<string>即时捕获已被阻止</string>
+<key>Instant Upload Failed</key>
+	<string>即时上传失败</string>
+<key>Instant capture blocked</key>
+	<string>即时捕捉已被阻止</string>
+<key>Instants</key>
+	<string>即时动态</string>
+<key>Instants Action Button</key>
+	<string>Instants 操作按钮</string>
+<key>Instants Auto-Save List Changes</key>
+	<string>Instants 自动保存名单变更</string>
+<key>Instants Auto-Save Started</key>
+	<string>Instants 自动保存已开始</string>
+<key>Instants Settings</key>
+	<string>瞬间设置</string>
+<key>Instants deleted</key>
+	<string>Instants 已删除</string>
+<key>Instants now download/auto-save in full resolution</key>
+	<string>Instants 现在以全分辨率下载/自动保存</string>
+<key>Instants you already have are skipped.</key>
+	<string>你已保存的瞬间会被跳过。</string>
+<key>Instants you save or auto-save show up here, grouped by who sent them.</key>
+	<string>你保存或自动保存的瞬间会显示在此处，并按发送者分组。</string>
+<key>Interface</key>
+	<string>界面</string>
+<key>Interrupted when Instagram exited</key>
+	<string>Instagram 退出时被中断</string>
+<key>Invalid audio URL.</key>
+	<string>音频 URL 无效。</string>
+<key>Invalid download URL.</key>
+	<string>下载 URL 无效。</string>
+<key>Invalid media URL.</key>
+	<string>媒体 URL 无效。</string>
+<key>Invalid remote media URL</key>
+	<string>无效的远程媒体 URL</string>
+<key>Invalid username</key>
+	<string>无效的用户名</string>
+<key>Item %ld</key>
+	<string>项目 %ld</string>
+<key>Join the community for updates and support</key>
+	<string>加入社区以获取更新与支持</string>
+<key>Keep Deleted Messages</key>
+	<string>保留已删除消息</string>
+<key>Keep a Separate Copy</key>
+	<string>保留为独立副本</string>
+<key>Keep in Download History</key>
+	<string>保留在下载历史记录中</string>
+<key>Keep messages even after they're deleted</key>
+	<string>即使消息被删除也保留它们</string>
+<key>Last 30 Days</key>
+	<string>最近30天</string>
+<key>Last 7 Days</key>
+	<string>最近7天</string>
+<key>Last Active</key>
+	<string>最后活跃时间</string>
+<key>Last scanned: %@</key>
+	<string>上次扫描：%@</string>
+<key>Launch Tab</key>
+	<string>启动标签</string>
+<key>Library unavailable</key>
+	<string>图库不可用</string>
+<key>Link It Back</key>
+	<string>链接回原帖</string>
+<key>Liquid Glass</key>
+	<string>液态玻璃</string>
+<key>Liquid Glass &amp; Blur</key>
+	<string>液态玻璃与模糊</string>
+<key>List view</key>
+	<string>列表视图</string>
+<key>Loading viewers...</key>
+	<string>正在加载查看者...</string>
+<key>Loading viewers... %ld</key>
+	<string>正在加载查看者... %ld</string>
+<key>Lock the Gallery with a passcode or biometrics.</key>
+	<string>使用密码或生物识别锁定图库。</string>
+<key>Log Deleted Messages</key>
+	<string>记录已删除的消息</string>
+<key>Log Removed Reactions</key>
+	<string>记录已移除的反应</string>
+<key>Log Snapshot</key>
+	<string>记录快照</string>
+<key>Log copied</key>
+	<string>日志已复制</string>
+<key>Logging is off</key>
+	<string>日志记录已关闭</string>
+<key>Logs cleared</key>
+	<string>日志已清除</string>
+<key>Long Press to Expand</key>
+	<string>长按以展开</string>
+<key>Long press a profile picture to open it expanded.</key>
+	<string>长按个人资料图片以展开查看。</string>
+<key>Long press and drag to reorder sections.</key>
+	<string>长按并拖动以重新排序分区。</string>
+<key>Long press media in the feed to open it expanded. Autoplay controls prevent feed videos from playing automatically.</key>
+	<string>在信息流中长按媒体以展开打开。自动播放设置可防止信息流视频自动播放。</string>
+<key>Long pressing the Home tab</key>
+	<string>长按首页标签</string>
+<key>Long pressing the menu on your profile</key>
+	<string>在个人主页上长按菜单</string>
+<key>Long-press a note in the tray to download its audio or copy its text. Each action only appears when the note has that content.</key>
+	<string>在托盘中长按便签以下载其音频或复制其文本。仅当便签具有相应内容时，相关操作才会出现。</string>
+<key>Lost Followers</key>
+	<string>失去的粉丝</string>
+<key>Main Feed</key>
+	<string>主信息流</string>
+<key>Make sure you have an active chat with this user.</key>
+	<string>请确保您与该用户有正在进行的聊天。</string>
+<key>Manual overrides. Leave blank to auto-detect.</key>
+	<string>手动覆盖。留空以自动检测。</string>
+<key>Manually Mark Seen</key>
+	<string>手动标记为已读</string>
+<key>Mark Messages as Seen</key>
+	<string>将消息标记为已查看</string>
+<key>Mark Seen on Like</key>
+	<string>点赞时标记为已查看</string>
+<key>Mark Seen on Message Reply</key>
+	<string>回复消息时标记为已读</string>
+<key>Mark Seen on Message Send</key>
+	<string>发送消息时标记为已读</string>
+<key>Mark Seen on Reaction</key>
+	<string>对消息反应时标记为已读</string>
+<key>Mark Seen on Reply</key>
+	<string>回复时标记为已查看</string>
+<key>Mark Seen on Typing</key>
+	<string>开始输入时标记为已读</string>
+<key>Mark Story as Seen</key>
+	<string>将故事标记为已查看</string>
+<key>Mark Visual Message as Seen</key>
+	<string>将视觉消息标记为已查看</string>
+<key>Marked as seen</key>
+	<string>已标记为已查看</string>
+<key>Marked messages as seen</key>
+	<string>已将消息标记为已读</string>
+<key>Marked story as seen</key>
+	<string>已将故事标记为已查看</string>
+<key>Max Resolution</key>
+	<string>最大分辨率</string>
+<key>Measures how long the main thread is blocked, which is what "laggy" </key>
+	<string>测量主线程被阻塞的时长，这正是“卡顿”的本质，</string>
+<key>Media Preview &amp; Menu</key>
+	<string>媒体预览与菜单</string>
+<key>Media Recovery Cache</key>
+	<string>媒体恢复缓存</string>
+<key>Media Vault ready</key>
+	<string>Media Vault 已就绪</string>
+<key>Media code</key>
+	<string>媒体代码</string>
+<key>Media download</key>
+	<string>媒体下载</string>
+<key>Media not found</key>
+	<string>未找到媒体</string>
+<key>Media type</key>
+	<string>媒体类型</string>
+<key>Media upload failed</key>
+	<string>媒体上传失败</string>
+<key>Media upload unavailable</key>
+	<string>媒体上传不可用</string>
+<key>Media you already have is skipped.</key>
+	<string>已存在的媒体会被跳过。</string>
+<key>Media you save to “%@” will appear here.</key>
+	<string>你保存到“%@”的媒体会显示在此处。</string>
+<key>Media you save with Sparkle will appear here.</key>
+	<string>你使用 Sparkle 保存的媒体会显示在此处。</string>
+<key>Menu Sections</key>
+	<string>菜单分区</string>
+<key>Merge failed</key>
+	<string>合并失败</string>
+<key>Merged video</key>
+	<string>合并视频</string>
+<key>Merging video and audio</key>
+	<string>正在合并视频与音频</string>
+<key>Message from %@ was unsent</key>
+	<string>来自 %@ 的消息已被撤回</string>
+<key>Message not found</key>
+	<string>未找到消息</string>
+<key>Messages</key>
+	<string>消息</string>
+<key>Messages (%ld added)</key>
+	<string>消息（新增 %ld 条）</string>
+<key>Messages Action Button</key>
+	<string>消息操作按钮</string>
+<key>Messages Only Mode</key>
+	<string>仅消息模式</string>
+<key>Messages Settings</key>
+	<string>消息设置</string>
+<key>Messages import failed.</key>
+	<string>消息导入失败。</string>
+<key>Messages seen off for %@</key>
+	<string>已为 %@ 关闭消息已查看</string>
+<key>Messages seen on for %@</key>
+	<string>已为 %@ 开启消息已查看</string>
+<key>Messages that other people unsend will show up here.</key>
+	<string>其他人撤回的消息会显示在这里。</string>
+<key>Messages...</key>
+	<string>消息…</string>
+<key>Meta AI</key>
+	<string>Meta AI</string>
+<key>Missing media item</key>
+	<string>缺少媒体项</string>
+<key>Missing remote media URL</key>
+	<string>缺少远程媒体 URL</string>
+<key>Missing story id</key>
+	<string>缺少故事 ID</string>
+<key>Missing video or audio source for trim merge</key>
+	<string>缺少用于剪辑合并的视频或音频源</string>
+<key>More To Explore</key>
+	<string>更多可探索内容</string>
+<key>Most Expensive Hook</key>
+	<string>最耗时的 Hook</string>
+<key>Most Messages</key>
+	<string>消息最多</string>
+<key>Most Recent</key>
+	<string>最近</string>
+<key>Most Visited</key>
+	<string>访问次数最多</string>
+<key>Move selected</key>
+	<string>移动所选</string>
+<key>Move to Folder</key>
+	<string>移动到文件夹</string>
+<key>Mute/Unmute</key>
+	<string>静音/取消静音</string>
+<key>Mutual Followers</key>
+	<string>互相关注</string>
+<key>NOT FOLLOWING YOU</key>
+	<string>未关注你</string>
+<key>Name copied</key>
+	<string>名称已复制</string>
+<key>Needs details</key>
+	<string>需要详情</string>
+<key>New Features</key>
+	<string>新功能</string>
+<key>New Folder</key>
+	<string>新建文件夹</string>
+<key>New Followers</key>
+	<string>新增粉丝</string>
+<key>New Passcode</key>
+	<string>新密码</string>
+<key>New folder</key>
+	<string>新建文件夹</string>
+<key>New folder...</key>
+	<string>新建文件夹...</string>
+<key>Newest first</key>
+	<string>最新优先</string>
+<key>No 1:1 DM thread was found with @%@.</key>
+	<string>未找到与 @%@ 的 1:1 私信线程。</string>
+<key>No 1:1 chat thread found</key>
+	<string>未找到一对一聊天线程</string>
+<key>No Gallery audio</key>
+	<string>图库无音频</string>
+<key>No Gallery photos</key>
+	<string>图库中无照片</string>
+<key>No Recent Searches</key>
+	<string>不保存最近搜索</string>
+<key>No Suggested Chats</key>
+	<string>不显示建议聊天</string>
+<key>No accounts match your search.</key>
+	<string>没有账号匹配您的搜索。</string>
+<key>No active Instagram session found</key>
+	<string>未找到有效的 Instagram 会话</string>
+<key>No active downloads</key>
+	<string>暂无正在进行的下载</string>
+<key>No audio available</key>
+	<string>无可用音频</string>
+<key>No bulk media available</key>
+	<string>没有可供批量处理的媒体</string>
+<key>No caption available</key>
+	<string>无可用文字说明</string>
+<key>No chats yet</key>
+	<string>暂无聊天</string>
+<key>No deleted messages match the current filters.</key>
+	<string>没有已删除的消息符合当前筛选条件。</string>
+<key>No downloadable media</key>
+	<string>没有可下载的媒体</string>
+<key>No downloads yet</key>
+	<string>尚无下载</string>
+<key>No encoding logs</key>
+	<string>没有编码日志</string>
+<key>No encoding logs yet</key>
+	<string>尚无编码日志</string>
+<key>No failed downloads</key>
+	<string>暂无失败的下载</string>
+<key>No files imported</key>
+	<string>未导入任何文件</string>
+<key>No files in Gallery</key>
+	<string>图库中没有文件</string>
+<key>No files to delete</key>
+	<string>没有可删除的文件</string>
+<key>No files to import</key>
+	<string>没有可导入的文件</string>
+<key>No image URL</key>
+	<string>无图片 URL</string>
+<key>No installers recorded yet</key>
+	<string>尚未记录任何安装器</string>
+<key>No link available</key>
+	<string>无可用链接</string>
+<key>No link found</key>
+	<string>未找到链接</string>
+<key>No links available</key>
+	<string>无可用链接</string>
+<key>No matches</key>
+	<string>无匹配项</string>
+<key>No matching files</key>
+	<string>没有匹配的文件</string>
+<key>No media matches your search.</key>
+	<string>没有媒体匹配您的搜索。</string>
+<key>No media to expand</key>
+	<string>无可展开的媒体</string>
+<key>No media to save</key>
+	<string>没有可保存的媒体</string>
+<key>No mentions found</key>
+	<string>未找到任何提及</string>
+<key>No messages match the current filters.</key>
+	<string>没有消息符合当前筛选条件。</string>
+<key>No one has viewed this story.</key>
+	<string>还没有人查看此故事。</string>
+<key>No origin actions available</key>
+	<string>无原始操作可用</string>
+<key>No photo to edit</key>
+	<string>没有可编辑的照片。</string>
+<key>No photos in Gallery</key>
+	<string>相册中没有照片</string>
+<key>No recent downloads</key>
+	<string>暂无最近的下载</string>
+<key>No results</key>
+	<string>没有结果</string>
+<key>No saved instants</key>
+	<string>暂无已保存的瞬间</string>
+<key>No users yet</key>
+	<string>尚无用户</string>
+<key>No video to trim</key>
+	<string>没有可裁剪的视频</string>
+<key>No viewers match your search.</key>
+	<string>没有查看者匹配您的搜索。</string>
+<key>No viewers yet</key>
+	<string>暂无查看者</string>
+<key>None Selected</key>
+	<string>未选择</string>
+<key>Normalizing video</key>
+	<string>正在规范化视频</string>
+<key>Not Following</key>
+	<string>未关注</string>
+<key>Not Following You Back</key>
+	<string>未关注你</string>
+<key>Not Now</key>
+	<string>稍后再说</string>
+<key>Not a Regram vault</key>
+	<string>这不是 Regram vault。</string>
+<key>Not set</key>
+	<string>未设置</string>
+<key>Note Audio</key>
+	<string>笔记音频</string>
+<key>Nothing here</key>
+	<string>暂无内容</string>
+<key>Nothing here can be selected.</key>
+	<string>这里没有可供选择的内容。</string>
+<key>Nothing here yet</key>
+	<string>这里还没有内容</string>
+<key>Nothing in this folder matches your search. Try All Folders.</key>
+	<string>此文件夹中没有匹配您搜索的内容。试试“所有文件夹”。</string>
+<key>Nothing queued</key>
+	<string>队列为空</string>
+<key>Nothing recorded yet</key>
+	<string>尚未记录任何内容</string>
+<key>Nothing to copy</key>
+	<string>无可复制内容</string>
+<key>Nothing to import</key>
+	<string>没有可导入的内容</string>
+<key>Nothing to paste</key>
+	<string>没有可粘贴的内容</string>
+<key>Nothing to select</key>
+	<string>没有可选择的项</string>
+<key>Notification preview: error tone.</key>
+	<string>通知预览：错误提示音。</string>
+<key>Notification preview: info tone.</key>
+	<string>通知预览：信息提示音。</string>
+<key>Notification preview: success tone.</key>
+	<string>通知预览：成功提示音。</string>
+<key>Notifications</key>
+	<string>通知</string>
+<key>OK</key>
+	<string>好</string>
+<key>Oldest first</key>
+	<string>最旧优先</string>
+<key>On "%@"</key>
+	<string>在 "%@"</string>
+<key>On-device storage used by all Sparkle data. Instagram's own cache is not included.</key>
+	<string>设备上被所有 Sparkle 数据使用的存储空间。不包括 Instagram 自身的缓存。</string>
+<key>On-screen HUD</key>
+	<string>屏幕 HUD</string>
+<key>Only HTTP and HTTPS URLs are supported.</key>
+	<string>仅支持 HTTP 和 HTTPS URL。</string>
+<key>Only loads %@ %@</key>
+	<string>仅加载 %@ %@</string>
+<key>Open </key>
+	<string>打开</string>
+<key>Open Clipboard Link</key>
+	<string>打开剪贴板链接</string>
+<key>Open FLEX Now</key>
+	<string>立即打开 FLEX</string>
+<key>Open Gallery</key>
+	<string>打开图库</string>
+<key>Open Media</key>
+	<string>打开媒体</string>
+<key>Open Menu</key>
+	<string>打开菜单</string>
+<key>Open Menu Icon</key>
+	<string>打开菜单图标</string>
+<key>Open Original Post</key>
+	<string>打开原始帖子</string>
+<key>Open Photos App</key>
+	<string>打开“照片”应用</string>
+<key>Open Post</key>
+	<string>打开帖子</string>
+<key>Open Profile</key>
+	<string>打开个人资料</string>
+<key>Open Reel</key>
+	<string>打开 Reel</string>
+<key>Open Sparkle Settings</key>
+	<string>打开 Sparkle 设置</string>
+<key>Open Story</key>
+	<string>打开 Story</string>
+<key>Open Story Mentions</key>
+	<string>打开故事中的提及</string>
+<key>Open Topic Settings</key>
+	<string>打开话题设置</string>
+<key>Open on App Focus</key>
+	<string>应用获得焦点时打开</string>
+<key>Open on App Launch</key>
+	<string>在应用启动时打开</string>
+<key>Open original → %@</key>
+	<string>打开原帖 → %@</string>
+<key>Opened %@</key>
+	<string>已打开 %@</string>
+<key>Opened Gallery media</key>
+	<string>已打开画廊媒体</string>
+<key>Opened original post</key>
+	<string>已打开原帖</string>
+<key>Opened profile</key>
+	<string>已打开个人资料</string>
+<key>Opened settings</key>
+	<string>已打开设置</string>
+<key>Opened share sheet</key>
+	<string>已打开分享面板</string>
+<key>Opened story mentions</key>
+	<string>已打开故事提及列表</string>
+<key>Opened thumbnail</key>
+	<string>已打开缩略图</string>
+<key>Opening profile...</key>
+	<string>正在打开个人资料…</string>
+<key>Original replaced</key>
+	<string>已替换原文件</string>
+<key>Other bug fixes &amp; UI improvements</key>
+	<string>其他错误修复与界面改进</string>
+<key>Overlay the username, source, and saved/posted dates on the expanded photo preview.</key>
+	<string>在展开的照片预览上叠加用户名、来源和保存/发布日期。</string>
+<key>Overlay the username, source, and saved/posted dates on the expanded photo preview. Tap the media to hide it along with the controls.</key>
+	<string>在展开的照片预览上叠加用户名、来源和保存/发布日期。点击媒体可隐藏媒体及其控件。</string>
+<key>Parallel Downloads</key>
+	<string>并行下载</string>
+<key>Paste Link to Autofill</key>
+	<string>粘贴链接以自动填充</string>
+<key>Paste a post, reel, story, or profile link to fill everything.</key>
+	<string>粘贴帖子、reel、故事或个人资料链接以自动填充所有信息。</string>
+<key>Paste a post, reel, story, or profile link.</key>
+	<string>粘贴帖文、reel、故事或个人资料链接。</string>
+<key>Pause/Play</key>
+	<string>暂停/播放</string>
+<key>Per-Account Settings</key>
+	<string>每个账户的设置</string>
+<key>Per-account settings are on. Back up every account's settings and Gallery, or only the active account's.</key>
+	<string>已启用按账号设置。你可以备份每个账号的设置和图库，或只备份当前账号的设置。</string>
+<key>Per-account settings are on. Back up every account's settings, or only the active account's.</key>
+	<string>已启用按账号设置。你可以备份每个账号的设置，或只备份当前账号的设置。</string>
+<key>Per-account settings are on. Reset every account's settings, or only the active account's.</key>
+	<string>已开启按账户设置。重置所有账户的设置，还是只重置当前账户？</string>
+<key>Performance Meter</key>
+	<string>性能监测器</string>
+<key>Photo Actions</key>
+	<string>照片操作</string>
+<key>Photo Library is not available on this device.</key>
+	<string>此设备无法使用照片图库。</string>
+<key>Photo Quality</key>
+	<string>照片质量</string>
+<key>Photo sent</key>
+	<string>照片已发送</string>
+<key>Photos &amp; Videos</key>
+	<string>照片与视频</string>
+<key>Photos App</key>
+	<string>照片 App</string>
+<key>Photos App saves it to your photo library, which iOS asks permission for the first time. </key>
+	<string>“照片”应用会将其保存到你的相簿，iOS 会在首次保存时请求权限。</string>
+<key>Pick a Regram export folder or MediaVault.zip.</key>
+	<string>请选择一个 Regram 导出文件夹或 MediaVault.zip。</string>
+<key>Pick images, videos, or audio from the Files app to add them to your gallery.
+
+Coming from Regram? Pick your exported folder or MediaVault.zip to bring your whole Media Vault across, with details filled in.</key>
+	<string>从“文件”应用中选择图片、视频或音频，将它们添加到你的图库中。
+
+来自 Regram？选择你导出的文件夹或 MediaVault.zip，即可将整个 Media Vault 导入，并自动填充详细信息。</string>
+<key>Pill-Shaped Tab Bar</key>
+	<string>胶囊形标签栏</string>
+<key>Pin Folder Bar</key>
+	<string>固定文件夹栏</string>
+<key>Pin favorites above other files inside the current sort and folder context.</key>
+	<string>在当前排序和文件夹上下文中，将收藏置于其他文件之上。</string>
+<key>Pinch to Zoom</key>
+	<string>捏合缩放</string>
+<key>Pinch to zoom into videos in the full-screen preview</key>
+	<string>在全屏预览中用捏合手势缩放视频</string>
+<key>Pixel Format</key>
+	<string>像素格式</string>
+<key>Play Audio</key>
+	<string>播放音频</string>
+<key>Playback failed</key>
+	<string>播放失败</string>
+<key>Please try again.</key>
+	<string>请重试。</string>
+<key>Poll vote counts now respect hide UI on capture</key>
+	<string>投票计数在截取时现在会尊重 hide UI on capture 设置</string>
+<key>Position</key>
+	<string>位置</string>
+<key>Posted %@</key>
+	<string>发布于 %@</string>
+<key>Preferences are restored, replacing your current values for the imported scope. </key>
+	<string>偏好设置将被恢复，替换所导入范围内当前的值。</string>
+<key>Preparing a voice note compatible file.</key>
+	<string>正在准备与语音便笺兼容的文件。</string>
+<key>Preparing audio</key>
+	<string>正在准备音频</string>
+<key>Preparing instant...</key>
+	<string>正在准备即时内容...</string>
+<key>Preparing local file</key>
+	<string>正在准备本地文件</string>
+<key>Preparing media</key>
+	<string>正在准备媒体</string>
+<key>Preparing photo...</key>
+	<string>正在准备照片...</string>
+<key>Preparing video...</key>
+	<string>正在准备视频...</string>
+<key>Press and hold to record</key>
+	<string>长按录制</string>
+<key>Prevent Doom Scrolling</key>
+	<string>防止无尽刷屏</string>
+<key>Prevents refreshes from re-tapping the Home tab or from background app activity.</key>
+	<string>防止刷新通过重新点击首页选项卡或后台应用活动触发。</string>
+<key>Private Profile</key>
+	<string>私密账号</string>
+<key>Processing failed</key>
+	<string>处理失败</string>
+<key>Profile</key>
+	<string>个人资料</string>
+<key>Profile Action Button</key>
+	<string>个人资料操作按钮</string>
+<key>Profile Analyzer</key>
+	<string>个人资料分析器</string>
+<key>Profile Analyzer (%ld visits)</key>
+	<string>资料分析器（%ld 次访问）</string>
+<key>Profile Analyzer Complete</key>
+	<string>个人资料分析完成</string>
+<key>Profile Analyzer fetches your full followers and following lists and stores them on-device. </key>
+	<string>个人资料分析器会获取你的全部粉丝和关注列表，并将它们存储在设备上。</string>
+<key>Profile Analyzer import failed.</key>
+	<string>资料分析器导入失败。</string>
+<key>Profile Analyzer...</key>
+	<string>资料分析器…</string>
+<key>Profile Link</key>
+	<string>个人资料链接</string>
+<key>Profile Picture</key>
+	<string>个人资料图片</string>
+<key>Profile Pictures</key>
+	<string>头像</string>
+<key>Profile Settings</key>
+	<string>个人资料设置</string>
+<key>Profile Updates</key>
+	<string>资料更新</string>
+<key>Profile link copied</key>
+	<string>个人资料链接已复制</string>
+<key>Profile pictures are a shared cache reused across Sparkle. Clearing them frees space; they re-download as needed.</key>
+	<string>头像是 Sparkle 共享使用的缓存。清除它们可释放空间；需要时会重新下载。</string>
+<key>Profile pictures deleted</key>
+	<string>头像已删除</string>
+<key>Profile unavailable</key>
+	<string>个人资料不可用</string>
+<key>Profiles, posts and reels open as real Instagram pages</key>
+	<string>个人资料、帖子和 Reels 将以真实的 Instagram 页面打开</string>
+<key>Progressive Blur</key>
+	<string>渐进模糊</string>
+<key>Public Profile</key>
+	<string>公开账号</string>
+<key>Queue · %lu file%@</key>
+	<string>队列 · %lu 个文件%@</string>
+<key>Quick Gallery Access</key>
+	<string>快速访问图库</string>
+<key>Quick Settings Access</key>
+	<string>快速访问设置</string>
+<key>RECOMMENDATIONS</key>
+	<string>推荐</string>
+<key>Re-encoding</key>
+	<string>重新编码</string>
+<key>Re-encoding video</key>
+	<string>正在重新编码视频</string>
+<key>Re-enter your new passcode</key>
+	<string>再次输入你的新密码</string>
+<key>Reading Regram export...</key>
+	<string>正在读取 Regram 导出...</string>
+<key>Reading backup...</key>
+	<string>正在读取备份…</string>
+<key>Ready to Play</key>
+	<string>可播放</string>
+<key>Ready to share</key>
+	<string>准备分享</string>
+<key>Rebuild with --with-flex</key>
+	<string>请使用 --with-flex 重新构建</string>
+<key>Recently finished or cancelled downloads will show here.</key>
+	<string>最近完成或已取消的下载会显示在此处。</string>
+<key>Redacts Sparkle UI elements from screenshots, screen recordings, and mirroring.</key>
+	<string>在截屏、屏幕录制和镜像时隐藏 Sparkle 的 UI 元素。</string>
+<key>Reels</key>
+	<string>Reels</string>
+<key>Reels Action Button</key>
+	<string>Reels 操作按钮</string>
+<key>Reels deleted</key>
+	<string>Reels 已删除</string>
+<key>Refined messages-only mode</key>
+	<string>更精简的仅消息模式</string>
+<key>Refined photo quality tiers with 4K fetching</key>
+	<string>改进的照片质量分级，支持 4K 获取</string>
+<key>Refresh Profile Pictures</key>
+	<string>刷新头像</string>
+<key>Refresh and try again.</key>
+	<string>刷新后重试。</string>
+<key>Refresh the notes tray and try again if the URL expired.</key>
+	<string>如果 URL 已过期，请刷新笔记托盘并重试。</string>
+<key>Refresh the source and try again if the URL expired.</key>
+	<string>如果 URL 已过期，请刷新来源并重试。</string>
+<key>Refresh the thread and try again if the URL expired.</key>
+	<string>如果 URL 已过期，请刷新对话后重试。</string>
+<key>Refreshing your inbox reloads direct messages from the server. Any unsent messages kept in chats will be lost.</key>
+	<string>刷新收件箱会从服务器重新加载私信。聊天中未发送的消息将会丢失。</string>
+<key>Relaunch Instagram</key>
+	<string>重新启动 Instagram</string>
+<key>Remove Section</key>
+	<string>删除分区</string>
+<key>Remove all %lu file%@?</key>
+	<string>移除所有 %lu 个文件%@？</string>
+<key>Removed %@</key>
+	<string>已移除 %@</string>
+<key>Removed %@ from "%@"</key>
+	<string>已从 "%@" 移除 %@</string>
+<key>Removed @%@</key>
+	<string>已移除 @%@</string>
+<key>Removed Reaction</key>
+	<string>已移除反应</string>
+<key>Removed a reaction</key>
+	<string>已移除反应</string>
+<key>Removed entry</key>
+	<string>已移除条目</string>
+<key>Removed reaction %@</key>
+	<string>已移除反应 %@</string>
+<key>Removes finished entries and their staged preview copies. Active and queued downloads are kept; media saved to Photos or the Gallery is not affected.</key>
+	<string>删除已完成的条目及其暂存的预览副本。正在进行和排队的下载会保留；已保存到“照片”或图库的媒体不会受到影响。</string>
+<key>Rename Folder</key>
+	<string>重命名文件夹</string>
+<key>Render failed</key>
+	<string>渲染失败</string>
+<key>Render notifications with iOS 26 Liquid Glass</key>
+	<string>使用 iOS 26 Liquid Glass 渲染通知</string>
+<key>Reopen this page a moment after launch.</key>
+	<string>请在启动后稍等片刻再重新打开此页面。</string>
+<key>Replace Original</key>
+	<string>替换原文件</string>
+<key>Replacement file does not exist</key>
+	<string>替换文件不存在</string>
+<key>Repost unavailable</key>
+	<string>转发不可用</string>
+<key>Require the independent Settings passcode or biometrics when opening Sparkle Settings, including topic sheets.</key>
+	<string>在打开 Sparkle 设置（包括主题面板）时，要求使用独立的设置通行码或生物识别。</string>
+<key>Requires FFmpegKit</key>
+	<string>需要 FFmpegKit</string>
+<key>Requires an iPhone with Camera Control</key>
+	<string>需要具备相机控制的 iPhone</string>
+<key>Requires iOS 26 or later</key>
+	<string>需要 iOS 26 或更高版本</string>
+<key>Reset</key>
+	<string>重置</string>
+<key>Reset All Settings</key>
+	<string>重置所有设置</string>
+<key>Reset Encoding Settings</key>
+	<string>重置编码设置</string>
+<key>Reset Profile Analyzer</key>
+	<string>重置个人资料分析器</string>
+<key>Reset Profile Analyzer Data</key>
+	<string>重置个人资料分析数据</string>
+<key>Reset Safe Startup Mode</key>
+	<string>重置安全启动模式</string>
+<key>Reset to Default</key>
+	<string>恢复默认设置</string>
+<key>Reset to default</key>
+	<string>恢复为默认</string>
