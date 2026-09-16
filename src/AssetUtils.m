@@ -4,7 +4,11 @@
 
 typedef NSDictionary<NSString *, id> SPKAssetDescriptor;
 
-static NSString *const kSPKAssetFallbackSystemName = @"questionmark.square.dashed";
+// Final safety-net icon. We no longer fall back to the empty dashed square
+// (questionmark.square.dashed) — that is what produced the "blank" UI glyphs on
+// older Instagram builds (e.g. IG 333) whose asset catalog lacks the newer
+// ig_icon_* names. Sparkle's brand symbol is always present and never blank.
+static NSString *const kSPKAssetFallbackSystemName = @"sparkles";
 
 static UIImage *SPKAssetScaleImage(UIImage *image, CGFloat maxPointSize) {
     if (!image || maxPointSize <= 0) {
@@ -232,10 +236,6 @@ static NSDictionary<NSString *, SPKAssetDescriptor *> *SPKAssetOverrides(void) {
             @"reply" : @{@"candidates" : @[ @"ig_icon_reply_outline_24" ]},
             @"repost" : @{@"candidates" : @[ @"ig_icon_reshare_pano_outline_24", @"ig_icon_reshare_outline_24" ]},
             @"repost_reels" : @{@"candidates" : @[ @"reshare-unshadowed_outline_44" ]},
-            // Modern IG uses the bend arrow (flipped into the two directions in
-            // SPKPhotoEditor); IG 410 lacks it, so fall back to the older filled
-            // bend arrow — which points the right way already and only needs the
-            // horizontal flip for "left" (no vertical flip). See SPKPhotoEditor.
             @"rotate_left" : @{@"candidates" : @[ @"ig_icon_arrow_bottom_right_bend_outline_24", @"ig_icon_arrow_right_bend_filled_24" ]},
             @"rotate_right" : @{@"candidates" : @[ @"ig_icon_arrow_bottom_right_bend_outline_24", @"ig_icon_arrow_right_bend_filled_24" ]},
             @"save" : @{@"candidates" : @[ @"ig_icon_save_pano_outline_24", @"ig_icon_save_outline_24" ]},
@@ -301,6 +301,237 @@ static NSDictionary<NSString *, SPKAssetDescriptor *> *SPKAssetOverrides(void) {
         };
     });
     return overrides;
+}
+
+// Beautified fallback: when an Instagram (ig_icon_*) glyph is missing from the
+// running app's asset catalog — the root cause of the blank icons on older IG
+// builds — render a matching, crisp, consistent SF Symbol instead of a blank
+// square. Every name here maps to a real, iOS 15+ SF Symbol so the UI never
+// shows an empty glyph. Unknown symbols degrade to the global sparkles fallback.
+static NSDictionary<NSString *, NSString *> *SPKAssetSystemFallbacks(void) {
+    static NSDictionary<NSString *, NSString *> *fallbacks;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        fallbacks = @{
+            @"action" : @"wand.stars",
+            @"ads" : @"megaphone",
+            @"app" : @"square.stack.3d.up",
+            @"arrow_up" : @"arrow.up",
+            @"arrow_up_right" : @"arrow.up.right",
+            @"arrow_down" : @"arrow.down",
+            @"arrow_left" : @"arrow.left",
+            @"arrow_right" : @"arrow.right",
+            @"arrow_cw" : @"arrow.clockwise",
+            @"arrow_ccw" : @"arrow.counterclockwise",
+            @"audio" : @"waveform",
+            @"audio_filled" : @"waveform",
+            @"audio_download" : @"square.and.arrow.down",
+            @"audio_page" : @"music.note.list",
+            @"audio_upload" : @"square.and.arrow.up",
+            @"aura" : @"sparkle",
+            @"autoplay_off" : @"play.slash",
+            @"autoscroll" : @"scroll",
+            @"backspace" : @"delete.left",
+            @"beaker" : @"flask",
+            @"blend" : @"drop",
+            @"calendar" : @"calendar",
+            @"call" : @"phone",
+            @"caption" : @"captions.bubble",
+            @"carousel" : @"rectangle.stack",
+            @"carousel_filled" : @"rectangle.stack.fill",
+            @"check" : @"checkmark",
+            @"chevron_left" : @"chevron.left",
+            @"chevron_right" : @"chevron.right",
+            @"chest" : @"archivebox",
+            @"circle" : @"circle",
+            @"circle_off" : @"circle.slash",
+            @"circle_check" : @"checkmark.circle",
+            @"circle_check_filled" : @"checkmark.circle.fill",
+            @"circle_xmark" : @"xmark.circle",
+            @"clock" : @"clock",
+            @"clock_filled" : @"clock.fill",
+            @"close" : @"xmark",
+            @"cloud" : @"icloud",
+            @"comment" : @"bubble.right",
+            @"comment_filled" : @"bubble.right.fill",
+            @"compass" : @"compass",
+            @"copy" : @"doc.on.doc",
+            @"copy_filled" : @"doc.on.doc.fill",
+            @"crop" : @"crop",
+            @"donate" : @"dollarsign.circle",
+            @"download" : @"arrow.down.to.line",
+            @"download_filled" : @"arrow.down.to.line",
+            @"download_off" : @"nosign",
+            @"download_reels" : @"arrow.down.to.line",
+            @"duplicate" : @"photo.on.rectangle",
+            @"edit" : @"pencil",
+            @"empty" : @"tray",
+            @"error" : @"exclamationmark.triangle",
+            @"error_filled" : @"exclamationmark.triangle.fill",
+            @"expand" : @"arrow.up.left.and.arrow.down.right",
+            @"expand_reels" : @"arrow.up.left.and.arrow.down.right",
+            @"explore_grid" : @"square.grid.2x2",
+            @"external_link" : @"arrow.up.right.square",
+            @"eye" : @"eye",
+            @"eye_off" : @"eye.slash",
+            @"eyedropper" : @"eyedropper",
+            @"face_happy" : @"face.smiling",
+            @"face_sad" : @"face.dashed",
+            @"flag" : @"flag",
+            @"feed" : @"list.bullet",
+            @"feed_filled" : @"list.bullet",
+            @"filter" : @"slider.horizontal.3",
+            @"folder" : @"folder",
+            @"folder_move" : @"folder",
+            @"gif" : @"photo.tv",
+            @"gif_filled" : @"photo.tv",
+            @"gift" : @"gift",
+            @"grid" : @"square.grid.2x2",
+            @"group" : @"person.2",
+            @"haptics" : @"speaker.wave.2",
+            @"hd" : @"h.circle",
+            @"hd_check_filled" : @"checkmark.circle.fill",
+            @"heart" : @"heart",
+            @"heart_filled" : @"heart.fill",
+            @"highlights" : @"star.circle",
+            @"history" : @"clock.arrow.circlepath",
+            @"home" : @"house",
+            @"info" : @"info.circle",
+            @"info_filled" : @"info.circle.fill",
+            @"interface" : @"iphone",
+            @"instants" : @"bolt",
+            @"instants_burst" : @"bolt.fill",
+            @"key" : @"key",
+            @"keyboard" : @"keyboard",
+            @"left_right" : @"arrow.left.and.right",
+            @"link" : @"link",
+            @"link_reels" : @"link",
+            @"list" : @"list.bullet",
+            @"lock" : @"lock",
+            @"lock_filled" : @"lock.fill",
+            @"logs" : @"doc.plaintext",
+            @"map" : @"map",
+            @"media" : @"photo",
+            @"media_empty" : @"photo",
+            @"mention" : @"at",
+            @"message" : @"message",
+            @"messages" : @"paperplane",
+            @"messages_filled" : @"paperplane.fill",
+            @"messages_empty" : @"tray",
+            @"mirror" : @"arrow.left.and.right",
+            @"music_reels" : @"music.note",
+            @"meta_ai" : @"sparkles",
+            @"more" : @"ellipsis",
+            @"notes" : @"note.text",
+            @"notification" : @"bell",
+            @"palette" : @"paintpalette",
+            @"parallel" : @"pause.fill",
+            @"pause" : @"pause.fill",
+            @"photo" : @"photo",
+            @"photo_filled" : @"photo.fill",
+            @"photo_reels" : @"photo",
+            @"photo_gallery" : @"photo.on.rectangle",
+            @"pin" : @"pin",
+            @"pin_filled" : @"pin.fill",
+            @"pinch" : @"hand.point.up.left",
+            @"play" : @"play.fill",
+            @"play_filled" : @"play.fill",
+            @"play_filled_32" : @"play.fill",
+            @"plus" : @"plus",
+            @"poll" : @"chart.bar",
+            @"profile_analyzer" : @"trending.up",
+            @"promote_empty" : @"megaphone",
+            @"question" : @"questionmark.circle",
+            @"reactions" : @"face.smiling",
+            @"reels" : @"clapperboard",
+            @"reels_filled" : @"clapperboard.fill",
+            @"reels_gallery" : @"play.rectangle",
+            @"reply" : @"arrow.uturn.left",
+            @"repost" : @"repeat",
+            @"repost_reels" : @"repeat",
+            @"rotate_left" : @"rotate.left",
+            @"rotate_right" : @"rotate.right",
+            @"save" : @"bookmark",
+            @"search" : @"magnifyingglass",
+            @"settings" : @"gearshape",
+            @"settings_menu" : @"line.3.horizontal",
+            @"settings_reels" : @"gearshape",
+            @"share" : @"square.and.arrow.up",
+            @"share_reels" : @"square.and.arrow.up",
+            @"shares" : @"paperplane",
+            @"shares_filled" : @"paperplane.fill",
+            @"shopping_bag" : @"bag",
+            @"shopping_cart" : @"cart",
+            @"size_large" : @"arrow.up.left.and.arrow.down.right",
+            @"size_small" : @"arrow.down.right.and.arrow.up.left",
+            @"slider" : @"slider.horizontal.3",
+            @"sort" : @"arrow.up.arrow.down",
+            @"subtract" : @"minus",
+            @"sparkle_gallery" : @"sparkles",
+            @"sticker" : @"square.on.square",
+            @"sticker_filled" : @"square.fill.on.square",
+            @"story" : @"aperture",
+            @"story_filled" : @"aperture",
+            @"story_preview" : @"eye.slash",
+            @"text" : @"textformat",
+            @"threads" : @"at",
+            @"toolbox" : @"briefcase",
+            @"trash" : @"trash",
+            @"trim" : @"scissors",
+            @"trash_filled" : @"trash.fill",
+            @"trending" : @"trending.up",
+            @"undo_circle" : @"arrow.uturn.left.circle",
+            @"undo_filled" : @"arrow.uturn.left",
+            @"unlock" : @"lock.open",
+            @"unlock_filled" : @"lock.open.fill",
+            @"user" : @"person",
+            @"user_check" : @"checkmark.seal",
+            @"user_circle" : @"person.circle",
+            @"user_circle_filled" : @"person.circle.fill",
+            @"user_follow" : @"person.crop.circle.badge.plus",
+            @"user_following" : @"checkmark.seal.fill",
+            @"user_request" : @"person.badge.clock",
+            @"user_unfollow" : @"person.crop.circle.badge.minus",
+            @"username" : @"at",
+            @"users_empty" : @"person.2",
+            @"users" : @"person.2",
+            @"vanish" : @"eye.slash",
+            @"verified" : @"checkmark.seal.fill",
+            @"video" : @"video",
+            @"video_play" : @"play.fill",
+            @"video_pause" : @"pause.fill",
+            @"video_filled" : @"video.fill",
+            @"view_once" : @"timer",
+            @"view_twice" : @"timer",
+            @"voice" : @"mic",
+            @"voice_filled" : @"mic.fill",
+            @"volume_off" : @"speaker.slash",
+            @"warning" : @"exclamationmark.triangle",
+            @"warning_filled" : @"exclamationmark.triangle.fill",
+            @"web" : @"globe",
+            @"xmark" : @"xmark",
+            @"zoom" : @"magnifyingglass"
+        };
+    });
+    return fallbacks;
+}
+
+static NSString *SPKAssetSystemFallbackSymbol(NSString *name) {
+    NSString *normalized = SPKAssetNormalizeInternalName(name);
+    if (normalized.length == 0) {
+        return nil;
+    }
+    NSString *symbol = SPKAssetSystemFallbacks()[normalized];
+    if (symbol.length > 0) {
+        return symbol;
+    }
+    // Aliased logical names (e.g. reels_gallery -> reels) reuse the alias symbol.
+    SPKAssetDescriptor *descriptor = SPKAssetOverrides()[normalized];
+    NSString *alias = descriptor[@"alias"];
+    if (alias.length > 0) {
+        return SPKAssetSystemFallbacks()[SPKAssetNormalizeInternalName(alias)];
+    }
+    return nil;
 }
 
 static SPKAssetDescriptor *SPKAssetResolvedDescriptor(NSString *name) {
@@ -582,6 +813,17 @@ static UIImage *SPKAssetLookupInstagramIcon(NSString *name, CGFloat pointSize, S
     if (image) {
         return image;
     }
+
+    // Beautified fallback: a matching, real SF Symbol instead of the blank square
+    // that older Instagram builds (e.g. IG 333) would otherwise show.
+    NSString *fallbackSymbol = SPKAssetSystemFallbackSymbol(name);
+    if (fallbackSymbol.length > 0) {
+        UIImage *symbol = SPKAssetSystemSymbolImage(fallbackSymbol, pointSize, UIImageSymbolWeightRegular, renderingMode);
+        if (symbol) {
+            return symbol;
+        }
+    }
+
     return SPKAssetFallbackImage(pointSize, renderingMode);
 }
 
