@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>
+%@ %.0fms x%@</key>
+	<string>%@ %.0f毫秒 x%@</string>
+	<key>   - Alternate: Home and Reels tabs swapped
+</key>
+	<string>- 备用：主页和 Reels 标签互换</string>
+	<key>   - Classic: Messages in the top right corner
+</key>
+	<string>- 经典：消息位于右上角</string>
+	<key>   - Default: Instagram default
+</key>
+	<string>- 默认：Instagram 的默认布局</string>
+	<key>   - Standard: Home, Reels, Messages, Explore, Profile
+</key>
+	<string>- 标准：主页、Reels、消息、探索、个人资料</string>
+	<key>  •  %ld visits
+</key>
+	<string>·  %ld 次访问</string>
+	<key>  •  edited
+</key>
+	<string>•  已编辑</string>
+	<key> second
+</key>
+	<string>秒</string>
+	<key> seconds
+</key>
+	<string>秒</string>
+	<key>"Also Show on Chat Media" adds it to camera-roll photos and videos opened in a chat.
+</key>
+	<string>“在聊天媒体中也显示”会将其添加到在聊天中打开的相机胶卷照片和视频中。</string>
+	<key>"High" merges DASH video and audio for the best quality, at the cost of an FFmpeg pass for 
+</key>
+	<string>“High” 会合并 DASH 视频和音频以获得最佳质量，但需要对</string>
+	<key>"Smart" uses the time alone for today and adds the date for older days; "Date &amp; Time" always shows both. Only reformats presence Instagram already shows.
+</key>
+	<string>“智能”仅在今天显示时间，较早日期则加上日期；“日期与时间”总是两者都显示。仅重新格式化 Instagram 已经显示的在线状态。</string>
+	<key>%@ + %lu more
+</key>
+	<string>%@ 及另外 %lu 个</string>
+	<key>%@ Settings
+</key>
+	<string>%@ 设置</string>
+	<key>%@ concurrent %@
+</key>
+	<string>%@ 个并发 %@</string>
+	<key>%@ download %@ copied
+</key>
+	<string>%@ 下载 %@ 已复制</string>
