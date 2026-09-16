@@ -71,6 +71,19 @@ jobs:
           echo "SPARKLE_VERSION=${SPARKLE_VERSION}" >> "$GITHUB_ENV"
           echo "version=${SPARKLE_VERSION}" >> "$GITHUB_OUTPUT"
 
+      - name: Assemble Chinese localization
+        # The full zh_Hans catalog is committed in 4 parts (scripts/loc/) because
+        # a single 160 KB .strings file cannot be pushed verbatim through the API.
+        # Concatenate them back into the bundle before building.
+        run: |
+          cd main
+          cat scripts/loc/_spk_part1.strings \
+              scripts/loc/_spk_part2.strings \
+              scripts/loc/_spk_part3.strings \
+              scripts/loc/_spk_part4.strings \
+            > resources/Sparkle.bundle/zh_Hans.lproj/Localizable.strings
+          plutil -lint resources/Sparkle.bundle/zh_Hans.lproj/Localizable.strings || true
+
       - name: Build rootless deb without FFmpeg
         run: |
           cd main
