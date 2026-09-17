@@ -1,112 +1,112 @@
-name: Build Sparkle tweak for Rootless (no FFmpeg)
+name: Build Sparkle tweak for Rootless
 
-# Builds a rootless .deb on macOS runners without bundling the FFmpegKit
-# frameworks (keeps the package small, ~1.3 MB, matching the IG 333 line).
-# Triggers automatically on push to main; can also be run manually.
 on:
-  push:
-    branches:
-      - 'main'
-  workflow_dispatch:
-
+    push:
+        branches:
+            - 'main'
+            - 'dev'
+    workflow_dispatch:
+  
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 jobs:
-  build:
-    name: Build Sparkle Rootless (no-ffmpeg)
-    runs-on: macos-latest
-    permissions:
-      contents: write
+    build:
+        name: Build Sparkle Rootless
+        runs-on: macos-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          path: main
-          # No submodules: the rootless tweak build does not need FLEXing,
-          # and FFmpeg is intentionally skipped in this configuration.
+        steps:
+            - name: Checkout Main
+              uses: actions/checkout@v4
+              with:
+                path: main
+                submodules: recursive
 
-      - name: Install Dependencies
-        run: brew install ldid dpkg make
+            - name: Install Dependencies
+              run: brew install ldid dpkg make autoconf automake cmake libtool meson nasm ninja pkgconf wget yasm
 
-      - name: Set PATH for GNU make
-        run: echo "$(brew --prefix make)/libexec/gnubin" >> "$GITHUB_PATH"
+            - name: Set PATH environment variable
+              run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH 
 
-      - name: Setup Theos
-        uses: actions/checkout@v4
-        with:
-          repository: theos/theos
-          # Pinned to a known-good commit (Logos a623700) used by upstream 1.3.1.
-          ref: 405e5c6ddb288615c030eeaedc6b265aae748285
-          path: ${{ github.workspace }}/theos
-          submodules: recursive
+            - name: Setup Theos
+              uses: actions/checkout@v4
+              with:
+                repository: theos/theos
+                # Pinned to a known-good commit. theos master tracks the latest
+                # Logos, and commit 777925d (#114) regressed bare %orig parsing
+                # (single-line `{ %orig; }`, `%orig]`, etc.). This commit references
+                # Logos a623700, the last version that builds this project.
+                ref: 405e5c6ddb288615c030eeaedc6b265aae748285
+                path: ${{ github.workspace }}/theos
+                submodules: recursive
+        
+            - name: SDK Caching
+              id: SDK
+              uses: actions/cache@v4
+              env:
+                cache-name: iPhoneOS16.2.sdk
+              with:
+                path: ${{ github.workspace }}/theos/sdks/
+                key: ${{ env.cache-name }}
+                restore-keys: ${{ env.cache-name }}
 
-      - name: SDK Caching
-        id: SDK
-        uses: actions/cache@v4
-        env:
-          cache-name: iPhoneOS16.2.sdk
-        with:
-          path: ${{ github.workspace }}/theos/sdks/
-          key: ${{ env.cache-name }}
-          restore-keys: ${{ env.cache-name }}
+            - name: Download iOS SDK
+              if: steps.SDK.outputs.cache-hit != 'true'
+              run: |
+                git clone --quiet -n --depth=1 --filter=tree:0 https://github.com/xybp888/iOS-SDKs/
+                cd iOS-SDKs
+                git sparse-checkout set --no-cone iPhoneOS16.2.sdk
+                git checkout
+                mv *.sdk $THEOS/sdks
+              env:
+                THEOS: ${{ github.workspace }}/theos
 
-      - name: Download iOS SDK
-        if: steps.SDK.outputs.cache-hit != 'true'
-        run: |
-          git clone --quiet -n --depth=1 --filter=tree:0 https://github.com/xybp888/iOS-SDKs/
-          cd iOS-SDKs
-          git sparse-checkout set --no-cone iPhoneOS16.2.sdk
-          git checkout
-          mv *.sdk "$THEOS/sdks"
-        env:
-          THEOS: ${{ github.workspace }}/theos
+            - name: Get Sparkle Version
+              id: sparkle_version
+              run: |
+                SPARKLE_VERSION=$(awk '/Version:/ {print $2}' main/control)
 
-      - name: Get Sparkle Version
-        id: sparkle_version
-        run: |
-          SPARKLE_VERSION=$(awk '/Version:/ {print $2}' main/control)
-          echo "SPARKLE_VERSION=${SPARKLE_VERSION}" >> "$GITHUB_ENV"
-          echo "version=${SPARKLE_VERSION}" >> "$GITHUB_OUTPUT"
+                echo "SPARKLE_VERSION=${SPARKLE_VERSION}" >> "$GITHUB_ENV"
+                echo "version=${SPARKLE_VERSION}" >> "$GITHUB_OUTPUT"
 
-      - name: Assemble Chinese localization
-        # The full zh_Hans catalog is committed in 4 parts (scripts/loc/) because
-        # a single 160 KB .strings file cannot be pushed verbatim through the API.
-        # Concatenate them back into the bundle before building.
-        run: |
-          cd main
-          cat scripts/loc/_spk_part1.strings \
-              scripts/loc/_spk_part2.strings \
-              scripts/loc/_spk_part3.strings \
-              scripts/loc/_spk_part4.strings \
-            > resources/Sparkle.bundle/zh_Hans.lproj/Localizable.strings
-          plutil -lint resources/Sparkle.bundle/zh_Hans.lproj/Localizable.strings || true
+            - name: Cache FFmpeg frameworks
+              id: ffmpeg_cache
+              uses: actions/cache@v4
+              with:
+                path: |
+                  main/modules/ffmpegkit
+                  main/.cache/ffmpegkit
+                key: ffmpegkit-${{ runner.os }}-${{ hashFiles('main/fetch-ffmpegkit.sh') }}
 
-      - name: Build rootless deb without FFmpeg
-        run: |
-          cd main
-          make clean
-          rm -rf .theos
-          make package THEOS_PACKAGE_SCHEME=rootless SPARKLE_NO_FFMPEG=1 FINALPACKAGE=1
-          ls -la packages
-        env:
-          THEOS: ${{ github.workspace }}/theos
+            - name: Prepare FFmpeg frameworks
+              run: |
+                cd main
+                chmod +x ./fetch-ffmpegkit.sh
+                ./fetch-ffmpegkit.sh
+            
+            - name: Build Sparkle tweak for Rootless
+              run: |                
+                cd main
+                ls -la
 
-      - name: Rename deb
-        id: package_name
-        run: |
-          cd main/packages
-          SRC="$(ls -t com.sparkle.sparkle_*.deb | head -n1)"
-          DEST="Sparkle_v${SPARKLE_VERSION}_rootless_ig333.1.4.deb"
-          mv -f "$SRC" "$DEST"
-          echo "package=${DEST}" >> "$GITHUB_OUTPUT"
-          echo "Produced: $DEST"
+                ./build.sh rootless
+                ls -la packages
+                
+              env:
+                THEOS: ${{ github.workspace }}/theos
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.package_name.outputs.package }}
-          path: ${{ github.workspace }}/main/packages/${{ steps.package_name.outputs.package }}
-          if-no-files-found: error
+            - name: Pass package name to upload action
+              id: package_name
+              run: |
+                # build.sh already names the deb Sparkle_v<version>_rootless.deb
+                DEB_FILE="$(basename "$(ls -t main/packages/Sparkle_v*_rootless.deb | head -n1)")"
+                echo "package=${DEB_FILE}" >> "$GITHUB_OUTPUT"
+
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: ${{ steps.package_name.outputs.package }}
+                path: ${{ github.workspace }}/main/packages/${{ steps.package_name.outputs.package }}
+                if-no-files-found: error
