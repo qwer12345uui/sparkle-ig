@@ -37,19 +37,19 @@ static BOOL gSPKTranslationsLoaded = NO;
 /// Candidate locations of the bundled table. Both the rootless prefix
 /// (/var/jb) and the classic one are probed, as are the hyphen and underscore
 /// spellings of the Simplified Chinese folder.
+///
+/// These are written as plain literals on purpose: building them with
+/// +stringWithFormat: would re-enter this module's own format hook during table
+/// loading, which is exactly the kind of self-recursion worth avoiding here.
 static NSArray<NSString *> *SPKStringsFileCandidates(void) {
-    NSArray<NSString *> *roots = @[
-        @"/var/jb/Library/Application Support",
-        @"/Library/Application Support"
+    return @[
+        @"/var/jb/Library/Application Support/Sparkle.bundle/zh-Hans.lproj/Localizable.strings",
+        @"/var/jb/Library/Application Support/Sparkle.bundle/zh_Hans.lproj/Localizable.strings",
+        @"/var/jb/Library/Application Support/Sparkle.bundle/zh_CN.lproj/Localizable.strings",
+        @"/Library/Application Support/Sparkle.bundle/zh-Hans.lproj/Localizable.strings",
+        @"/Library/Application Support/Sparkle.bundle/zh_Hans.lproj/Localizable.strings",
+        @"/Library/Application Support/Sparkle.bundle/zh_CN.lproj/Localizable.strings"
     ];
-    NSArray<NSString *> *locations = @[@"zh-Hans", @"zh_Hans", @"zh_CN"];
-    NSMutableArray<NSString *> *paths = [NSMutableArray array];
-    for (NSString *root in roots) {
-        for (NSString *location in locations) {
-            [paths addObject:[NSString stringWithFormat:@"%@/Sparkle.bundle/%@.lproj/Localizable.strings", root, location]];
-        }
-    }
-    return paths;
 }
 
 static void SPKLoadTranslations(void) {
@@ -120,6 +120,35 @@ static void SPKSwizzleClass(Class cls, SEL originalSelector, SEL replacementSele
 }
 
 #pragma mark - UIKit entry points
+
+// Format-string interception.
+//
+// A sizable share of Sparkle's literals are templates such as "%@ concurrent %@"
+// that are run through +[NSString stringWithFormat:] before reaching any view.
+// By the time setText: runs the placeholders are already substituted, so those
+// entries would never match the table. Translating the format up front fixes
+// that; the localized string keeps the same placeholders, so substitution is
+// unaffected. Every NSString format funnel through this initializer, which is
+// also why this stays a pure pass-through: we only ever rewrite the format.
+@interface NSString (SPKLocalization)
+- (instancetype)spk_initWithFormat:(NSString *)format arguments:(va_list)argList;
+@end
+
+@implementation NSString (SPKLocalization)
+- (instancetype)spk_initWithFormat:(NSString *)format arguments:(va_list)argList {
+    return [self spk_initWithFormat:SPKLocalizerTranslate(format) arguments:argList];
+}
+@end
+
+@interface NSString (SPKLocalizationFactory)
++ (instancetype)spk_stringWithFormat:(NSString *)format arguments:(va_list)argList;
+@end
+
+@implementation NSString (SPKLocalizationFactory)
++ (instancetype)spk_stringWithFormat:(NSString *)format arguments:(va_list)argList {
+    return [self spk_stringWithFormat:SPKLocalizerTranslate(format) arguments:argList];
+}
+@end
 
 @interface UILabel (SPKLocalization)
 - (void)spk_setText:(NSString *)text;
@@ -221,6 +250,8 @@ static void SPKSwizzleClass(Class cls, SEL originalSelector, SEL replacementSele
             return;
         }
 
+        SPKSwizzleInstance([NSString class], @selector(initWithFormat:arguments:), @selector(spk_initWithFormat:arguments:));
+        SPKSwizzleClass([NSString class], @selector(stringWithFormat:arguments:), @selector(spk_stringWithFormat:arguments:));
         SPKSwizzleInstance([UILabel class], @selector(setText:), @selector(spk_setText:));
         SPKSwizzleInstance([UIButton class], @selector(setTitle:forState:), @selector(spk_setTitle:forState:));
         SPKSwizzleInstance([UITextField class], @selector(setText:), @selector(spk_setText:));
