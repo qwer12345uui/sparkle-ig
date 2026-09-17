@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../Utils.h"
 #import <objc/runtime.h>
 
@@ -120,7 +121,7 @@ static NSString *SPKGetShareTypeFromController(UIViewController *vc) {
     if (!broadcastOwner && recipientListVC)
         broadcastOwner = [SPKUtils getIvarForObj:recipientListVC name:"_broadcastOwner"];
     if (broadcastOwner) {
-        return @"broadcast channel";
+        return SPKLocalizedString(@"broadcast channel");
     }
 
     return nil;
@@ -151,11 +152,11 @@ static NSString *SPKGetShareTypeFromController(UIViewController *vc) {
     NSString *title = nil;
     NSString *message = nil;
     if (contentType) {
-        title = [NSString stringWithFormat:@"Confirm Sending %@", [contentType capitalizedString]];
-        message = [NSString stringWithFormat:@"Are you sure you want to send this %@?", contentType];
+        title = [NSString stringWithFormat:SPKLocalizedString(@"Confirm Sending %@"), [contentType capitalizedString]];
+        message = [NSString stringWithFormat:SPKLocalizedString(@"Are you sure you want to send this %@?"), contentType];
     } else {
-        title = @"Confirm Send";
-        message = @"Are you sure you want to send this?";
+        title = SPKLocalizedString(@"Confirm Send");
+        message = SPKLocalizedString(@"Are you sure you want to send this?");
     }
 
     [SPKUtils

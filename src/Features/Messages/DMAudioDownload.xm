@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <UIKit/UIKit.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -441,7 +442,7 @@ static SPKAudioItem *SPKDMAudioItemForView(UIView *view, SPKAudioSource source) 
 static void SPKDMPresentAudioActions(UIView *view, SPKAudioSource source) {
     SPKAudioItem *item = SPKDMAudioItemForView(view, source);
     if (!item) {
-        SPKNotify(kSPKNotificationDownloadShare, @"Could not find audio URL", @"Refresh the thread and try again if the URL expired.", @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationDownloadShare, SPKLocalizedString(@"Could not find audio URL"), SPKLocalizedString(@"Refresh the thread and try again if the URL expired."), @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -456,32 +457,32 @@ static void SPKDMPresentAudioActions(UIView *view, SPKAudioSource source) {
                                                         title:@"Audio"
                                                       message:nil
                                                       actions:@[
-                                                          [SPKIGAlertAction actionWithTitle:@"Save Audio to Files"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Save Audio to Files")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionSaveToFiles item:item presenter:presenter sourceView:view metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudio];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Share Audio"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Share Audio")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionConvertAndShare item:item presenter:presenter sourceView:view metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudioShare];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Save Audio to Gallery"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Save Audio to Gallery")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionConvertAndSaveToGallery item:item presenter:presenter sourceView:view metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudioGallery];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Play Audio"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Play Audio")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionPlay item:item presenter:presenter sourceView:view metadata:metadata notificationIdentifier:kSPKNotificationPlayAudio];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Copy Audio Download URL"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Copy Audio Download URL")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionCopyURL item:item presenter:presenter sourceView:view metadata:metadata notificationIdentifier:kSPKNotificationCopyAudioURL];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                       style:SPKIGAlertActionStyleCancel
                                                                                     handler:nil]
                                                       ]];
@@ -558,7 +559,7 @@ static id SPKDMUploadAudioMenuItemForComposer(id composer) {
     }
 
     __weak id weakComposer = composer;
-    return SPKDMMenuItem(@"Upload Audio", [SPKAssetUtils instagramIconNamed:@"audio_upload" pointSize:24.0], ^(__unused id item) {
+    return SPKDMMenuItem(SPKLocalizedString(@"Upload Audio"), [SPKAssetUtils instagramIconNamed:@"audio_upload" pointSize:24.0], ^(__unused id item) {
         id strongComposer = weakComposer;
         if (!strongComposer)
             return;
@@ -579,7 +580,7 @@ static id SPKDMUploadMediaMenuItemForComposer(id composer) {
     }
 
     __weak id weakComposer = composer;
-    return SPKDMMenuItem(@"Upload Photo", [SPKAssetUtils instagramIconNamed:@"photo" pointSize:24.0], ^(__unused id item) {
+    return SPKDMMenuItem(SPKLocalizedString(@"Upload Photo"), [SPKAssetUtils instagramIconNamed:@"photo" pointSize:24.0], ^(__unused id item) {
         id strongComposer = weakComposer;
         if (!strongComposer)
             return;
@@ -615,8 +616,8 @@ static void SPKDMPresentDownloadAudioActionsForViewModel(id viewModel) {
     SPKAudioItem *audioItem = [SPKAudioDownloadCoordinator audioItemFromMediaObject:viewModel source:SPKAudioSourceDMs];
     if (!audioItem) {
         SPKNotify(kSPKNotificationDownloadShare,
-                  @"Could not find audio URL",
-                  @"Refresh the thread and try again if the URL expired.",
+                  SPKLocalizedString(@"Could not find audio URL"),
+                  SPKLocalizedString(@"Refresh the thread and try again if the URL expired."),
                   @"error_filled",
                   SPKNotificationToneError);
         return;
@@ -633,32 +634,32 @@ static void SPKDMPresentDownloadAudioActionsForViewModel(id viewModel) {
                                                         title:@"Audio"
                                                       message:nil
                                                       actions:@[
-                                                          [SPKIGAlertAction actionWithTitle:@"Save Audio to Files"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Save Audio to Files")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionSaveToFiles item:audioItem presenter:presenter sourceView:sourceView metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudio];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Share Audio"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Share Audio")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionConvertAndShare item:audioItem presenter:presenter sourceView:sourceView metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudioShare];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Save Audio to Gallery"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Save Audio to Gallery")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionConvertAndSaveToGallery item:audioItem presenter:presenter sourceView:sourceView metadata:metadata notificationIdentifier:kSPKNotificationDownloadAudioGallery];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Play Audio"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Play Audio")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionPlay item:audioItem presenter:presenter sourceView:sourceView metadata:metadata notificationIdentifier:kSPKNotificationPlayAudio];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Copy Audio Download URL"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Copy Audio Download URL")
                                                                                       style:SPKIGAlertActionStyleDefault
                                                                                     handler:^{
                                                                                         [SPKAudioDownloadCoordinator performAction:SPKAudioActionCopyURL item:audioItem presenter:presenter sourceView:sourceView metadata:metadata notificationIdentifier:kSPKNotificationCopyAudioURL];
                                                                                     }],
-                                                          [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                          [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                       style:SPKIGAlertActionStyleCancel
                                                                                     handler:nil]
                                                       ]];
@@ -673,7 +674,7 @@ static id SPKDMDownloadAudioMenuItemForViewModel(id viewModel) {
         return nil;
 
     __strong id capturedViewModel = viewModel;
-    return SPKDMMenuItem(@"Audio Actions", [SPKAssetUtils instagramIconNamed:@"action" pointSize:24.0], ^(__unused id item) {
+    return SPKDMMenuItem(SPKLocalizedString(@"Audio Actions"), [SPKAssetUtils instagramIconNamed:@"action" pointSize:24.0], ^(__unused id item) {
         SPKDMPresentDownloadAudioActionsForViewModel(capturedViewModel);
     });
 }
@@ -698,7 +699,7 @@ static id SPKDMPrismAudioDownloadElement(id templateElement, id viewModel) {
         SPKDMPresentDownloadAudioActionsForViewModel(capturedViewModel);
     };
 
-    id builder = ((id (*)(id, SEL, id))objc_msgSend)([builderClass alloc], initSelector, @"Audio Actions");
+    id builder = ((id (*)(id, SEL, id))objc_msgSend)([builderClass alloc], initSelector, SPKLocalizedString(@"Audio Actions"));
     builder = ((id (*)(id, SEL, id))objc_msgSend)(builder, imageSelector, [SPKAssetUtils instagramIconNamed:@"action" pointSize:24.0]);
     builder = ((id (*)(id, SEL, id))objc_msgSend)(builder, handlerSelector, handler);
     id menuItem = ((id (*)(id, SEL))objc_msgSend)(builder, buildSelector);
@@ -765,7 +766,7 @@ static NSArray *SPKDMPrismUploadElementsForComposer(id composer, id templateElem
         [SPKAudioDMUploadCoordinator senderTargetSupportsAudioUpload:senderTarget]) {
         __weak id weakComposer = composer;
         id audioElement = SPKDMPrismMenuElement(templateElement,
-                                                @"Upload Audio",
+                                                SPKLocalizedString(@"Upload Audio"),
                                                 [SPKAssetUtils instagramIconNamed:@"audio_upload"
                                                                         pointSize:24.0],
                                                 ^{
@@ -786,7 +787,7 @@ static NSArray *SPKDMPrismUploadElementsForComposer(id composer, id templateElem
         [SPKMediaDMUploadCoordinator senderTargetSupportsMediaUpload:senderTarget]) {
         __weak id weakComposer = composer;
         id mediaElement = SPKDMPrismMenuElement(templateElement,
-                                                @"Upload Photo",
+                                                SPKLocalizedString(@"Upload Photo"),
                                                 [SPKAssetUtils instagramIconNamed:@"photo"
                                                                         pointSize:24.0],
                                                 ^{
