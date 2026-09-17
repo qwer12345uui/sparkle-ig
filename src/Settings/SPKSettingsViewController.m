@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKSettingsViewController.h"
 #import "../App/SPKStartupHooks.h"
 #import "../AssetUtils.h"
@@ -418,7 +419,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
                                                                              @selector(applyRestartChanges),
                                                                              UIBarButtonItemStyleDone,
                                                                              [SPKUtils SPKColor_InstagramPrimaryText],
-                                                                             @"Apply Liquid Glass changes");
+                                                                             SPKLocalizedString(@"Apply Liquid Glass changes"));
         applyItem.enabled = self.hasPendingRestartChanges;
         self.applyRestartItem = applyItem;
         trailingItems = @[ applyItem ];
@@ -436,7 +437,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
-    self.searchController.searchBar.placeholder = self.searchesAllSettings ? @"Search All Settings" : [NSString stringWithFormat:@"Search %@", self.title ?: @"settings"];
+    self.searchController.searchBar.placeholder = self.searchesAllSettings ? SPKLocalizedString(@"Search All Settings") : [NSString stringWithFormat:SPKLocalizedString(@"Search %@"), self.title ?: @"settings"];
     self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = YES;
     self.definesPresentationContext = YES;
@@ -1114,7 +1115,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SPKEffectivePreferenceKey(row.mutuallyExclusiveDefaultsKey)];
     }
 
-    SPKLog(@"General", @"Switch changed: %@", sender.isOn ? @"ON" : @"OFF");
+    SPKLog(SPKLocalizedString(@"General"), @"Switch changed: %@", sender.isOn ? @"ON" : @"OFF");
     if (sender.isOn) {
         SPKInstallEnabledFeatureHooks();
     }
@@ -1172,7 +1173,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
     sender.value = normalizedValue;
     [[NSUserDefaults standardUserDefaults] setDouble:normalizedValue forKey:SPKEffectivePreferenceKey(row.defaultsKey)];
 
-    SPKLog(@"General", @"Stepper changed: %f", normalizedValue);
+    SPKLog(SPKLocalizedString(@"General"), @"Stepper changed: %f", normalizedValue);
 
     [self reloadCellForView:sender];
 }
@@ -1196,7 +1197,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SPKMessageSeenButtonPositionDidChangeNotification object:nil];
     }
 
-    SPKLog(@"General", @"Menu changed: %@ = %@", writeKey, properties[@"value"]);
+    SPKLog(SPKLocalizedString(@"General"), @"Menu changed: %@ = %@", writeKey, properties[@"value"]);
 
     // A menu selection can gate another row's visibility (e.g. the Create Tab
     // toggle only shows for the Classic tab order). Only pay for a full rebuild

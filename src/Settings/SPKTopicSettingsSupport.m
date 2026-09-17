@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKTopicSettingsSupport.h"
 #import "../Features/Feed/HeaderActionButton.h"
 #import "SPKHeaderButtonDefaultActionPickerViewController.h"
@@ -128,7 +129,7 @@ SPKSetting *SPKTopicNavigationSetting(NSString *title, NSString *iconName, CGFlo
 }
 
 SPKSetting *SPKActionButtonDefaultActionNavigationSetting(SPKActionButtonSource source) {
-    SPKSetting *setting = [SPKSetting navigationCellWithTitle:@"Default Tap Action"
+    SPKSetting *setting = [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Default Tap Action")
                                                      subtitle:@""
                                                          icon:SPKSettingsIcon(@"action")
                                                viewController:[[SPKActionButtonDefaultActionPickerViewController alloc] initWithSource:source]];
@@ -171,7 +172,7 @@ SPKSetting *SPKActionButtonConfigurationNavigationSetting(SPKActionButtonSource 
     SPKEditActionsListViewController *controller = [[SPKEditActionsListViewController alloc] initWithSource:source topicTitle:topicTitle];
     (void)supportedActions;
     (void)defaultSections;
-    return [SPKSetting navigationCellWithTitle:@"Configure Actions"
+    return [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Configure Actions")
                                       subtitle:@""
                                           icon:SPKSettingsIcon(@"slider")
                                 viewController:controller];
@@ -185,15 +186,15 @@ UIMenu *SPKReelsTapControlMenu(void) {
                    identifier:nil
                       options:UIMenuOptionsDisplayInline
                      children:@[
-                         SPKMenuCommand(@"Pause/Play", nil, nil, @"reels_tap_control", @"pause", YES),
-                         SPKMenuCommand(@"Mute/Unmute", nil, nil, @"reels_tap_control", @"mute", YES)
+                         SPKMenuCommand(SPKLocalizedString(@"Pause/Play"), nil, nil, @"reels_tap_control", @"pause", YES),
+                         SPKMenuCommand(SPKLocalizedString(@"Mute/Unmute"), nil, nil, @"reels_tap_control", @"mute", YES)
                      ]]
     ]];
 }
 
 UIMenu *SPKMainFeedModeMenu(void) {
     return [UIMenu menuWithChildren:@[
-        SPKMenuCommand(@"For You", @"heart", nil, @"feed_mode", @"default", YES),
+        SPKMenuCommand(SPKLocalizedString(@"For You"), @"heart", nil, @"feed_mode", @"default", YES),
         SPKMenuCommand(@"Following", @"users", nil, @"feed_mode", @"following", YES)
     ]];
 }
@@ -209,7 +210,7 @@ UIMenu *SPKLastActiveFormatMenu(void) {
     return [UIMenu menuWithChildren:@[
         SPKMenuCommand(@"Off", nil, nil, @"msgs_last_active_format", @"off", NO),
         SPKMenuCommand(@"Smart", nil, nil, @"msgs_last_active_format", @"smart", NO),
-        SPKMenuCommand(@"Date & Time", nil, nil, @"msgs_last_active_format", @"datetime", NO)
+        SPKMenuCommand(SPKLocalizedString(@"Date & Time"), nil, nil, @"msgs_last_active_format", @"datetime", NO)
     ]];
 }
 
@@ -236,11 +237,11 @@ UIMenu *SPKLaunchTabMenu(void) {
                    identifier:nil
                       options:UIMenuOptionsDisplayInline
                      children:@[
-                         SPKMenuCommand(@"Feed", @"home", nil, @"interface_launch_tab", @"feed", YES),
-                         SPKMenuCommand(@"Reels", @"reels", nil, @"interface_launch_tab", @"reels", YES),
-                         SPKMenuCommand(@"Messages", @"messages", nil, @"interface_launch_tab", @"inbox", YES),
+                         SPKMenuCommand(SPKLocalizedString(@"Feed"), @"home", nil, @"interface_launch_tab", @"feed", YES),
+                         SPKMenuCommand(SPKLocalizedString(@"Reels"), @"reels", nil, @"interface_launch_tab", @"reels", YES),
+                         SPKMenuCommand(SPKLocalizedString(@"Messages"), @"messages", nil, @"interface_launch_tab", @"inbox", YES),
                          SPKMenuCommand(@"Explore", @"search", nil, @"interface_launch_tab", @"explore", YES),
-                         SPKMenuCommand(@"Profile", @"user_circle", nil, @"interface_launch_tab", @"profile", YES)
+                         SPKMenuCommand(SPKLocalizedString(@"Profile"), @"user_circle", nil, @"interface_launch_tab", @"profile", YES)
                      ]]
     ]];
 }
@@ -268,7 +269,7 @@ UIMenu *SPKLiquidGlassTabBarStateMenu(void) {
                       options:UIMenuOptionsDisplayInline
                      children:@[
                          SPKMenuCommand(@"Fixed", nil, nil, kSPKPrefInterfaceLiquidGlassTabBarMode, @"fixed", YES),
-                         SPKMenuCommand(@"Hide on Scroll", nil, nil, kSPKPrefInterfaceLiquidGlassTabBarMode, @"hide", YES)
+                         SPKMenuCommand(SPKLocalizedString(@"Hide on Scroll"), nil, nil, kSPKPrefInterfaceLiquidGlassTabBarMode, @"hide", YES)
                      ]]
     ]];
 }
@@ -316,7 +317,7 @@ UIMenu *SPKMediaVideoQualityMenu(void) {
                    identifier:nil
                       options:UIMenuOptionsDisplayInline
                      children:@[
-                         SPKMenuCommand(@"Always Ask", nil, nil, @"downloads_video_quality", @"always_ask", NO),
+                         SPKMenuCommand(SPKLocalizedString(@"Always Ask"), nil, nil, @"downloads_video_quality", @"always_ask", NO),
                          SPKMenuCommand(@"High", nil, nil, @"downloads_video_quality", @"high", NO),
                          SPKMenuCommand(@"Medium", nil, nil, @"downloads_video_quality", @"medium", NO),
                          SPKMenuCommand(@"Low", nil, nil, @"downloads_video_quality", @"low", NO)
@@ -326,7 +327,7 @@ UIMenu *SPKMediaVideoQualityMenu(void) {
 
 UIMenu *SPKMediaPhotoQualityMenu(void) {
     return [UIMenu menuWithChildren:@[
-        SPKMenuCommand(@"Always Ask", nil, nil, @"downloads_photo_quality", @"always_ask", NO),
+        SPKMenuCommand(SPKLocalizedString(@"Always Ask"), nil, nil, @"downloads_photo_quality", @"always_ask", NO),
         SPKMenuCommand(@"Max", nil, nil, @"downloads_photo_quality", @"max", NO),
         SPKMenuCommand(@"High", nil, nil, @"downloads_photo_quality", @"high", NO),
         SPKMenuCommand(@"Medium", nil, nil, @"downloads_photo_quality", @"medium", NO),
@@ -340,8 +341,8 @@ UIMenu *SPKMediaPhotoQualityMenu(void) {
 // every story you happen to watch.
 UIMenu *SPKAutoSaveDestinationMenu(void) {
     return [UIMenu menuWithChildren:@[
-        SPKMenuCommand(@"Sparkle Gallery", nil, nil, kSPKAutoSaveDestinationKey, @"gallery", NO),
-        SPKMenuCommand(@"Photos App", nil, nil, kSPKAutoSaveDestinationKey, @"photos", NO)
+        SPKMenuCommand(SPKLocalizedString(@"Sparkle Gallery"), nil, nil, kSPKAutoSaveDestinationKey, @"gallery", NO),
+        SPKMenuCommand(SPKLocalizedString(@"Photos App"), nil, nil, kSPKAutoSaveDestinationKey, @"photos", NO)
     ]];
 }
 
@@ -371,8 +372,8 @@ UIMenu *SPKAutoSavePhotoQualityMenu(void) {
 // the subject noun differs ("Users" for stories/instants, "Chats" for DMs).
 UIMenu *SPKAutoSaveFilterModeMenu(NSString *filterModeKey, NSString *subjectPlural) {
     return [UIMenu menuWithChildren:@[
-        SPKMenuCommand([NSString stringWithFormat:@"All %@", subjectPlural], nil, nil, filterModeKey, @"all", NO),
-        SPKMenuCommand([NSString stringWithFormat:@"Selected %@", subjectPlural], nil, nil, filterModeKey, @"selected", NO)
+        SPKMenuCommand([NSString stringWithFormat:SPKLocalizedString(@"All %@"), subjectPlural], nil, nil, filterModeKey, @"all", NO),
+        SPKMenuCommand([NSString stringWithFormat:SPKLocalizedString(@"Selected %@"), subjectPlural], nil, nil, filterModeKey, @"selected", NO)
     ]];
 }
 
@@ -384,7 +385,7 @@ SPKSetting *SPKFeedHeaderButtonDefaultActionNavigationSetting(void) {
     // A navigation row (like the media action button's Default Tap Action) rather
     // than a menu-button cell: the selected value renders as a full-width subtitle
     // beneath the title instead of squeezing / truncating the title on one line.
-    SPKSetting *setting = [SPKSetting navigationCellWithTitle:@"Default Tap Action"
+    SPKSetting *setting = [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Default Tap Action")
                                                      subtitle:@""
                                                          icon:SPKSettingsIcon(@"action")
                                                viewController:[SPKHeaderButtonDefaultActionPickerViewController new]];
@@ -406,16 +407,16 @@ UIMenu *SPKGalleryShortcutTargetMenu(void) {
     NSArray<NSDictionary *> *items = @[
         @{@"title" : @"None", @"value" : kGalleryQuickAccessDisabledValue, @"icon" : @"circle_off"},
         @{@"title" : @"Home", @"value" : @"mainfeed-tab", @"icon" : @"home"},
-        @{@"title" : @"Reels", @"value" : @"reels-tab", @"icon" : @"reels"}
+        @{@"title" : SPKLocalizedString(@"Reels"), @"value" : @"reels-tab", @"icon" : @"reels"}
     ];
 
     NSMutableArray *allItems = [items mutableCopy];
     if ([SPKUtils tabOrderSetTo:@"classic"]) {
         [allItems addObject:@{@"title" : @"Create", @"value" : @"camera-tab", @"icon" : @"plus"}];
     } else {
-        [allItems addObject:@{@"title" : @"Messages", @"value" : @"direct-inbox-tab", @"icon" : @"messages"}];
+        [allItems addObject:@{@"title" : SPKLocalizedString(@"Messages"), @"value" : @"direct-inbox-tab", @"icon" : @"messages"}];
     }
-    [allItems addObject:@{@"title" : @"Profile", @"value" : @"profile-tab", @"icon" : @"user_circle"}];
+    [allItems addObject:@{@"title" : SPKLocalizedString(@"Profile"), @"value" : @"profile-tab", @"icon" : @"user_circle"}];
 
     for (NSDictionary *item in allItems) {
         NSString *title = item[@"title"];

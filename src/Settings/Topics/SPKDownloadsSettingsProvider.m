@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadsSettingsProvider.h"
 #import <UIKit/UIKit.h>
 
@@ -13,7 +14,7 @@
     // Opens straight into the download history — the in-screen gear button leads
     // to the download settings. The settings sections are still surfaced to
     // settings search via the provider below.
-    SPKSetting *setting = [SPKSetting navigationCellWithTitle:@"Downloads"
+    SPKSetting *setting = [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Downloads")
                                                      subtitle:@""
                                                          icon:SPKSettingsIcon(@"download")
                                                viewController:[SPKDownloadsHistoryViewController new]];
