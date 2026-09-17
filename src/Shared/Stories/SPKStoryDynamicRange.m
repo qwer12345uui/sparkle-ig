@@ -1,4 +1,3 @@
-#import "../../Localization/SPKLocalization.h"
 #import "SPKStoryDynamicRange.h"
 
 #import <AVFoundation/AVFoundation.h>
@@ -533,5 +532,5 @@ void SPKStoryApplyDynamicRangeToButton(UIButton *button) {
     UIImageView *imageView = button.imageView;
     spkApplyEDRTintToImageView(imageView, tint);
 
-    SPKLog(SPKLocalizedString(@"Stories"), @"[EDR] Applied EDR tint to button (tag=%ld)", (long)button.tag);
+    SPKLog(@"Stories", @"[EDR] Applied EDR tint to button (tag=%ld)", (long)button.tag);
 }
