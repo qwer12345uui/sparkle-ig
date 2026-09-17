@@ -4,7 +4,8 @@ name: Build Sparkle tweak for Rootless (no FFmpeg)
 # matching the IG 333.1.4 / iOS 15 line. Triggers automatically on push to
 # main; can also be run manually. Build result + log tail are posted to a GitHub
 # Issue (readable without the Actions UI) and the built .deb is committed to the
-# `builds` branch so the outcome is always observable.
+# `builds` branch so the outcome is always observable. A job timeout ensures a
+# stuck build surfaces quickly instead of hanging for hours.
 on:
   push:
     branches:
@@ -23,6 +24,7 @@ jobs:
   build:
     name: Build Sparkle Rootless (no-FFmpeg)
     runs-on: macos-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
@@ -136,37 +138,9 @@ jobs:
         run: |
           set +e
           EXIT="${{ steps.build.outputs.BUILD_EXIT }}"
-          if [ "${EXIT:-x}" = "0" ]; then export STATE=SUCCESS; else export STATE=FAILED; fi
-          export DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          if [ "${EXIT:-x}" = "0" ]; then STATE=SUCCESS; else STATE=FAILED; fi
+          DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           LOG="(no build log captured)"
           if [ -f /tmp/build.log ]; then LOG="$(tail -n 50 /tmp/build.log)"; fi
-          export LOG
-          python3 - <<'PY'
-import os, json, urllib.request
-tok=os.environ.get("GH_TOKEN","")
-state=os.environ.get("STATE","?")
-sha=os.environ.get("GITHUB_SHA","")
-run=os.environ.get("GITHUB_RUN_ID","")
-date=os.environ.get("DATE","")
-log=os.environ.get("LOG","")[:4000]
-body="""State: {state}
-Commit: {sha}
-Run: {run}
-Date: {date}
-
-Build log tail:
-```
-{log}
-```
-""".format(state=state, sha=sha, run=run, date=date, log=log)
-data=json.dumps({"title":"CI build {0} (run {1})".format(state, run), "body":body}).encode()
-req=urllib.request.Request("https://api.github.com/repos/qwer12345uui/sparkle-ig/issues", data=data, method="POST")
-req.add_header("Authorization","Bearer "+tok)
-req.add_header("Accept","application/vnd.github+json")
-req.add_header("Content-Type","application/json")
-try:
-    r=urllib.request.urlopen(req, timeout=30)
-    print("issue created:", r.status)
-except Exception as e:
-    print("issue create failed:", e)
-PY
+          BODY=$(printf 'State: %s\nCommit: %s\nRun: %s\nDate: %s\n\nBuild log tail (last 50 lines):\n%s' "$STATE" "$GITHUB_SHA" "$GITHUB_RUN_ID" "$DATE" "$LOG")
+          gh issue create --title "CI build ${STATE} (run ${GITHUB_RUN_ID})" --body "$BODY" || echo "issue create failed"
