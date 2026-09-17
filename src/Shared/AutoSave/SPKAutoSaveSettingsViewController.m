@@ -20,9 +20,7 @@
                                                        menu:SPKAutoSaveDestinationMenu()];
 
     return SPKTopicSection(@"Destination", @[ destination ],
-                           SPKLocalizedString(@"Where auto-saved media lands, for every surface. Sparkle Gallery keeps it inside the tweak. ")
-                           SPKLocalizedString(@"Photos App saves it to your photo library, which iOS asks permission for the first time. ")
-                           SPKLocalizedString(@"Each destination is tracked separately, so switching saves items the other one already has."));
+                           [[SPKLocalizedString(@"Where auto-saved media lands, for every surface. Sparkle Gallery keeps it inside the tweak. ") stringByAppendingString:SPKLocalizedString(@"Photos App saves it to your photo library, which iOS asks permission for the first time. ")] stringByAppendingString:SPKLocalizedString(@"Each destination is tracked separately, so switching saves items the other one already has.")]);
 }
 
 + (NSDictionary *)qualitySection {
@@ -40,10 +38,7 @@
                                  menu:SPKAutoSavePhotoQualityMenu()],
         videoQuality,
     ],
-                           SPKLocalizedString(@"1. Preferred quality for auto-saved photos.\n")
-                           SPKLocalizedString(@"2. \"Default\" takes Instagram's ready-to-play file, which is fastest and re-encodes nothing. ")
-                           SPKLocalizedString(@"\"High\" merges DASH video and audio for the best quality, at the cost of an FFmpeg pass for ")
-                           SPKLocalizedString(@"every item saved. Auto-save never prompts, so there is no \"Always Ask\"."));
+                           [[[SPKLocalizedString(@"1. Preferred quality for auto-saved photos.\n") stringByAppendingString:SPKLocalizedString(@"2. \"Default\" takes Instagram's ready-to-play file, which is fastest and re-encodes nothing. ")] stringByAppendingString:SPKLocalizedString(@"\"High\" merges DASH video and audio for the best quality, at the cost of an FFmpeg pass for ")] stringByAppendingString:SPKLocalizedString(@"every item saved. Auto-save never prompts, so there is no \"Always Ask\".")]);
 }
 
 + (NSDictionary *)feedbackSection {
@@ -52,8 +47,7 @@
                                    icon:SPKSettingsIcon(@"history")
                             defaultsKey:kSPKAutoSaveKeepHistoryKey],
     ],
-                           SPKLocalizedString(@"Auto-saves are removed from the download history once saved. Enable to keep them listed. ")
-                           SPKLocalizedString(@"Every auto-save toast is configured under Notifications, in its own Auto-Save section."));
+                           [SPKLocalizedString(@"Auto-saves are removed from the download history once saved. Enable to keep them listed. ") stringByAppendingString:SPKLocalizedString(@"Every auto-save toast is configured under Notifications, in its own Auto-Save section.")]);
 }
 
 + (SPKSetting *)surfaceRowWithTitle:(NSString *)title
