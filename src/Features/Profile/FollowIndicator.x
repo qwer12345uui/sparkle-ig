@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Shows whether the current profile user follows you.
 //
 // The badge is rendered from the stat container's own `layoutSubviews` and
@@ -175,7 +176,7 @@ static void SPKRenderFollowBadge(UIViewController *controller, UIView *container
 
     NSString *text = nil;
     if (SPKFollowIndicatorShowsText())
-        text = followsYou ? @"FOLLOWING YOU" : @"NOT FOLLOWING YOU";
+        text = followsYou ? SPKLocalizedString(@"FOLLOWING YOU") : SPKLocalizedString(@"NOT FOLLOWING YOU");
 
     if (!icon && text.length == 0)
         return;

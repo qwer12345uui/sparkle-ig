@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "../../InstagramHeaders.h"
@@ -285,7 +286,7 @@ static void SPKPresentGalleryPickerFromHost(UIViewController *host) {
     BOOL allowVideo = [SPKUtils getBoolPref:@"stories_allow_video_sticker"];
     NSSet<NSNumber *> *allowedTypes = allowVideo ? [NSSet setWithObjects:@(SPKGalleryMediaTypeImage), @(SPKGalleryMediaTypeVideo), nil] : [NSSet setWithObject:@(SPKGalleryMediaTypeImage)];
     [SPKGalleryPickerViewController presentFromViewController:host
-                                                       title:@"Sparkle Gallery"
+                                                       title:SPKLocalizedString(@"Sparkle Gallery")
                                            allowedMediaTypes:allowedTypes
                                      allowsMultipleSelection:NO
                                                   completion:^(NSArray<SPKGalleryFile *> *selectedFiles) {

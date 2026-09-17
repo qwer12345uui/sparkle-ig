@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Story Mentions — Gallery-style bottom sheet listing mentioned users with Follow/Following buttons.
 // Triggered by the @ button in story overlays (SeenButtons.x).
 
@@ -545,12 +546,12 @@ static NSArray<NSDictionary *> *SPKStoryMentionsEnriched(UIView *overlayView) {
     };
     if (!currentlyFollowing && [SPKUtils getBoolPref:@"profile_confirm_follow"]) {
         [SPKUtils showConfirmation:doIt
-                             title:@"Confirm Follow"
-                           message:@"Are you sure you want to follow this account?"];
+                             title:SPKLocalizedString(@"Confirm Follow")
+                           message:SPKLocalizedString(@"Are you sure you want to follow this account?")];
     } else if (currentlyFollowing && [SPKUtils getBoolPref:@"profile_confirm_unfollow"]) {
         [SPKUtils showConfirmation:doIt
-                             title:@"Confirm Unfollow"
-                           message:@"Are you sure you want to unfollow this account?"];
+                             title:SPKLocalizedString(@"Confirm Unfollow")
+                           message:SPKLocalizedString(@"Are you sure you want to unfollow this account?")];
     } else {
         doIt();
     }
@@ -616,6 +617,6 @@ void SPKPresentStoryMentionsSheet(UIView *overlayView) {
     sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = YES;
     sheet.prefersGrabberVisible = YES;
 
-    SPKNotify(kSPKNotificationStoryMentionsSheet, @"Opened story mentions", nil, @"mention", SPKNotificationToneForIconResource(@"mention"));
+    SPKNotify(kSPKNotificationStoryMentionsSheet, SPKLocalizedString(@"Opened story mentions"), nil, @"mention", SPKNotificationToneForIconResource(@"mention"));
     [presenter presentViewController:nav animated:YES completion:nil];
 }

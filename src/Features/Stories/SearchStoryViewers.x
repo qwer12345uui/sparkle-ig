@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../AssetUtils.h"
 #import "../../Shared/Stories/SPKStoryViewersSearchViewController.h"
 #import "../../Shared/UI/SPKChrome.h"
@@ -114,7 +115,7 @@ static NSString *SPKViewerMediaIDFromItem(id item) {
         // Box sits flush to the trailing edge; nudge the glyph in so it lines up
         // with the trash / reply column instead of hugging the screen edge.
         button.iconOffset = UIOffsetMake(-6.0, 0.0);
-        button.accessibilityLabel = @"Search viewers";
+        button.accessibilityLabel = SPKLocalizedString(@"Search viewers");
         button.translatesAutoresizingMaskIntoConstraints = NO;
         [button addTarget:vc action:@selector(spk_openViewerSearch) forControlEvents:UIControlEventTouchUpInside];
         objc_setAssociatedObject(vc, &kSPKSearchButtonKey, button, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -148,7 +149,7 @@ static NSString *SPKViewerMediaIDFromItem(id item) {
         SPKLog(@"ViewerSearch", @"[Sparkle] Could not resolve media id from viewer list item");
         return;
     }
-    [SPKStoryViewersSearchViewController presentForMediaID:mediaID title:@"Story Viewers"];
+    [SPKStoryViewersSearchViewController presentForMediaID:mediaID title:SPKLocalizedString(@"Story Viewers")];
 }
 
 %end

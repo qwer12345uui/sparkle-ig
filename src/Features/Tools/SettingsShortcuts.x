@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <objc/runtime.h>
 #import <substrate.h>
 
@@ -266,7 +267,7 @@ static BOOL SPKTabIdentifierMatchesGalleryShortcut(NSString *identifier, NSStrin
 static BOOL SPKShouldReplaceProfileTabLongPress(NSString *identifier, NSString *label) {
     return [SPKGalleryShortcutTabIdentifier() isEqualToString:@"profile-tab"] &&
            [identifier isEqualToString:@"profile-tab"] &&
-           [(label ?: @"") isEqualToString:@"Profile"];
+           [(label ?: @"") isEqualToString:SPKLocalizedString(@"Profile")];
 }
 
 // Show Sparkle tweak settings by holding on the settings/more icon under profile for ~1 second

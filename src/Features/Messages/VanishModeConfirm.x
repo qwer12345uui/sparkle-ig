@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../Utils.h"
 
 static inline BOOL SPKBlockDisappearingSwipeUpEnabled(void) {
@@ -51,8 +52,8 @@ static inline BOOL SPKHideVanishScreenshotEnabled(void) {
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Vanish Mode"
-                     message:@"Are you sure you want to change disappearing messages for this chat?"];
+                       title:SPKLocalizedString(@"Confirm Vanish Mode")
+                     message:SPKLocalizedString(@"Are you sure you want to change disappearing messages for this chat?")];
     } else {
         return %orig;
     }
@@ -73,8 +74,8 @@ static inline BOOL SPKHideVanishScreenshotEnabled(void) {
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Vanish Mode"
-                     message:@"Are you sure you want to change disappearing messages for this chat?"];
+                       title:SPKLocalizedString(@"Confirm Vanish Mode")
+                     message:SPKLocalizedString(@"Are you sure you want to change disappearing messages for this chat?")];
     } else {
         return %orig;
     }
@@ -97,8 +98,8 @@ static inline BOOL SPKHideVanishScreenshotEnabled(void) {
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Vanish Mode"
-                     message:@"Are you sure you want to change disappearing messages for this chat?"];
+                       title:SPKLocalizedString(@"Confirm Vanish Mode")
+                     message:SPKLocalizedString(@"Are you sure you want to change disappearing messages for this chat?")];
     } else {
         return %orig;
     }
@@ -112,8 +113,8 @@ static inline BOOL SPKHideVanishScreenshotEnabled(void) {
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Vanish Mode"
-                     message:@"Are you sure you want to change disappearing messages for this chat?"];
+                       title:SPKLocalizedString(@"Confirm Vanish Mode")
+                     message:SPKLocalizedString(@"Are you sure you want to change disappearing messages for this chat?")];
     } else {
         return %orig;
     }
@@ -138,8 +139,8 @@ static inline BOOL SPKHideVanishScreenshotEnabled(void) {
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Vanish Mode"
-                     message:@"Are you sure you want to change disappearing messages for this chat?"];
+                       title:SPKLocalizedString(@"Confirm Vanish Mode")
+                     message:SPKLocalizedString(@"Are you sure you want to change disappearing messages for this chat?")];
     } else {
         return %orig;
     }
