@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <substrate.h>
@@ -391,7 +392,7 @@ static NSArray<UIMenuElement *> *SPKDirectSeenButtonMenuChildren(id source) {
                                                                   context.threadId ?: @"(unknown)",
                                                                   NSStringFromClass([source class]),
                                                                   source);
-                                                           SPKNotify(kSPKNotificationDirectThreadSeenRule, @"Chat not found", nil, @"error_filled", SPKNotificationToneError);
+                                                           SPKNotify(kSPKNotificationDirectThreadSeenRule, SPKLocalizedString(@"Chat not found"), nil, @"error_filled", SPKNotificationToneError);
                                                            return;
                                                        }
                                                        SPKNotify(kSPKNotificationDirectThreadSeenRule, title, subtitle, @"circle_check_filled", SPKNotificationToneSuccess);
@@ -430,7 +431,7 @@ static NSArray<UIMenuElement *> *SPKDirectSeenButtonMenuChildren(id source) {
     // Pass threadId for groups too — presentForThreadId: resolves a group entry
     // via groupForThreadId:, so a group thread opens scoped to its own log.
     NSString *threadId = context.threadId;
-    UIAction *logAction = [UIAction actionWithTitle:@"Deleted Messages"
+    UIAction *logAction = [UIAction actionWithTitle:SPKLocalizedString(@"Deleted Messages")
                                               image:logImage
                                          identifier:nil
                                             handler:^(__unused UIAction *action) {
@@ -444,12 +445,12 @@ static NSArray<UIMenuElement *> *SPKDirectSeenButtonMenuChildren(id source) {
     [children addObject:logAction];
 
     UIImage *settingsImage = [SPKAssetUtils menuIconNamed:@"settings"];
-    UIAction *settingsAction = [UIAction actionWithTitle:@"Messages Settings"
+    UIAction *settingsAction = [UIAction actionWithTitle:SPKLocalizedString(@"Messages Settings")
                                                    image:settingsImage
                                               identifier:nil
                                                  handler:^(__unused UIAction *action) {
-                                                     SPKNotify(kSPKNotificationOpenTopicSettings, @"Opened settings", nil, @"settings", SPKNotificationToneForIconResource(@"settings"));
-                                                     [SPKUtils showSettingsForTopicTitle:@"Messages"];
+                                                     SPKNotify(kSPKNotificationOpenTopicSettings, SPKLocalizedString(@"Opened settings"), nil, @"settings", SPKNotificationToneForIconResource(@"settings"));
+                                                     [SPKUtils showSettingsForTopicTitle:SPKLocalizedString(@"Messages")];
                                                  }];
     [children addObject:settingsAction];
 
@@ -613,7 +614,7 @@ static id SPKDirectInboxContextMenuConfiguration(id self, SEL _cmd, id indexPath
                                                                   context.threadId ?: @"(unknown)",
                                                                   NSStringFromClass([viewModel class]),
                                                                   viewModel);
-                                                           SPKNotify(kSPKNotificationDirectThreadSeenRule, @"Chat not found", nil, @"error_filled", SPKNotificationToneError);
+                                                           SPKNotify(kSPKNotificationDirectThreadSeenRule, SPKLocalizedString(@"Chat not found"), nil, @"error_filled", SPKNotificationToneError);
                                                            return;
                                                        }
                                                        SPKNotify(kSPKNotificationDirectThreadSeenRule, notificationTitle, notificationSubtitle, @"circle_check_filled", SPKNotificationToneSuccess);
@@ -1216,9 +1217,9 @@ SPKPlayButtonTappedHaptic();
 UIViewController *nearestVC = [SPKUtils nearestViewControllerForView:self];
 if ([nearestVC isKindOfClass:%c(IGDirectThreadViewController)]) {
     if (SPKMarkDirectThreadMessagesAsSeen(nearestVC)) {
-        SPKNotify(kSPKNotificationThreadMessagesMarkSeen, @"Marked messages as seen", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+        SPKNotify(kSPKNotificationThreadMessagesMarkSeen, SPKLocalizedString(@"Marked messages as seen"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
     } else {
-        SPKNotify(kSPKNotificationThreadMessagesMarkSeen, @"Unable to mark messages as seen", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationThreadMessagesMarkSeen, SPKLocalizedString(@"Unable to mark messages as seen"), nil, @"error_filled", SPKNotificationToneError);
     }
 }
 }
@@ -1279,9 +1280,9 @@ if ([nearestVC isKindOfClass:%c(IGDirectThreadViewController)]) {
 (void)sender;
 SPKPlayButtonTappedHaptic();
 if (SPKMarkDirectThreadMessagesAsSeen(self)) {
-    SPKNotify(kSPKNotificationThreadMessagesMarkSeen, @"Marked messages as seen", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+    SPKNotify(kSPKNotificationThreadMessagesMarkSeen, SPKLocalizedString(@"Marked messages as seen"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
 } else {
-    SPKNotify(kSPKNotificationThreadMessagesMarkSeen, @"Unable to mark messages as seen", nil, @"error_filled", SPKNotificationToneError);
+    SPKNotify(kSPKNotificationThreadMessagesMarkSeen, SPKLocalizedString(@"Unable to mark messages as seen"), nil, @"error_filled", SPKNotificationToneError);
 }
 // The bubble stays put after marking — no seen-state-driven hide/reappear.
 }

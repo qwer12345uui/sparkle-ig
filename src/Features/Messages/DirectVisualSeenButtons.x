@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <substrate.h>
@@ -428,7 +429,7 @@ static void SPKMarkDirectVisualMessageAsSeen(UIViewController *controller) {
 
     id message = SPKDirectCurrentMessageFromController(controller);
     if (!message) {
-        SPKNotify(kSPKNotificationDirectVisualMarkSeen, @"Message not found", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationDirectVisualMarkSeen, SPKLocalizedString(@"Message not found"), nil, @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -465,7 +466,7 @@ static void SPKMarkDirectVisualMessageAsSeen(UIViewController *controller) {
         SPKPendingDirectVisualMessageToMarkSeen = nil;
     }
     if (!dispatched) {
-        SPKNotify(kSPKNotificationDirectVisualMarkSeen, @"Unable to mark as seen", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationDirectVisualMarkSeen, SPKLocalizedString(@"Unable to mark as seen"), nil, @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -476,7 +477,7 @@ static void SPKMarkDirectVisualMessageAsSeen(UIViewController *controller) {
         });
     }
 
-    SPKNotify(kSPKNotificationDirectVisualMarkSeen, @"Marked as seen", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+    SPKNotify(kSPKNotificationDirectVisualMarkSeen, SPKLocalizedString(@"Marked as seen"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
 }
 
 static void SPKInstallDirectSeenButton(UIViewController *controller) {

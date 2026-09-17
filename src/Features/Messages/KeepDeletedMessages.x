@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../AssetUtils.h"
 #import "../../InstagramHeaders.h"
 #import "../../Shared/Messages/SPKDirectSeenContext.h"
@@ -781,14 +782,14 @@ static NSSet<NSString *> *spkProcessCacheUpdate(id cacheUpdate, NSString *ownerP
 static NSString *spkUnsentText(NSString *sender, NSString *deleter) {
     if (sender.length && deleter.length) {
         return [sender isEqualToString:deleter]
-                   ? [NSString stringWithFormat:@"%@ unsent a message", sender]
-                   : [NSString stringWithFormat:@"%@ unsent a message from %@", deleter, sender];
+                   ? [NSString stringWithFormat:SPKLocalizedString(@"%@ unsent a message"), sender]
+                   : [NSString stringWithFormat:SPKLocalizedString(@"%@ unsent a message from %@"), deleter, sender];
     }
     if (sender.length)
-        return [NSString stringWithFormat:@"Message from %@ was unsent", sender];
+        return [NSString stringWithFormat:SPKLocalizedString(@"Message from %@ was unsent"), sender];
     if (deleter.length)
-        return [NSString stringWithFormat:@"%@ unsent a message", deleter];
-    return @"A message was unsent";
+        return [NSString stringWithFormat:SPKLocalizedString(@"%@ unsent a message"), deleter];
+    return SPKLocalizedString(@"A message was unsent");
 }
 
 static NSString *spkNotificationKindPhrase(SPKDeletedMessageKind kind) {
@@ -798,7 +799,7 @@ static NSString *spkNotificationKindPhrase(SPKDeletedMessageKind kind) {
     case SPKDeletedMessageKindVideo:
         return @"video";
     case SPKDeletedMessageKindVoice:
-        return @"voice message";
+        return SPKLocalizedString(@"voice message");
     case SPKDeletedMessageKindGif:
         return @"GIF";
     case SPKDeletedMessageKindSticker:
@@ -808,7 +809,7 @@ static NSString *spkNotificationKindPhrase(SPKDeletedMessageKind kind) {
     case SPKDeletedMessageKindLink:
         return @"link";
     case SPKDeletedMessageKindAudioShare:
-        return @"music share";
+        return SPKLocalizedString(@"music share");
     case SPKDeletedMessageKindText:
     case SPKDeletedMessageKindUnknown:
     case SPKDeletedMessageKindOther:
@@ -928,7 +929,7 @@ static NSString *spkSenderSummary(NSArray<NSString *> *senders) {
     if (n == 2)
         return [NSString stringWithFormat:@"%@ & %@", senders[0], senders[1]];
     NSUInteger others = n - 2;
-    return [NSString stringWithFormat:@"%@, %@ & %lu other%@",
+    return [NSString stringWithFormat:SPKLocalizedString(@"%@, %@ & %lu other%@"),
                                       senders[0], senders[1], (unsigned long)others, others == 1 ? @"" : @"s"];
 }
 
@@ -1034,11 +1035,11 @@ static SPKUnsentToastBatcher *spkUnsentMessageBatcher(void) {
         };
         batcher.summaryBuilder = ^NSDictionary *(NSArray<NSString *> *senders, NSUInteger count) {
             if (senders.count == 1) {
-                return @{@"title" : [NSString stringWithFormat:@"%@ unsent %lu messages", senders[0], (unsigned long)count]};
+                return @{@"title" : [NSString stringWithFormat:SPKLocalizedString(@"%@ unsent %lu messages"), senders[0], (unsigned long)count]};
             }
             return @{
-                @"title" : [NSString stringWithFormat:@"%lu messages unsent", (unsigned long)count],
-                @"subtitle" : [@"from " stringByAppendingString:spkSenderSummary(senders) ?: @""],
+                @"title" : [NSString stringWithFormat:SPKLocalizedString(@"%lu messages unsent"), (unsigned long)count],
+                @"subtitle" : [SPKLocalizedString(@"from ") stringByAppendingString:spkSenderSummary(senders) ?: @""],
             };
         };
     });
@@ -1054,11 +1055,11 @@ static SPKUnsentToastBatcher *spkUnsentReactionBatcher(void) {
         batcher.iconResource = @"reactions";
         batcher.summaryBuilder = ^NSDictionary *(NSArray<NSString *> *senders, NSUInteger count) {
             if (senders.count == 1) {
-                return @{@"title" : [NSString stringWithFormat:@"%@ removed %lu reactions", senders[0], (unsigned long)count]};
+                return @{@"title" : [NSString stringWithFormat:SPKLocalizedString(@"%@ removed %lu reactions"), senders[0], (unsigned long)count]};
             }
             return @{
-                @"title" : [NSString stringWithFormat:@"%lu reactions removed", (unsigned long)count],
-                @"subtitle" : [@"from " stringByAppendingString:spkSenderSummary(senders) ?: @""],
+                @"title" : [NSString stringWithFormat:SPKLocalizedString(@"%lu reactions removed"), (unsigned long)count],
+                @"subtitle" : [SPKLocalizedString(@"from ") stringByAppendingString:spkSenderSummary(senders) ?: @""],
             };
         };
     });
@@ -1078,7 +1079,7 @@ static void spkShowUnsentToast(NSDictionary *preview, NSString *fallbackSender, 
         NSString *subtype = [preview[@"shareSubtype"] isKindOfClass:NSString.class] ? preview[@"shareSubtype"] : nil;
         kindPhrase = [SPKDeletedMessageShareSubtypeName(subtype) lowercaseString];
     }
-    NSString *title = [NSString stringWithFormat:@"%@ unsent a %@", sender, kindPhrase];
+    NSString *title = [NSString stringWithFormat:SPKLocalizedString(@"%@ unsent a %@"), sender, kindPhrase];
     NSString *subtitle = text.length ? [NSString stringWithFormat:@"\"%@\"", text] : nil;
     if (ownerAccount.length) {
         subtitle = subtitle.length ? [NSString stringWithFormat:@"%@ • %@", title, subtitle] : title;
@@ -1112,9 +1113,9 @@ static void spkShowUnsentReactionToast(NSDictionary *preview, NSString *ownerAcc
         return;
 
     NSString *title = emoji.length
-                          ? [NSString stringWithFormat:@"%@ removed a %@ reaction", sender, emoji]
-                          : [NSString stringWithFormat:@"%@ removed a reaction", sender];
-    NSString *subtitle = targetPreview.length ? [NSString stringWithFormat:@"On \"%@\"", targetPreview] : nil;
+                          ? [NSString stringWithFormat:SPKLocalizedString(@"%@ removed a %@ reaction"), sender, emoji]
+                          : [NSString stringWithFormat:SPKLocalizedString(@"%@ removed a reaction"), sender];
+    NSString *subtitle = targetPreview.length ? [NSString stringWithFormat:SPKLocalizedString(@"On \"%@\""), targetPreview] : nil;
     if (ownerAccount.length) {
         subtitle = subtitle.length ? [NSString stringWithFormat:@"%@ • %@", title, subtitle] : title;
         title = ownerAccount;

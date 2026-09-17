@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Full Last Active — rewrites the chat header presence subtitle
 // ("Active 2h ago") into an absolute timestamp ("Active at 1:15 AM").
 //
@@ -79,7 +80,7 @@ static NSString *SPKFormattedLastActive(NSDate *date) {
     NSString *body = [SPKLastActiveFormatter(format) stringFromDate:date];
     if (!body.length)
         return nil;
-    return [@"Active " stringByAppendingString:body];
+    return [SPKLocalizedString(@"Active ") stringByAppendingString:body];
 }
 
 // Digs the recipient's last-active date out of the title view. Primary path
