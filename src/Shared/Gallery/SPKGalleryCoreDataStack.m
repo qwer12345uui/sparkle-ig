@@ -1,4 +1,3 @@
-#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryCoreDataStack.h"
 #import "../../Utils.h"
 #import "SPKGalleryPaths.h"
@@ -234,7 +233,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
         [fm removeItemAtPath:backupPath error:nil];
         NSError *error = nil;
         if (![fm copyItemAtPath:url.path toPath:backupPath error:&error]) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to back up store file %@: %@", url.lastPathComponent, error);
+            SPKLog(@"General", @"[Sparkle Gallery] Failed to back up store file %@: %@", url.lastPathComponent, error);
         }
     }
 }
@@ -250,7 +249,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
                                                                                     options:nil
                                                                                       error:&metadataError];
     if (!metadata) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed reading store metadata: %@", metadataError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed reading store metadata: %@", metadataError);
         return NO;
     }
 
@@ -290,7 +289,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
         }
     }
     if (!sourceModel) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Store is incompatible with all known schemas; leaving it untouched");
+        SPKLog(@"General", @"[Sparkle Gallery] Store is incompatible with all known schemas; leaving it untouched");
         return NO;
     }
 
@@ -299,7 +298,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
                                                                 destinationModel:destinationModel
                                                                            error:&mappingError];
     if (!mapping) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed creating inferred migration mapping: %@", mappingError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed creating inferred migration mapping: %@", mappingError);
         return NO;
     }
 
@@ -318,7 +317,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
                               destinationOptions:destinationOptions
                                            error:&migrationError];
     if (!migrated) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed migrating store to current schema: %@", migrationError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed migrating store to current schema: %@", migrationError);
         [fm removeItemAtURL:tmpURL error:nil];
         [self removeStoreSidecarsAtURL:tmpURL];
         return NO;
@@ -331,14 +330,14 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
 
     NSError *moveError = nil;
     if (![fm moveItemAtURL:tmpURL toURL:storeURL error:&moveError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed installing migrated store: %@", moveError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed installing migrated store: %@", moveError);
         [fm removeItemAtURL:tmpURL error:nil];
         [self removeStoreSidecarsAtURL:tmpURL];
         return NO;
     }
 
     [self removeStoreSidecarsAtURL:tmpURL];
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Migrated gallery store to current schema");
+    SPKLog(@"General", @"[Sparkle Gallery] Migrated gallery store to current schema");
     return YES;
 }
 
@@ -355,7 +354,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
 
     [self.persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *desc, NSError *error) {
         if (error) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to load Core Data store: %@", error);
+            SPKLog(@"General", @"[Sparkle Gallery] Failed to load Core Data store: %@", error);
         }
     }];
 
@@ -373,7 +372,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
 
     NSError *error;
     if (![ctx save:&error]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to save context: %@", error);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to save context: %@", error);
     }
 }
 
@@ -383,7 +382,7 @@ static NSString *const kSPKGalleryStoreName = @"gallery.sqlite";
         NSError *removeError = nil;
         [coordinator removePersistentStore:store error:&removeError];
         if (removeError) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed unloading persistent store: %@", removeError);
+            SPKLog(@"General", @"[Sparkle Gallery] Failed unloading persistent store: %@", removeError);
         }
     }
 }
@@ -513,7 +512,7 @@ static void SPKGalleryRunOnMain(void (^block)(void)) {
         }
     });
     if (readError) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Merge: failed reading archive: %@", readError);
+        SPKLog(@"General", @"[Sparkle Gallery] Merge: failed reading archive: %@", readError);
         if (error)
             *error = readError;
         return -1;
@@ -621,7 +620,7 @@ static void SPKGalleryRunOnMain(void (^block)(void)) {
             }
         }
         if (ctx.hasChanges && ![ctx save:&saveError]) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Merge: failed saving merged rows: %@", saveError);
+            SPKLog(@"General", @"[Sparkle Gallery] Merge: failed saving merged rows: %@", saveError);
         }
     });
     if (saveError) {
@@ -630,7 +629,7 @@ static void SPKGalleryRunOnMain(void (^block)(void)) {
         return -1;
     }
 
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Merge: added/updated %ld file(s) from import", (long)added);
+    SPKLog(@"General", @"[Sparkle Gallery] Merge: added/updated %ld file(s) from import", (long)added);
     return added;
 }
 

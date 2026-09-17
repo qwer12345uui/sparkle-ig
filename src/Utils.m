@@ -1361,7 +1361,7 @@ static id SPKPrefValueWithMasterOverlay(NSString *key) {
     if (deletionErrors.count > 1) {
 
         for (NSError *error in deletionErrors) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle] File Deletion Error: %@", error);
+            SPKLog(@"General", @"[Sparkle] File Deletion Error: %@", error);
         }
     }
 
@@ -1676,7 +1676,7 @@ static NSDate *SPKScanObjectForPostedDate(id target, NSInteger depth) {
 + (void)evaluateAutomaticCacheClearIfNeeded {
     if (![self shouldAutomaticallyClearCacheNow])
         return;
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle] Automatically clearing cache...");
+    SPKLog(@"General", @"[Sparkle] Automatically clearing cache...");
     [self cleanCache];
 }
 

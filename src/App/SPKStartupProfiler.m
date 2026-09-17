@@ -1,4 +1,3 @@
-#import "../Localization/SPKLocalization.h"
 #import "SPKStartupProfiler.h"
 #import "../Utils.h"
 
@@ -17,7 +16,7 @@ static BOOL SPKStartupProfilingEnabled(void) {
 __attribute__((constructor)) static void SPKStartupProfilerConstructor(void) {
     sSPKStartupStartTime = CFAbsoluteTimeGetCurrent();
     if (SPKStartupProfilingEnabled()) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle][startup] +0.000s constructor entry");
+        SPKLog(@"General", @"[Sparkle][startup] +0.000s constructor entry");
     }
 }
 
@@ -31,7 +30,7 @@ void SPKStartupMark(NSString *event) {
     }
 
     NSTimeInterval elapsed = CFAbsoluteTimeGetCurrent() - sSPKStartupStartTime;
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle][startup] +%.3fs %@", elapsed, event ?: @"mark");
+    SPKLog(@"General", @"[Sparkle][startup] +%.3fs %@", elapsed, event ?: @"mark");
 }
 
 #endif
