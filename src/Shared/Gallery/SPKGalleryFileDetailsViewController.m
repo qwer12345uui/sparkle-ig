@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryFileDetailsViewController.h"
 #import "../../Utils.h"
 #import "../Account/SPKAccountManager.h"
@@ -42,7 +43,7 @@ typedef NS_ENUM(NSInteger, SPKDetailsEditRow) {
 - (void)buildControls {
     _nameField = [self editableField];
     _nameField.text = self.file.customName;
-    _nameField.placeholder = @"Display name";
+    _nameField.placeholder = SPKLocalizedString(@"Display name");
     _nameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 
     _usernameField = [self editableField];
@@ -81,26 +82,26 @@ typedef NS_ENUM(NSInteger, SPKDetailsEditRow) {
     }
     if (self.file.mediaType == SPKGalleryMediaTypeVideo && self.file.durationSeconds > 0) {
         NSInteger total = (NSInteger)llround(self.file.durationSeconds);
-        [rows addObject:@[ @"Duration", [NSString stringWithFormat:@"%ld:%02ld", (long)(total / 60), (long)(total % 60)] ]];
+        [rows addObject:@[ SPKLocalizedString(@"Duration"), [NSString stringWithFormat:@"%ld:%02ld", (long)(total / 60), (long)(total % 60)] ]];
     }
     if (self.file.fileSize > 0) {
         [rows addObject:@[ @"Size", [NSByteCountFormatter stringFromByteCount:self.file.fileSize countStyle:NSByteCountFormatterCountStyleFile] ]];
     }
-    NSString *folder = self.file.folderPath.length > 0 ? [self.file.folderPath lastPathComponent] : @"Gallery";
+    NSString *folder = self.file.folderPath.length > 0 ? [self.file.folderPath lastPathComponent] : SPKLocalizedString(@"Gallery");
     [rows addObject:@[ @"Folder", folder ]];
     if (self.file.sourceMediaCode.length > 0) {
-        [rows addObject:@[ @"Media code", self.file.sourceMediaCode ]];
+        [rows addObject:@[ SPKLocalizedString(@"Media code"), self.file.sourceMediaCode ]];
     }
     self.infoRows = rows;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Edit Details";
+    self.title = SPKLocalizedString(@"Edit Details");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramBackground];
 
     UIBarButtonItem *cancelItem = SPKMediaChromeTopBarButtonItem(@"xmark", self, @selector(cancel));
-    cancelItem.accessibilityLabel = @"Cancel";
+    cancelItem.accessibilityLabel = SPKLocalizedString(@"Cancel");
     UIBarButtonItem *saveItem = SPKMediaChromeTopBarButtonItemWithStyle(@"check", self, @selector(save), UIBarButtonItemStyleDone, [SPKUtils SPKColor_InstagramBlue], @"Save");
     SPKMediaChromeSetLeadingTopBarItems(self.navigationItem, @[ cancelItem ]);
     SPKMediaChromeSetTrailingTopBarItems(self.navigationItem, @[ saveItem ]);
@@ -233,11 +234,11 @@ typedef NS_ENUM(NSInteger, SPKDetailsEditRow) {
                                                      weakSelf.selectedOwnerUsername = nil;
                                                      [weakSelf.tableView reloadData];
                                                  }]];
-    [actions addObject:[SPKIGAlertAction actionWithTitle:@"Cancel" style:SPKIGAlertActionStyleCancel handler:nil]];
+    [actions addObject:[SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel") style:SPKIGAlertActionStyleCancel handler:nil]];
 
     [SPKIGAlertPresenter presentActionSheetFromViewController:self
-                                                        title:@"Change File Owner"
-                                                      message:@"Which account does this file belong to?"
+                                                        title:SPKLocalizedString(@"Change File Owner")
+                                                      message:SPKLocalizedString(@"Which account does this file belong to?")
                                                       actions:actions];
 }
 

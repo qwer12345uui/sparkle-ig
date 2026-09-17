@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryImportMetadataFormViewController.h"
 
 #import "../../AssetUtils.h"
@@ -365,7 +366,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
     case SPKGalleryImportFormSectionIdentity:
         return @"Identity";
     case SPKGalleryImportFormSectionLink:
-        return @"Link It Back";
+        return SPKLocalizedString(@"Link It Back");
     default:
         return nil;
     }
@@ -375,18 +376,18 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
     (void)tableView;
     switch ((SPKGalleryImportFormSection)section) {
     case SPKGalleryImportFormSectionIdentity:
-        return @"Username powers Open profile.";
+        return SPKLocalizedString(@"Username powers Open profile.");
     case SPKGalleryImportFormSectionLink: {
         NSString *preview = [self permalinkPreview];
-        return preview.length ? [NSString stringWithFormat:@"Open original → %@", preview]
-                              : @"Paste a post, reel, story, or profile link to fill everything.";
+        return preview.length ? [NSString stringWithFormat:SPKLocalizedString(@"Open original → %@"), preview]
+                              : SPKLocalizedString(@"Paste a post, reel, story, or profile link to fill everything.");
     }
     case SPKGalleryImportFormSectionAdvanced:
         if (!self.advancedExpanded) {
             return nil;
         }
         return self.footerStemExplanation.length ? self.footerStemExplanation
-                                                 : @"Manual overrides. Leave blank to auto-detect.";
+                                                 : SPKLocalizedString(@"Manual overrides. Leave blank to auto-detect.");
     default:
         return nil;
     }
@@ -425,7 +426,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
     case SPKGalleryImportFormRowUserPK:
         return @"User ID";
     case SPKGalleryImportFormRowProfileURL:
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     case SPKGalleryImportFormRowMediaPK:
         return @"Media ID";
     case SPKGalleryImportFormRowMediaCode:
@@ -437,7 +438,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
     case SPKGalleryImportFormRowPixelHeight:
         return @"Height";
     case SPKGalleryImportFormRowDuration:
-        return @"Duration";
+        return SPKLocalizedString(@"Duration");
     case SPKGalleryImportFormRowGallerySortDate:
         return @"Date";
     default:
@@ -621,7 +622,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
     UITableViewCell *cell = [self chromeCell];
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     UIListContentConfiguration *cfg = cell.defaultContentConfiguration;
-    cfg.text = @"Paste Link to Autofill";
+    cfg.text = SPKLocalizedString(@"Paste Link to Autofill");
     cfg.textProperties.color = [SPKUtils SPKColor_InstagramBlue];
     cell.contentConfiguration = cfg;
     return cell;
@@ -669,7 +670,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
 
     if (self.metadata.importCapturedDate != nil) {
         UIButton *clear = [UIButton buttonWithType:UIButtonTypeSystem];
-        [clear setTitle:@"Clear" forState:UIControlStateNormal];
+        [clear setTitle:SPKLocalizedString(@"Clear") forState:UIControlStateNormal];
         clear.titleLabel.font = [UIFont systemFontOfSize:14.0];
         [clear setTitleColor:[SPKUtils SPKColor_InstagramSecondaryText] forState:UIControlStateNormal];
         [clear addTarget:self action:@selector(clearDate) forControlEvents:UIControlEventTouchUpInside];
@@ -764,7 +765,7 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
 - (void)pasteFromClipboard {
     NSString *clip = [UIPasteboard generalPasteboard].string;
     if (clip.length == 0) {
-        SPKNotify(kSPKNotificationGalleryImport, @"Nothing to paste", @"The clipboard is empty.", @"info_filled", SPKNotificationToneInfo);
+        SPKNotify(kSPKNotificationGalleryImport, SPKLocalizedString(@"Nothing to paste"), SPKLocalizedString(@"The clipboard is empty."), @"info_filled", SPKNotificationToneInfo);
         return;
     }
     [self applyPastedLink:clip];
@@ -778,8 +779,8 @@ static BOOL SPKParseInstagramLink(NSString *raw, SPKGallerySaveMetadata *m) {
         UINotificationFeedbackGenerator *h = [[UINotificationFeedbackGenerator alloc] init];
         [h notificationOccurred:UINotificationFeedbackTypeSuccess];
     } else {
-        SPKNotify(kSPKNotificationGalleryImport, @"Couldn’t read that link",
-                  @"Paste a post, reel, story, or profile link.", @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationGalleryImport, SPKLocalizedString(@"Couldn’t read that link"),
+                  SPKLocalizedString(@"Paste a post, reel, story, or profile link."), @"error_filled", SPKNotificationToneError);
     }
 }
 
