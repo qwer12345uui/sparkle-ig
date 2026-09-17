@@ -700,7 +700,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 
     NSError *copyError;
     if (![fm copyItemAtPath:fileURL.path toPath:destPath error:&copyError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to copy file: %@", copyError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to copy file: %@", copyError);
         if (error)
             *error = copyError;
         return nil;
@@ -733,7 +733,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 
     NSError *saveError;
     if (![ctx save:&saveError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to save entity: %@", saveError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to save entity: %@", saveError);
         [fm removeItemAtPath:destPath error:nil];
         if (error)
             *error = saveError;
@@ -765,7 +765,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 
     NSError *saveError;
     if (![ctx save:&saveError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to delete entity: %@", saveError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to delete entity: %@", saveError);
         if (error)
             *error = saveError;
         return NO;
@@ -815,7 +815,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 
     NSError *copyError = nil;
     if (![fm copyItemAtPath:newURL.path toPath:newPath error:&copyError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to copy replacement file: %@", copyError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to copy replacement file: %@", copyError);
         if (error)
             *error = copyError;
         return NO;
@@ -844,7 +844,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
     NSManagedObjectContext *ctx = self.managedObjectContext ?: [SPKGalleryCoreDataStack shared].viewContext;
     NSError *saveError = nil;
     if (![ctx save:&saveError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to save replaced entity: %@", saveError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to save replaced entity: %@", saveError);
         if (error)
             *error = saveError;
         return NO;
@@ -877,7 +877,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
     NSManagedObjectContext *ctx = self.managedObjectContext ?: [SPKGalleryCoreDataStack shared].viewContext;
     NSError *saveError = nil;
     if (![ctx save:&saveError]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to stamp fresh date: %@", saveError);
+        SPKLog(@"General", @"[Sparkle Gallery] Failed to stamp fresh date: %@", saveError);
     }
 }
 
@@ -1061,10 +1061,10 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
             // Reject stale post/reel links wrongly stored on story entries by older builds.
             BOOL stalePostURL = [path containsString:@"/p/"] || [path containsString:@"/reel/"] || [path containsString:@"/reels/"];
             if (validScheme && !stalePostURL) {
-                SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original using stored story URL url=%@", stored.absoluteString);
+                SPKLog(@"General", @"[Sparkle Gallery] Open original using stored story URL url=%@", stored.absoluteString);
                 return stored;
             }
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Ignoring stored story URL (stale/invalid) url=%@", self.sourceMediaURLString);
+            SPKLog(@"General", @"[Sparkle Gallery] Ignoring stored story URL (stale/invalid) url=%@", self.sourceMediaURLString);
         }
 
         NSString *identifier = [self.sourceMediaPK componentsSeparatedByString:@"_"].firstObject ?: self.sourceMediaPK;
@@ -1073,11 +1073,11 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
             NSString *encodedIdentifier = [identifier stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
             if (encodedUsername.length > 0 && encodedIdentifier.length > 0) {
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.instagram.com/stories/%@/%@/", encodedUsername, encodedIdentifier]];
-                SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original built story URL username=%@ id=%@ url=%@", self.sourceUsername, identifier, url.absoluteString);
+                SPKLog(@"General", @"[Sparkle Gallery] Open original built story URL username=%@ id=%@ url=%@", self.sourceUsername, identifier, url.absoluteString);
                 return url;
             }
         }
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original story missing username/pk username=%@ mediaPK=%@", self.sourceUsername, self.sourceMediaPK);
+        SPKLog(@"General", @"[Sparkle Gallery] Open original story missing username/pk username=%@ mediaPK=%@", self.sourceUsername, self.sourceMediaPK);
         return nil;
     }
 
@@ -1094,7 +1094,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
         NSString *encodedID = [fullMediaID stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         if (encodedID.length > 0) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"instagram://media?id=%@", encodedID]];
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original using media deep link source=%d id=%@ url=%@", self.source, fullMediaID, url.absoluteString);
+            SPKLog(@"General", @"[Sparkle Gallery] Open original using media deep link source=%d id=%@ url=%@", self.source, fullMediaID, url.absoluteString);
             return url;
         }
     }
@@ -1102,11 +1102,11 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
     NSString *pathComponent = SPKGalleryPostPathComponentForSource((SPKGallerySource)self.source);
     if (self.sourceMediaCode.length > 0) {
         if (pathComponent.length == 0) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original has code but no safe path source=%d code=%@", self.source, self.sourceMediaCode);
+            SPKLog(@"General", @"[Sparkle Gallery] Open original has code but no safe path source=%d code=%@", self.source, self.sourceMediaCode);
             return nil;
         }
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.instagram.com/%@/%@/", pathComponent, self.sourceMediaCode]];
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original generated from code source=%d code=%@ url=%@", self.source, self.sourceMediaCode, url.absoluteString);
+        SPKLog(@"General", @"[Sparkle Gallery] Open original generated from code source=%d code=%@ url=%@", self.source, self.sourceMediaCode, url.absoluteString);
         return url;
     }
 
@@ -1114,10 +1114,10 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
         NSString *code = [SPKUtils instagramShortcodeForMediaPK:self.sourceMediaPK];
         if (code.length > 0) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.instagram.com/%@/%@/", pathComponent, code]];
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original generated from media pk source=%d mediaPK=%@ code=%@ url=%@", self.source, self.sourceMediaPK, code, url.absoluteString);
+            SPKLog(@"General", @"[Sparkle Gallery] Open original generated from media pk source=%d mediaPK=%@ code=%@ url=%@", self.source, self.sourceMediaPK, code, url.absoluteString);
             return url;
         }
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original could not derive shortcode from media pk source=%d mediaPK=%@", self.source, self.sourceMediaPK);
+        SPKLog(@"General", @"[Sparkle Gallery] Open original could not derive shortcode from media pk source=%d mediaPK=%@", self.source, self.sourceMediaPK);
     }
 
     // Stored permalink (typically a /p/ or /reel/ web link captured at save time).
@@ -1127,13 +1127,13 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
         if (url && ([scheme isEqualToString:@"http"] ||
                     [scheme isEqualToString:@"https"] ||
                     [scheme isEqualToString:@"instagram"])) {
-            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original using stored URL source=%d url=%@", self.source, url.absoluteString);
+            SPKLog(@"General", @"[Sparkle Gallery] Open original using stored URL source=%d url=%@", self.source, url.absoluteString);
             return url;
         }
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Ignoring invalid stored original URL source=%d raw=%@", self.source, self.sourceMediaURLString);
+        SPKLog(@"General", @"[Sparkle Gallery] Ignoring invalid stored original URL source=%d raw=%@", self.source, self.sourceMediaURLString);
     }
 
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Open original unavailable source=%d relativePath=%@", self.source, self.relativePath);
+    SPKLog(@"General", @"[Sparkle Gallery] Open original unavailable source=%d relativePath=%@", self.source, self.relativePath);
     return nil;
 }
 

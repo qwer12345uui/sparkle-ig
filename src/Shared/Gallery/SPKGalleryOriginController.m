@@ -227,7 +227,7 @@ static NSString *SPKGalleryProfileURLStringForUsername(NSString *username) {
 
 static NSString *SPKGalleryMediaURLStringFromMetadata(SPKGallerySaveMetadata *metadata) {
     if (metadata.sourceMediaURLString.length > 0) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Origin URL from stored metadata URL source=%d url=%@", metadata.source, metadata.sourceMediaURLString);
+        SPKLog(@"General", @"[Sparkle Gallery] Origin URL from stored metadata URL source=%d url=%@", metadata.source, metadata.sourceMediaURLString);
         return metadata.sourceMediaURLString;
     }
 
@@ -239,11 +239,11 @@ static NSString *SPKGalleryMediaURLStringFromMetadata(SPKGallerySaveMetadata *me
             NSString *encodedIdentifier = [identifier stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
             if (encodedUsername.length > 0 && encodedIdentifier.length > 0) {
                 NSString *urlString = [NSString stringWithFormat:@"https://www.instagram.com/stories/%@/%@/", encodedUsername, encodedIdentifier];
-                SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Origin URL generated story link username=%@ id=%@ url=%@", metadata.sourceUsername, identifier, urlString);
+                SPKLog(@"General", @"[Sparkle Gallery] Origin URL generated story link username=%@ id=%@ url=%@", metadata.sourceUsername, identifier, urlString);
                 return urlString;
             }
         }
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Not generating story origin URL (missing username/pk) username=%@ mediaPK=%@", metadata.sourceUsername, metadata.sourceMediaPK);
+        SPKLog(@"General", @"[Sparkle Gallery] Not generating story origin URL (missing username/pk) username=%@ mediaPK=%@", metadata.sourceUsername, metadata.sourceMediaPK);
         return nil;
     }
 
@@ -254,7 +254,7 @@ static NSString *SPKGalleryMediaURLStringFromMetadata(SPKGallerySaveMetadata *me
         pathComponent = @"p";
     }
     if (pathComponent.length == 0) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Not generating origin URL for source=%d code=%@", metadata.source, metadata.sourceMediaCode);
+        SPKLog(@"General", @"[Sparkle Gallery] Not generating origin URL for source=%d code=%@", metadata.source, metadata.sourceMediaCode);
         return nil;
     }
 
@@ -265,11 +265,11 @@ static NSString *SPKGalleryMediaURLStringFromMetadata(SPKGallerySaveMetadata *me
         code = [SPKUtils instagramShortcodeForMediaPK:metadata.sourceMediaPK];
     }
     if (code.length == 0) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] No origin URL metadata available source=%d", metadata.source);
+        SPKLog(@"General", @"[Sparkle Gallery] No origin URL metadata available source=%d", metadata.source);
         return nil;
     }
     NSString *urlString = [NSString stringWithFormat:@"https://www.instagram.com/%@/%@/", pathComponent, code];
-    SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Origin URL generated source=%d code=%@ url=%@", metadata.source, code, urlString);
+    SPKLog(@"General", @"[Sparkle Gallery] Origin URL generated source=%d code=%@ url=%@", metadata.source, code, urlString);
     return urlString;
 }
 
@@ -383,12 +383,12 @@ static BOOL SPKGalleryURLIsPostOrReel(NSURL *url) {
     // to the feed viewer, not the story tray. Reject it so we build a proper
     // /stories/<user>/<pk>/ link below instead.
     if (mediaURL && metadata.source == SPKGallerySourceStories && SPKGalleryURLIsPostOrReel(mediaURL)) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Rejecting post/reel permalink for story source=%d url=%@", metadata.source, mediaURL.absoluteString);
+        SPKLog(@"General", @"[Sparkle Gallery] Rejecting post/reel permalink for story source=%d url=%@", metadata.source, mediaURL.absoluteString);
         mediaURL = nil;
     }
 
     if (mediaURL) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Populated origin URL from media object source=%d url=%@", metadata.source, mediaURL.absoluteString);
+        SPKLog(@"General", @"[Sparkle Gallery] Populated origin URL from media object source=%d url=%@", metadata.source, mediaURL.absoluteString);
     }
     if (!mediaURL) {
         NSString *generatedURLString = SPKGalleryMediaURLStringFromMetadata(metadata);
@@ -471,7 +471,7 @@ static BOOL SPKGalleryURLIsPostOrReel(NSURL *url) {
                                     didLink = YES;
                                     file.sourceUserPK = resolvedPK;
                                     [[SPKGalleryCoreDataStack shared] saveContext];
-                                    SPKLog(SPKLocalizedString(@"Gallery"), @"backfilled sourceUserPK=%@ for @%@", resolvedPK, cleanUsername);
+                                    SPKLog(@"Gallery", @"backfilled sourceUserPK=%@ for @%@", resolvedPK, cleanUsername);
 
                                     NSString *who = currentName.length > 0
                                                         ? [NSString stringWithFormat:@"@%@ (%@)", cleanUsername, currentName]

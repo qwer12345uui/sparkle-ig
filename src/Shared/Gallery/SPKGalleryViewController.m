@@ -809,7 +809,7 @@ typedef NS_ENUM(NSInteger, SPKGalleryViewMode) {
 
     NSError *error;
     if (![_fetchedResultsController performFetch:&error]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Fetch failed: %@", error);
+        SPKLog(@"General", @"[Sparkle Gallery] Fetch failed: %@", error);
     }
 }
 
@@ -875,7 +875,7 @@ typedef NS_ENUM(NSInteger, SPKGalleryViewMode) {
 
     NSError *error;
     if (![_fetchedResultsController performFetch:&error]) {
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Refetch failed: %@", error);
+        SPKLog(@"General", @"[Sparkle Gallery] Refetch failed: %@", error);
     }
     [self reloadSubfolders];
     [self.collectionView reloadData];
