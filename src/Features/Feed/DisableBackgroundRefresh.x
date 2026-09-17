@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Disable feed/reels retap refresh on newer Instagram versions, and disable
 // background feed refresh intervals.
 
@@ -220,7 +221,7 @@ static void SPKInstallRefreshUtilityHooks(void) {
                                 : selected;
     NSString *topClass = top ? NSStringFromClass([top class]) : @"";
     BOOL onReelsTab = [topClass containsString:@"Sundial"] ||
-                      [topClass containsString:@"Reels"] ||
+                      [topClass containsString:SPKLocalizedString(@"Reels")] ||
                       [topClass containsString:@"DiscoverVideo"];
     if (!onReelsTab) {
         %orig;

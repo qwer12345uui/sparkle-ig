@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Following feed mode, adapted from InstaSane by Edoardo (@n3d1117).
 // https://github.com/n3d1117/InstaSane
 
@@ -184,10 +185,10 @@ extern "C" void SPKInstallFollowingFeedHooksIfEnabled(void) {
         Class tray = SPKResolveIGClass(@"IGStoryTrayUIModels.IGStoryTrayCellViewModel", @"IGStoryTrayCellViewModel");
 
         SPKLog(@"FollowingFeed", @"installing hooks — picker=%@ dsa=%@ factory=%@ tray=%@ session=%@ viewModel=%@",
-               picker ? @"OK" : @"NIL", dsa ? @"OK" : @"NIL", factory ? @"OK" : @"NIL",
-               tray ? @"OK" : @"NIL",
-               objc_getClass("IGUserSession") ? @"OK" : @"NIL",
-               objc_getClass("IGMainFeedViewModel") ? @"OK" : @"NIL");
+               picker ? SPKLocalizedString(@"OK") : @"NIL", dsa ? SPKLocalizedString(@"OK") : @"NIL", factory ? SPKLocalizedString(@"OK") : @"NIL",
+               tray ? SPKLocalizedString(@"OK") : @"NIL",
+               objc_getClass("IGUserSession") ? SPKLocalizedString(@"OK") : @"NIL",
+               objc_getClass("IGMainFeedViewModel") ? SPKLocalizedString(@"OK") : @"NIL");
 
         %init(SPKFollowingFeedHooks,
                        IGHomeFeedPickerMenuController = picker,

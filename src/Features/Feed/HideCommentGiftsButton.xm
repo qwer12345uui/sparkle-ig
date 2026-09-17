@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../InstagramHeaders.h"
 #import "../../Utils.h"
 
@@ -26,7 +27,7 @@ static BOOL SPKViewMatchesCommentGiftButton(UIView *view) {
             return YES;
     }
 
-    return [view.accessibilityLabel isEqualToString:@"Gifts button"];
+    return [view.accessibilityLabel isEqualToString:SPKLocalizedString(@"Gifts button")];
 }
 
 static UIView *SPKCommentGiftButtonInView(UIView *view, NSUInteger depth) {

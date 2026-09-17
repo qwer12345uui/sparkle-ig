@@ -81,8 +81,7 @@ void SPKStabilityGuardPresentSafeModeAlertIfNeeded(void) {
 
     [SPKIGAlertPresenter presentAlertFromViewController:nil
                                                  title:SPKLocalizedString(@"Sparkle Safe Mode")
-                                               message:SPKLocalizedString(@"Instagram closed before finishing launch several times in a row, so Sparkle turned its features off to get you back into the app.\n\n")
-                                                        "Every Sparkle feature is disabled right now. Only Sparkle Settings is reachable. Turn Safe Mode off to enable them again."
+                                               message:[SPKLocalizedString(@"Instagram closed before finishing launch several times in a row, so Sparkle turned its features off to get you back into the app.\n\n") stringByAppendingString:@"Every Sparkle feature is disabled right now. Only Sparkle Settings is reachable. Turn Safe Mode off to enable them again."]
                                                actions:@[
                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Turn Off Safe Mode")
                                                                                style:SPKIGAlertActionStyleDefault

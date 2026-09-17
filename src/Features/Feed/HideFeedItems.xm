@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../InstagramHeaders.h"
 #import "../../Utils.h"
 #import "../../App/SPKPerfMeter.h"
@@ -73,7 +74,7 @@ static NSArray *removeItemsInList(NSArray *list, SPKFeedFilterSurface surface) {
 
             // Posts
             if (
-                ([obj isKindOfClass:%c(IGMedia)] && [((IGMedia *)obj).explorePostInFeed isEqual:@YES]) || ([obj isKindOfClass:%c(IGFeedGroupHeaderViewModel)] && [[obj title] isEqualToString:@"Suggested Posts"])) {
+                ([obj isKindOfClass:%c(IGMedia)] && [((IGMedia *)obj).explorePostInFeed isEqual:@YES]) || ([obj isKindOfClass:%c(IGFeedGroupHeaderViewModel)] && [[obj title] isEqualToString:SPKLocalizedString(@"Suggested Posts")])) {
                 SPKLog(@"General", @"[Sparkle] Removing suggested posts");
 
                 continue;
