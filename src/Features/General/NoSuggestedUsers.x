@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../InstagramHeaders.h"
 #import "../../Utils.h"
 
@@ -146,7 +147,7 @@ static inline BOOL SPKHideSubscriptionSuggestedUsers(void) {
             else if ([obj isKindOfClass:%c(IGLabelItemViewModel)]) {
 
                 // "Suggested for you" search results header
-                if ([[obj valueForKey:@"labelTitle"] isEqualToString:@"Suggested for you"]) {
+                if ([[obj valueForKey:@"labelTitle"] isEqualToString:SPKLocalizedString(@"Suggested for you")]) {
                     shouldHide = YES;
                 }
 
@@ -230,7 +231,7 @@ static inline BOOL SPKHideSubscriptionSuggestedUsers(void) {
             else if ([obj isKindOfClass:%c(IGLabelItemViewModel)]) {
 
                 // "Suggested for you" search results header
-                if ([[obj valueForKey:@"labelTitle"] isEqualToString:@"Suggested for you"]) {
+                if ([[obj valueForKey:@"labelTitle"] isEqualToString:SPKLocalizedString(@"Suggested for you")]) {
                     shouldHide = YES;
                 }
             }
