@@ -1,0 +1,59 @@
+name: Expose built deb as text chunks
+# Utility: the .deb committed to the `builds` branch is ~1.1 MB binary, which
+# cannot be read back through the read-only tooling used to observe results.
+# This job re-publishes it as small base64 TEXT chunks on the `deb-chunks`
+# branch (plus a manifest with the original name/size) so it can be retrieved
+# piece by piece, then re-assembled and verified locally.
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+concurrency:
+  group: expose-deb-chunks
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  chunk:
+    name: Split deb into base64 chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout builds branch (holds the built deb)
+        uses: actions/checkout@v4
+        with:
+          ref: builds
+          path: deb_build
+
+      - name: Split deb and publish chunks
+        run: |
+          set -e
+          cd deb_build
+          DEB="$(ls -t *.deb 2>/dev/null | head -n1)"
+          if [ -z "$DEB" ]; then
+            echo "ERROR: no .deb found on builds branch"
+            exit 1
+          fi
+          SIZE=$(stat -c%s "$DEB")
+          echo "Found deb: $DEB ($SIZE bytes)"
+          base64 -w 0 "$DEB" > /tmp/deb.b64
+          rm -rf /tmp/chunks && mkdir -p /tmp/chunks
+          split -b 128000 -d -a 3 /tmp/deb.b64 /tmp/chunks/part
+          printf '%s\n%s\n' "$DEB" "$SIZE" > /tmp/chunks/_manifest.txt
+          echo "parts=$(ls /tmp/chunks | wc -l)"
+          rm -rf /tmp/ck && mkdir -p /tmp/ck && cd /tmp/ck
+          cp /tmp/chunks/* .
+          git init -q
+          git config user.email "ci@sparkle.local"
+          git config user.name "Sparkle CI"
+          git add -A
+          git commit -q -m "deb chunks for tooling retrieval"
+          git branch -M main
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/qwer12345uui/sparkle-ig.git"
+          git push --force -q origin main:refs/heads/deb-chunks
+          echo "published deb-chunks branch"
