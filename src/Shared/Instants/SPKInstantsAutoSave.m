@@ -144,10 +144,8 @@ void SPKInstantsAutoSaveConsiderSnap(id snap, NSString *username, NSString *snap
         BOOL allUsers = SPKInstantsAutoSaveAllUsersMode();
         self.showsAddButton = YES;
         self.infoText = allUsers
-                            ? SPKLocalizedString(@"Filter Mode is All Users, so every instant you open is saved except from users in this ")
-                              SPKLocalizedString(@"list. Instants you already have are skipped.")
-                            : SPKLocalizedString(@"Filter Mode is Selected Users, so only instants from users in this list are saved. ")
-                              SPKLocalizedString(@"Instants you already have are skipped.");
+                            ? [SPKLocalizedString(@"Filter Mode is All Users, so every instant you open is saved except from users in this ") stringByAppendingString:SPKLocalizedString(@"list. Instants you already have are skipped.")]
+                            : [SPKLocalizedString(@"Filter Mode is Selected Users, so only instants from users in this list are saved. ") stringByAppendingString:SPKLocalizedString(@"Instants you already have are skipped.")];
         self.emptyTitle = SPKLocalizedString(@"No users yet");
         self.emptySubtitle = allUsers
                                  ? SPKLocalizedString(@"Add users whose instants should never be auto-saved.")
