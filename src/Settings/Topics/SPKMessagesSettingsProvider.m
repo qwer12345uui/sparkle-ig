@@ -118,8 +118,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
             SPKActionButtonDefaultActionNavigationSetting(SPKActionButtonSourceDirect),
             SPKActionButtonConfigurationNavigationSetting(SPKActionButtonSourceDirect, SPKLocalizedString(@"Messages"), SPKActionButtonSupportedActionsForSource(SPKActionButtonSourceDirect), SPKActionButtonDefaultSectionsForSource(SPKActionButtonSourceDirect))
         ],
-                        SPKLocalizedString(@"Choose what tapping the action button does. Long press opens the full menu.\n")
-                        SPKLocalizedString(@"\"Also Show on Chat Media\" adds it to camera-roll photos and videos opened in a chat.")),
+                        [SPKLocalizedString(@"Choose what tapping the action button does. Long press opens the full menu.\n") stringByAppendingString:SPKLocalizedString(@"\"Also Show on Chat Media\" adds it to camera-roll photos and videos opened in a chat.")]),
         SPKTopicSection(@"Messaging", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Unlock Message Preview")
                                        icon:SPKSettingsIcon(@"story_preview")
@@ -134,22 +133,8 @@ static NSArray *SPKMessagesSettingsSections(void) {
             seenOnTyping,
             manualSeenList,
         ],
-                        manualSeen ? SPKLocalizedString(@"1. Unlock \"Message Preview\": the chat long-press menu shows the actual chat preview without marking the messages as seen.\n")
-                                     SPKLocalizedString(@"2. Prevents automatic seen receipts and adds an eye button to mark chats as seen.\n")
-                                     SPKLocalizedString(@"3. Places the seen button in the top nav bar, or as a draggable bubble above the composer within thumb reach (scroll to snap it back).\n")
-                                     SPKLocalizedString(@"4. Marks a chat as seen when you send a message.\n")
-                                     SPKLocalizedString(@"5. Marks a chat as seen when you reply.\n")
-                                     SPKLocalizedString(@"6. Marks a chat as seen when you react.\n")
-                                     SPKLocalizedString(@"7. Marks a chat as seen when you start typing a reply.\n\n")
-                                     SPKLocalizedString(@"Excluded Chats keep Instagram's normal seen behavior. Manage them from the eye button, an inbox long press, or the list above.")
-                                   : SPKLocalizedString(@"1. Unlock \"Message Preview\": the chat long-press menu shows the actual chat preview without marking the messages as seen.\n")
-                                     SPKLocalizedString(@"2. Prevents automatic seen receipts and adds an eye button to mark chats as seen.\n")
-                                     SPKLocalizedString(@"3. Places the seen button in the top nav bar, or as a draggable bubble above the composer within thumb reach (scroll to snap it back).\n")
-                                     SPKLocalizedString(@"4. Marks a chat as seen when you send a message.\n")
-                                     SPKLocalizedString(@"5. Marks a chat as seen when you reply.\n")
-                                     SPKLocalizedString(@"6. Marks a chat as seen when you react.\n")
-                                     SPKLocalizedString(@"7. Marks a chat as seen when you start typing a reply.\n\n")
-                                     SPKLocalizedString(@"Included Chats require the eye button or the auto-seen triggers above. Manage them from the eye button, an inbox long press, or the list above.")),
+                        manualSeen ? [[[[[[[SPKLocalizedString(@"1. Unlock \"Message Preview\": the chat long-press menu shows the actual chat preview without marking the messages as seen.\n") stringByAppendingString:SPKLocalizedString(@"2. Prevents automatic seen receipts and adds an eye button to mark chats as seen.\n")] stringByAppendingString:SPKLocalizedString(@"3. Places the seen button in the top nav bar, or as a draggable bubble above the composer within thumb reach (scroll to snap it back).\n")] stringByAppendingString:SPKLocalizedString(@"4. Marks a chat as seen when you send a message.\n")] stringByAppendingString:SPKLocalizedString(@"5. Marks a chat as seen when you reply.\n")] stringByAppendingString:SPKLocalizedString(@"6. Marks a chat as seen when you react.\n")] stringByAppendingString:SPKLocalizedString(@"7. Marks a chat as seen when you start typing a reply.\n\n")] stringByAppendingString:SPKLocalizedString(@"Excluded Chats keep Instagram's normal seen behavior. Manage them from the eye button, an inbox long press, or the list above.")]
+                                   : [[[[[[[SPKLocalizedString(@"1. Unlock \"Message Preview\": the chat long-press menu shows the actual chat preview without marking the messages as seen.\n") stringByAppendingString:SPKLocalizedString(@"2. Prevents automatic seen receipts and adds an eye button to mark chats as seen.\n")] stringByAppendingString:SPKLocalizedString(@"3. Places the seen button in the top nav bar, or as a draggable bubble above the composer within thumb reach (scroll to snap it back).\n")] stringByAppendingString:SPKLocalizedString(@"4. Marks a chat as seen when you send a message.\n")] stringByAppendingString:SPKLocalizedString(@"5. Marks a chat as seen when you reply.\n")] stringByAppendingString:SPKLocalizedString(@"6. Marks a chat as seen when you react.\n")] stringByAppendingString:SPKLocalizedString(@"7. Marks a chat as seen when you start typing a reply.\n\n")] stringByAppendingString:SPKLocalizedString(@"Included Chats require the eye button or the auto-seen triggers above. Manage them from the eye button, an inbox long press, or the list above.")]),
         SPKTopicSection(SPKLocalizedString(@"Deleted Messages"), @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Keep Deleted Messages")
                                        icon:SPKSettingsIcon(@"undo_circle")
@@ -171,12 +156,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
                                            icon:SPKSettingsIcon(@"channels")
                                  viewController:[SPKDeletedMessagesViewController new]],
         ],
-                        SPKLocalizedString(@"1. Preserves remotely unsent messages in the chat, marked with an undo-circle indicator.\n")
-                        SPKLocalizedString(@"2. Asks before refreshing the inbox, which reloads threads and drops preserved messages.\n")
-                        SPKLocalizedString(@"3. Records message content before removal and keeps view-once/view-twice media until cleared.\n")
-                        SPKLocalizedString(@"4. Also logs reactions that are removed.\n")
-                        SPKLocalizedString(@"5. Skips log capture and unsent notifications for chats in your manual-seen include/exclude list.\n")
-                        SPKLocalizedString(@"6. Opens the captured deleted-message logs.")),
+                        [[[[[SPKLocalizedString(@"1. Preserves remotely unsent messages in the chat, marked with an undo-circle indicator.\n") stringByAppendingString:SPKLocalizedString(@"2. Asks before refreshing the inbox, which reloads threads and drops preserved messages.\n")] stringByAppendingString:SPKLocalizedString(@"3. Records message content before removal and keeps view-once/view-twice media until cleared.\n")] stringByAppendingString:SPKLocalizedString(@"4. Also logs reactions that are removed.\n")] stringByAppendingString:SPKLocalizedString(@"5. Skips log capture and unsent notifications for chats in your manual-seen include/exclude list.\n")] stringByAppendingString:SPKLocalizedString(@"6. Opens the captured deleted-message logs.")]),
         SPKTopicSection(SPKLocalizedString(@"Interface"), @[
             lastActiveFormat,
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Typing Status")
@@ -198,14 +178,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"question")
                                 defaultsKey:@"msgs_hide_suggested_chats"],
         ],
-                        SPKLocalizedString(@"1. Shows the exact time someone was last active in the chat header (\"Active at 1:15 AM\") instead of a relative label (\"Active 2h ago\"). ")
-                        SPKLocalizedString(@"\"Smart\" uses the time alone for today and adds the date for older days; \"Date & Time\" always shows both. Only reformats presence Instagram already shows.\n")
-                        SPKLocalizedString(@"2. Stops sending your typing indicator to others.\n")
-                        SPKLocalizedString(@"3. Removes the Reels Blend button from the inbox.\n")
-                        SPKLocalizedString(@"4. Hides the audio call button in the chat header.\n")
-                        SPKLocalizedString(@"5. Hides the video call button in the chat header.\n")
-                        SPKLocalizedString(@"6. Hides the flag button in the chat header.\n")
-                        SPKLocalizedString(@"7. Removes suggested chats from the inbox.")),
+                        [[[[[[[SPKLocalizedString(@"1. Shows the exact time someone was last active in the chat header (\"Active at 1:15 AM\") instead of a relative label (\"Active 2h ago\"). ") stringByAppendingString:SPKLocalizedString(@"\"Smart\" uses the time alone for today and adds the date for older days; \"Date & Time\" always shows both. Only reformats presence Instagram already shows.\n")] stringByAppendingString:SPKLocalizedString(@"2. Stops sending your typing indicator to others.\n")] stringByAppendingString:SPKLocalizedString(@"3. Removes the Reels Blend button from the inbox.\n")] stringByAppendingString:SPKLocalizedString(@"4. Hides the audio call button in the chat header.\n")] stringByAppendingString:SPKLocalizedString(@"5. Hides the video call button in the chat header.\n")] stringByAppendingString:SPKLocalizedString(@"6. Hides the flag button in the chat header.\n")] stringByAppendingString:SPKLocalizedString(@"7. Removes suggested chats from the inbox.")]),
         SPKTopicSection(SPKLocalizedString(@"Visual Messages"), @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Manually Mark Seen")
                                        icon:SPKSettingsIcon(@"eye")
@@ -221,11 +194,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"warning")
                                 defaultsKey:@"msgs_disable_screenshot_detection"]
         ],
-                        SPKLocalizedString(@"1. Prevents automatic seen receipts and adds a button to mark the chat as seen.\n")
-                        SPKLocalizedString(@"2. Moves to the next visual item when available or dismisses.\n")
-                        SPKLocalizedString(@"3. Keeps the current visual message on screen instead of auto-advancing when it ends.\n")
-                        SPKLocalizedString(@"4. View-once messages behave like normal visual messages.\n")
-                        SPKLocalizedString(@"5. Allows screen capture of visual messages.")),
+                        [[[[SPKLocalizedString(@"1. Prevents automatic seen receipts and adds a button to mark the chat as seen.\n") stringByAppendingString:SPKLocalizedString(@"2. Moves to the next visual item when available or dismisses.\n")] stringByAppendingString:SPKLocalizedString(@"3. Keeps the current visual message on screen instead of auto-advancing when it ends.\n")] stringByAppendingString:SPKLocalizedString(@"4. View-once messages behave like normal visual messages.\n")] stringByAppendingString:SPKLocalizedString(@"5. Allows screen capture of visual messages.")]),
         SPKTopicSection(SPKLocalizedString(@"Vanish Mode"), @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Disable Swipe-Up Gesture")
                                        icon:SPKSettingsIcon(@"arrow_up")
@@ -234,8 +203,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"warning")
                                 defaultsKey:@"msgs_hide_vanish_screenshot"],
         ],
-                        SPKLocalizedString(@"1. Disable the gesture that enables vanish mode.\n")
-                        SPKLocalizedString(@"2. Allows screen capture while vanish mode is active.")),
+                        [SPKLocalizedString(@"1. Disable the gesture that enables vanish mode.\n") stringByAppendingString:SPKLocalizedString(@"2. Allows screen capture while vanish mode is active.")]),
         SPKTopicSection(@"Notes", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Notes Tray")
                                        icon:SPKSettingsIcon(@"notes")
@@ -258,9 +226,7 @@ static NSArray *SPKMessagesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"trim")
                                 defaultsKey:@"msgs_audio_upload_trim"]
         ],
-                        SPKLocalizedString(@"1. Adds audio actions to supported voice/audio message views.\n")
-                        SPKLocalizedString(@"2. Adds an option to the composer plus (+) menu that sends the selected audio or video as a voice message.\n")
-                        SPKLocalizedString(@"3. When uploading, offers to trim the audio before sending it.")),
+                        [[SPKLocalizedString(@"1. Adds audio actions to supported voice/audio message views.\n") stringByAppendingString:SPKLocalizedString(@"2. Adds an option to the composer plus (+) menu that sends the selected audio or video as a voice message.\n")] stringByAppendingString:SPKLocalizedString(@"3. When uploading, offers to trim the audio before sending it.")]),
         SPKTopicSection(@"Media", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Upload Photo from Gallery")
                                        icon:SPKSettingsIcon(@"photo")

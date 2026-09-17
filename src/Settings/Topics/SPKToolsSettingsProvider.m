@@ -145,10 +145,7 @@ static NSDictionary *SPKSettingsLockSection(void) {
                                          [SPKWhatsNewViewController presentFromViewController:nil onFinish:nil];
                                      }],
         ],
-                        SPKLocalizedString(@"1. Opens settings when long pressing the Home tab or the next visible tab if the Home tab is hidden.\n")
-                        @"2. Haptic feedback when the settings shortcut gesture fires.\n"
-                        SPKLocalizedString(@"3. Open Sparkle settings automatically every time Instagram launches.\n")
-                        SPKLocalizedString(@"4. Suppress every Sparkle feature hook, leaving only the shortcut to reach this screen. Use to isolate crashes.")),
+                        [[[SPKLocalizedString(@"1. Opens settings when long pressing the Home tab or the next visible tab if the Home tab is hidden.\n") stringByAppendingString:@"2. Haptic feedback when the settings shortcut gesture fires.\n"] stringByAppendingString:SPKLocalizedString(@"3. Open Sparkle settings automatically every time Instagram launches.\n")] stringByAppendingString:SPKLocalizedString(@"4. Suppress every Sparkle feature hook, leaving only the shortcut to reach this screen. Use to isolate crashes.")]),
 
         SPKTopicSection(@"", @[
             [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Reset Safe Startup Mode")
@@ -195,13 +192,10 @@ static NSDictionary *SPKSettingsLockSection(void) {
 
 #if SPK_DEV
     NSString *instagramFooter =
-        SPKLocalizedString(@"1. Suppresses the Instagram Beta update popup.\n")
-        SPKLocalizedString(@"2. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n")
-        SPKLocalizedString(@"3. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.");
+        [[SPKLocalizedString(@"1. Suppresses the Instagram Beta update popup.\n") stringByAppendingString:SPKLocalizedString(@"2. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n")] stringByAppendingString:SPKLocalizedString(@"3. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.")];
 #else
     NSString *instagramFooter =
-        SPKLocalizedString(@"1. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n")
-        SPKLocalizedString(@"2. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.");
+        [SPKLocalizedString(@"1. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n") stringByAppendingString:SPKLocalizedString(@"2. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.")];
 #endif
 
     [sections addObject:SPKTopicSection(@"Instagram", instagramCells, instagramFooter)];
