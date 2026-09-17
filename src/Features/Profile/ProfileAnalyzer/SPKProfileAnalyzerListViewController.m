@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKProfileAnalyzerListViewController.h"
 #import "../../../AssetUtils.h"
 #import "../../../Networking/SPKInstagramAPI.h"
@@ -414,7 +415,7 @@ typedef NS_ENUM(NSInteger, SPKPASortMode) {
 
 - (UIMenu *)moreMenu {
     __weak typeof(self) weakSelf = self;
-    UIAction *refreshAvatars = [UIAction actionWithTitle:@"Refresh Profile Pictures"
+    UIAction *refreshAvatars = [UIAction actionWithTitle:SPKLocalizedString(@"Refresh Profile Pictures")
                                                    image:[SPKAssetUtils menuIconNamed:@"user_circle"]
                                               identifier:nil
                                                  handler:^(__unused UIAction *action) {
@@ -426,7 +427,7 @@ typedef NS_ENUM(NSInteger, SPKPASortMode) {
 
     // Visited history is the only mutable-in-bulk list; offer a destructive clear.
     if (self.kind == SPKPAListKindVisited) {
-        UIAction *clearHistory = [UIAction actionWithTitle:@"Clear History"
+        UIAction *clearHistory = [UIAction actionWithTitle:SPKLocalizedString(@"Clear History")
                                                      image:[SPKAssetUtils menuIconNamed:@"trash"]
                                                 identifier:nil
                                                    handler:^(__unused UIAction *action) {
@@ -442,13 +443,13 @@ typedef NS_ENUM(NSInteger, SPKPASortMode) {
 - (void)confirmClearHistory {
     __weak typeof(self) weakSelf = self;
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Clear Visited History"
-                                                message:@"This removes every profile from your visited history. This cannot be undone."
+                                                  title:SPKLocalizedString(@"Clear Visited History")
+                                                message:SPKLocalizedString(@"This removes every profile from your visited history. This cannot be undone.")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
-                                                    [SPKIGAlertAction actionWithTitle:@"Clear History"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Clear History")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   typeof(self) strongSelf = weakSelf;
@@ -486,8 +487,8 @@ typedef NS_ENUM(NSInteger, SPKPASortMode) {
         [actions addObject:a];
     };
     if (self.kind == SPKPAListKindVisited) {
-        add(@"Most Recent", SPKPASortModeRecent);
-        add(@"Most Visited", SPKPASortModeMostVisited);
+        add(SPKLocalizedString(@"Most Recent"), SPKPASortModeRecent);
+        add(SPKLocalizedString(@"Most Visited"), SPKPASortModeMostVisited);
         add(@"A–Z", SPKPASortModeAZ);
         add(@"Z–A", SPKPASortModeZA);
     } else {
@@ -617,12 +618,12 @@ typedef NS_ENUM(NSInteger, SPKPASortMode) {
         return;
     if (self.searchText.length) {
         self.emptyStateIcon.image = [SPKAssetUtils instagramIconNamed:@"promote_empty" pointSize:96.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
-        self.emptyStateTitle.text = @"No matches";
-        self.emptyStateSubtitle.text = @"No accounts match your search.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No matches");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"No accounts match your search.");
     } else {
         self.emptyStateIcon.image = [SPKAssetUtils instagramIconNamed:@"promote_empty" pointSize:96.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
-        self.emptyStateTitle.text = @"Nothing here";
-        self.emptyStateSubtitle.text = @"There are no accounts in this list.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"Nothing here");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"There are no accounts in this list.");
     }
 }
 
@@ -736,12 +737,12 @@ static NSString *SPKPARelativeDate(NSDate *date) {
 
     SPKProfileAnalyzerUser *user = [self userAtIndexPath:indexPath];
     cell.boundPK = user.pk;
-    cell.usernameLabel.text = user.username.length ? [@"@" stringByAppendingString:user.username] : @"Unknown user";
+    cell.usernameLabel.text = user.username.length ? [@"@" stringByAppendingString:user.username] : SPKLocalizedString(@"Unknown user");
     cell.verifiedBadge.hidden = !user.isVerified;
 
     if (self.kind == SPKPAListKindVisited && indexPath.row < (NSInteger)self.shownVisits.count) {
         SPKProfileAnalyzerVisit *v = self.shownVisits[indexPath.row];
-        NSString *count = v.visitCount > 1 ? [NSString stringWithFormat:@"  •  %ld visits", (long)v.visitCount] : @"";
+        NSString *count = v.visitCount > 1 ? [NSString stringWithFormat:SPKLocalizedString(@"  •  %ld visits"), (long)v.visitCount] : @"";
         cell.subtitleLabel.text = [NSString stringWithFormat:@"%@%@", SPKPARelativeDate(v.lastSeen), count];
     } else if (self.kind == SPKPAListKindProfileUpdate) {
         SPKProfileAnalyzerProfileChange *ch = [self updateAtIndexPath:indexPath];

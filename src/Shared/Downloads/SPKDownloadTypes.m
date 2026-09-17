@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadTypes.h"
 
 NSErrorDomain const SPKDownloadErrorDomain = @"com.sparkle.download";
@@ -117,7 +118,7 @@ NSString *SPKDownloadDestinationDisplayName(SPKDownloadDestination destination) 
     case SPKDownloadDestinationPhotos:
         return @"Photos";
     case SPKDownloadDestinationGallery:
-        return @"Gallery";
+        return SPKLocalizedString(@"Gallery");
     case SPKDownloadDestinationShare:
         return @"Share";
     case SPKDownloadDestinationClipboard:
@@ -131,11 +132,11 @@ NSString *SPKDownloadDestinationDisplayName(SPKDownloadDestination destination) 
 NSString *SPKDownloadSourceSurfaceDisplayName(SPKDownloadSourceSurface surface) {
     switch (surface) {
     case SPKDownloadSourceSurfaceFeed:
-        return @"Feed";
+        return SPKLocalizedString(@"Feed");
     case SPKDownloadSourceSurfaceReels:
-        return @"Reels";
+        return SPKLocalizedString(@"Reels");
     case SPKDownloadSourceSurfaceStories:
-        return @"Stories";
+        return SPKLocalizedString(@"Stories");
     case SPKDownloadSourceSurfaceDirect:
         return @"Direct";
     case SPKDownloadSourceSurfaceAudioPage:
@@ -143,11 +144,11 @@ NSString *SPKDownloadSourceSurfaceDisplayName(SPKDownloadSourceSurface surface) 
     case SPKDownloadSourceSurfaceMediaPreview:
         return @"Preview";
     case SPKDownloadSourceSurfaceGallery:
-        return @"Gallery";
+        return SPKLocalizedString(@"Gallery");
     case SPKDownloadSourceSurfaceProfile:
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     case SPKDownloadSourceSurfaceInstants:
-        return @"Instants";
+        return SPKLocalizedString(@"Instants");
     case SPKDownloadSourceSurfaceComments:
         return @"Comments";
     default:

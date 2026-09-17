@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKSettingsLockManager.h"
 
 @implementation SPKSettingsLockManager
@@ -20,7 +21,7 @@
 }
 
 - (NSString *)protectedContentName {
-    return @"Settings";
+    return SPKLocalizedString(@"Settings");
 }
 
 - (void)lockSettings {

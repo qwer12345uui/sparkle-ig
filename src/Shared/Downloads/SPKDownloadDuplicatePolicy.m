@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadDuplicatePolicy.h"
 
 #import <Photos/Photos.h>
@@ -73,7 +74,7 @@ static NSString *SPKMediaTypeLabel(NSInteger mediaType) {
 }
 
 static NSString *SPKDestinationLabel(SPKDownloadDuplicateDestination destination) {
-    return destination == SPKDownloadDuplicateDestinationPhotos ? @"Photos" : @"Gallery";
+    return destination == SPKDownloadDuplicateDestinationPhotos ? @"Photos" : SPKLocalizedString(@"Gallery");
 }
 
 static SPKGalleryFile *SPKExistingGalleryFile(SPKGallerySaveMetadata *metadata, NSInteger mediaType) {
@@ -171,26 +172,26 @@ static BOOL SPKPresentSingleDuplicateAlert(SPKDownloadDuplicateDestination desti
                                            void (^continuation)(SPKDownloadDuplicateDecision)) {
     if (!SPKHasDuplicate(destination, metadata, mediaType))
         return NO;
-    NSString *message = [NSString stringWithFormat:@"This %@ has previously been downloaded to %@.",
+    NSString *message = [NSString stringWithFormat:SPKLocalizedString(@"This %@ has previously been downloaded to %@."),
                                                    SPKMediaTypeLabel(mediaType),
                                                    SPKDestinationLabel(destination)];
     [SPKIGAlertPresenter presentAlertFromViewController:presenter
-                                                  title:@"Duplicate Download Detected"
+                                                  title:SPKLocalizedString(@"Duplicate Download Detected")
                                                 message:message
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Download Anyway"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Download Anyway")
                                                                                 style:SPKIGAlertActionStyleDefault
                                                                               handler:^{
                                                                                   if (continuation)
                                                                                       continuation(SPKDownloadDuplicateDecisionDownloadAgain);
                                                                               }],
-                                                    [SPKIGAlertAction actionWithTitle:@"Delete Existing and Download"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Delete Existing and Download")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   if (continuation)
                                                                                       continuation(SPKDownloadDuplicateDecisionDeleteExistingAndDownloadAgain);
                                                                               }],
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:^{
                                                                                   if (continuation)
@@ -206,23 +207,23 @@ static BOOL SPKPresentBulkDuplicateAlert(NSUInteger duplicateCount,
                                          void (^continuation)(SPKDownloadBulkDuplicateDecision)) {
     if (duplicateCount == 0 || !continuation)
         return NO;
-    NSString *message = [NSString stringWithFormat:@"%lu of %lu items were already downloaded.",
+    NSString *message = [NSString stringWithFormat:SPKLocalizedString(@"%lu of %lu items were already downloaded."),
                                                    (unsigned long)duplicateCount, (unsigned long)totalCount];
     [SPKIGAlertPresenter presentAlertFromViewController:presenter ?: topMostController()
-                                                  title:@"Duplicate Downloads"
+                                                  title:SPKLocalizedString(@"Duplicate Downloads")
                                                 message:message
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Skip Existing"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Skip Existing")
                                                                                 style:SPKIGAlertActionStyleDefault
                                                                               handler:^{
                                                                                   continuation(SPKDownloadBulkDuplicateDecisionSkipExisting);
                                                                               }],
-                                                    [SPKIGAlertAction actionWithTitle:@"Download All Anyway"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Download All Anyway")
                                                                                 style:SPKIGAlertActionStyleDefault
                                                                               handler:^{
                                                                                   continuation(SPKDownloadBulkDuplicateDecisionDownloadAllAnyway);
                                                                               }],
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:^{
                                                                                   continuation(SPKDownloadBulkDuplicateDecisionCancel);

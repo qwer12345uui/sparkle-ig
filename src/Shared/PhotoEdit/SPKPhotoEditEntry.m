@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKPhotoEditEntry.h"
 #import "../../Utils.h"
 #import "../Gallery/SPKGallerySaveMetadata.h"
@@ -25,7 +26,7 @@
     if (!presenter)
         return;
     if (!photoURL) {
-        SPKNotify(@"spk.photoedit.entry", @"No photo to edit", nil, @"error_filled",
+        SPKNotify(@"spk.photoedit.entry", SPKLocalizedString(@"No photo to edit"), nil, @"error_filled",
                   SPKNotificationToneError);
         return;
     }
@@ -39,8 +40,8 @@
     if (photoURL.isFileURL) {
         UIImage *image = [UIImage imageWithContentsOfFile:photoURL.path];
         if (!image) {
-            SPKNotify(@"spk.photoedit.entry", @"Cannot Edit",
-                      @"The image is unavailable.", @"error_filled", SPKNotificationToneError);
+            SPKNotify(@"spk.photoedit.entry", SPKLocalizedString(@"Cannot Edit"),
+                      SPKLocalizedString(@"The image is unavailable."), @"error_filled", SPKNotificationToneError);
             [entry finish];
             return;
         }
@@ -55,7 +56,7 @@
 
 - (void)downloadPhotoURL:(NSURL *)url {
     __weak typeof(self) weakSelf = self;
-    self.prepPill = [[SPKNotificationCenter shared] beginUnmanagedProgressWithTitle:@"Preparing photo..."
+    self.prepPill = [[SPKNotificationCenter shared] beginUnmanagedProgressWithTitle:SPKLocalizedString(@"Preparing photo...")
                                                                            onCancel:^{
                                                                                [SPKTrimSaveCoordinator confirmCancelThen:^{
                                                                                    __strong typeof(weakSelf) self = weakSelf;
@@ -106,7 +107,7 @@
             return;
         UIImage *image = self.tempPath ? [UIImage imageWithContentsOfFile:self.tempPath] : nil;
         if (error || !image) {
-            [self.prepPill showError:error.localizedDescription ?: @"Could not download the photo."];
+            [self.prepPill showError:error.localizedDescription ?: SPKLocalizedString(@"Could not download the photo.")];
             self.prepPill = nil;
             [self cleanupAndFinish];
             return;
@@ -127,7 +128,7 @@
     }
     SPKPhotoEditorConfiguration *config = [SPKPhotoEditorConfiguration freeformConfiguration];
     config.doneOptions = @[
-        [SPKPhotoEditorDoneOption optionWithTitle:@"Save to Photos"
+        [SPKPhotoEditorDoneOption optionWithTitle:SPKLocalizedString(@"Save to Photos")
                                        identifier:@"photos"
                                          iconName:@"download"],
         [SPKPhotoEditorDoneOption optionWithTitle:@"Share"
@@ -136,7 +137,7 @@
         [SPKPhotoEditorDoneOption optionWithTitle:@"Copy"
                                        identifier:@"clipboard"
                                          iconName:@"copy"],
-        [SPKPhotoEditorDoneOption optionWithTitle:@"Save to Gallery"
+        [SPKPhotoEditorDoneOption optionWithTitle:SPKLocalizedString(@"Save to Gallery")
                                        identifier:@"gallery"
                                          iconName:@"sparkle_gallery"],
     ];

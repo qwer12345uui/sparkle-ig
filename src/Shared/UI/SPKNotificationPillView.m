@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKNotificationPillView.h"
 #import "../../AssetUtils.h"
 #import "SPKNotificationCenter.h"
@@ -256,7 +257,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
     ]];
 
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.text = @"Downloading...";
+    _titleLabel.text = SPKLocalizedString(@"Downloading...");
     _titleLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.98];
     _titleLabel.font = [UIFont systemFontOfSize:13.5 weight:UIFontWeightSemibold];
     _titleLabel.numberOfLines = 1;
@@ -700,7 +701,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
     self.currentBytesExpected = 0;
     self.subtitleLabel.text = [self spk_progressSubtitleForProgress:self.currentProgress];
     self.subtitleLabel.hidden = (self.subtitleLabel.text.length == 0);
-    self.titleLabel.text = @"Downloading...";
+    self.titleLabel.text = SPKLocalizedString(@"Downloading...");
     self.progressView.progress = 0.0f;
 
     self.heightConstraint.constant = self.subtitleLabel.hidden ? kDynamicPillHeight : kDynamicTallHeight;
@@ -817,7 +818,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
 
     BOOL hasByteTotals = (bytesWritten > 0 && totalBytesExpected > 0);
     NSString *bytesString = hasByteTotals
-                                ? [NSString stringWithFormat:@"%@ of %@",
+                                ? [NSString stringWithFormat:SPKLocalizedString(@"%@ of %@"),
                                                              [self spk_byteCountString:bytesWritten],
                                                              [self spk_byteCountString:totalBytesExpected]]
                                 : nil;
@@ -938,7 +939,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
         self.isErrorState = NO;
         self.isCompleted = NO;
         self.usesAutomaticProgressSubtitle = YES;
-        self.titleLabel.text = @"Downloading...";
+        self.titleLabel.text = SPKLocalizedString(@"Downloading...");
         self.subtitleLabel.text = [self spk_progressSubtitleForProgress:self.currentProgress];
         self.subtitleLabel.hidden = (self.subtitleLabel.text.length == 0);
         self.heightConstraint.constant = self.subtitleLabel.hidden ? kDynamicPillHeight : kDynamicTallHeight;
@@ -980,7 +981,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
 
     self.isCompleted = NO;
     self.isErrorState = NO;
-    self.titleLabel.text = title.length > 0 ? title : @"Downloading...";
+    self.titleLabel.text = title.length > 0 ? title : SPKLocalizedString(@"Downloading...");
     self.usesAutomaticProgressSubtitle = (subtitle.length == 0);
     self.subtitleLabel.text = self.usesAutomaticProgressSubtitle
                                   ? [self spk_progressSubtitleForProgress:self.currentProgress]
@@ -1009,7 +1010,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
 }
 
 - (void)showSuccess {
-    [self showSuccessWithTitle:@"Download complete" subtitle:nil icon:nil];
+    [self showSuccessWithTitle:SPKLocalizedString(@"Download complete") subtitle:nil icon:nil];
 }
 
 - (void)showSuccessWithTitle:(NSString *)title subtitle:(NSString *)subtitle icon:(UIImage *)icon {
@@ -1037,7 +1038,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
                     animations:^{
                         self.iconView.image = checkImage;
                         self.iconView.tintColor = [self iconTintForTone:SPKPillVisualToneSuccess];
-                        self.titleLabel.text = title.length ? title : @"Download complete";
+                        self.titleLabel.text = title.length ? title : SPKLocalizedString(@"Download complete");
                         self.subtitleLabel.text = subtitle;
                         self.subtitleLabel.hidden = (subtitle.length == 0);
                         [self updateToastWidthForTitle:self.titleLabel.text subtitle:subtitle];
@@ -1072,7 +1073,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
 
     NSString *resolvedSubtitle = subtitle;
     if (self.onRetry && resolvedSubtitle.length == 0) {
-        resolvedSubtitle = @"Tap to retry";
+        resolvedSubtitle = SPKLocalizedString(@"Tap to retry");
     }
 
     if (self.onTonePresented) {
@@ -1087,7 +1088,7 @@ typedef NS_ENUM(NSUInteger, SPKPillVisualTone) {
                     animations:^{
                         self.iconView.image = errorImage;
                         self.iconView.tintColor = [self iconTintForTone:SPKPillVisualToneError];
-                        self.titleLabel.text = title.length ? title : @"Download failed";
+                        self.titleLabel.text = title.length ? title : SPKLocalizedString(@"Download failed");
                         self.subtitleLabel.text = resolvedSubtitle;
                         self.subtitleLabel.hidden = (resolvedSubtitle.length == 0);
                         [self updateToastWidthForTitle:self.titleLabel.text subtitle:resolvedSubtitle];

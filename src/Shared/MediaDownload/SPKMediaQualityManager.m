@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKMediaQualityManager.h"
 #include <UIKit/UIKit.h>
 
@@ -758,11 +759,11 @@ static NSString *SPKMediaQualityInfoForOption(SPKMediaOption *option) {
         [lines addObject:option.subtitle];
     if (option.primaryURL.absoluteString.length > 0)
         [lines
-            addObject:[NSString stringWithFormat:@"URL: %@",
+            addObject:[NSString stringWithFormat:SPKLocalizedString(@"URL: %@"),
                                                  option.primaryURL.absoluteString]];
     if (option.secondaryURL.absoluteString.length > 0)
         [lines addObject:[NSString
-                             stringWithFormat:@"Audio URL: %@",
+                             stringWithFormat:SPKLocalizedString(@"Audio URL: %@"),
                                               option.secondaryURL.absoluteString]];
     return [lines componentsJoinedByString:@"\n"];
 }
@@ -910,7 +911,7 @@ SPKMediaBuildPhotoOptions(id mediaObject, NSURL *fallbackURL,
         fallback.primaryURL = fallbackURL;
         fallback.codec = SPKMediaPhotoFormatFromURL(fallbackURL);
         fallback.title = @"Image";
-        fallback.subtitle = @"Fallback source";
+        fallback.subtitle = SPKLocalizedString(@"Fallback source");
         fallback.selectable = YES;
         fallback.qualityInfo = SPKMediaQualityInfoForOption(fallback);
         [options addObject:fallback];
@@ -955,7 +956,7 @@ SPKMediaBuildProgressiveVideoOptions(id mediaObject, NSURL *fallbackURL,
         fallback.primaryURL = fallbackURL;
         fallback.duration = duration;
         fallback.title = @"Video";
-        fallback.subtitle = @"Fallback progressive";
+        fallback.subtitle = SPKLocalizedString(@"Fallback progressive");
         fallback.selectable = YES;
         fallback.qualityInfo = SPKMediaQualityInfoForOption(fallback);
         [options addObject:fallback];
@@ -997,11 +998,11 @@ SPKMediaBuildMergedDashOptions(NSArray<SPKDashRepresentation *> *videoReps,
         option.codec = videoRep.codecs;
         option.audioCodec = bestAudio.codecs;
         option.title = SPKMediaResolutionLabel(videoRep.width, videoRep.height)
-                           ?: @"Merged video";
+                           ?: SPKLocalizedString(@"Merged video");
         option.subtitle =
             SPKMediaSubtitle(videoRep.width, videoRep.height,
                              videoRep.bandwidth + bestAudio.bandwidth, duration,
-                             nil, bestAudio.url ? @"video + audio" : @"video");
+                             nil, bestAudio.url ? SPKLocalizedString(@"video + audio") : @"video");
         option.selectable = ffmpegAvailable;
         option.qualityInfo = SPKMediaQualityInfoForOption(option);
         [options addObject:option];
@@ -1025,7 +1026,7 @@ SPKMediaBuildVideoOnlyDashOptions(NSArray<SPKDashRepresentation *> *videoReps,
         option.duration = duration;
         option.codec = videoRep.codecs;
         option.title = SPKMediaResolutionLabel(videoRep.width, videoRep.height)
-                           ?: @"Video only";
+                           ?: SPKLocalizedString(@"Video only");
         option.subtitle =
             SPKMediaSubtitle(videoRep.width, videoRep.height, videoRep.bandwidth,
                              duration, nil, @"silent");
@@ -1187,13 +1188,13 @@ static SPKMediaAnalysis *SPKMediaAnalyze(id mediaObject, NSURL *photoURL,
 
     NSMutableArray<SPKMediaOptionSection *> *sections = [NSMutableArray array];
     if (progressiveVideoOptions.count > 0)
-        [sections addObject:SPKMediaSection(@"Ready to Play", progressiveVideoOptions)];
+        [sections addObject:SPKMediaSection(SPKLocalizedString(@"Ready to Play"), progressiveVideoOptions)];
     if (mergedOptions.count > 0)
-        [sections addObject:SPKMediaSection(@"Video + Audio", mergedOptions)];
+        [sections addObject:SPKMediaSection(SPKLocalizedString(@"Video + Audio"), mergedOptions)];
     if (videoOnlyOptions.count > 0)
-        [sections addObject:SPKMediaSection(@"Video Only", videoOnlyOptions)];
+        [sections addObject:SPKMediaSection(SPKLocalizedString(@"Video Only"), videoOnlyOptions)];
     if (audioOptions.count > 0 && includeAudioOptions)
-        [sections addObject:SPKMediaSection(@"Audio Only", audioOptions)];
+        [sections addObject:SPKMediaSection(SPKLocalizedString(@"Audio Only"), audioOptions)];
     analysis.videoSections = sections;
 
     return analysis;
@@ -1402,7 +1403,7 @@ static SPKTrimSourcePlan *SPKMediaTrimPlanFromOption(SPKMediaOption *chosen, SPK
     (void)downloadTask;
     NSURL *destination = [self cacheMoveURLForLocation:location];
     if (!destination && self.completionBlock) {
-        self.completionBlock(nil, [SPKUtils errorWithDescription:@"Failed to move downloaded media"]);
+        self.completionBlock(nil, [SPKUtils errorWithDescription:SPKLocalizedString(@"Failed to move downloaded media")]);
     } else if (self.completionBlock) {
         self.completionBlock(destination, nil);
     }
@@ -1752,7 +1753,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
 @implementation SPKMediaEncodingSettingsViewController
 
 - (instancetype)init {
-    if ((self = [super initWithTitle:@"Encoding Settings"
+    if ((self = [super initWithTitle:SPKLocalizedString(@"Encoding Settings")
                             sections:[self buildSections]
                         reduceMargin:NO])) {
     }
@@ -1778,27 +1779,27 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     [sections
         addObject:SPKTopicSection(
                       @"", @[ [SPKSetting
-                               switchCellWithTitle:@"Advanced Encoding"
+                               switchCellWithTitle:SPKLocalizedString(@"Advanced Encoding")
                                        defaultsKey:@"downloads_adv_encoding"] ],
-                      @"Advanced Encoding exposes codec, preset, bitrate, CRF, "
-                      @"resolution, and audio overrides. In advanced mode, the "
-                      @"selected video codec is used for DASH merges while audio "
-                      @"remains copied.")];
+                      SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, ")
+                      SPKLocalizedString(@"resolution, and audio overrides. In advanced mode, the ")
+                      SPKLocalizedString(@"selected video codec is used for DASH merges while audio ")
+                      SPKLocalizedString(@"remains copied."))];
 
     if ([SPKUtils getBoolPref:@"downloads_adv_encoding"]) {
         [sections addObject:SPKTopicSection(
                                 @"Video",
                                 @[
-                                    [SPKSetting menuCellWithTitle:@"Video Codec"
+                                    [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Video Codec")
                                                          subtitle:nil
                                                              menu:[self codecMenu]],
                                     [SPKSetting menuCellWithTitle:@"Preset"
                                                          subtitle:nil
                                                              menu:[self presetMenu]],
-                                    [SPKSetting menuCellWithTitle:@"H.264 Profile"
+                                    [SPKSetting menuCellWithTitle:SPKLocalizedString(@"H.264 Profile")
                                                          subtitle:nil
                                                              menu:[self profileMenu]],
-                                    [SPKSetting menuCellWithTitle:@"H.264 Level"
+                                    [SPKSetting menuCellWithTitle:SPKLocalizedString(@"H.264 Level")
                                                          subtitle:nil
                                                              menu:[self levelMenu]]
                                 ],
@@ -1814,12 +1815,12 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                                             keyboardType:UIKeyboardTypeNumberPad
                                              defaultsKey:@"downloads_encoding_crf"],
                               [SPKSetting
-                                  textFieldCellWithTitle:@"Video Bitrate"
+                                  textFieldCellWithTitle:SPKLocalizedString(@"Video Bitrate")
                                              placeholder:@"Auto"
                                             keyboardType:UIKeyboardTypeNumberPad
                                              defaultsKey:@"downloads_encoding_"
                                                          @"vid_bitrate_kbps"],
-                              [SPKSetting menuCellWithTitle:@"Max Resolution"
+                              [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Max Resolution")
                                                    subtitle:nil
                                                        menu:[self maxResMenu]]
                           ],
@@ -1830,12 +1831,12 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                           @"Audio",
                           @[
                               [SPKSetting
-                                  textFieldCellWithTitle:@"Audio Bitrate"
+                                  textFieldCellWithTitle:SPKLocalizedString(@"Audio Bitrate")
                                              placeholder:@"128"
                                             keyboardType:UIKeyboardTypeNumberPad
                                              defaultsKey:@"downloads_encoding_"
                                                          @"audio_bitrate_kbps"],
-                              [SPKSetting menuCellWithTitle:@"Audio Channels"
+                              [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Audio Channels")
                                                    subtitle:nil
                                                        menu:[self audioChannelsMenu]]
                           ],
@@ -1846,28 +1847,28 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                 SPKTopicSection(
                     @"Advanced",
                     @[
-                        [SPKSetting menuCellWithTitle:@"Pixel Format"
+                        [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Pixel Format")
                                              subtitle:nil
                                                  menu:[self pixelFormatMenu]],
                         [SPKSetting
-                            switchCellWithTitle:@"Fast Start"
+                            switchCellWithTitle:SPKLocalizedString(@"Fast Start")
                                     defaultsKey:@"downloads_encoding_faststart"]
                     ],
-                    @"Fast Start moves MP4 metadata to the beginning of the "
-                    @"file, allowing the video to start playing immediately "
-                    @"when shared online or streamed.")];
+                    SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the ")
+                    SPKLocalizedString(@"file, allowing the video to start playing immediately ")
+                    SPKLocalizedString(@"when shared online or streamed."))];
 
         __weak typeof(self) weakSelf = self;
         SPKSetting *resetEncoding = 
-            [SPKSetting buttonCellWithTitle:@"Reset Encoding Settings"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Reset Encoding Settings")
                                    subtitle:nil
                                        icon:SPKSettingsIcon(@"arrow_ccw")
                                      action:^{
                                         [[SPKSettingsTransferManager sharedManager]
                                             resetConfigurationGroupFromController:weakSelf
-                                                                            title:@"Reset Encoding Settings"
-                                                                          message:@"This restores every advanced encoding option to its default value. Advanced Encoding stays on."
-                                                                     confirmTitle:@"Reset"
+                                                                            title:SPKLocalizedString(@"Reset Encoding Settings")
+                                                                          message:SPKLocalizedString(@"This restores every advanced encoding option to its default value. Advanced Encoding stays on.")
+                                                                     confirmTitle:SPKLocalizedString(@"Reset")
                                                                             keys:@[
                                                                                 @"downloads_encoding_speed",
                                                                                 @"downloads_encoding_vid_codec",
@@ -1891,8 +1892,8 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
         [sections addObject:SPKTopicSection(@"", @[ resetEncoding ], nil)];
 
         SPKSetting *ffmpegInfo = [SPKSetting
-            linkCellWithTitle:@"About FFmpeg Encoding"
-                     subtitle:@"Tap to learn more"
+            linkCellWithTitle:SPKLocalizedString(@"About FFmpeg Encoding")
+                     subtitle:SPKLocalizedString(@"Tap to learn more")
                      imageUrl:@"https://ffmpeg.org/favicon.ico"
                           url:@"https://trac.ffmpeg.org/wiki/Encode/H.264"];
         ffmpegInfo.userInfo = @{@"remoteImageCircular" : @NO};
@@ -1901,12 +1902,12 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
         [sections
             addObject:
                 SPKTopicSection(
-                    @"Video", @[ [SPKSetting menuCellWithTitle:@"Encoding Speed"
+                    @"Video", @[ [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Encoding Speed")
                                                       subtitle:nil
                                                           menu:[self speedMenu]] ],
-                    @"Controls the libx264 encoding effort. Slower presets take "
-                    @"longer but produce smaller files at the same visual quality. "
-                    @"Ultrafast is fastest but produces larger files.")];
+                    SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take ")
+                    SPKLocalizedString(@"longer but produce smaller files at the same visual quality. ")
+                    SPKLocalizedString(@"Ultrafast is fastest but produces larger files."))];
     }
 
     return sections;
@@ -1914,41 +1915,41 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
 
 - (NSArray *)searchSections {
     SPKSetting *ffmpegInfo = [SPKSetting
-        linkCellWithTitle:@"About FFmpeg Encoding"
-                 subtitle:@"Tap to learn more"
+        linkCellWithTitle:SPKLocalizedString(@"About FFmpeg Encoding")
+                 subtitle:SPKLocalizedString(@"Tap to learn more")
                  imageUrl:@"https://ffmpeg.org/favicon.ico"
                       url:@"https://trac.ffmpeg.org/wiki/Encode/H.264"];
     ffmpegInfo.userInfo = @{@"remoteImageCircular" : @NO};
 
     return @[
         SPKTopicSection(
-            @"", @[ [SPKSetting switchCellWithTitle:@"Advanced Encoding"
+            @"", @[ [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Advanced Encoding")
                                         defaultsKey:@"downloads_adv_encoding"] ],
-            @"Advanced Encoding exposes codec, preset, bitrate, CRF, resolution, "
-            @"and audio overrides. In advanced mode, the selected video codec is "
-            @"used for DASH merges while audio remains copied."),
+            SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, resolution, ")
+            SPKLocalizedString(@"and audio overrides. In advanced mode, the selected video codec is ")
+            SPKLocalizedString(@"used for DASH merges while audio remains copied.")),
         SPKTopicSection(
             @"Video",
             @[
-                [SPKSetting menuCellWithTitle:@"Encoding Speed"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Encoding Speed")
                                      subtitle:nil
                                          menu:[self speedMenu]],
-                [SPKSetting menuCellWithTitle:@"Video Codec"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Video Codec")
                                      subtitle:nil
                                          menu:[self codecMenu]],
                 [SPKSetting menuCellWithTitle:@"Preset"
                                      subtitle:nil
                                          menu:[self presetMenu]],
-                [SPKSetting menuCellWithTitle:@"H.264 Profile"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"H.264 Profile")
                                      subtitle:nil
                                          menu:[self profileMenu]],
-                [SPKSetting menuCellWithTitle:@"H.264 Level"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"H.264 Level")
                                      subtitle:nil
                                          menu:[self levelMenu]]
             ],
-            @"Controls the libx264 encoding effort. Slower presets take longer but "
-            @"produce smaller files at the same visual quality. Ultrafast is "
-            @"fastest but produces larger files."),
+            SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take longer but ")
+            SPKLocalizedString(@"produce smaller files at the same visual quality. Ultrafast is ")
+            SPKLocalizedString(@"fastest but produces larger files.")),
         SPKTopicSection(
             @"Quality",
             @[
@@ -1957,11 +1958,11 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                                       keyboardType:UIKeyboardTypeNumberPad
                                        defaultsKey:@"downloads_encoding_crf"],
                 [SPKSetting
-                    textFieldCellWithTitle:@"Video Bitrate"
+                    textFieldCellWithTitle:SPKLocalizedString(@"Video Bitrate")
                                placeholder:@"Auto"
                               keyboardType:UIKeyboardTypeNumberPad
                                defaultsKey:@"downloads_encoding_vid_bitrate_kbps"],
-                [SPKSetting menuCellWithTitle:@"Max Resolution"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Max Resolution")
                                      subtitle:nil
                                          menu:[self maxResMenu]]
             ],
@@ -1970,11 +1971,11 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
             @"Audio",
             @[
                 [SPKSetting
-                    textFieldCellWithTitle:@"Audio Bitrate"
+                    textFieldCellWithTitle:SPKLocalizedString(@"Audio Bitrate")
                                placeholder:@"128"
                               keyboardType:UIKeyboardTypeNumberPad
                                defaultsKey:@"downloads_encoding_audio_bitrate_kbps"],
-                [SPKSetting menuCellWithTitle:@"Audio Channels"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Audio Channels")
                                      subtitle:nil
                                          menu:[self audioChannelsMenu]]
             ],
@@ -1982,15 +1983,15 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
         SPKTopicSection(
             @"Advanced",
             @[
-                [SPKSetting menuCellWithTitle:@"Pixel Format"
+                [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Pixel Format")
                                      subtitle:nil
                                          menu:[self pixelFormatMenu]],
-                [SPKSetting switchCellWithTitle:@"Fast Start"
+                [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Fast Start")
                                     defaultsKey:@"downloads_encoding_faststart"]
             ],
-            @"Fast Start moves MP4 metadata to the beginning of the file, allowing "
-            @"the video to start playing immediately when shared online or "
-            @"streamed."),
+            SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the file, allowing ")
+            SPKLocalizedString(@"the video to start playing immediately when shared online or ")
+            SPKLocalizedString(@"streamed.")),
         SPKTopicSection(@"", @[ ffmpegInfo ], nil)
     ];
 }
@@ -2019,13 +2020,13 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                             items:@[
                                 @{@"value" : @"ultrafast", @"label" : @"Ultrafast"},
                                 @{@"value" : @"superfast", @"label" : @"Superfast"},
-                                @{@"value" : @"veryfast", @"label" : @"Very Fast"},
+                                @{@"value" : @"veryfast", @"label" : SPKLocalizedString(@"Very Fast")},
                                 @{@"value" : @"faster", @"label" : @"Faster"},
                                 @{@"value" : @"fast", @"label" : @"Fast"},
                                 @{@"value" : @"medium", @"label" : @"Medium"},
                                 @{@"value" : @"slow", @"label" : @"Slow"},
                                 @{@"value" : @"slower", @"label" : @"Slower"},
-                                @{@"value" : @"veryslow", @"label" : @"Very Slow"}
+                                @{@"value" : @"veryslow", @"label" : SPKLocalizedString(@"Very Slow")}
                             ]];
 }
 
@@ -2124,7 +2125,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     self.analysis = analysis;
     self.destination = destination;
     self.selectionHandler = selectionHandler;
-    self.title = analysis.isVideo ? @"Video Quality" : @"Photo Quality";
+    self.title = analysis.isVideo ? SPKLocalizedString(@"Video Quality") : SPKLocalizedString(@"Photo Quality");
     return self;
 }
 
@@ -2188,10 +2189,10 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     titleForFooterInSection:(NSInteger)section {
     (void)tableView;
     SPKMediaOptionSection *infoSection = self.sections[section];
-    if ([infoSection.title isEqualToString:@"Video + Audio"] &&
+    if ([infoSection.title isEqualToString:SPKLocalizedString(@"Video + Audio")] &&
         !self.analysis.ffmpegAvailable) {
-        return @"FFmpegKit is not available in the active build, so merged DASH "
-               @"rows are disabled.";
+        return SPKLocalizedString(@"FFmpegKit is not available in the active build, so merged DASH ")
+               SPKLocalizedString(@"rows are disabled.");
     }
     return nil;
 }
@@ -2280,9 +2281,9 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
 
     if (option.primaryURL.absoluteString.length > 0) {
         NSString *title =
-            option.kind == SPKMediaOptionKindPhotoProgressive ? @"Copy Photo Download URL"
-            : option.kind == SPKMediaOptionKindAudioDash      ? @"Copy Audio Download URL"
-                                                              : @"Copy Video Download URL";
+            option.kind == SPKMediaOptionKindPhotoProgressive ? SPKLocalizedString(@"Copy Photo Download URL")
+            : option.kind == SPKMediaOptionKindAudioDash      ? SPKLocalizedString(@"Copy Audio Download URL")
+                                                              : SPKLocalizedString(@"Copy Video Download URL");
         [children
             addObject:[UIAction
                           actionWithTitle:title
@@ -2298,7 +2299,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     if (option.secondaryURL.absoluteString.length > 0) {
         [children
             addObject:[UIAction
-                          actionWithTitle:@"Copy Audio URL"
+                          actionWithTitle:SPKLocalizedString(@"Copy Audio URL")
                                     image:SPKMediaIcon(@"audio",
                                                        kSPKMediaOptionIconPointSize)
                                identifier:nil
@@ -2310,7 +2311,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
 
     [children
         addObject:[UIAction
-                      actionWithTitle:@"Copy Quality Info"
+                      actionWithTitle:SPKLocalizedString(@"Copy Quality Info")
                                 image:SPKMediaIcon(@"copy",
                                                    kSPKMediaOptionIconPointSize)
                            identifier:nil
@@ -2322,7 +2323,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     if (option.kind == SPKMediaOptionKindPhotoProgressive) {
         [children
             addObject:[UIAction
-                          actionWithTitle:@"View Image"
+                          actionWithTitle:SPKLocalizedString(@"View Image")
                                     image:SPKMediaIcon(@"photo",
                                                        kSPKMediaOptionIconPointSize)
                                identifier:nil
@@ -2333,7 +2334,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     } else if (option.kind == SPKMediaOptionKindAudioDash) {
         [children
             addObject:[UIAction
-                          actionWithTitle:@"Play Audio"
+                          actionWithTitle:SPKLocalizedString(@"Play Audio")
                                     image:SPKMediaIcon(@"play",
                                                        kSPKMediaOptionIconPointSize)
                                identifier:nil
@@ -2439,10 +2440,10 @@ SPKMediaCopyLocalFileToPasteboard(NSURL *fileURL, NSError **errorOut,
         notificationIdentifier.length > 0 ? notificationIdentifier : nil;
     if (!fileURL) {
         if (errorOut) {
-            *errorOut = [SPKUtils errorWithDescription:@"Nothing to copy"];
+            *errorOut = [SPKUtils errorWithDescription:SPKLocalizedString(@"Nothing to copy")];
         }
         if (showToast && identifier.length > 0) {
-            SPKNotify(identifier, @"Nothing to copy", nil, @"error_filled",
+            SPKNotify(identifier, SPKLocalizedString(@"Nothing to copy"), nil, @"error_filled",
                       SPKNotificationToneError);
         }
         return nil;
@@ -2457,10 +2458,10 @@ SPKMediaCopyLocalFileToPasteboard(NSURL *fileURL, NSError **errorOut,
             [[UIPasteboard generalPasteboard] setData:data
                                     forPasteboardType:@"public.audio"];
             if (showToast && identifier.length > 0) {
-                SPKNotify(identifier, @"Copied audio to clipboard", nil,
+                SPKNotify(identifier, SPKLocalizedString(@"Copied audio to clipboard"), nil,
                           @"circle_check_filled", SPKNotificationToneSuccess);
             }
-            return @"Copied audio to clipboard";
+            return SPKLocalizedString(@"Copied audio to clipboard");
         }
     } else if ([SPKDownloadDestinationWriter isVideoFileAtURL:fileURL]) {
         NSData *data = [NSData dataWithContentsOfURL:fileURL];
@@ -2468,10 +2469,10 @@ SPKMediaCopyLocalFileToPasteboard(NSURL *fileURL, NSError **errorOut,
             [[UIPasteboard generalPasteboard] setData:data
                                     forPasteboardType:@"public.mpeg-4"];
             if (showToast && identifier.length > 0) {
-                SPKNotify(identifier, @"Copied video to clipboard", nil,
+                SPKNotify(identifier, SPKLocalizedString(@"Copied video to clipboard"), nil,
                           @"circle_check_filled", SPKNotificationToneSuccess);
             }
-            return @"Copied video to clipboard";
+            return SPKLocalizedString(@"Copied video to clipboard");
         }
     } else {
         NSData *imageData = [NSData dataWithContentsOfURL:fileURL];
@@ -2479,19 +2480,19 @@ SPKMediaCopyLocalFileToPasteboard(NSURL *fileURL, NSError **errorOut,
         if (image) {
             [[UIPasteboard generalPasteboard] setImage:image];
             if (showToast && identifier.length > 0) {
-                SPKNotify(identifier, @"Copied photo to clipboard", nil,
+                SPKNotify(identifier, SPKLocalizedString(@"Copied photo to clipboard"), nil,
                           @"circle_check_filled", SPKNotificationToneSuccess);
             }
-            return @"Copied photo to clipboard";
+            return SPKLocalizedString(@"Copied photo to clipboard");
         }
     }
 
     if (errorOut) {
         *errorOut =
-            [SPKUtils errorWithDescription:@"Unable to read the selected file."];
+            [SPKUtils errorWithDescription:SPKLocalizedString(@"Unable to read the selected file.")];
     }
     if (showToast && identifier.length > 0) {
-        SPKNotify(identifier, @"Copy failed", @"Unable to read the selected file.",
+        SPKNotify(identifier, SPKLocalizedString(@"Copy failed"), SPKLocalizedString(@"Unable to read the selected file."),
                   @"error_filled", SPKNotificationToneError);
     }
     return nil;
@@ -2726,22 +2727,22 @@ static void SPKMediaPerformOptionDownload(
             return;
         }
         audioJob = [[SPKMediaSingleDownloadJob alloc] init];
-        report(0.46f, @"Downloading audio", 0, 0);
+        report(0.46f, SPKLocalizedString(@"Downloading audio"), 0, 0);
         [audioJob startWithURL:secondary
             defaultExtension:@"m4a"
             progress:^(double jobProgress, int64_t bytesWritten,
                        int64_t totalBytesExpected) {
-                report((float)(0.46 + (jobProgress * 0.22)), @"Downloading audio",
+                report((float)(0.46 + (jobProgress * 0.22)), SPKLocalizedString(@"Downloading audio"),
                        bytesWritten, totalBytesExpected);
             }
             completion:^(NSURL *audioFileURL, NSError *error) {
                 if (error || !audioFileURL) {
-                    fail(@"Audio download failed",
+                    fail(SPKLocalizedString(@"Audio download failed"),
                          error.localizedDescription
-                             ?: @"Unable to download DASH audio");
+                             ?: SPKLocalizedString(@"Unable to download DASH audio"));
                     return;
                 }
-                report(0.72f, @"Merging video and audio", 0, 0);
+                report(0.72f, SPKLocalizedString(@"Merging video and audio"), 0, 0);
                 [SPKMediaFFmpeg mergeVideoFileURL:videoFileURL
                     audioFileURL:audioFileURL
                     preferredBasename:basename
@@ -2751,15 +2752,15 @@ static void SPKMediaPerformOptionDownload(
                     sourceBitrate:bandwidth
                     progress:^(double mergeProgress, NSString *stage) {
                         NSString *title = [stage isEqualToString:@"re-encoding"]
-                                              ? @"Re-encoding"
-                                              : @"Merging video and audio";
+                                              ? SPKLocalizedString(@"Re-encoding")
+                                              : SPKLocalizedString(@"Merging video and audio");
                         report((float)(0.72 + (mergeProgress * 0.2)), title, 0, 0);
                     }
                     completion:^(NSURL *outputURL, NSError *error) {
                         if (error || !outputURL) {
-                            fail(@"Merge failed",
+                            fail(SPKLocalizedString(@"Merge failed"),
                                  error.localizedDescription
-                                     ?: @"Unable to merge video and audio");
+                                     ?: SPKLocalizedString(@"Unable to merge video and audio"));
                             return;
                         }
                         finishFile(outputURL);
@@ -2772,28 +2773,28 @@ static void SPKMediaPerformOptionDownload(
 
     if (optionKind == SPKMediaOptionKindAudioDash) {
         audioJob = [[SPKMediaSingleDownloadJob alloc] init];
-        report(0.1f, @"Downloading audio", 0, 0);
+        report(0.1f, SPKLocalizedString(@"Downloading audio"), 0, 0);
         [audioJob startWithURL:primaryURL
             defaultExtension:@"m4a"
             progress:^(double jobProgress, int64_t bytesWritten,
                        int64_t totalBytesExpected) {
-                report((float)(0.1 + (jobProgress * 0.65)), @"Downloading audio",
+                report((float)(0.1 + (jobProgress * 0.65)), SPKLocalizedString(@"Downloading audio"),
                        bytesWritten, totalBytesExpected);
             }
             completion:^(NSURL *audioFileURL, NSError *error) {
                 if (error || !audioFileURL) {
-                    fail(@"Audio download failed",
+                    fail(SPKLocalizedString(@"Audio download failed"),
                          error.localizedDescription
-                             ?: @"Unable to download DASH audio");
+                             ?: SPKLocalizedString(@"Unable to download DASH audio"));
                     return;
                 }
-                report(0.8f, @"Finalizing file", 0, 0);
+                report(0.8f, SPKLocalizedString(@"Finalizing file"), 0, 0);
                 [SPKMediaFFmpeg extractAudioFileURL:audioFileURL
                     preferredBasename:basename
                     progress:^(double extractProgress, NSString *stage) {
                         NSString *title = [stage isEqualToString:@"re-encoding"]
-                                              ? @"Re-encoding"
-                                              : @"Finalizing file";
+                                              ? SPKLocalizedString(@"Re-encoding")
+                                              : SPKLocalizedString(@"Finalizing file");
                         report((float)(0.8 + (extractProgress * 0.15)), title, 0, 0);
                     }
                     completion:^(NSURL *outputURL, NSError *error) {
@@ -2820,18 +2821,18 @@ static void SPKMediaPerformOptionDownload(
     double videoDownloadSpan =
         secondary ? 0.28 : (transcodeVideoOnly ? 0.33 : 0.7);
     videoJob = [[SPKMediaSingleDownloadJob alloc] init];
-    report(0.12f, @"Downloading video", 0, 0);
+    report(0.12f, SPKLocalizedString(@"Downloading video"), 0, 0);
     [videoJob startWithURL:primaryURL
         defaultExtension:@"mp4"
         progress:^(double jobProgress, int64_t bytesWritten,
                    int64_t totalBytesExpected) {
             report((float)(0.12 + (jobProgress * videoDownloadSpan)),
-                   @"Downloading video", bytesWritten, totalBytesExpected);
+                   SPKLocalizedString(@"Downloading video"), bytesWritten, totalBytesExpected);
         }
         completion:^(NSURL *videoFileURL, NSError *error) {
             if (error || !videoFileURL) {
-                fail(@"Video download failed",
-                     error.localizedDescription ?: @"Unable to download video");
+                fail(SPKLocalizedString(@"Video download failed"),
+                     error.localizedDescription ?: SPKLocalizedString(@"Unable to download video"));
                 return;
             }
             if (optionKind == SPKMediaOptionKindVideoDashOnly) {
@@ -2839,7 +2840,7 @@ static void SPKMediaPerformOptionDownload(
                     finishFile(videoFileURL);
                     return;
                 }
-                report(0.46f, @"Re-encoding video", 0, 0);
+                report(0.46f, SPKLocalizedString(@"Re-encoding video"), 0, 0);
                 [SPKMediaFFmpeg mergeVideoFileURL:videoFileURL
                     audioFileURL:nil
                     preferredBasename:basename
@@ -2851,12 +2852,12 @@ static void SPKMediaPerformOptionDownload(
                         // Surface the true FFmpeg stage (Re-encoding / Normalizing /
                         // Finalizing) rather than a generic label.
                         report((float)(0.46 + (mergeProgress * 0.49)),
-                               stage.length > 0 ? stage : @"Re-encoding video", 0, 0);
+                               stage.length > 0 ? stage : SPKLocalizedString(@"Re-encoding video"), 0, 0);
                     }
                     completion:^(NSURL *outputURL, NSError *mergeError) {
                         if (mergeError || !outputURL) {
-                            fail(@"Processing failed", mergeError.localizedDescription
-                                                           ?: @"Unable to process video");
+                            fail(SPKLocalizedString(@"Processing failed"), mergeError.localizedDescription
+                                                           ?: SPKLocalizedString(@"Unable to process video"));
                             return;
                         }
                         finishFile(outputURL);

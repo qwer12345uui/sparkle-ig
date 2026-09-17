@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKStoryAutoSave.h"
 
 #import "../../Networking/SPKInstagramAPI.h"
@@ -180,7 +181,7 @@ NSString *SPKStoryAutoSaveCurrentUserActionTitle(SPKStoryContext *context) {
     NSString *pk = nil;
     if (!SPKStoryAutoSaveResolveCurrentUser(context, NULL, &pk))
         return nil;
-    return SPKStoryAutoSaveAppliesToCurrentUser(context) ? @"Stop Auto-Saving Stories" : @"Auto-Save Stories";
+    return SPKStoryAutoSaveAppliesToCurrentUser(context) ? SPKLocalizedString(@"Stop Auto-Saving Stories") : SPKLocalizedString(@"Auto-Save Stories");
 }
 
 NSString *SPKStoryAutoSaveCurrentUserConfirmationTitle(SPKStoryContext *context) {
@@ -193,8 +194,8 @@ NSString *SPKStoryAutoSaveCurrentUserConfirmationMessage(SPKStoryContext *contex
     if (!SPKStoryAutoSaveResolveCurrentUser(context, &username, &pk))
         return nil;
     return SPKStoryAutoSaveAppliesToUser(pk)
-               ? [NSString stringWithFormat:@"Do you want to stop auto-saving stories from @%@?", username]
-               : [NSString stringWithFormat:@"Do you want to auto-save every story from @%@?", username];
+               ? [NSString stringWithFormat:SPKLocalizedString(@"Do you want to stop auto-saving stories from @%@?"), username]
+               : [NSString stringWithFormat:SPKLocalizedString(@"Do you want to auto-save every story from @%@?"), username];
 }
 
 BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **notificationTitle, NSString **notificationSubtitle) {
@@ -222,8 +223,8 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
 
     if (notificationTitle) {
         *notificationTitle = appliedBefore
-                                 ? [NSString stringWithFormat:@"Auto-save off for @%@", username]
-                                 : [NSString stringWithFormat:@"Auto-save on for @%@", username];
+                                 ? [NSString stringWithFormat:SPKLocalizedString(@"Auto-save off for @%@"), username]
+                                 : [NSString stringWithFormat:SPKLocalizedString(@"Auto-save on for @%@"), username];
     }
     if (notificationSubtitle)
         *notificationSubtitle = SPKStoryAutoSaveListTitle();
@@ -242,14 +243,14 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
         BOOL allUsers = SPKStoryAutoSaveAllUsersMode();
         self.showsAddButton = YES;
         self.infoText = allUsers
-                            ? @"Filter Mode is All Users, so every story you watch is saved except from users in this "
-                              @"list. Stories you already have are skipped, so re-watching never saves one twice."
-                            : @"Filter Mode is Selected Users, so only stories from users in this list are saved. "
-                              @"Stories you already have are skipped, so re-watching never saves one twice.";
-        self.emptyTitle = @"No users yet";
+                            ? SPKLocalizedString(@"Filter Mode is All Users, so every story you watch is saved except from users in this ")
+                              SPKLocalizedString(@"list. Stories you already have are skipped, so re-watching never saves one twice.")
+                            : SPKLocalizedString(@"Filter Mode is Selected Users, so only stories from users in this list are saved. ")
+                              SPKLocalizedString(@"Stories you already have are skipped, so re-watching never saves one twice.");
+        self.emptyTitle = SPKLocalizedString(@"No users yet");
         self.emptySubtitle = allUsers
-                                 ? @"Add users whose stories should never be auto-saved."
-                                 : @"Add users whose stories should be saved automatically as you watch them.";
+                                 ? SPKLocalizedString(@"Add users whose stories should never be auto-saved.")
+                                 : SPKLocalizedString(@"Add users whose stories should be saved automatically as you watch them.");
     }
     return self;
 }
@@ -271,7 +272,7 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
 
         SPKUserListItem *item = [SPKUserListItem new];
         item.pk = pk;
-        item.title = username.length ? [@"@" stringByAppendingString:username] : @"Unknown user";
+        item.title = username.length ? [@"@" stringByAppendingString:username] : SPKLocalizedString(@"Unknown user");
         item.subtitle = fullName.length ? fullName : nil;
         item.avatarURLString = profilePicUrl;
         item.representedObject = entry;
@@ -282,21 +283,21 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
 
 - (void)presentError:(NSString *)message {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Unable to Add User"
+                                                  title:SPKLocalizedString(@"Unable to Add User")
                                                 message:message
-                                                actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleCancel handler:nil] ]];
+                                                actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleCancel handler:nil] ]];
 }
 
 - (void)didTapAdd {
     __weak typeof(self) weakSelf = self;
     [SPKIGAlertPresenter presentTextInputAlertFromViewController:self
-                                                           title:@"Add User"
-                                                         message:@"Enter the Instagram username whose stories should be auto-saved."
+                                                           title:SPKLocalizedString(@"Add User")
+                                                         message:SPKLocalizedString(@"Enter the Instagram username whose stories should be auto-saved.")
                                                      placeholder:@"username"
                                                      initialText:nil
                                                  autocapitalized:NO
                                                     confirmTitle:@"Search"
-                                                     cancelTitle:@"Cancel"
+                                                     cancelTitle:SPKLocalizedString(@"Cancel")
                                                     confirmStyle:SPKIGAlertActionStyleDefault
                                                     confirmBlock:^(NSString *text) {
                                                         [weakSelf lookupUsername:text];
@@ -316,13 +317,13 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
                                       if (!strongSelf)
                                           return;
                                       if (![user isKindOfClass:[NSDictionary class]] || error) {
-                                          [strongSelf presentError:[NSString stringWithFormat:@"User '%@' was not found.", username]];
+                                          [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"User '%@' was not found."), username]];
                                           return;
                                       }
 
                                       NSString *pk = SPKStringFromValue(user[@"pk"] ?: user[@"id"]);
                                       if (pk.length == 0) {
-                                          [strongSelf presentError:@"Could not resolve this user's Instagram ID."];
+                                          [strongSelf presentError:SPKLocalizedString(@"Could not resolve this user's Instagram ID.")];
                                           return;
                                       }
                                       NSString *resolvedUsername = SPKStringFromValue(user[@"username"]) ?: username;
@@ -334,10 +335,10 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
                                                               : [@"@" stringByAppendingString:resolvedUsername];
 
                                       [SPKIGAlertPresenter presentAlertFromViewController:strongSelf
-                                                                                    title:@"Auto-Save Stories?"
+                                                                                    title:SPKLocalizedString(@"Auto-Save Stories?")
                                                                                   message:message
                                                                                   actions:@[
-                                                                                      [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                                                      [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                                                   style:SPKIGAlertActionStyleCancel
                                                                                                                 handler:nil],
                                                                                       [SPKIGAlertAction actionWithTitle:@"Add"
@@ -354,7 +355,7 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
         return;
     SPKStoryToggleAutoSaveForPK(pk, username, fullName, profilePicUrl);
     SPKNotify(kSPKNotificationStoryAutoSaveUserRule,
-              [NSString stringWithFormat:@"Added @%@", username],
+              [NSString stringWithFormat:SPKLocalizedString(@"Added @%@"), username],
               SPKStoryAutoSaveListTitle(),
               @"circle_check_filled",
               SPKNotificationToneSuccess);

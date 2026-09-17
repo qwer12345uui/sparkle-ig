@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKStoryViewersSearchViewController.h"
 
 #import "../../AssetUtils.h"
@@ -140,7 +141,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
 - (instancetype)initWithMediaID:(NSString *)mediaID title:(NSString *)title {
     if ((self = [super init])) {
         _mediaID = [mediaID copy];
-        self.title = title.length ? title : @"Story Viewers";
+        self.title = title.length ? title : SPKLocalizedString(@"Story Viewers");
         _filter = SPKViewerFilterAll;
     }
     return self;
@@ -179,7 +180,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.placeholder = @"Search Viewers";
+    self.searchController.searchBar.placeholder = SPKLocalizedString(@"Search Viewers");
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
@@ -213,7 +214,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
     // Fill the whole bar, each chip sized to its label (so "Not Following" gets a
     // wider chip) at full font — rather than equal thirds that shrink/truncate it.
     self.filterChips.distributesProportionally = YES;
-    [self.filterChips setItems:@[ @"All", @"Following", @"Not Following" ]
+    [self.filterChips setItems:@[ @"All", @"Following", SPKLocalizedString(@"Not Following") ]
                        symbols:@[ @"users", @"user_following", @"user_unfollow" ]];
     self.filterChips.selectedIndex = 0;
     [self.headerContainer addSubview:self.filterChips];
@@ -279,7 +280,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
             typeof(self) self = weakSelf;
             if (!self)
                 return;
-            self.loadingLabel.text = [NSString stringWithFormat:@"Loading viewers... %ld", (long)fetched];
+            self.loadingLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"Loading viewers... %ld"), (long)fetched];
         }
         completion:^(NSArray<SPKStoryViewerModel *> *viewers, NSInteger totalCount, NSError *error) {
             typeof(self) self = weakSelf;
@@ -298,8 +299,8 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
             [self applyFilter];
             [self.view setNeedsLayout];
             if (error && viewers.count == 0) {
-                self.emptyStateTitle.text = @"Couldn't load viewers";
-                self.emptyStateSubtitle.text = error.localizedDescription ?: @"Please try again.";
+                self.emptyStateTitle.text = SPKLocalizedString(@"Couldn't load viewers");
+                self.emptyStateSubtitle.text = error.localizedDescription ?: SPKLocalizedString(@"Please try again.");
             }
         }];
 }
@@ -338,9 +339,9 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
     NSInteger shown = self.shownViewers.count;
     NSInteger total = MAX(self.totalCount, (NSInteger)self.allViewers.count);
     if (self.searchText.length || (self.friendshipAvailable && self.filter != SPKViewerFilterAll)) {
-        self.countLabel.text = [NSString stringWithFormat:@"%ld of %ld viewers", (long)shown, (long)total];
+        self.countLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"%ld of %ld viewers"), (long)shown, (long)total];
     } else {
-        self.countLabel.text = total == 1 ? @"1 viewer" : [NSString stringWithFormat:@"%ld viewers", (long)total];
+        self.countLabel.text = total == 1 ? SPKLocalizedString(@"1 viewer") : [NSString stringWithFormat:SPKLocalizedString(@"%ld viewers"), (long)total];
     }
 }
 
@@ -368,7 +369,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
     self.loadingLabel.font = [UIFont systemFontOfSize:14.0 weight:UIFontWeightRegular];
     self.loadingLabel.textColor = [SPKUtils SPKColor_InstagramSecondaryText];
     self.loadingLabel.textAlignment = NSTextAlignmentCenter;
-    self.loadingLabel.text = @"Loading viewers...";
+    self.loadingLabel.text = SPKLocalizedString(@"Loading viewers...");
     [self.loadingOverlay addSubview:self.loadingLabel];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -460,15 +461,15 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
     if (!isEmpty)
         return;
     // A load failure sets its own copy in the completion handler; don't clobber it.
-    if ([self.emptyStateTitle.text isEqualToString:@"Couldn't load viewers"])
+    if ([self.emptyStateTitle.text isEqualToString:SPKLocalizedString(@"Couldn't load viewers")])
         return;
     self.emptyStateIcon.image = [SPKAssetUtils instagramIconNamed:@"users_empty" pointSize:96.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
     if (self.searchText.length || (self.friendshipAvailable && self.filter != SPKViewerFilterAll)) {
-        self.emptyStateTitle.text = @"No matches";
-        self.emptyStateSubtitle.text = @"No viewers match your search.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No matches");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"No viewers match your search.");
     } else {
-        self.emptyStateTitle.text = @"No viewers yet";
-        self.emptyStateSubtitle.text = @"No one has viewed this story.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No viewers yet");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"No one has viewed this story.");
     }
 }
 
@@ -493,7 +494,7 @@ typedef NS_ENUM(NSInteger, SPKViewerFilter) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SPKStoryViewerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"v" forIndexPath:indexPath];
     SPKStoryViewerModel *v = self.shownViewers[indexPath.row];
-    cell.usernameLabel.text = v.username.length ? [@"@" stringByAppendingString:v.username] : @"Unknown user";
+    cell.usernameLabel.text = v.username.length ? [@"@" stringByAppendingString:v.username] : SPKLocalizedString(@"Unknown user");
     cell.subtitleLabel.text = v.fullName.length ? v.fullName : @"";
     cell.subtitleLabel.hidden = v.fullName.length == 0;
     cell.verifiedBadge.hidden = !v.isVerified;

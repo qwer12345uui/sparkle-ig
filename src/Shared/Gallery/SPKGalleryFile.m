@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <AVFoundation/AVFoundation.h>
 #import <ImageIO/ImageIO.h>
 #import <ctype.h>
@@ -675,7 +676,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
         if (error) {
             *error = [NSError errorWithDomain:@"SPKGallery"
                                          code:1
-                                     userInfo:@{NSLocalizedDescriptionKey : @"Source file does not exist"}];
+                                     userInfo:@{NSLocalizedDescriptionKey : SPKLocalizedString(@"Source file does not exist")}];
         }
         return nil;
     }
@@ -781,7 +782,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
         if (error) {
             *error = [NSError errorWithDomain:@"SPKGallery"
                                          code:2
-                                     userInfo:@{NSLocalizedDescriptionKey : @"Replacement file does not exist"}];
+                                     userInfo:@{NSLocalizedDescriptionKey : SPKLocalizedString(@"Replacement file does not exist")}];
         }
         return NO;
     }
@@ -1147,35 +1148,35 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 - (NSString *)openOriginalActionTitle {
     switch ((SPKGallerySource)self.source) {
     case SPKGallerySourceStories:
-        return @"Open Story";
+        return SPKLocalizedString(@"Open Story");
     case SPKGallerySourceReels:
-        return @"Open Reel";
+        return SPKLocalizedString(@"Open Reel");
     case SPKGallerySourceFeed:
     case SPKGallerySourceProfile:
-        return @"Open Post";
+        return SPKLocalizedString(@"Open Post");
     default:
-        return @"Open Original Post";
+        return SPKLocalizedString(@"Open Original Post");
     }
 }
 
 + (NSString *)labelForSource:(SPKGallerySource)source {
     switch (source) {
     case SPKGallerySourceFeed:
-        return @"Feed";
+        return SPKLocalizedString(@"Feed");
     case SPKGallerySourceStories:
-        return @"Stories";
+        return SPKLocalizedString(@"Stories");
     case SPKGallerySourceReels:
-        return @"Reels";
+        return SPKLocalizedString(@"Reels");
     case SPKGallerySourceProfile:
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     case SPKGallerySourceDMs:
         return @"DMs";
     case SPKGallerySourceThumbnail:
         return @"Thumb";
     case SPKGallerySourceInstants:
-        return @"Instants";
+        return SPKLocalizedString(@"Instants");
     case SPKGallerySourceAudioPage:
-        return @"Audio Page";
+        return SPKLocalizedString(@"Audio Page");
     case SPKGallerySourceComments:
         return @"Comments";
     case SPKGallerySourceOther:
@@ -1187,13 +1188,13 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
 + (NSString *)shortLabelForSource:(SPKGallerySource)source {
     switch (source) {
     case SPKGallerySourceFeed:
-        return @"Feed";
+        return SPKLocalizedString(@"Feed");
     case SPKGallerySourceStories:
         return @"Story";
     case SPKGallerySourceReels:
         return @"Reel";
     case SPKGallerySourceProfile:
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     case SPKGallerySourceDMs:
         return @"DMs";
     case SPKGallerySourceThumbnail:
@@ -1201,7 +1202,7 @@ NSString *SPKFileNameForMedia(NSURL *fileURL,
     case SPKGallerySourceInstants:
         return @"Instant";
     case SPKGallerySourceAudioPage:
-        return @"Audio Page";
+        return SPKLocalizedString(@"Audio Page");
     case SPKGallerySourceComments:
         return @"Comment";
     case SPKGallerySourceOther:

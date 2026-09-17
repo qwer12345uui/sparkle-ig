@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKDeletedMessageBubbleCell.h"
 #import "../../../AssetUtils.h"
 #import "../../../Utils.h"
@@ -617,7 +618,7 @@ static NSString *SPKDeletedFormatDuration(double seconds);
     self.voicePill.hidden = NO;
     self.voiceLabel.text = message.durationSeconds > 0
                                ? SPKDeletedFormatDuration(message.durationSeconds)
-                               : @"Tap to play";
+                               : SPKLocalizedString(@"Tap to play");
 }
 
 - (void)configureCardWithMessage:(SPKDeletedMessage *)message thumbnail:(UIImage *)thumbnail {

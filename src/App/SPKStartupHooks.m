@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKStartupHooks.h"
 
 #import "../Utils.h"
@@ -160,7 +161,7 @@ void SPKInstallFeedSurfaceHooksIfNeeded(void) {
         SPKInstallEssentialAccessHooks();
         return;
     }
-    SPKHookBisectSetCurrentSurface(@"Feed");
+    SPKHookBisectSetCurrentSurface(SPKLocalizedString(@"Feed"));
     SPK_INSTALL(SPKInstallTweakFeedHooksIfNeeded);
     SPK_INSTALL(SPKInstallFeedFilteringFeedHooksIfEnabled);
     SPK_INSTALL(SPKInstallFeedActionButtonHooksIfEnabled);
@@ -187,7 +188,7 @@ void SPKInstallStorySurfaceHooksIfNeeded(void) {
         SPKInstallEssentialAccessHooks();
         return;
     }
-    SPKHookBisectSetCurrentSurface(@"Stories");
+    SPKHookBisectSetCurrentSurface(SPKLocalizedString(@"Stories"));
     SPK_INSTALL(SPKInstallTweakStoryHooksIfNeeded);
     SPK_INSTALL(SPKInstallFeedFilteringHooksIfEnabled);
     SPK_INSTALL(SPKInstallStoriesActionButtonHooksIfEnabled);
@@ -210,7 +211,7 @@ void SPKInstallReelsSurfaceHooksIfNeeded(void) {
         SPKInstallEssentialAccessHooks();
         return;
     }
-    SPKHookBisectSetCurrentSurface(@"Reels");
+    SPKHookBisectSetCurrentSurface(SPKLocalizedString(@"Reels"));
     SPK_INSTALL(SPKInstallTweakReelsHooksIfNeeded);
     SPK_INSTALL(SPKInstallReelsActionButtonHooksIfEnabled);
     SPK_INSTALL(SPKInstallFeedFilteringHooksIfEnabled);
@@ -227,7 +228,7 @@ void SPKInstallMessagesSurfaceHooksIfNeeded(void) {
         SPKInstallEssentialAccessHooks();
         return;
     }
-    SPKHookBisectSetCurrentSurface(@"Messages");
+    SPKHookBisectSetCurrentSurface(SPKLocalizedString(@"Messages"));
     SPK_INSTALL(SPKInstallTweakMessagesHooksIfNeeded);
     SPK_INSTALL(SPKInstallDirectAutoSaveHooksIfEnabled);
     SPK_INSTALL(SPKInstallMessagesActionButtonHooksIfEnabled);
@@ -271,7 +272,7 @@ void SPKInstallProfileSurfaceHooksIfNeeded(void) {
         SPKInstallEssentialAccessHooks();
         return;
     }
-    SPKHookBisectSetCurrentSurface(@"Profile");
+    SPKHookBisectSetCurrentSurface(SPKLocalizedString(@"Profile"));
     SPK_INSTALL(SPKInstallProfileActionButtonHooksIfEnabled);
     SPK_INSTALL(SPKInstallProfilePhotoZoomHooksIfEnabled);
     SPK_INSTALL(SPKInstallFollowConfirmHooksIfNeeded);

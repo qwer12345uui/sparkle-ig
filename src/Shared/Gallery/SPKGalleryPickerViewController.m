@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryPickerViewController.h"
 
 #import <CoreData/CoreData.h>
@@ -214,7 +215,7 @@ typedef NS_ENUM(NSInteger, SPKGalleryPickerViewMode) {
         if (_folderPath.length > 0) {
             [_folderTrail addObject:_folderPath];
         }
-        _pickerTitle = [title.length > 0 ? title : @"Gallery" copy];
+        _pickerTitle = [title.length > 0 ? title : SPKLocalizedString(@"Gallery") copy];
         _allowedMediaTypes = [allowedMediaTypes copy];
         _allowsMultipleSelection = allowsMultipleSelection;
         _completion = [completion copy];
@@ -277,14 +278,14 @@ typedef NS_ENUM(NSInteger, SPKGalleryPickerViewMode) {
     self.searchController.searchResultsUpdater = self;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
     self.searchController.hidesNavigationBarDuringPresentation = NO;
-    self.searchController.searchBar.placeholder = @"Search Gallery";
+    self.searchController.searchBar.placeholder = SPKLocalizedString(@"Search Gallery");
     self.searchController.searchBar.delegate = self;
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
     // Scope toggle: search the current folder, or across all folders. Let the
     // search controller manage the scope bar's visibility (shown while searching).
-    self.searchController.searchBar.scopeButtonTitles = @[ @"This Folder", @"All Folders" ];
+    self.searchController.searchBar.scopeButtonTitles = @[ SPKLocalizedString(@"This Folder"), SPKLocalizedString(@"All Folders") ];
     self.searchController.automaticallyShowsScopeBar = YES;
     self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = YES;
@@ -547,7 +548,7 @@ typedef NS_ENUM(NSInteger, SPKGalleryPickerViewMode) {
     SPKMediaChromeConfigureBottomToolbar(self.navigationController.toolbar);
 
     NSString *toggleResource = self.viewMode == SPKGalleryPickerViewModeGrid ? @"list" : @"grid";
-    NSString *toggleAX = self.viewMode == SPKGalleryPickerViewModeGrid ? @"List view" : @"Grid view";
+    NSString *toggleAX = self.viewMode == SPKGalleryPickerViewModeGrid ? SPKLocalizedString(@"List view") : SPKLocalizedString(@"Grid view");
     UIBarButtonItem *toggleItem = [self pickerBottomBarItemWithResource:toggleResource accessibility:toggleAX action:@selector(togglePickerViewMode)];
 
     UIBarButtonItem *sortItem = [self pickerBottomBarItemWithResource:@"sort" accessibility:@"Sort" action:@selector(presentSort)];
@@ -801,20 +802,20 @@ typedef NS_ENUM(NSInteger, SPKGalleryPickerViewMode) {
     NSString *title;
     NSString *subtitle;
     if (query.length > 0) {
-        title = @"No results";
+        title = SPKLocalizedString(@"No results");
         // Point at the scope toggle: the match may simply live in another folder.
         subtitle = (!self.searchAllFolders && folderName.length > 0)
-                       ? @"Nothing in this folder matches your search. Try All Folders."
-                       : @"No media matches your search.";
+                       ? SPKLocalizedString(@"Nothing in this folder matches your search. Try All Folders.")
+                       : SPKLocalizedString(@"No media matches your search.");
     } else if (hasFilters) {
-        title = @"No matching files";
-        subtitle = @"Try adjusting your filters.";
+        title = SPKLocalizedString(@"No matching files");
+        subtitle = SPKLocalizedString(@"Try adjusting your filters.");
     } else if (folderName.length > 0) {
-        title = @"This folder is empty";
-        subtitle = @"Nothing here can be selected.";
+        title = SPKLocalizedString(@"This folder is empty");
+        subtitle = SPKLocalizedString(@"Nothing here can be selected.");
     } else {
-        title = @"Nothing to select";
-        subtitle = @"There is no Gallery media of this kind yet.";
+        title = SPKLocalizedString(@"Nothing to select");
+        subtitle = SPKLocalizedString(@"There is no Gallery media of this kind yet.");
     }
     self.emptyStateLabel.text = title;
     self.emptyStateSubtitle.text = subtitle;
@@ -1033,7 +1034,7 @@ typedef NS_ENUM(NSInteger, SPKGalleryPickerViewMode) {
         leadingItem.accessibilityLabel = @"Back";
     } else {
         leadingItem = SPKMediaChromeTopBarButtonItem(@"xmark", self, @selector(cancelTapped));
-        leadingItem.accessibilityLabel = @"Cancel";
+        leadingItem.accessibilityLabel = SPKLocalizedString(@"Cancel");
     }
     SPKMediaChromeSetLeadingTopBarItems(self.navigationItem, @[ leadingItem ]);
 }

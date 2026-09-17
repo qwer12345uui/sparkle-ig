@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGallerySettingsProvider.h"
 #import "../SPKSetting.h"
 #import "../SPKTopicSettingsSupport.h"
@@ -9,7 +10,7 @@
 @implementation SPKGallerySettingsProvider
 
 + (SPKSetting *)rootSetting {
-    SPKSetting *gallerySettings = [SPKSetting navigationCellWithTitle:@"Gallery Settings"
+    SPKSetting *gallerySettings = [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Gallery Settings")
                                                              subtitle:nil
                                                                  icon:SPKSettingsIcon(@"settings")
                                                        viewController:[[SPKGallerySettingsViewController alloc] init]];
@@ -17,21 +18,21 @@
         return [SPKGallerySettingsViewController searchSections];
     };
 
-    return SPKTopicNavigationSetting(@"Gallery", @"sparkle_gallery", 24.0, @[
+    return SPKTopicNavigationSetting(SPKLocalizedString(@"Gallery"), @"sparkle_gallery", 24.0, @[
         SPKTopicSection(@"Access", @[
-            [SPKSetting buttonCellWithTitle:@"Open Gallery"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Open Gallery")
                                    subtitle:@""
                                        icon:SPKSettingsIcon(@"sparkle_gallery")
                                      action:^(void) {
                                          [SPKGalleryViewController presentGallery];
                                      }],
-            SPKSettingApplySelectedMenuIcon([SPKSetting menuCellWithTitle:@"Quick Gallery Access" icon:SPKSettingsIcon(@"circle_off") menu:SPKGalleryShortcutTargetMenu()], SPKSettingsIcon(@"circle_off"))
+            SPKSettingApplySelectedMenuIcon([SPKSetting menuCellWithTitle:SPKLocalizedString(@"Quick Gallery Access") icon:SPKSettingsIcon(@"circle_off") menu:SPKGalleryShortcutTargetMenu()], SPKSettingsIcon(@"circle_off"))
         ],
-                        @"Choose the tab that opens Gallery on long press. None disables the action."),
-        SPKTopicSection(@"Settings", @[
+                        SPKLocalizedString(@"Choose the tab that opens Gallery on long press. None disables the action.")),
+        SPKTopicSection(SPKLocalizedString(@"Settings"), @[
             gallerySettings
         ],
-                        @"The same screen you reach from inside Gallery.")
+                        SPKLocalizedString(@"The same screen you reach from inside Gallery."))
     ]);
 }
 

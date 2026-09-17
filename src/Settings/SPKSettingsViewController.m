@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKSettingsViewController.h"
 #import "../App/SPKStartupHooks.h"
 #import "../AssetUtils.h"
@@ -418,7 +419,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
                                                                              @selector(applyRestartChanges),
                                                                              UIBarButtonItemStyleDone,
                                                                              [SPKUtils SPKColor_InstagramPrimaryText],
-                                                                             @"Apply Liquid Glass changes");
+                                                                             SPKLocalizedString(@"Apply Liquid Glass changes"));
         applyItem.enabled = self.hasPendingRestartChanges;
         self.applyRestartItem = applyItem;
         trailingItems = @[ applyItem ];
@@ -436,7 +437,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
-    self.searchController.searchBar.placeholder = self.searchesAllSettings ? @"Search All Settings" : [NSString stringWithFormat:@"Search %@", self.title ?: @"settings"];
+    self.searchController.searchBar.placeholder = self.searchesAllSettings ? SPKLocalizedString(@"Search All Settings") : [NSString stringWithFormat:SPKLocalizedString(@"Search %@"), self.title ?: @"settings"];
     self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = YES;
     self.definesPresentationContext = YES;

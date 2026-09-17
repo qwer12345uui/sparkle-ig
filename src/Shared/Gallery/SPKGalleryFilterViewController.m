@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryFilterViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -389,8 +390,8 @@ static CGFloat const kSPKGalleryFilterChipIconPointSize = 14.0;
 - (void)updateUsernameRowLabel {
     NSUInteger count = self.filterUsernames.count;
     self.usernameRowLabel.text = count > 0
-                                     ? [NSString stringWithFormat:@"%lu user%@ selected", (unsigned long)count, count == 1 ? @"" : @"s"]
-                                     : @"All users";
+                                     ? [NSString stringWithFormat:SPKLocalizedString(@"%lu user%@ selected"), (unsigned long)count, count == 1 ? @"" : @"s"]
+                                     : SPKLocalizedString(@"All users");
     self.usernameRowLabel.textColor = count > 0
                                           ? [SPKUtils SPKColor_InstagramPrimaryText]
                                           : [SPKUtils SPKColor_InstagramSecondaryText];
@@ -484,7 +485,7 @@ static CGFloat const kSPKGalleryFilterChipIconPointSize = 14.0;
     [row addSubview:icon];
 
     UILabel *label = [[UILabel alloc] init];
-    label.text = @"Clear filters";
+    label.text = SPKLocalizedString(@"Clear filters");
     label.font = [UIFont systemFontOfSize:kSPKGalleryFilterChipLabelPointSize weight:UIFontWeightMedium];
     label.adjustsFontSizeToFitWidth = YES;
     label.minimumScaleFactor = 0.78;

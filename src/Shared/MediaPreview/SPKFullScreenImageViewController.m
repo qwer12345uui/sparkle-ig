@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKFullScreenImageViewController.h"
 #import "SPKImageFormat.h"
 #import "SPKMediaCacheManager.h"
@@ -211,7 +212,7 @@ static CGFloat const kZoomEpsilon = 0.02;
     NSURL *url = self.mediaItem.fileURL;
     if (!url) {
         if (self.isViewLoaded) {
-            [self showError:@"No image URL"];
+            [self showError:SPKLocalizedString(@"No image URL")];
         }
         return;
     }
@@ -248,7 +249,7 @@ static CGFloat const kZoomEpsilon = 0.02;
                                                     }
 
                                                     if (strongSelf.isViewLoaded) {
-                                                        [strongSelf showError:error.localizedDescription.length > 0 ? error.localizedDescription : @"Failed to load image"];
+                                                        [strongSelf showError:error.localizedDescription.length > 0 ? error.localizedDescription : SPKLocalizedString(@"Failed to load image")];
                                                     }
                                                 }];
 }

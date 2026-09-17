@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKStoryContext.h"
 
 #import <objc/message.h>
@@ -655,7 +656,7 @@ void SPKStoryToggleUserForCurrentManualSeenMode(NSString *pk, NSString *username
 }
 
 NSString *SPKStoryManualSeenListTitle(BOOL manualSeenEnabled) {
-    return manualSeenEnabled ? @"Excluded Users" : @"Included Users";
+    return manualSeenEnabled ? SPKLocalizedString(@"Excluded Users") : SPKLocalizedString(@"Included Users");
 }
 
 static NSString *SPKStoryManualSeenListModeTitle(BOOL manualSeenEnabled) {
@@ -664,8 +665,8 @@ static NSString *SPKStoryManualSeenListModeTitle(BOOL manualSeenEnabled) {
 
 static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
     return manualSeenEnabled
-               ? @"When Manually Mark Seen is enabled, users in this list use Instagram's default seen behavior and do not need the eye button."
-               : @"When Manually Mark Seen is disabled, only users in this list require the eye button or story like/reply to mark seen.";
+               ? SPKLocalizedString(@"When Manually Mark Seen is enabled, users in this list use Instagram's default seen behavior and do not need the eye button.")
+               : SPKLocalizedString(@"When Manually Mark Seen is disabled, only users in this list require the eye button or story like/reply to mark seen.");
 }
 
 #pragma mark - Manual-seen users list
@@ -682,10 +683,10 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
         self.title = SPKStoryManualSeenListTitle(_manualSeenEnabled);
         self.showsAddButton = YES;
         self.infoText = SPKStoryManualSeenListHelpText(_manualSeenEnabled);
-        self.emptyTitle = @"No users yet";
+        self.emptyTitle = SPKLocalizedString(@"No users yet");
         self.emptySubtitle = _manualSeenEnabled
-                                 ? @"Add users whose stories should keep Instagram's normal seen behavior."
-                                 : @"Add users whose stories require the eye button to mark seen.";
+                                 ? SPKLocalizedString(@"Add users whose stories should keep Instagram's normal seen behavior.")
+                                 : SPKLocalizedString(@"Add users whose stories require the eye button to mark seen.");
     }
     return self;
 }
@@ -706,7 +707,7 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
 
         SPKUserListItem *item = [SPKUserListItem new];
         item.pk = pk;
-        item.title = username.length ? [@"@" stringByAppendingString:username] : @"Unknown user";
+        item.title = username.length ? [@"@" stringByAppendingString:username] : SPKLocalizedString(@"Unknown user");
         item.subtitle = fullName.length ? fullName : nil;
         item.avatarURLString = profilePicUrl;
         item.representedObject = entry;
@@ -735,7 +736,7 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
     }
     SPKStorySetManualSeenUserList(users, self.manualSeenEnabled);
     SPKNotify(kSPKNotificationStorySeenUserRule,
-              [NSString stringWithFormat:@"Removed @%@", username],
+              [NSString stringWithFormat:SPKLocalizedString(@"Removed @%@"), username],
               SPKStoryManualSeenListTitle(self.manualSeenEnabled),
               @"circle_check_filled",
               SPKNotificationToneSuccess);
@@ -744,21 +745,21 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
 
 - (void)presentError:(NSString *)message {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Unable to Add User"
+                                                  title:SPKLocalizedString(@"Unable to Add User")
                                                 message:message
-                                                actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleCancel handler:nil] ]];
+                                                actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleCancel handler:nil] ]];
 }
 
 - (void)didTapAdd {
     __weak typeof(self) weakSelf = self;
     [SPKIGAlertPresenter presentTextInputAlertFromViewController:self
-                                                           title:@"Add User"
-                                                         message:@"Enter the Instagram username to add."
+                                                           title:SPKLocalizedString(@"Add User")
+                                                         message:SPKLocalizedString(@"Enter the Instagram username to add.")
                                                      placeholder:@"username"
                                                      initialText:nil
                                                  autocapitalized:NO
                                                     confirmTitle:@"Search"
-                                                     cancelTitle:@"Cancel"
+                                                     cancelTitle:SPKLocalizedString(@"Cancel")
                                                     confirmStyle:SPKIGAlertActionStyleDefault
                                                     confirmBlock:^(NSString *text) {
                                                         [weakSelf lookupUsername:text];
@@ -778,7 +779,7 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
                                       if (!strongSelf)
                                           return;
                                       if (![user isKindOfClass:[NSDictionary class]] || error) {
-                                          [strongSelf presentError:[NSString stringWithFormat:@"User '%@' was not found.", username]];
+                                          [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"User '%@' was not found."), username]];
                                           return;
                                       }
                                       NSString *pk = SPKStringFromValue(user[@"pk"] ?: user[@"id"]);
@@ -786,7 +787,7 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
                                       NSString *fullName = SPKStringFromValue(user[@"full_name"] ?: user[@"fullName"]) ?: @"";
                                       NSString *profilePicUrl = SPKStringFromValue(user[@"profile_pic_url"] ?: user[@"profile_pic_url_hd"]);
                                       if (pk.length == 0) {
-                                          [strongSelf presentError:@"Could not resolve this user's Instagram ID."];
+                                          [strongSelf presentError:SPKLocalizedString(@"Could not resolve this user's Instagram ID.")];
                                           return;
                                       }
 
@@ -795,10 +796,10 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
                                                               : [@"@" stringByAppendingString:resolvedUsername];
 
                                       [SPKIGAlertPresenter presentAlertFromViewController:strongSelf
-                                                                                    title:@"Add to List?"
+                                                                                    title:SPKLocalizedString(@"Add to List?")
                                                                                   message:message
                                                                                   actions:@[
-                                                                                      [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                                                      [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                                                   style:SPKIGAlertActionStyleCancel
                                                                                                                 handler:nil],
                                                                                       [SPKIGAlertAction actionWithTitle:@"Add"
@@ -829,7 +830,7 @@ static NSString *SPKStoryManualSeenListHelpText(BOOL manualSeenEnabled) {
     }];
     SPKStorySetManualSeenUserList(users, self.manualSeenEnabled);
     SPKNotify(kSPKNotificationStorySeenUserRule,
-              [NSString stringWithFormat:@"Added @%@", username],
+              [NSString stringWithFormat:SPKLocalizedString(@"Added @%@"), username],
               SPKStoryManualSeenListTitle(self.manualSeenEnabled),
               @"circle_check_filled",
               SPKNotificationToneSuccess);
@@ -868,7 +869,7 @@ NSString *SPKStoryCurrentUserRuleActionTitle(SPKStoryContext *context) {
     if (!SPKStoryCurrentUserRuleState(context, &username, NULL, NULL, NULL))
         return nil;
     BOOL applies = SPKStoryManualSeenAppliesToContext(context);
-    return applies ? @"Start Marking Stories as Seen" : @"Stop Marking Stories as Seen";
+    return applies ? SPKLocalizedString(@"Start Marking Stories as Seen") : SPKLocalizedString(@"Stop Marking Stories as Seen");
 }
 
 NSString *SPKStoryCurrentUserRuleConfirmationTitle(SPKStoryContext *context) {
@@ -876,7 +877,7 @@ NSString *SPKStoryCurrentUserRuleConfirmationTitle(SPKStoryContext *context) {
     if (!SPKStoryCurrentUserRuleState(context, &username, NULL, NULL, NULL))
         return nil;
     BOOL applies = SPKStoryManualSeenAppliesToContext(context);
-    return applies ? @"Start Marking Stories as Seen" : @"Stop Marking Stories as Seen";
+    return applies ? SPKLocalizedString(@"Start Marking Stories as Seen") : SPKLocalizedString(@"Stop Marking Stories as Seen");
 }
 
 NSString *SPKStoryCurrentUserRuleConfirmationMessage(SPKStoryContext *context) {
@@ -885,8 +886,8 @@ NSString *SPKStoryCurrentUserRuleConfirmationMessage(SPKStoryContext *context) {
         return nil;
     BOOL applies = SPKStoryManualSeenAppliesToContext(context);
     return applies
-               ? [NSString stringWithFormat:@"Do you want to start marking stories from @%@ as seen?", username]
-               : [NSString stringWithFormat:@"Do you want to stop marking stories from @%@ as seen?", username];
+               ? [NSString stringWithFormat:SPKLocalizedString(@"Do you want to start marking stories from @%@ as seen?"), username]
+               : [NSString stringWithFormat:SPKLocalizedString(@"Do you want to stop marking stories from @%@ as seen?"), username];
 }
 
 void SPKStoryToggleUserRuleForPK(NSString *pk, NSString *username, NSString *fullName, NSString *profilePicUrl) {
@@ -931,8 +932,8 @@ BOOL SPKStoryToggleCurrentUserRule(SPKStoryContext *context, NSString **notifica
 
     if (notificationTitle) {
         *notificationTitle = applies
-                                 ? [NSString stringWithFormat:@"Stories seen on for @%@", username]
-                                 : [NSString stringWithFormat:@"Stories seen off for @%@", username];
+                                 ? [NSString stringWithFormat:SPKLocalizedString(@"Stories seen on for @%@"), username]
+                                 : [NSString stringWithFormat:SPKLocalizedString(@"Stories seen off for @%@"), username];
     }
     if (notificationSubtitle)
         *notificationSubtitle = listTitle;

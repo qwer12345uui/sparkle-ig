@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryFolderCell.h"
 #import "../../Utils.h"
 
@@ -103,7 +104,7 @@
 
 - (void)configureWithFolderName:(NSString *)name itemCount:(NSInteger)itemCount {
     _listTitle.text = name;
-    _listSubtitle.text = [NSString stringWithFormat:@"%ld item%@", (long)itemCount, itemCount == 1 ? @"" : @"s"];
+    _listSubtitle.text = [NSString stringWithFormat:SPKLocalizedString(@"%ld item%@"), (long)itemCount, itemCount == 1 ? @"" : @"s"];
 }
 
 @end

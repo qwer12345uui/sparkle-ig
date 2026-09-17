@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKProfileAnalyzerViewController.h"
 #import "../../../AssetUtils.h"
 #import "../../../Shared/UI/SPKIGAlertPresenter.h"
@@ -205,7 +206,7 @@ typedef NS_ENUM(NSInteger, SPKPACategory) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Profile Analyzer";
+    self.title = SPKLocalizedString(@"Profile Analyzer");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramGroupedBackground];
     self.selfPK = [SPKUtils currentUserPK];
 
@@ -266,7 +267,7 @@ typedef NS_ENUM(NSInteger, SPKPACategory) {
     self.header.translatesAutoresizingMaskIntoConstraints = NO;
     [self.headerContainer addSubview:self.header];
     [self.header.scanButton addTarget:self action:@selector(scanTapped) forControlEvents:UIControlEventTouchUpInside];
-    [self.header.scanButton setText:@"Run Analysis"];
+    [self.header.scanButton setText:SPKLocalizedString(@"Run Analysis")];
 
     [NSLayoutConstraint activateConstraints:@[
         [self.header.topAnchor constraintEqualToAnchor:self.headerContainer.topAnchor],
@@ -321,7 +322,7 @@ static NSString *SPKPACompact(NSInteger n) {
     NSInteger posts = cached[@"media_count"] ? [cached[@"media_count"] integerValue] : cur.mediaCount;
     NSString *picURL = cached[@"profile_pic_url"] ?: cur.selfProfilePicURL ?: live[@"profile_pic_url"];
 
-    self.header.nameLabel.text = fullName.length ? fullName : (username.length ? username : @"Profile Analyzer");
+    self.header.nameLabel.text = fullName.length ? fullName : (username.length ? username : SPKLocalizedString(@"Profile Analyzer"));
     self.header.usernameLabel.text = username.length ? [NSString stringWithFormat:@"@%@", username] : @"";
     [self.header setStatsPosts:haveData ? SPKPACompact(posts) : @"—"
                      followers:haveData ? SPKPACompact(followers) : @"—"
@@ -332,7 +333,7 @@ static NSString *SPKPACompact(NSInteger n) {
         df.dateStyle = NSDateFormatterMediumStyle;
         df.timeStyle = NSDateFormatterShortStyle;
         df.doesRelativeDateFormatting = YES;
-        self.scanDateText = [NSString stringWithFormat:@"Last scanned: %@", [df stringFromDate:cur.scanDate]];
+        self.scanDateText = [NSString stringWithFormat:SPKLocalizedString(@"Last scanned: %@"), [df stringFromDate:cur.scanDate]];
     } else {
         self.scanDateText = nil;
     }
@@ -348,7 +349,7 @@ static NSString *SPKPACompact(NSInteger n) {
 // The idle CTA label. While a scan has run, the button intermittently swaps this
 // for the "Last scanned ..." line so we don't need a separate footer.
 - (NSString *)idleButtonCTA {
-    return self.report.current ? @"Scan Again" : @"Scan Now";
+    return self.report.current ? SPKLocalizedString(@"Scan Again") : SPKLocalizedString(@"Scan Now");
 }
 
 - (void)refreshIdleButton {
@@ -458,9 +459,9 @@ static NSString *SPKPACompact(NSInteger n) {
     NSMutableArray *current = [NSMutableArray array];
     NSMutableArray *changes = [NSMutableArray array];
     if (rep.current) {
-        [current addObject:[self row:SPKPACategoryMutual title:@"Mutual Followers" icon:@"user_check" count:rep.mutualFollowers.count]];
-        [current addObject:[self row:SPKPACategoryNotFollowingBack title:@"Not Following You Back" icon:@"user_unfollow" count:rep.notFollowingYouBack.count]];
-        [current addObject:[self row:SPKPACategoryDontFollowBack title:@"You Don't Follow Back" icon:@"user_follow" count:rep.youDontFollowBack.count]];
+        [current addObject:[self row:SPKPACategoryMutual title:SPKLocalizedString(@"Mutual Followers") icon:@"user_check" count:rep.mutualFollowers.count]];
+        [current addObject:[self row:SPKPACategoryNotFollowingBack title:SPKLocalizedString(@"Not Following You Back") icon:@"user_unfollow" count:rep.notFollowingYouBack.count]];
+        [current addObject:[self row:SPKPACategoryDontFollowBack title:SPKLocalizedString(@"You Don't Follow Back") icon:@"user_follow" count:rep.youDontFollowBack.count]];
     }
 
     // Change rows are driven by the durable change log (accumulated across runs),
@@ -475,11 +476,11 @@ static NSString *SPKPACompact(NSInteger n) {
             unseen[k] = @(unseen[k].integerValue + 1);
     }
     if (self.changeEvents.count > 0) {
-        [changes addObject:[self changeRow:SPKPACategoryNewFollowers title:@"New Followers" icon:@"face_happy" total:total unseen:unseen]];
-        [changes addObject:[self changeRow:SPKPACategoryLostFollowers title:@"Lost Followers" icon:@"face_sad" total:total unseen:unseen]];
-        [changes addObject:[self changeRow:SPKPACategoryYouStartedFollowing title:@"You Started Following" icon:@"user_follow" total:total unseen:unseen]];
-        [changes addObject:[self changeRow:SPKPACategoryYouUnfollowed title:@"You Unfollowed" icon:@"user_unfollow" total:total unseen:unseen]];
-        [changes addObject:[self changeRow:SPKPACategoryProfileUpdates title:@"Profile Updates" icon:@"edit" total:total unseen:unseen]];
+        [changes addObject:[self changeRow:SPKPACategoryNewFollowers title:SPKLocalizedString(@"New Followers") icon:@"face_happy" total:total unseen:unseen]];
+        [changes addObject:[self changeRow:SPKPACategoryLostFollowers title:SPKLocalizedString(@"Lost Followers") icon:@"face_sad" total:total unseen:unseen]];
+        [changes addObject:[self changeRow:SPKPACategoryYouStartedFollowing title:SPKLocalizedString(@"You Started Following") icon:@"user_follow" total:total unseen:unseen]];
+        [changes addObject:[self changeRow:SPKPACategoryYouUnfollowed title:SPKLocalizedString(@"You Unfollowed") icon:@"user_unfollow" total:total unseen:unseen]];
+        [changes addObject:[self changeRow:SPKPACategoryProfileUpdates title:SPKLocalizedString(@"Profile Updates") icon:@"edit" total:total unseen:unseen]];
     }
     self.currentRows = current;
     self.changeRows = changes;
@@ -498,7 +499,7 @@ static NSString *SPKPACompact(NSInteger n) {
 
     SPKNotificationPillView *pill = nil;
     if (SPKNotificationIsEnabled(kSPKNotificationProfileAnalyzerComplete)) {
-        pill = SPKNotifyProgress(kSPKNotificationProfileAnalyzerComplete, @"Analyzing profile...", ^{
+        pill = SPKNotifyProgress(kSPKNotificationProfileAnalyzerComplete, SPKLocalizedString(@"Analyzing profile..."), ^{
             [[SPKProfileAnalyzerService sharedService] cancel];
         });
         [pill setProgress:0.02f animated:NO];
@@ -515,7 +516,7 @@ static NSString *SPKPACompact(NSInteger n) {
             [weakSelf paintHeaderIdentity];
         }
         progress:^(NSString *status, double fraction) {
-            [pill updateProgressTitle:@"Analyzing profile..." subtitle:status];
+            [pill updateProgressTitle:SPKLocalizedString(@"Analyzing profile...") subtitle:status];
             [pill setProgress:(float)fraction animated:YES];
         }
         completion:^(SPKProfileAnalyzerSnapshot *snapshot, NSError *error) {
@@ -524,13 +525,13 @@ static NSString *SPKPACompact(NSInteger n) {
                 if (error.code == SPKProfileAnalyzerErrorCancelled) {
                     [pill dismiss];
                 } else {
-                    [pill showErrorWithTitle:@"Analysis failed" subtitle:error.localizedDescription icon:nil];
+                    [pill showErrorWithTitle:SPKLocalizedString(@"Analysis failed") subtitle:error.localizedDescription icon:nil];
                     SPKNotificationTriggerHaptic(kSPKNotificationProfileAnalyzerComplete, SPKNotificationToneError);
                 }
                 return;
             }
             [pill setProgress:1.0f animated:YES];
-            [pill showSuccessWithTitle:@"Analysis complete" subtitle:@"Tap to view results" icon:nil];
+            [pill showSuccessWithTitle:SPKLocalizedString(@"Analysis complete") subtitle:SPKLocalizedString(@"Tap to view results") icon:nil];
             pill.onTapWhenCompleted = ^{
                 [SPKProfileAnalyzerViewController presentFromTop];
             };
@@ -551,7 +552,7 @@ static NSString *SPKPACompact(NSInteger n) {
     self.header.scanButton.busy = scanning;
     if (scanning) {
         [self stopButtonCycle]; // the scan owns the label while running
-        [self.header.scanButton setTextAnimated:@"Analyzing..."];
+        [self.header.scanButton setTextAnimated:SPKLocalizedString(@"Analyzing...")];
         [self.header.scanButton setProgress:MAX(0.02, [SPKProfileAnalyzerService sharedService].currentFraction) animated:NO];
     } else {
         [self refreshIdleButton];
@@ -647,7 +648,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch ([self kindForSection:section]) {
     case SPKPASectionCurrent:
-        return @"This Scan";
+        return SPKLocalizedString(@"This Scan");
     case SPKPASectionChanges:
         return @"Changes";
     case SPKPASectionOptions:
@@ -671,7 +672,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
     content.secondaryTextProperties.color = [SPKUtils SPKColor_InstagramSecondaryText];
 
     if (kind == SPKPASectionReset) {
-        content.text = @"Reset Profile Analyzer Data";
+        content.text = SPKLocalizedString(@"Reset Profile Analyzer Data");
         content.textProperties.color = [SPKUtils SPKColor_InstagramDestructive];
         content.image = [SPKAssetUtils instagramIconNamed:@"trash" pointSize:24.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
         content.imageProperties.tintColor = [SPKUtils SPKColor_InstagramDestructive];
@@ -682,7 +683,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
     if (kind == SPKPASectionOptions) {
         SPKPAOptionRow opt = (SPKPAOptionRow)[[self optionRows][indexPath.row] integerValue];
         if (opt == SPKPAOptionTrackVisits) {
-            content.text = @"Track Visited Profiles";
+            content.text = SPKLocalizedString(@"Track Visited Profiles");
             content.image = [SPKAssetUtils instagramIconNamed:@"eye" pointSize:24.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
             content.imageProperties.tintColor = [SPKUtils SPKColor_InstagramPrimaryText];
             SPKSwitch *toggle = [SPKSwitch new];
@@ -691,7 +692,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
             cell.accessoryView = toggle;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (opt == SPKPAOptionVisitedProfiles) {
-            content.text = @"Visited Profiles";
+            content.text = SPKLocalizedString(@"Visited Profiles");
             content.image = [SPKAssetUtils instagramIconNamed:@"history" pointSize:24.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
             content.imageProperties.tintColor = [SPKUtils SPKColor_InstagramPrimaryText];
             content.secondaryText = [NSString stringWithFormat:@"%lu", (unsigned long)self.visits.count];
@@ -699,7 +700,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
             content.secondaryTextProperties.font = [UIFont systemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize weight:UIFontWeightMedium];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else { // About
-            content.text = @"About Profile Analyzer";
+            content.text = SPKLocalizedString(@"About Profile Analyzer");
             content.image = [SPKAssetUtils instagramIconNamed:@"info" pointSize:24.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
             content.imageProperties.tintColor = [SPKUtils SPKColor_InstagramPrimaryText];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -792,19 +793,19 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
 
 - (void)showAbout {
     NSString *message =
-        @"Profile Analyzer fetches your full followers and following lists and stores them on-device. "
-        @"Each analysis is compared to the previous one to surface new and lost followers, who you started "
+        SPKLocalizedString(@"Profile Analyzer fetches your full followers and following lists and stores them on-device. ")
+        SPKLocalizedString(@"Each analysis is compared to the previous one to surface new and lost followers, who you started ")
         @"following or unfollowed, and profile changes. These changes accumulate into a history that isn't "
         @"cleared by re-running. Anything you haven't looked at yet is badged and grouped under “Latest.”\n\n"
         @"Because Instagram limits how many requests can be made in a short window, accounts with more than "
-        @"13,000 total connections (followers, following) can't be analyzed.\n\n"
-        @"Analysis runs in the background; you'll get a notification when it finishes.\n\n"
-        @"All data stays on your device and is never uploaded.";
+        SPKLocalizedString(@"13,000 total connections (followers, following) can't be analyzed.\n\n")
+        SPKLocalizedString(@"Analysis runs in the background; you'll get a notification when it finishes.\n\n")
+        SPKLocalizedString(@"All data stays on your device and is never uploaded.");
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"About Profile Analyzer"
+                                                  title:SPKLocalizedString(@"About Profile Analyzer")
                                                 message:message
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"OK"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
                                                 ]];
@@ -812,13 +813,13 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
 
 - (void)confirmReset {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Reset Profile Analyzer"
-                                                message:@"This deletes all stored snapshots, the change history and visited-profile history. This cannot be undone."
+                                                  title:SPKLocalizedString(@"Reset Profile Analyzer")
+                                                message:SPKLocalizedString(@"This deletes all stored snapshots, the change history and visited-profile history. This cannot be undone.")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
-                                                    [SPKIGAlertAction actionWithTitle:@"Reset"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Reset")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   [SPKProfileAnalyzerStorage resetAll];
@@ -830,7 +831,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
 
 - (void)openVisitedList {
     SPKProfileAnalyzerListViewController *vc =
-        [[SPKProfileAnalyzerListViewController alloc] initVisitedListWithTitle:@"Visited Profiles"
+        [[SPKProfileAnalyzerListViewController alloc] initVisitedListWithTitle:SPKLocalizedString(@"Visited Profiles")
                                                                         visits:self.visits];
     NSString *owner = self.selfPK;
     vc.onRemoveVisit = ^(SPKProfileAnalyzerVisit *visit) {

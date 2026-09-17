@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKDeletedMessagesModels.h"
 
 NSString *SPKDeletedMessageKindToString(SPKDeletedMessageKind kind) {
@@ -130,14 +131,14 @@ NSString *SPKDeletedMessageShareSubtypeName(NSString *subtype) {
     if ([subtype isEqualToString:@"story"])
         return @"Story";
     if ([subtype isEqualToString:@"profile"])
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     if ([subtype isEqualToString:@"note"])
         return @"Note";
     if ([subtype isEqualToString:@"location"])
         return @"Location";
     if ([subtype isEqualToString:@"audio"])
         return @"Audio";
-    return @"Shared post";
+    return SPKLocalizedString(@"Shared post");
 }
 
 NSString *SPKDeletedMessageShareSubtypeSymbol(__unused NSString *subtype) {
@@ -297,13 +298,13 @@ static double spkDouble(id v) {
     if (self.isGroup) {
         if (self.threadTitle.length)
             return self.threadTitle;
-        return @"Group chat";
+        return SPKLocalizedString(@"Group chat");
     }
     if (self.senderUsername.length)
         return [@"@" stringByAppendingString:self.senderUsername];
     if (self.senderFullName.length)
         return self.senderFullName;
-    return @"Unknown user";
+    return SPKLocalizedString(@"Unknown user");
 }
 
 - (NSString *)flagKey {

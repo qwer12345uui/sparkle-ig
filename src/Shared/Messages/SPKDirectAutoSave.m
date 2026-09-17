@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDirectAutoSave.h"
 
 #import "../../Networking/SPKInstagramAPI.h"
@@ -140,7 +141,7 @@ static NSString *SPKDirectAutoSaveThreadDisplayName(SPKDirectThreadContext *cont
     NSString *name = SPKDirectDisplayNameForThreadContext(context);
     if (name.length > 0)
         return name;
-    return context.isGroup ? @"this group" : @"this chat";
+    return context.isGroup ? @"this group" : SPKLocalizedString(@"this chat");
 }
 
 BOOL SPKDirectAutoSaveAppliesToCurrentThread(SPKDirectThreadContext *context) {
@@ -157,7 +158,7 @@ NSString *SPKDirectAutoSaveCurrentThreadActionTitle(SPKDirectThreadContext *cont
     NSString *threadId = SPKStringFromValue(context.threadId);
     if (threadId.length == 0)
         return nil;
-    return SPKDirectAutoSaveAppliesToCurrentThread(context) ? @"Stop Auto-Saving This Chat" : @"Auto-Save This Chat";
+    return SPKDirectAutoSaveAppliesToCurrentThread(context) ? SPKLocalizedString(@"Stop Auto-Saving This Chat") : SPKLocalizedString(@"Auto-Save This Chat");
 }
 
 NSString *SPKDirectAutoSaveCurrentThreadConfirmationTitle(SPKDirectThreadContext *context) {
@@ -170,8 +171,8 @@ NSString *SPKDirectAutoSaveCurrentThreadConfirmationMessage(SPKDirectThreadConte
         return nil;
     NSString *name = SPKDirectAutoSaveThreadDisplayName(context);
     return SPKDirectAutoSaveAppliesToThread(threadId)
-               ? [NSString stringWithFormat:@"Do you want to stop auto-saving view-once media from %@?", name]
-               : [NSString stringWithFormat:@"Do you want to auto-save every view-once photo and video from %@?", name];
+               ? [NSString stringWithFormat:SPKLocalizedString(@"Do you want to stop auto-saving view-once media from %@?"), name]
+               : [NSString stringWithFormat:SPKLocalizedString(@"Do you want to auto-save every view-once photo and video from %@?"), name];
 }
 
 BOOL SPKDirectToggleAutoSaveCurrentThread(SPKDirectThreadContext *context,
@@ -187,8 +188,8 @@ BOOL SPKDirectToggleAutoSaveCurrentThread(SPKDirectThreadContext *context,
 
     NSString *name = SPKDirectAutoSaveThreadDisplayName(context);
     if (notificationTitle) {
-        *notificationTitle = appliedBefore ? [NSString stringWithFormat:@"Auto-save off for %@", name]
-                                           : [NSString stringWithFormat:@"Auto-save on for %@", name];
+        *notificationTitle = appliedBefore ? [NSString stringWithFormat:SPKLocalizedString(@"Auto-save off for %@"), name]
+                                           : [NSString stringWithFormat:SPKLocalizedString(@"Auto-save on for %@"), name];
     }
     if (notificationSubtitle)
         *notificationSubtitle = SPKDirectAutoSaveListTitle();
@@ -199,7 +200,7 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
     NSString *title = SPKDirectAutoSaveCurrentThreadConfirmationTitle(context);
     NSString *message = SPKDirectAutoSaveCurrentThreadConfirmationMessage(context);
     if (title.length == 0 || message.length == 0) {
-        SPKNotify(kSPKNotificationDirectAutoSaveThreadRule, @"Chat not found", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationDirectAutoSaveThreadRule, SPKLocalizedString(@"Chat not found"), nil, @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -208,7 +209,7 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
             NSString *notificationTitle = nil;
             NSString *notificationSubtitle = nil;
             if (!SPKDirectToggleAutoSaveCurrentThread(context, &notificationTitle, &notificationSubtitle)) {
-                SPKNotify(kSPKNotificationDirectAutoSaveThreadRule, @"Chat not found", nil, @"error_filled", SPKNotificationToneError);
+                SPKNotify(kSPKNotificationDirectAutoSaveThreadRule, SPKLocalizedString(@"Chat not found"), nil, @"error_filled", SPKNotificationToneError);
                 return;
             }
             SPKNotify(kSPKNotificationDirectAutoSaveThreadRule, notificationTitle, notificationSubtitle, @"circle_check_filled",
@@ -232,20 +233,20 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
         BOOL allChats = SPKDirectAutoSaveAllChatsMode();
         self.showsAddButton = YES;
         self.infoText = allChats
-                            ? @"Filter Mode is All Chats, so every view-once photo and video you open is saved except in "
-                              @"chats in this list. Media you already have is skipped."
-                            : @"Filter Mode is Selected Chats, so only view-once media in chats in this list is saved. "
-                              @"Media you already have is skipped.";
-        self.emptyTitle = @"No chats yet";
+                            ? SPKLocalizedString(@"Filter Mode is All Chats, so every view-once photo and video you open is saved except in ")
+                              SPKLocalizedString(@"chats in this list. Media you already have is skipped.")
+                            : SPKLocalizedString(@"Filter Mode is Selected Chats, so only view-once media in chats in this list is saved. ")
+                              SPKLocalizedString(@"Media you already have is skipped.");
+        self.emptyTitle = SPKLocalizedString(@"No chats yet");
         self.emptySubtitle = allChats
-                                 ? @"Add chats whose view-once media should never be auto-saved."
-                                 : @"Add chats whose view-once media should be saved automatically as you open it.";
+                                 ? SPKLocalizedString(@"Add chats whose view-once media should never be auto-saved.")
+                                 : SPKLocalizedString(@"Add chats whose view-once media should be saved automatically as you open it.");
     }
     return self;
 }
 
 - (NSString *)displayNameForEntry:(NSDictionary *)entry {
-    return SPKDirectDisplayNameForThreadEntry(entry) ?: @"Unknown Chat";
+    return SPKDirectDisplayNameForThreadEntry(entry) ?: SPKLocalizedString(@"Unknown Chat");
 }
 
 - (NSString *)removalDisplayNameForEntry:(NSDictionary *)entry {
@@ -298,21 +299,21 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
 
 - (void)presentError:(NSString *)message {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Unable to Add Chat"
+                                                  title:SPKLocalizedString(@"Unable to Add Chat")
                                                 message:message
-                                                actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleCancel handler:nil] ]];
+                                                actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleCancel handler:nil] ]];
 }
 
 - (void)didTapAdd {
     __weak typeof(self) weakSelf = self;
     [SPKIGAlertPresenter presentTextInputAlertFromViewController:self
-                                                           title:@"Add Chat"
-                                                         message:@"Enter the Instagram username for a 1:1 DM thread. Group chats can be added from the viewer's action menu."
+                                                           title:SPKLocalizedString(@"Add Chat")
+                                                         message:SPKLocalizedString(@"Enter the Instagram username for a 1:1 DM thread. Group chats can be added from the viewer's action menu.")
                                                      placeholder:@"username"
                                                      initialText:nil
                                                  autocapitalized:NO
                                                     confirmTitle:@"Search"
-                                                     cancelTitle:@"Cancel"
+                                                     cancelTitle:SPKLocalizedString(@"Cancel")
                                                     confirmStyle:SPKIGAlertActionStyleDefault
                                                     confirmBlock:^(NSString *text) {
                                                         [weakSelf lookupUsername:text];
@@ -332,12 +333,12 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
                                       if (!strongSelf)
                                           return;
                                       if (![user isKindOfClass:[NSDictionary class]] || error) {
-                                          [strongSelf presentError:[NSString stringWithFormat:@"User '%@' was not found.", username]];
+                                          [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"User '%@' was not found."), username]];
                                           return;
                                       }
                                       NSString *pk = SPKStringFromValue(user[@"pk"] ?: user[@"id"]);
                                       if (pk.length == 0) {
-                                          [strongSelf presentError:@"Could not resolve this user's Instagram ID."];
+                                          [strongSelf presentError:SPKLocalizedString(@"Could not resolve this user's Instagram ID.")];
                                           return;
                                       }
                                       [strongSelf resolveThreadForPK:pk
@@ -364,7 +365,7 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
                                                              ? SPKStringFromValue(thread[@"thread_id"] ?: thread[@"threadId"])
                                                              : nil;
                                     if (threadId.length == 0 || threadError) {
-                                        [strongSelf presentError:[NSString stringWithFormat:@"No 1:1 DM thread was found with @%@.", username]];
+                                        [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"No 1:1 DM thread was found with @%@."), username]];
                                         return;
                                     }
 
@@ -381,10 +382,10 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
                                     NSString *message = fullName.length > 0 ? [NSString stringWithFormat:@"@%@ (%@)", username, fullName]
                                                                             : [@"@" stringByAppendingString:username];
                                     [SPKIGAlertPresenter presentAlertFromViewController:strongSelf
-                                                                                  title:@"Auto-Save This Chat?"
+                                                                                  title:SPKLocalizedString(@"Auto-Save This Chat?")
                                                                                 message:message
                                                                                 actions:@[
-                                                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                                                 style:SPKIGAlertActionStyleCancel
                                                                                                               handler:nil],
                                                                                     [SPKIGAlertAction actionWithTitle:@"Add"
@@ -401,7 +402,7 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
         return;
     SPKAutoSaveFilterToggleEntry(self.config, entry);
     SPKNotify(kSPKNotificationDirectAutoSaveThreadRule,
-              [NSString stringWithFormat:@"Added @%@", username],
+              [NSString stringWithFormat:SPKLocalizedString(@"Added @%@"), username],
               SPKDirectAutoSaveListTitle(),
               @"circle_check_filled",
               SPKNotificationToneSuccess);

@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKAutoSaveFilter.h"
 
 #import "../../Utils.h"
@@ -152,10 +153,10 @@ NSString *SPKAutoSaveFilterSummary(SPKAutoSaveFilterConfig *config) {
         return @"Off";
     NSUInteger count = SPKAutoSaveFilterList(config).count;
     if (SPKAutoSaveFilterAllMode(config)) {
-        return count == 0 ? [NSString stringWithFormat:@"All %@", config.subjectPlural]
-                          : [NSString stringWithFormat:@"All · %lu excluded", (unsigned long)count];
+        return count == 0 ? [NSString stringWithFormat:SPKLocalizedString(@"All %@"), config.subjectPlural]
+                          : [NSString stringWithFormat:SPKLocalizedString(@"All · %lu excluded"), (unsigned long)count];
     }
-    return count == 0 ? @"None Selected" : [NSString stringWithFormat:@"%lu Selected", (unsigned long)count];
+    return count == 0 ? SPKLocalizedString(@"None Selected") : [NSString stringWithFormat:SPKLocalizedString(@"%lu Selected"), (unsigned long)count];
 }
 
 #pragma mark - List screen
@@ -208,7 +209,7 @@ BOOL SPKAutoSaveFilterListUIVisible(void) {
 
     NSString *name = [self removalDisplayNameForEntry:entry];
     SPKNotify(self.config.ruleNotificationIdentifier,
-              name.length > 0 ? [NSString stringWithFormat:@"Removed %@", name] : @"Removed entry",
+              name.length > 0 ? [NSString stringWithFormat:SPKLocalizedString(@"Removed %@"), name] : SPKLocalizedString(@"Removed entry"),
               SPKAutoSaveFilterListTitle(self.config),
               @"circle_check_filled",
               SPKNotificationToneSuccess);

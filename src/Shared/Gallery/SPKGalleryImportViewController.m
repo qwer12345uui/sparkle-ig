@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryImportViewController.h"
 
 #import "../../AssetUtils.h"
@@ -111,7 +112,7 @@ static UIColor *SPKImportAmberColor(void) {
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightSemibold];
         _titleLabel.textColor = [SPKUtils SPKColor_InstagramPrimaryText];
-        _titleLabel.text = @"Shared Details";
+        _titleLabel.text = SPKLocalizedString(@"Shared Details");
         [self.contentView addSubview:_titleLabel];
 
         _subtitleLabel = [[UILabel alloc] init];
@@ -247,7 +248,7 @@ static UIColor *SPKImportAmberColor(void) {
         _needsPill = [self makePillWithBackground:[amber colorWithAlphaComponent:0.16]];
         _needsPillLabel = (UILabel *)_needsPill.subviews.firstObject;
         _needsPillLabel.textColor = amber;
-        _needsPillLabel.text = @"Needs details";
+        _needsPillLabel.text = SPKLocalizedString(@"Needs details");
         [self.contentView addSubview:_needsPill];
 
         [NSLayoutConstraint activateConstraints:@[
@@ -528,7 +529,7 @@ static UIColor *SPKImportAmberColor(void) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Import Media";
+    self.title = SPKLocalizedString(@"Import Media");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramBackground];
     self.tableView.backgroundColor = [SPKUtils SPKColor_InstagramBackground];
     self.tableView.separatorColor = [SPKUtils SPKColor_InstagramSeparator];
@@ -568,7 +569,7 @@ static UIColor *SPKImportAmberColor(void) {
 
     UILabel *title = [[UILabel alloc] init];
     title.translatesAutoresizingMaskIntoConstraints = NO;
-    title.text = @"No files to import";
+    title.text = SPKLocalizedString(@"No files to import");
     title.font = [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium];
     title.textColor = [SPKUtils SPKColor_InstagramPrimaryText];
     title.textAlignment = NSTextAlignmentCenter;
@@ -576,7 +577,7 @@ static UIColor *SPKImportAmberColor(void) {
 
     UILabel *subtitle = [[UILabel alloc] init];
     subtitle.translatesAutoresizingMaskIntoConstraints = NO;
-    subtitle.text = @"Pick images, videos, or audio from the Files app to add them to your gallery.\n\nComing from Regram? Pick your exported folder or MediaVault.zip to bring your whole Media Vault across, with details filled in.";
+    subtitle.text = SPKLocalizedString(@"Pick images, videos, or audio from the Files app to add them to your gallery.\n\nComing from Regram? Pick your exported folder or MediaVault.zip to bring your whole Media Vault across, with details filled in.");
     subtitle.font = [UIFont systemFontOfSize:14.0];
     subtitle.textColor = [SPKUtils SPKColor_InstagramSecondaryText];
     subtitle.numberOfLines = 0;
@@ -585,7 +586,7 @@ static UIColor *SPKImportAmberColor(void) {
 
     SPKGlassButton *cta = [[SPKGlassButton alloc] initWithFrame:CGRectZero];
     cta.translatesAutoresizingMaskIntoConstraints = NO;
-    [cta setText:@"Choose from Files"];
+    [cta setText:SPKLocalizedString(@"Choose from Files")];
     [cta addTarget:self action:@selector(addFiles) forControlEvents:UIControlEventTouchUpInside];
     [container addSubview:cta];
 
@@ -637,11 +638,11 @@ static UIColor *SPKImportAmberColor(void) {
 
 - (UIMenu *)buildOverflowMenu {
     __weak typeof(self) weakSelf = self;
-    UIAction *add = [UIAction actionWithTitle:@"Add More Files"
+    UIAction *add = [UIAction actionWithTitle:SPKLocalizedString(@"Add More Files")
                                         image:[SPKAssetUtils menuIconNamed:@"plus"]
                                    identifier:nil
                                       handler:^(__unused UIAction *a) { [weakSelf addFiles]; }];
-    UIAction *clear = [UIAction actionWithTitle:@"Clear Queue"
+    UIAction *clear = [UIAction actionWithTitle:SPKLocalizedString(@"Clear Queue")
                                           image:[SPKAssetUtils menuIconNamed:@"trash"]
                                      identifier:nil
                                         handler:^(__unused UIAction *a) { [weakSelf clearAllFiles]; }];
@@ -715,7 +716,7 @@ static UIColor *SPKImportAmberColor(void) {
     config.baseForegroundColor = [SPKUtils SPKColor_InstagramPrimaryText];
     button.configuration = config;
 
-    button.accessibilityLabel = @"Scroll to import button";
+    button.accessibilityLabel = SPKLocalizedString(@"Scroll to import button");
     button.alpha = 0.0;
     button.hidden = YES;
     [button addTarget:self action:@selector(jumpToBottom) forControlEvents:UIControlEventTouchUpInside];
@@ -814,15 +815,15 @@ static UIColor *SPKImportAmberColor(void) {
         return nil;
     }
     NSUInteger n = self.queuedFiles.count;
-    return n ? [NSString stringWithFormat:@"Queue · %lu file%@", (unsigned long)n, n == 1 ? @"" : @"s"] : nil;
+    return n ? [NSString stringWithFormat:SPKLocalizedString(@"Queue · %lu file%@"), (unsigned long)n, n == 1 ? @"" : @"s"] : nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == SPKGalleryImportMainSectionShared) {
-        return @"Set once. Flows into every file you haven't edited on its own.";
+        return SPKLocalizedString(@"Set once. Flows into every file you haven't edited on its own.");
     }
     if (section == SPKGalleryImportMainSectionQueue && self.queuedFiles.count > 0) {
-        return @"Tap a thumbnail to preview. Tap a row to add its own attribution.";
+        return SPKLocalizedString(@"Tap a thumbnail to preview. Tap a row to add its own attribution.");
     }
     return nil;
 }
@@ -842,7 +843,7 @@ static UIColor *SPKImportAmberColor(void) {
     if (m.sourceUsername.length > 0) {
         [parts addObject:[NSString stringWithFormat:@"@%@", m.sourceUsername]];
     }
-    return parts.count ? [parts componentsJoinedByString:@" · "] : @"Not set";
+    return parts.count ? [parts componentsJoinedByString:@" · "] : SPKLocalizedString(@"Not set");
 }
 
 #pragma mark - Queue row facts
@@ -986,7 +987,7 @@ static UIColor *SPKImportAmberColor(void) {
 - (void)pushSharedEditor {
     SPKGalleryImportMetadataFormViewController *form = [[SPKGalleryImportMetadataFormViewController alloc] init];
     form.metadata = self.sharedDefaults;
-    form.title = @"Shared Details";
+    form.title = SPKLocalizedString(@"Shared Details");
     self.activeForm = form;
     self.activeFormItem = nil;
     self.activeFormIsShared = YES;
@@ -997,7 +998,7 @@ static UIColor *SPKImportAmberColor(void) {
     SPKGalleryImportMetadataFormViewController *form = [[SPKGalleryImportMetadataFormViewController alloc] init];
     form.metadata = item.metadata;
     form.title = item.metadata.customName.length ? item.metadata.customName
-                                                 : (item.metadata.sourceUsername.length ? item.metadata.sourceUsername : @"File details");
+                                                 : (item.metadata.sourceUsername.length ? item.metadata.sourceUsername : SPKLocalizedString(@"File details"));
     // Audio gets no hero at all (the form drops the header for it) — a waveform placeholder blown
     // up to 180pt says nothing the row already didn't.
     form.previewThumbnail = (item.mediaType == SPKGalleryMediaTypeAudio) ? nil : item.thumbnail;
@@ -1123,7 +1124,7 @@ static UIColor *SPKImportAmberColor(void) {
         return;
     }
     NSUInteger count = self.queuedFiles.count;
-    NSString *title = [NSString stringWithFormat:@"Remove all %lu file%@?", (unsigned long)count, count == 1 ? @"" : @"s"];
+    NSString *title = [NSString stringWithFormat:SPKLocalizedString(@"Remove all %lu file%@?"), (unsigned long)count, count == 1 ? @"" : @"s"];
     __weak typeof(self) weakSelf = self;
     [SPKUtils showConfirmation:^{
         __strong typeof(weakSelf) self = weakSelf;
@@ -1139,7 +1140,7 @@ static UIColor *SPKImportAmberColor(void) {
         [self updateImportButton];
     }
                          title:title
-                       message:@"They stay in the Files app; only the import queue is cleared."];
+                       message:SPKLocalizedString(@"They stay in the Files app; only the import queue is cleared.")];
 }
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
@@ -1166,7 +1167,7 @@ static UIColor *SPKImportAmberColor(void) {
 // Folders and zips are read off the main thread (unzip + SQLite + copying many files). A Regram
 // Media Vault becomes queued items with its DB metadata pre-filled; anything else is ignored.
 - (void)ingestContainerURLs:(NSArray<NSURL *> *)urls {
-    SPKNotificationPillView *pill = SPKNotifyProgress(kSPKNotificationGalleryImport, @"Reading Regram export...", nil);
+    SPKNotificationPillView *pill = SPKNotifyProgress(kSPKNotificationGalleryImport, SPKLocalizedString(@"Reading Regram export..."), nil);
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         NSMutableArray<SPKGalleryImportQueuedFile *> *newItems = [NSMutableArray array];
@@ -1186,8 +1187,8 @@ static UIColor *SPKImportAmberColor(void) {
                 done++;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [pill setProgress:(float)done / (float)total animated:YES];
-                    [pill updateProgressTitle:@"Reading Regram export..."
-                                     subtitle:[NSString stringWithFormat:@"%lu of %lu", (unsigned long)done, (unsigned long)total]];
+                    [pill updateProgressTitle:SPKLocalizedString(@"Reading Regram export...")
+                                     subtitle:[NSString stringWithFormat:SPKLocalizedString(@"%lu of %lu"), (unsigned long)done, (unsigned long)total]];
                 });
             }
         }
@@ -1202,13 +1203,13 @@ static UIColor *SPKImportAmberColor(void) {
                 [self persistQueue];
                 [self.tableView reloadData];
                 [self updateImportButton];
-                [pill showSuccessWithTitle:@"Media Vault ready"
-                                  subtitle:[NSString stringWithFormat:@"%lu item%@ added to the queue", (unsigned long)newItems.count, newItems.count == 1 ? @"" : @"s"]
+                [pill showSuccessWithTitle:SPKLocalizedString(@"Media Vault ready")
+                                  subtitle:[NSString stringWithFormat:SPKLocalizedString(@"%lu item%@ added to the queue"), (unsigned long)newItems.count, newItems.count == 1 ? @"" : @"s"]
                                       icon:nil];
             } else if (vaults > 0) {
-                [pill showErrorWithTitle:@"Nothing to import" subtitle:@"The Regram vault had no media." icon:nil];
+                [pill showErrorWithTitle:SPKLocalizedString(@"Nothing to import") subtitle:SPKLocalizedString(@"The Regram vault had no media.") icon:nil];
             } else {
-                [pill showErrorWithTitle:@"Not a Regram vault" subtitle:@"Pick a Regram export folder or MediaVault.zip." icon:nil];
+                [pill showErrorWithTitle:SPKLocalizedString(@"Not a Regram vault") subtitle:SPKLocalizedString(@"Pick a Regram export folder or MediaVault.zip.") icon:nil];
             }
         });
     });
@@ -1271,8 +1272,8 @@ static UIColor *SPKImportAmberColor(void) {
     }
 
     if (![fm fileExistsAtPath:tempPath]) {
-        NSString *reason = (coordError ?: copyError).localizedDescription ?: @"Couldn’t read the file";
-        SPKNotify(kSPKNotificationGalleryImport, @"Couldn’t add file", reason, @"error_filled", SPKNotificationToneError);
+        NSString *reason = (coordError ?: copyError).localizedDescription ?: SPKLocalizedString(@"Couldn’t read the file");
+        SPKNotify(kSPKNotificationGalleryImport, SPKLocalizedString(@"Couldn’t add file"), reason, @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -1304,7 +1305,7 @@ static UIColor *SPKImportAmberColor(void) {
     // The overflow (Add / Clear) only makes sense once the empty state is gone.
     SPKMediaChromeSetTrailingTopBarItems(self.navigationItem, empty ? @[] : @[ self.overflowBarButtonItem ]);
     [self refreshOverflowMenu];
-    [self.importButton setText:[NSString stringWithFormat:@"Import %lu file%@", (unsigned long)count, count == 1 ? @"" : @"s"]];
+    [self.importButton setText:[NSString stringWithFormat:SPKLocalizedString(@"Import %lu file%@"), (unsigned long)count, count == 1 ? @"" : @"s"]];
     self.importButton.enabled = YES;
     [self updateJumpButtonVisibility];
 }
@@ -1335,13 +1336,13 @@ static UIColor *SPKImportAmberColor(void) {
 
     NSArray<SPKGalleryImportQueuedFile *> *batch = [self.queuedFiles copy];
     self.importButton.enabled = NO;
-    [self.importButton setText:@"Importing..."];
+    [self.importButton setText:SPKLocalizedString(@"Importing...")];
     // One progress surface for the whole feature: the notification pill (same as reading a vault).
     // Its cancel affordance drives the same cancel path as the top-bar Cancel button.
     __weak typeof(self) weakSelf = self;
-    self.importPill = SPKNotifyProgress(kSPKNotificationGalleryImport, @"Importing...", ^{ [weakSelf cancelImport]; });
-    [self.importPill updateProgressTitle:@"Importing..."
-                                subtitle:[NSString stringWithFormat:@"0 of %lu", (unsigned long)batch.count]];
+    self.importPill = SPKNotifyProgress(kSPKNotificationGalleryImport, SPKLocalizedString(@"Importing..."), ^{ [weakSelf cancelImport]; });
+    [self.importPill updateProgressTitle:SPKLocalizedString(@"Importing...")
+                                subtitle:[NSString stringWithFormat:SPKLocalizedString(@"0 of %lu"), (unsigned long)batch.count]];
 
     [self importNextInBatch:batch
                       index:0
@@ -1362,8 +1363,8 @@ static UIColor *SPKImportAmberColor(void) {
     }
 
     [self.importPill setProgress:(total ? (float)index / (float)total : 0.0f) animated:YES];
-    [self.importPill updateProgressTitle:@"Importing..."
-                                subtitle:[NSString stringWithFormat:@"%lu of %lu", (unsigned long)(index + 1), (unsigned long)total]];
+    [self.importPill updateProgressTitle:SPKLocalizedString(@"Importing...")
+                                subtitle:[NSString stringWithFormat:SPKLocalizedString(@"%lu of %lu"), (unsigned long)(index + 1), (unsigned long)total]];
 
     // Hop to the next runloop pass so the pill paints and the Cancel tap stays responsive between
     // files. saveFileToGallery: uses the main-queue Core Data context, so the save stays on main.
@@ -1397,7 +1398,7 @@ static UIColor *SPKImportAmberColor(void) {
             [succeeded addObject:item];
         } else {
             nextFailures++;
-            nextError = err.localizedDescription ?: @"Save failed";
+            nextError = err.localizedDescription ?: SPKLocalizedString(@"Save failed");
         }
 
         [self importNextInBatch:batch
@@ -1429,22 +1430,22 @@ static UIColor *SPKImportAmberColor(void) {
 
     if (cancelled) {
         NSString *subtitle = imported
-                                 ? [NSString stringWithFormat:@"%lu imported before cancel", (unsigned long)imported]
-                                 : @"No files imported";
-        [pill showErrorWithTitle:@"Import cancelled" subtitle:subtitle icon:nil];
+                                 ? [NSString stringWithFormat:SPKLocalizedString(@"%lu imported before cancel"), (unsigned long)imported]
+                                 : SPKLocalizedString(@"No files imported");
+        [pill showErrorWithTitle:SPKLocalizedString(@"Import cancelled") subtitle:subtitle icon:nil];
         return;
     }
 
     if (failures > 0) {
         NSString *subtitle = lastError.length
-                                 ? [NSString stringWithFormat:@"%lu couldn’t be saved · %@", (unsigned long)failures, lastError]
-                                 : [NSString stringWithFormat:@"%lu couldn’t be saved", (unsigned long)failures];
-        [pill showErrorWithTitle:@"Import incomplete" subtitle:subtitle icon:nil];
+                                 ? [NSString stringWithFormat:SPKLocalizedString(@"%lu couldn’t be saved · %@"), (unsigned long)failures, lastError]
+                                 : [NSString stringWithFormat:SPKLocalizedString(@"%lu couldn’t be saved"), (unsigned long)failures];
+        [pill showErrorWithTitle:SPKLocalizedString(@"Import incomplete") subtitle:subtitle icon:nil];
         return;
     }
 
-    NSString *subtitle = imported == 1 ? @"1 file saved to your gallery"
-                                       : [NSString stringWithFormat:@"%lu files saved to your gallery", (unsigned long)imported];
+    NSString *subtitle = imported == 1 ? SPKLocalizedString(@"1 file saved to your gallery")
+                                       : [NSString stringWithFormat:SPKLocalizedString(@"%lu files saved to your gallery"), (unsigned long)imported];
     [pill showSuccessWithTitle:@"Imported" subtitle:subtitle icon:nil];
     if (self.queuedFiles.count == 0) {
         [self.navigationController popViewControllerAnimated:YES];

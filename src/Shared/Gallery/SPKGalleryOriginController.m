@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryOriginController.h"
 
 #import <objc/message.h>
@@ -476,8 +477,8 @@ static BOOL SPKGalleryURLIsPostOrReel(NSURL *url) {
                                                         ? [NSString stringWithFormat:@"@%@ (%@)", cleanUsername, currentName]
                                                         : [NSString stringWithFormat:@"@%@", cleanUsername];
                                     SPKNotify(kSPKNotificationGalleryOpenProfile,
-                                              @"Account linked",
-                                              [NSString stringWithFormat:@"%@ saved to this item, so it opens instantly from now on.", who],
+                                              SPKLocalizedString(@"Account linked"),
+                                              [NSString stringWithFormat:SPKLocalizedString(@"%@ saved to this item, so it opens instantly from now on."), who],
                                               @"info_filled",
                                               SPKNotificationToneInfo);
                                 }

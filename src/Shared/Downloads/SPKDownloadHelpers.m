@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadHelpers.h"
 
 #import "../../Shared/ActionButton/ActionButtonCore.h"
@@ -91,7 +92,7 @@ static NSString *SPKDownloadDisplayUsername(NSString *username) {
         if (usernames.count == 1)
             return usernames.firstObject;
         if (usernames.count > 1)
-            return [NSString stringWithFormat:@"%@ + %lu more", usernames.firstObject,
+            return [NSString stringWithFormat:SPKLocalizedString(@"%@ + %lu more"), usernames.firstObject,
                                               (unsigned long)(usernames.count - 1)];
         return nil;
     }
@@ -219,7 +220,7 @@ static NSString *SPKDownloadDisplayUsername(NSString *username) {
     finalizeBatchClipboard:(BOOL)batchClipboard {
     if (items.count == 0) {
         SPKNotify(identifier ?: kSPKNotificationDownloadAllLibrary,
-                  @"No downloadable media", nil, @"error_filled",
+                  SPKLocalizedString(@"No downloadable media"), nil, @"error_filled",
                   SPKNotificationToneError);
         return;
     }

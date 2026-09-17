@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKDeletedMessagesViewController.h"
 
 #import "../../../AssetUtils.h"
@@ -156,11 +157,11 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Deleted Messages";
+    self.title = SPKLocalizedString(@"Deleted Messages");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramGroupedBackground];
 
     UIBarButtonItem *moreItem = SPKMediaChromeTopBarMenuButtonItem(@"more", [self moreMenu], @"More");
-    UIBarButtonItem *sortItem = SPKMediaChromeTopBarMenuButtonItem(@"sort", [self sortMenu], @"Sort and Filter");
+    UIBarButtonItem *sortItem = SPKMediaChromeTopBarMenuButtonItem(@"sort", [self sortMenu], SPKLocalizedString(@"Sort and Filter"));
     // More button is always rightmost (last in trailing-group order), matching
     // the downloads history convention.
     SPKMediaChromeSetTrailingTopBarItems(self.navigationItem, @[ sortItem, moreItem ]);
@@ -171,7 +172,7 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.placeholder = @"Search Deleted Messages";
+    self.searchController.searchBar.placeholder = SPKLocalizedString(@"Search Deleted Messages");
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
@@ -337,14 +338,14 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
 
     if (!loggingEnabled && !hasAnyData) {
         self.emptyStateIcon.image = [SPKAssetUtils instagramIconNamed:@"messages_empty" pointSize:96.0 renderingMode:UIImageRenderingModeAlwaysTemplate];
-        self.emptyStateTitle.text = @"Logging is off";
-        self.emptyStateSubtitle.text = @"Turn on Log Deleted Messages in Settings to start capturing unsent messages.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"Logging is off");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Turn on Log Deleted Messages in Settings to start capturing unsent messages.");
     } else if (hasAnyData && hasFiltersActive) {
-        self.emptyStateTitle.text = @"No matches";
-        self.emptyStateSubtitle.text = @"No deleted messages match the current filters.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No matches");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"No deleted messages match the current filters.");
     } else {
-        self.emptyStateTitle.text = @"Nothing here yet";
-        self.emptyStateSubtitle.text = @"Messages that other people unsend will show up here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"Nothing here yet");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Messages that other people unsend will show up here.");
     }
 }
 
@@ -387,7 +388,7 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
     NSArray *items = @[
         @[ @"Recent", @(SPKDMSortRecent) ],
         @[ @"Oldest", @(SPKDMSortOldest) ],
-        @[ @"Most Messages", @(SPKDMSortCountDesc) ]
+        @[ SPKLocalizedString(@"Most Messages"), @(SPKDMSortCountDesc) ]
     ];
     NSMutableArray<UIAction *> *sortActions = [NSMutableArray array];
     for (NSArray *item in items) {
@@ -407,10 +408,10 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
 
     NSMutableArray<UIAction *> *dateActions = [NSMutableArray array];
     NSArray *dateItems = @[
-        @[ @"All Time", @(SPKDMDateRangeAll) ],
+        @[ SPKLocalizedString(@"All Time"), @(SPKDMDateRangeAll) ],
         @[ @"Today", @(SPKDMDateRangeToday) ],
-        @[ @"Last 7 Days", @(SPKDMDateRangeWeek) ],
-        @[ @"Last 30 Days", @(SPKDMDateRangeMonth) ]
+        @[ SPKLocalizedString(@"Last 7 Days"), @(SPKDMDateRangeWeek) ],
+        @[ SPKLocalizedString(@"Last 30 Days"), @(SPKDMDateRangeMonth) ]
     ];
     for (NSArray *item in dateItems) {
         SPKDMDateRange range = [item[1] integerValue];
@@ -425,7 +426,7 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
             action.state = UIMenuElementStateOn;
         [dateActions addObject:action];
     }
-    UIMenu *dateSection = [UIMenu menuWithTitle:@"Date Range" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:dateActions];
+    UIMenu *dateSection = [UIMenu menuWithTitle:SPKLocalizedString(@"Date Range") image:nil identifier:nil options:UIMenuOptionsDisplayInline children:dateActions];
 
     return @[ sortSection, dateSection ];
 }
@@ -441,14 +442,14 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
 - (NSArray<UIMenuElement *> *)moreMenuElements {
     __weak typeof(self) weakSelf = self;
 
-    UIAction *storageAction = [UIAction actionWithTitle:@"Storage"
+    UIAction *storageAction = [UIAction actionWithTitle:SPKLocalizedString(@"Storage")
                                                   image:[SPKAssetUtils menuIconNamed:@"info"]
                                              identifier:nil
                                                 handler:^(__unused UIAction *a) {
                                                     [weakSelf.navigationController pushViewController:[SPKDeletedMessagesStorageViewController new] animated:YES];
                                                 }];
 
-    UIAction *refreshAvatarsAction = [UIAction actionWithTitle:@"Refresh Profile Pictures"
+    UIAction *refreshAvatarsAction = [UIAction actionWithTitle:SPKLocalizedString(@"Refresh Profile Pictures")
                                                          image:[SPKAssetUtils menuIconNamed:@"user_circle"]
                                                     identifier:nil
                                                        handler:^(__unused UIAction *a) {
@@ -456,7 +457,7 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
                                                            [weakSelf.tableView reloadData];
                                                        }];
 
-    UIAction *clearFiltersAction = [UIAction actionWithTitle:@"Clear Filters"
+    UIAction *clearFiltersAction = [UIAction actionWithTitle:SPKLocalizedString(@"Clear Filters")
                                                        image:[SPKAssetUtils menuIconNamed:@"filter"]
                                                   identifier:nil
                                                      handler:^(__unused UIAction *a) {
@@ -466,7 +467,7 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
                                                          [weakSelf applyFilter];
                                                      }];
 
-    UIAction *clearAllAction = [UIAction actionWithTitle:@"Clear All Messages"
+    UIAction *clearAllAction = [UIAction actionWithTitle:SPKLocalizedString(@"Clear All Messages")
                                                    image:[SPKAssetUtils menuIconNamed:@"trash"]
                                               identifier:nil
                                                  handler:^(__unused UIAction *a) {
@@ -482,13 +483,13 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
 
 - (void)confirmClearAll {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Clear deleted messages?"
-                                                message:@"This removes the log and captured media for the current account."
+                                                  title:SPKLocalizedString(@"Clear deleted messages?")
+                                                message:SPKLocalizedString(@"This removes the log and captured media for the current account.")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
-                                                    [SPKIGAlertAction actionWithTitle:@"Clear"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Clear")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   [SPKDeletedMessagesStorage resetForOwnerPK:self.ownerPK];
@@ -501,12 +502,12 @@ static SPKDeletedMessageKind SPKDMChipKindForIndex(NSInteger index) {
     if (isGroup ? !group.threadId.length : !group.senderPk.length)
         return;
     NSString *who = isGroup ? group.displayName
-                            : (group.senderUsername.length ? [@"@" stringByAppendingString:group.senderUsername] : @"this sender");
+                            : (group.senderUsername.length ? [@"@" stringByAppendingString:group.senderUsername] : SPKLocalizedString(@"this sender"));
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:isGroup ? @"Delete group log?" : @"Delete sender log?"
-                                                message:[NSString stringWithFormat:@"This removes all logged messages from %@.", who]
+                                                  title:isGroup ? SPKLocalizedString(@"Delete group log?") : SPKLocalizedString(@"Delete sender log?")
+                                                message:[NSString stringWithFormat:SPKLocalizedString(@"This removes all logged messages from %@."), who]
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
                                                     [SPKIGAlertAction actionWithTitle:@"Delete"

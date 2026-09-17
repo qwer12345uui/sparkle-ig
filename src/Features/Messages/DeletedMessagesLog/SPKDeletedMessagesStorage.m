@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKDeletedMessagesStorage.h"
 #import "../../../Shared/Avatars/SPKAvatarCache.h"
 #import "../../../Shared/SPKStoragePaths.h"
@@ -276,7 +277,7 @@ static NSString *spkGeneratedGroupTitle(NSArray<SPKDeletedMessage *> *msgs, NSSt
             [labels addObject:label];
     }
     if (!labels.count)
-        return @"Group chat";
+        return SPKLocalizedString(@"Group chat");
     if (labels.count <= 3)
         return [labels componentsJoinedByString:@", "];
     NSArray *head = [labels subarrayWithRange:NSMakeRange(0, 3)];

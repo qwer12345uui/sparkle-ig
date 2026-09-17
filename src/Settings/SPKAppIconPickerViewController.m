@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKAppIconPickerViewController.h"
 
 #import <errno.h>
@@ -25,7 +26,7 @@
     if (self) {
         self.selectedIdentifier = [selectedIdentifier copy] ?: @"";
         _onSelect = [onSelect copy];
-        self.title = @"App Icon";
+        self.title = SPKLocalizedString(@"App Icon");
     }
     return self;
 }
@@ -93,9 +94,9 @@
     if (!supportsAlternate) {
         SPKLog(@"AppIcon", @"[Sparkle] abort: supportsAlternateIcons == NO");
         [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                      title:@"App Icons Unavailable"
-                                                    message:@"This device or app build does not allow alternate app icons."
-                                                    actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleDefault handler:nil] ]];
+                                                      title:SPKLocalizedString(@"App Icons Unavailable")
+                                                    message:SPKLocalizedString(@"This device or app build does not allow alternate app icons.")
+                                                    actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleDefault handler:nil] ]];
         return;
     }
 
@@ -111,9 +112,9 @@
 
                             if (error) {
                                 [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                                              title:@"Changing App Icon Failed"
-                                                                            message:error.localizedDescription ?: @"Unable to change the app icon."
-                                                                            actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleDefault handler:nil] ]];
+                                                                              title:SPKLocalizedString(@"Changing App Icon Failed")
+                                                                            message:error.localizedDescription ?: SPKLocalizedString(@"Unable to change the app icon.")
+                                                                            actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleDefault handler:nil] ]];
                                 return;
                             }
 
@@ -122,7 +123,7 @@
                             if (self.onSelect)
                                 self.onSelect(identifier);
                             [self refreshSelectionHighlight];
-                            SPKNotify(@"settings_app_icon", @"App icon changed", appIcon.displayName, @"circle_check_filled", SPKNotificationToneForIconResource(@"circle_check_filled"));
+                            SPKNotify(@"settings_app_icon", SPKLocalizedString(@"App icon changed"), appIcon.displayName, @"circle_check_filled", SPKNotificationToneForIconResource(@"circle_check_filled"));
                             [self.navigationController popViewControllerAnimated:YES];
                         }];
 }

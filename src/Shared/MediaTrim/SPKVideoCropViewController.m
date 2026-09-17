@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKVideoCropViewController.h"
 
 #import "../../Utils.h"
@@ -93,7 +94,7 @@ static const CGFloat kSPKVideoCropControlsRow = 56.0;
 
 - (void)setupChrome {
     UIBarButtonItem *cancelItem = SPKMediaChromeTopBarButtonItem(@"close", self, @selector(cancelTapped));
-    cancelItem.accessibilityLabel = @"Cancel";
+    cancelItem.accessibilityLabel = SPKLocalizedString(@"Cancel");
     // Plain and untinted: confirming here returns the framing to the trim
     // editor, whose own Done is the one that commits the edit.
     UIBarButtonItem *doneItem = SPKMediaChromeTopBarButtonItem(@"check", self, @selector(confirmTapped));

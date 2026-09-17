@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKEditActionsListViewController.h"
 #include <UIKit/UIKit.h>
 
@@ -38,7 +39,7 @@ static char kSPKActionsListSwitchAssocKey;
                                                                    topicTitle:topicTitle
                                                              supportedActions:SPKActionButtonSupportedActionsForSource(source)
                                                               defaultSections:SPKActionButtonDefaultSectionsForSource(source)];
-        self.title = @"Configure Actions";
+        self.title = SPKLocalizedString(@"Configure Actions");
     }
     return self;
 }
@@ -102,9 +103,9 @@ static char kSPKActionsListSwitchAssocKey;
 
 - (NSString *)bulkEditorTitleForKind:(NSString *)kind {
     if ([kind isEqualToString:@"copy_info"]) {
-        return @"Configure Copy Info Menu";
+        return SPKLocalizedString(@"Configure Copy Info Menu");
     }
-    return @"Configure Menu";
+    return SPKLocalizedString(@"Configure Menu");
 }
 
 - (NSString *)bulkEditorSubtitleForKind:(NSString *)kind {
@@ -114,7 +115,7 @@ static char kSPKActionsListSwitchAssocKey;
 
 - (SPKBulkActionMenuEditViewController *)bulkEditorControllerForKind:(NSString *)kind {
     if ([kind isEqualToString:@"copy_info"]) {
-        return [[SPKBulkActionMenuEditViewController alloc] initWithTitle:@"Copy Info Menu"
+        return [[SPKBulkActionMenuEditViewController alloc] initWithTitle:SPKLocalizedString(@"Copy Info Menu")
                                                                    source:self.source
                                                          supportedActions:SPKProfileCopyInfoSupportedActions()
                                                         configuredActions:SPKProfileConfiguredCopyInfoActions()
@@ -144,25 +145,25 @@ static char kSPKActionsListSwitchAssocKey;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0)
-        return @"Menu Sections";
+        return SPKLocalizedString(@"Menu Sections");
     if (section == [self bulkEditorSectionIndex])
-        return @"All Menus";
+        return SPKLocalizedString(@"All Menus");
     if (section == [self unassignedSectionIndex])
-        return @"Unassigned Actions";
+        return SPKLocalizedString(@"Unassigned Actions");
     if (section == [self resetSectionIndex])
         return nil;
-    return @"Available Actions";
+    return SPKLocalizedString(@"Available Actions");
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0)
-        return @"Long press and drag to reorder sections.";
+        return SPKLocalizedString(@"Long press and drag to reorder sections.");
     if (section == [self unassignedSectionIndex])
-        return @"Actions here are supported but do not appear in the runtime menu.";
+        return SPKLocalizedString(@"Actions here are supported but do not appear in the runtime menu.");
     if (section == [self availableSectionIndex])
-        return @"Disabled actions are hidden even if they remain assigned to a section.";
+        return SPKLocalizedString(@"Disabled actions are hidden even if they remain assigned to a section.");
     if (section == [self resetSectionIndex])
-        return @"Restores this surface's menu sections, default action, and bulk menus to their defaults. Other surfaces are unaffected.";
+        return SPKLocalizedString(@"Restores this surface's menu sections, default action, and bulk menus to their defaults. Other surfaces are unaffected.");
     return nil;
 }
 
@@ -225,7 +226,7 @@ static char kSPKActionsListSwitchAssocKey;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     } else if (indexPath.section == [self resetSectionIndex]) {
-        config.text = @"Reset to Default";
+        config.text = SPKLocalizedString(@"Reset to Default");
         config.textProperties.color = [SPKUtils SPKColor_InstagramDestructive];
         config.image = SPKSettingsIcon(@"arrow_ccw");
         config.imageProperties.tintColor = [SPKUtils SPKColor_InstagramDestructive];
@@ -372,13 +373,13 @@ static char kSPKActionsListSwitchAssocKey;
                                                                              }];
     deleteAction.image = [SPKAssetUtils menuIconNamed:@"trash"];
     deleteAction.backgroundColor = [SPKUtils SPKColor_InstagramDestructive];
-    deleteAction.accessibilityLabel = @"Remove Section";
+    deleteAction.accessibilityLabel = SPKLocalizedString(@"Remove Section");
     return [UISwipeActionsConfiguration configurationWithActions:@[ deleteAction ]];
 }
 
 - (void)addSectionTapped {
     SPKActionMenuSection *section = [SPKActionMenuSection sectionWithIdentifier:NSUUID.UUID.UUIDString
-                                                                          title:[NSString stringWithFormat:@"Section %lu", (unsigned long)(self.configuration.sections.count + 1)]
+                                                                          title:[NSString stringWithFormat:SPKLocalizedString(@"Section %lu"), (unsigned long)(self.configuration.sections.count + 1)]
                                                                        iconName:@"more"
                                                                     collapsible:YES
                                                                         actions:@[]];
@@ -417,9 +418,9 @@ static char kSPKActionsListSwitchAssocKey;
     __weak typeof(self) weakSelf = self;
     [[SPKSettingsTransferManager sharedManager]
         resetConfigurationGroupFromController:self
-                                        title:@"Reset to Default"
-                                      message:@"This restores this surface's menu sections, default action, and bulk menus to their defaults. The action button stays enabled and other surfaces are unaffected."
-                                 confirmTitle:@"Reset"
+                                        title:SPKLocalizedString(@"Reset to Default")
+                                      message:SPKLocalizedString(@"This restores this surface's menu sections, default action, and bulk menus to their defaults. The action button stays enabled and other surfaces are unaffected.")
+                                 confirmTitle:SPKLocalizedString(@"Reset")
                                          keys:[self configurationResetKeys]
                                       onReset:^{
                                           typeof(self) strongSelf = weakSelf;

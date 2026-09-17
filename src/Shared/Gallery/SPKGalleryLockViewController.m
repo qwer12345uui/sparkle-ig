@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryLockViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -148,7 +149,7 @@ static NSInteger const kPasscodeLength = 4;
     [self.keyPressFeedbackGenerator prepare];
 
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    [self.cancelButton setTitle:SPKLocalizedString(@"Cancel") forState:UIControlStateNormal];
     [self.cancelButton setTitleColor:[SPKUtils SPKColor_InstagramPrimaryText] forState:UIControlStateNormal];
     self.cancelButton.titleLabel.font = [UIFont systemFontOfSize:17];
     self.cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -290,26 +291,26 @@ static NSInteger const kPasscodeLength = 4;
     NSString *protectedName = self.lockManager.protectedContentName;
     switch (self.mode) {
     case SPKGalleryLockModeUnlock:
-        self.titleLabel.text = @"Enter Passcode";
-        self.subtitleLabel.text = [NSString stringWithFormat:@"Enter your passcode to unlock %@", protectedName];
+        self.titleLabel.text = SPKLocalizedString(@"Enter Passcode");
+        self.subtitleLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"Enter your passcode to unlock %@"), protectedName];
         break;
 
     case SPKGalleryLockModeSetPasscode:
-        self.titleLabel.text = self.firstPasscode ? @"Confirm Passcode" : @"New Passcode";
+        self.titleLabel.text = self.firstPasscode ? SPKLocalizedString(@"Confirm Passcode") : SPKLocalizedString(@"New Passcode");
         self.subtitleLabel.text = self.firstPasscode
-                                      ? @"Re-enter your new passcode"
-                                      : [NSString stringWithFormat:@"Create a passcode to protect %@", protectedName];
+                                      ? SPKLocalizedString(@"Re-enter your new passcode")
+                                      : [NSString stringWithFormat:SPKLocalizedString(@"Create a passcode to protect %@"), protectedName];
         break;
 
     case SPKGalleryLockModeChangePasscode:
         if (!self.hasVerifiedOldPasscode) {
-            self.titleLabel.text = @"Enter Current Passcode";
-            self.subtitleLabel.text = [NSString stringWithFormat:@"Enter your current %@ passcode", protectedName];
+            self.titleLabel.text = SPKLocalizedString(@"Enter Current Passcode");
+            self.subtitleLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"Enter your current %@ passcode"), protectedName];
         } else {
-            self.titleLabel.text = self.firstPasscode ? @"Confirm Passcode" : @"New Passcode";
+            self.titleLabel.text = self.firstPasscode ? SPKLocalizedString(@"Confirm Passcode") : SPKLocalizedString(@"New Passcode");
             self.subtitleLabel.text = self.firstPasscode
-                                          ? @"Re-enter your new passcode"
-                                          : @"Create a new passcode";
+                                          ? SPKLocalizedString(@"Re-enter your new passcode")
+                                          : SPKLocalizedString(@"Create a new passcode");
         }
         break;
     }

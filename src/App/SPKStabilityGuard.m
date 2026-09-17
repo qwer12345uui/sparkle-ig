@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 // SPKStabilityGuard — a launch failsafe.
 //
 // Each launch records a start timestamp. If a launch never reaches the "stable"
@@ -79,22 +80,22 @@ void SPKStabilityGuardPresentSafeModeAlertIfNeeded(void) {
     SPKLog(@"Stability", @"Presenting safe startup alert (reason: %@)", reason);
 
     [SPKIGAlertPresenter presentAlertFromViewController:nil
-                                                 title:@"Sparkle Safe Mode"
-                                               message:@"Instagram closed before finishing launch several times in a row, so Sparkle turned its features off to get you back into the app.\n\n"
+                                                 title:SPKLocalizedString(@"Sparkle Safe Mode")
+                                               message:SPKLocalizedString(@"Instagram closed before finishing launch several times in a row, so Sparkle turned its features off to get you back into the app.\n\n")
                                                         "Every Sparkle feature is disabled right now. Only Sparkle Settings is reachable. Turn Safe Mode off to enable them again."
                                                actions:@[
-                                                   [SPKIGAlertAction actionWithTitle:@"Turn Off Safe Mode"
+                                                   [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Turn Off Safe Mode")
                                                                                style:SPKIGAlertActionStyleDefault
                                                                              handler:^{
                                                                                  SPKStabilityGuardReset();
                                                                                  [SPKUtils showRestartConfirmation];
                                                                              }],
-                                                   [SPKIGAlertAction actionWithTitle:@"Open Sparkle Settings"
+                                                   [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Open Sparkle Settings")
                                                                                style:SPKIGAlertActionStyleDefault
                                                                              handler:^{
-                                                                                 [SPKUtils showSettingsForTopicTitle:@"Tools"];
+                                                                                 [SPKUtils showSettingsForTopicTitle:SPKLocalizedString(@"Tools")];
                                                                              }],
-                                                   [SPKIGAlertAction actionWithTitle:@"Not Now"
+                                                   [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Not Now")
                                                                                style:SPKIGAlertActionStyleCancel
                                                                              handler:nil],
                                                ]];

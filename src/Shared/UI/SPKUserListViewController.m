@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKUserListViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -128,8 +129,8 @@ typedef NS_ENUM(NSInteger, SPKUserListSortMode) {
         _enablesSearch = YES;
         _enablesSort = YES;
         _allowsDelete = YES;
-        _emptyTitle = @"Nothing here";
-        _emptySubtitle = @"There are no accounts in this list.";
+        _emptyTitle = SPKLocalizedString(@"Nothing here");
+        _emptySubtitle = SPKLocalizedString(@"There are no accounts in this list.");
         _sortMode = SPKUserListSortModeDefault;
     }
     return self;
@@ -197,7 +198,7 @@ typedef NS_ENUM(NSInteger, SPKUserListSortMode) {
         if (weakSelf.enablesSort)
             [children addObjectsFromArray:[weakSelf sortMenuElements]];
         if (weakSelf.infoText.length) {
-            UIAction *info = [UIAction actionWithTitle:@"How It Works"
+            UIAction *info = [UIAction actionWithTitle:SPKLocalizedString(@"How It Works")
                                                  image:[SPKAssetUtils menuIconNamed:@"info"]
                                             identifier:nil
                                                handler:^(__unused UIAction *action) {
@@ -235,9 +236,9 @@ typedef NS_ENUM(NSInteger, SPKUserListSortMode) {
     if (!self.infoText.length)
         return;
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"How It Works"
+                                                  title:SPKLocalizedString(@"How It Works")
                                                 message:self.infoText
-                                                actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleCancel handler:nil] ]];
+                                                actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleCancel handler:nil] ]];
 }
 
 - (void)spk_addTapped {
@@ -303,8 +304,8 @@ typedef NS_ENUM(NSInteger, SPKUserListSortMode) {
     if (!isEmpty)
         return;
     if (self.searchText.length) {
-        self.emptyStateTitle.text = @"No matches";
-        self.emptyStateSubtitle.text = self.emptySearchSubtitle.length ? self.emptySearchSubtitle : @"No accounts match your search.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No matches");
+        self.emptyStateSubtitle.text = self.emptySearchSubtitle.length ? self.emptySearchSubtitle : SPKLocalizedString(@"No accounts match your search.");
     } else {
         self.emptyStateTitle.text = self.emptyTitle;
         self.emptyStateSubtitle.text = self.emptySubtitle;

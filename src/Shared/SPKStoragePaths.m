@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKStoragePaths.h"
 #import "../Utils.h"
 
@@ -35,7 +36,7 @@ static NSString *SPKStorageFeatureDirectory(NSString *featureName) {
 @implementation SPKStoragePaths
 
 + (NSString *)galleryDirectory {
-    return SPKStorageFeatureDirectory(@"Gallery");
+    return SPKStorageFeatureDirectory(SPKLocalizedString(@"Gallery"));
 }
 
 + (NSString *)deletedMessagesDirectory {
@@ -51,7 +52,7 @@ static NSString *SPKStorageFeatureDirectory(NSString *featureName) {
 }
 
 + (NSString *)downloadsDirectory {
-    return SPKStorageFeatureDirectory(@"Downloads");
+    return SPKStorageFeatureDirectory(SPKLocalizedString(@"Downloads"));
 }
 
 + (NSString *)avatarCacheDirectory {

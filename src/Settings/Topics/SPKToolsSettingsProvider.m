@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKToolsSettingsProvider.h"
 #include <UIKit/UIKit.h>
 
@@ -41,7 +42,7 @@ static void SPKSettingsLockReloadPresenter(UIViewController *presenter) {
 }
 
 static NSDictionary *SPKSettingsLockSection(void) {
-    SPKSetting *lockSwitch = [SPKSetting switchCellWithTitle:@"Settings Passcode Lock"
+    SPKSetting *lockSwitch = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Settings Passcode Lock")
                                                         icon:SPKSettingsIcon(@"lock")
                                                  defaultsKey:@""];
     lockSwitch.switchValueProvider = ^BOOL {
@@ -61,15 +62,15 @@ static NSDictionary *SPKSettingsLockSection(void) {
         }
         if (!enabled && currentManager.isLockEnabled) {
             [SPKIGAlertPresenter presentAlertFromViewController:presenter
-                                                          title:@"Disable Settings Passcode"
-                                                        message:@"Sparkle Settings will no longer require authentication to open."
+                                                          title:SPKLocalizedString(@"Disable Settings Passcode")
+                                                        message:SPKLocalizedString(@"Sparkle Settings will no longer require authentication to open.")
                                                         actions:@[
-                                                            [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                            [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                         style:SPKIGAlertActionStyleCancel
                                                                                       handler:^{
                                                                                           SPKSettingsLockReloadPresenter(presenter);
                                                                                       }],
-                                                            [SPKIGAlertAction actionWithTitle:@"Disable"
+                                                            [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Disable")
                                                                                         style:SPKIGAlertActionStyleDestructive
                                                                                       handler:^{
                                                                                           [currentManager removePasscode];
@@ -79,7 +80,7 @@ static NSDictionary *SPKSettingsLockSection(void) {
         }
     };
 
-    SPKSetting *changePasscode = [SPKSetting buttonCellWithTitle:@"Change Settings Passcode"
+    SPKSetting *changePasscode = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Change Settings Passcode")
                                                         subtitle:nil
                                                             icon:SPKSettingsIcon(@"key")
                                                           action:^{
@@ -93,7 +94,7 @@ static NSDictionary *SPKSettingsLockSection(void) {
         return [SPKSettingsLockManager sharedManager].isLockEnabled;
     };
 
-    return SPKTopicSection(@"Settings Lock", @[ lockSwitch, changePasscode ], @"Require the independent Settings passcode or biometrics when opening Sparkle Settings, including topic sheets.");
+    return SPKTopicSection(SPKLocalizedString(@"Settings Lock"), @[ lockSwitch, changePasscode ], SPKLocalizedString(@"Require the independent Settings passcode or biometrics when opening Sparkle Settings, including topic sheets."));
 }
 
 @implementation SPKToolsSettingsProvider
@@ -101,12 +102,12 @@ static NSDictionary *SPKSettingsLockSection(void) {
 + (SPKSetting *)rootSetting {
     BOOL flexInstalled = SPKFlexIsBundled();
     NSString *flexFooter = flexInstalled
-                               ? @"The first time FLEX is opened in a session it can take a moment to initialize."
-                               : @"FLEX is not installed. Rebuild with \"--flex\" flag or install \"libFLEX.dylib\" to enable these options.";
-    SPKSetting *flexGesture = [SPKSetting switchCellWithTitle:@"Three-finger Hold" defaultsKey:@"tools_flex_instagram"];
-    SPKSetting *flexLaunch = [SPKSetting switchCellWithTitle:@"Open on App Launch" defaultsKey:@"tools_flex_app_launch"];
-    SPKSetting *flexFocus = [SPKSetting switchCellWithTitle:@"Open on App Focus" defaultsKey:@"tools_flex_app_start"];
-    SPKSetting *flexOpen = [SPKSetting buttonCellWithTitle:@"Open FLEX Now"
+                               ? SPKLocalizedString(@"The first time FLEX is opened in a session it can take a moment to initialize.")
+                               : SPKLocalizedString(@"FLEX is not installed. Rebuild with \"--flex\" flag or install \"libFLEX.dylib\" to enable these options.");
+    SPKSetting *flexGesture = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Three-finger Hold") defaultsKey:@"tools_flex_instagram"];
+    SPKSetting *flexLaunch = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Open on App Launch") defaultsKey:@"tools_flex_app_launch"];
+    SPKSetting *flexFocus = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Open on App Focus") defaultsKey:@"tools_flex_app_start"];
+    SPKSetting *flexOpen = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Open FLEX Now")
                                                   subtitle:@""
                                                       icon:nil
                                                     action:^(void) {
@@ -121,36 +122,36 @@ static NSDictionary *SPKSettingsLockSection(void) {
     NSMutableArray *sections = [NSMutableArray arrayWithArray:@[
         SPKTopicSection(@"FLEX", @[ flexOpen, flexGesture, flexLaunch, flexFocus ], flexFooter),
         SPKTopicSection(@"Tweak", @[
-            [SPKSetting switchCellWithTitle:@"Quick Settings Access"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Quick Settings Access")
                                 defaultsKey:@"tools_settings_shortcut"
                             requiresRestart:YES],
-            [SPKSetting switchCellWithTitle:@"Shortcut Haptics"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Shortcut Haptics")
                                 defaultsKey:@"tools_shortcut_haptics"],
-            [SPKSetting switchCellWithTitle:@"Show Settings on App Launch"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Settings on App Launch")
                                 defaultsKey:@"tools_open_settings_on_launch"],
-            [SPKSetting switchCellWithTitle:@"Disable All Settings"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Disable All Settings")
                                 defaultsKey:@"tools_disable_all"
                             requiresRestart:YES],
-            [SPKSetting buttonCellWithTitle:@"Show Onboarding"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Show Onboarding")
                                    subtitle:@""
                                        icon:nil
                                      action:^(void) {
                                          [SPKOnboardingViewController presentFromViewController:nil onFinish:nil];
                                      }],
-            [SPKSetting buttonCellWithTitle:@"Show What's New"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Show What's New")
                                    subtitle:@""
                                        icon:nil
                                      action:^(void) {
                                          [SPKWhatsNewViewController presentFromViewController:nil onFinish:nil];
                                      }],
         ],
-                        @"1. Opens settings when long pressing the Home tab or the next visible tab if the Home tab is hidden.\n"
+                        SPKLocalizedString(@"1. Opens settings when long pressing the Home tab or the next visible tab if the Home tab is hidden.\n")
                         @"2. Haptic feedback when the settings shortcut gesture fires.\n"
-                        @"3. Open Sparkle settings automatically every time Instagram launches.\n"
-                        @"4. Suppress every Sparkle feature hook, leaving only the shortcut to reach this screen. Use to isolate crashes."),
+                        SPKLocalizedString(@"3. Open Sparkle settings automatically every time Instagram launches.\n")
+                        SPKLocalizedString(@"4. Suppress every Sparkle feature hook, leaving only the shortcut to reach this screen. Use to isolate crashes.")),
 
         SPKTopicSection(@"", @[
-            [SPKSetting buttonCellWithTitle:@"Reset Safe Startup Mode"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Reset Safe Startup Mode")
                                    subtitle:@""
                                        icon:nil
                                      action:^(void) {
@@ -160,7 +161,7 @@ static NSDictionary *SPKSettingsLockSection(void) {
 #if SPK_DEV
             // Dev builds only: wipe the intro-sheet state so the onboarding /
             // What's New gating fires from scratch on the next launch.
-            [SPKSetting buttonCellWithTitle:@"[DEV] Reset Intro State"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"[DEV] Reset Intro State")
                                    subtitle:@""
                                        icon:nil
                                      action:^(void) {
@@ -170,11 +171,11 @@ static NSDictionary *SPKSettingsLockSection(void) {
                                          [SPKUtils showRestartConfirmation];
                                      }],
 #endif
-        ], @"Clears failed-launch counters and temporary hook suppression. Tap this button if it appears as if features aren't enabled."),
+        ], SPKLocalizedString(@"Clears failed-launch counters and temporary hook suppression. Tap this button if it appears as if features aren't enabled.")),
 #if SPK_DEV
         SPKTopicSection(@"Diagnostics",
                         @[ [SPKHookBisectSettingsProvider rootSetting] ],
-                        @"Skip individual hook installers at launch to isolate a crash or a slowdown to one feature."),
+                        SPKLocalizedString(@"Skip individual hook installers at launch to isolate a crash or a slowdown to one feature.")),
 #endif
         SPKSettingsLockSection(),
     ]];
@@ -183,29 +184,29 @@ static NSDictionary *SPKSettingsLockSection(void) {
     // On dev builds, we keep a toggle to allow disabling it for testing.
     NSMutableArray *instagramCells = [NSMutableArray array];
 #if SPK_DEV
-    [instagramCells addObject:[SPKSetting switchCellWithTitle:@"[DEV] Hide TestFlight Popup"
+    [instagramCells addObject:[SPKSetting switchCellWithTitle:SPKLocalizedString(@"[DEV] Hide TestFlight Popup")
                                                   defaultsKey:@"tools_hide_testflight_popup"
                                               requiresRestart:YES]];
 #endif
-    [instagramCells addObject:[SPKSetting switchCellWithTitle:@"Fix Duplicate Notifications"
+    [instagramCells addObject:[SPKSetting switchCellWithTitle:SPKLocalizedString(@"Fix Duplicate Notifications")
                                                   defaultsKey:@"tools_fix_duplicate_notifications"]];
-    [instagramCells addObject:[SPKSetting switchCellWithTitle:@"Disable Safe Mode"
+    [instagramCells addObject:[SPKSetting switchCellWithTitle:SPKLocalizedString(@"Disable Safe Mode")
                                                   defaultsKey:@"tools_disable_safe_mode"]];
 
 #if SPK_DEV
     NSString *instagramFooter =
-        @"1. Suppresses the Instagram Beta update popup.\n"
-        @"2. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n"
-        @"3. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.";
+        SPKLocalizedString(@"1. Suppresses the Instagram Beta update popup.\n")
+        SPKLocalizedString(@"2. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n")
+        SPKLocalizedString(@"3. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.");
 #else
     NSString *instagramFooter =
-        @"1. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n"
-        @"2. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.";
+        SPKLocalizedString(@"1. Drops the duplicate in-app banner sideloaded Instagram posts while the notification extension is already delivering the same push. Only acts while the app is foregrounded.\n")
+        SPKLocalizedString(@"2. Makes Instagram not reset settings after subsequent crashes. Use at your own risk.");
 #endif
 
     [sections addObject:SPKTopicSection(@"Instagram", instagramCells, instagramFooter)];
 
-    return SPKTopicNavigationSetting(@"Tools", @"toolbox", 24.0, sections);
+    return SPKTopicNavigationSetting(SPKLocalizedString(@"Tools"), @"toolbox", 24.0, sections);
 }
 
 @end

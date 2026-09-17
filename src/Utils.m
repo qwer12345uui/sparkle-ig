@@ -1,3 +1,4 @@
+#import "Localization/SPKLocalization.h"
 #import "Utils.h"
 #import "App/SPKCore.h"
 #import "App/SPKStabilityGuard.h"
@@ -443,11 +444,11 @@ static NSString *SPKTrimmedLogBody(NSString *body) {
 }
 
 static NSString *SPKNormalizedLogBody(NSString *category, NSString *body, NSString **outCategory) {
-    NSString *resolvedCategory = category.length ? category : @"General";
+    NSString *resolvedCategory = category.length ? category : SPKLocalizedString(@"General");
     NSString *resolvedBody = body ?: @"";
     NSArray<NSDictionary<NSString *, NSString *> *> *legacyPrefixes = @[
         @{@"prefix" : @"[Sparkle][startup]", @"category" : @"Startup"},
-        @{@"prefix" : @"[Sparkle Gallery]", @"category" : @"Gallery"},
+        @{@"prefix" : @"[Sparkle Gallery]", @"category" : SPKLocalizedString(@"Gallery")},
         @{@"prefix" : @"[Sparkle BulkDownload]", @"category" : @"BulkDownload"},
         @{@"prefix" : @"[Sparkle]", @"category" : resolvedCategory},
     ];
@@ -478,7 +479,7 @@ void SPKLogMessage(NSString *category, os_log_type_t type, NSString *format, ...
 
     NSString *resolvedCategory = nil;
     NSString *resolvedBody = SPKNormalizedLogBody(category, body ?: @"", &resolvedCategory);
-    NSString *line = [NSString stringWithFormat:@"[Sparkle %@]: %@", resolvedCategory ?: @"General", resolvedBody ?: @""];
+    NSString *line = [NSString stringWithFormat:@"[Sparkle %@]: %@", resolvedCategory ?: SPKLocalizedString(@"General"), resolvedBody ?: @""];
     os_log_with_type(OS_LOG_DEFAULT, type, "%{public}s", line.UTF8String);
 }
 
@@ -2192,7 +2193,7 @@ static void SPKSetResolvedPKForUsername(NSString *username, NSString *pk) {
     // Nothing changes on screen until this lands, so say that something is
     // happening. Transient, like the 4K candidate fetch: preparatory work before
     // the real flow, cleared on both outcomes.
-    [[SPKNotificationCenter shared] beginTransientProgressWithTitle:@"Opening profile..." onCancel:nil];
+    [[SPKNotificationCenter shared] beginTransientProgressWithTitle:SPKLocalizedString(@"Opening profile...") onCancel:nil];
     [SPKInstagramAPI resolveUserForUsername:clean
                                  completion:^(NSDictionary *userDict, NSError *error) {
                                      NSString *resolvedPK = [userDict[@"pk"] description];
@@ -2615,10 +2616,10 @@ static void SPKSetResolvedPKForUsername(NSString *username, NSString *pk) {
 };
 + (BOOL)showConfirmation:(void (^)(void))okHandler cancelHandler:(void (^)(void))cancelHandler title:(NSString *)title message:(NSString *)message {
     [SPKIGAlertPresenter presentAlertFromViewController:topMostController()
-                                                  title:title ?: @"Confirm Action"
-                                                message:message ?: @"Are you sure you want to continue?"
+                                                  title:title ?: SPKLocalizedString(@"Confirm Action")
+                                                message:message ?: SPKLocalizedString(@"Are you sure you want to continue?")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:^{
                                                                                   if (cancelHandler)
@@ -2641,8 +2642,8 @@ static void SPKSetResolvedPKForUsername(NSString *username, NSString *pk) {
 }
 + (void)showRestartConfirmation {
     [SPKIGAlertPresenter presentAlertFromViewController:topMostController()
-                                                  title:@"Restart Required"
-                                                message:@"You must restart the app to apply this change"
+                                                  title:SPKLocalizedString(@"Restart Required")
+                                                message:SPKLocalizedString(@"You must restart the app to apply this change")
                                                 actions:@[
                                                     [SPKIGAlertAction actionWithTitle:@"Later"
                                                                                 style:SPKIGAlertActionStyleCancel
