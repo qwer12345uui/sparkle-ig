@@ -221,7 +221,7 @@ static void SPKAutoSaveHandleFinishedJob(SPKDownloadJob *job) {
         }
     } else {
         SPKAutoSaveSessionFailedCount++;
-        SPKLog(SPKLocalizedString(@"General"), @"[Sparkle AutoSave] Download did not succeed jobID=%@ state=%ld", job.jobID, (long)job.state);
+        SPKLog(@"General", @"[Sparkle AutoSave] Download did not succeed jobID=%@ state=%ld", job.jobID, (long)job.state);
     }
 
     // The viewer is usually already dismissed by the time a merge lands, so this --
@@ -270,7 +270,7 @@ void SPKAutoSaveSessionDidEnd(void) {
                    dispatch_get_main_queue(), ^{
                        if (generation != SPKAutoSaveSessionGeneration)
                            return;
-                       SPKLog(SPKLocalizedString(@"General"), @"[Sparkle AutoSave] Drain timed out with %lu job(s) outstanding",
+                       SPKLog(@"General", @"[Sparkle AutoSave] Drain timed out with %lu job(s) outstanding",
                               (unsigned long)SPKAutoSaveSessionPendingCount);
                        SPKAutoSaveSessionPendingCount = 0;
                        SPKAutoSaveFlushSummaryIfDrained();

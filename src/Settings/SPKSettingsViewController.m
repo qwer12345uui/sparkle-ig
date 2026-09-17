@@ -1115,7 +1115,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:SPKEffectivePreferenceKey(row.mutuallyExclusiveDefaultsKey)];
     }
 
-    SPKLog(SPKLocalizedString(@"General"), @"Switch changed: %@", sender.isOn ? @"ON" : @"OFF");
+    SPKLog(@"General", @"Switch changed: %@", sender.isOn ? @"ON" : @"OFF");
     if (sender.isOn) {
         SPKInstallEnabledFeatureHooks();
     }
@@ -1173,7 +1173,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
     sender.value = normalizedValue;
     [[NSUserDefaults standardUserDefaults] setDouble:normalizedValue forKey:SPKEffectivePreferenceKey(row.defaultsKey)];
 
-    SPKLog(SPKLocalizedString(@"General"), @"Stepper changed: %f", normalizedValue);
+    SPKLog(@"General", @"Stepper changed: %f", normalizedValue);
 
     [self reloadCellForView:sender];
 }
@@ -1197,7 +1197,7 @@ static UIImage *SPKSettingsBreadcrumbChevronImage(void) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SPKMessageSeenButtonPositionDidChangeNotification object:nil];
     }
 
-    SPKLog(SPKLocalizedString(@"General"), @"Menu changed: %@ = %@", writeKey, properties[@"value"]);
+    SPKLog(@"General", @"Menu changed: %@ = %@", writeKey, properties[@"value"]);
 
     // A menu selection can gate another row's visibility (e.g. the Create Tab
     // toggle only shows for the Classic tab order). Only pay for a full rebuild
