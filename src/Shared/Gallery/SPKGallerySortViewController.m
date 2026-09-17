@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGallerySortViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -105,9 +106,9 @@ static NSString *SPKGallerySortResourceSymbol(SPKGallerySortMode mode) {
 + (NSString *)labelForMode:(SPKGallerySortMode)mode {
     switch (mode) {
     case SPKGallerySortModeDateAddedDesc:
-        return @"Newest first";
+        return SPKLocalizedString(@"Newest first");
     case SPKGallerySortModeDateAddedAsc:
-        return @"Oldest first";
+        return SPKLocalizedString(@"Oldest first");
     case SPKGallerySortModeNameAsc:
         return @"Name A-Z";
     case SPKGallerySortModeNameDesc:
@@ -118,9 +119,9 @@ static NSString *SPKGallerySortResourceSymbol(SPKGallerySortMode mode) {
         return @"Smallest first";
     case SPKGallerySortModeTypeAsc:
     case SPKGallerySortModeTypeDesc:
-        return @"Newest first";
+        return SPKLocalizedString(@"Newest first");
     }
-    return @"Newest first";
+    return SPKLocalizedString(@"Newest first");
 }
 
 - (instancetype)init {
@@ -213,7 +214,7 @@ static NSString *SPKGallerySortResourceSymbol(SPKGallerySortMode mode) {
     groupRow.spacing = 10;
     groupRow.distribution = UIStackViewDistributionFillEqually;
     [groupRow addArrangedSubview:[self groupChipWithTitle:@"None" icon:@"circle_off" selected:!self.currentGroupByMediaType tag:0]];
-    [groupRow addArrangedSubview:[self groupChipWithTitle:@"Media type" icon:@"photo_gallery" selected:self.currentGroupByMediaType tag:1]];
+    [groupRow addArrangedSubview:[self groupChipWithTitle:SPKLocalizedString(@"Media type") icon:@"photo_gallery" selected:self.currentGroupByMediaType tag:1]];
     [stack addArrangedSubview:groupRow];
 }
 

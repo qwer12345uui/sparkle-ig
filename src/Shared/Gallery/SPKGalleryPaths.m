@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryPaths.h"
 #import "../../Utils.h"
 #import "../SPKStoragePaths.h"
@@ -41,7 +42,7 @@ static NSString *_galleryThumbnailsDirectory;
         NSError *error;
         [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         if (error) {
-            SPKLog(@"General", @"[Sparkle Gallery] Failed to create directory %@: %@", path, error);
+            SPKLog(SPKLocalizedString(@"General"), @"[Sparkle Gallery] Failed to create directory %@: %@", path, error);
         }
     }
 }

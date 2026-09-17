@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGallerySettingsViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Settings/SPKTopicSettingsSupport.h"
@@ -19,7 +20,7 @@
 @implementation SPKGalleryHiddenSourcesViewController
 
 - (instancetype)init {
-    return [super initWithTitle:@"Hidden Sources" sections:@[] reduceMargin:NO];
+    return [super initWithTitle:SPKLocalizedString(@"Hidden Sources") sections:@[] reduceMargin:NO];
 }
 
 - (void)viewDidLoad {
@@ -54,7 +55,7 @@
         };
         [rows addObject:row];
     }
-    [self replaceSections:@[ SPKTopicSection(@"Sources", rows, @"Hidden sources stay stored in Gallery and remain available to maintenance, export, and duplicate detection.") ]];
+    [self replaceSections:@[ SPKTopicSection(@"Sources", rows, SPKLocalizedString(@"Hidden sources stay stored in Gallery and remain available to maintenance, export, and duplicate detection.")) ]];
 }
 
 @end
@@ -82,71 +83,71 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
 
 + (NSArray *)searchSections {
     return @[
-        SPKTopicSection(@"Storage", @[
-            [SPKSetting valueCellWithTitle:@"Total"
-                                  subtitle:@"Gallery storage and file count"
+        SPKTopicSection(SPKLocalizedString(@"Storage"), @[
+            [SPKSetting valueCellWithTitle:SPKLocalizedString(@"Total")
+                                  subtitle:SPKLocalizedString(@"Gallery storage and file count")
                                       icon:SPKSettingsIcon(@"info")],
             [SPKSetting valueCellWithTitle:@"Images"
-                                  subtitle:@"Saved image count"
+                                  subtitle:SPKLocalizedString(@"Saved image count")
                                       icon:SPKSettingsIcon(@"photo")],
             [SPKSetting valueCellWithTitle:@"Videos"
-                                  subtitle:@"Saved video count"
+                                  subtitle:SPKLocalizedString(@"Saved video count")
                                       icon:SPKSettingsIcon(@"video")],
             [SPKSetting valueCellWithTitle:@"Audio"
-                                  subtitle:@"Saved audio count"
+                                  subtitle:SPKLocalizedString(@"Saved audio count")
                                       icon:SPKSettingsIcon(@"audio")]
         ],
                         nil),
         SPKTopicSection(@"Browsing", @[
-            [SPKSetting switchCellWithTitle:@"Show Favorites at Top"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Favorites at Top")
                                        icon:SPKSettingsIcon(@"heart")
                                 defaultsKey:kFavoritesAtTopKey],
-            [SPKSetting switchCellWithTitle:@"Show Files From Subfolders"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Files From Subfolders")
                                        icon:SPKSettingsIcon(@"folder")
                                 defaultsKey:kSPKGalleryFlatBrowsingKey],
-            [SPKSetting navigationCellWithTitle:@"Hidden Sources"
+            [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Hidden Sources")
                                        subtitle:@""
                                            icon:SPKSettingsIcon(@"eye_off")
                                  viewController:[SPKGalleryHiddenSourcesViewController new]]
         ],
-                        @"Pin favorites above other files inside the current sort and folder context."),
+                        SPKLocalizedString(@"Pin favorites above other files inside the current sort and folder context.")),
         SPKTopicSection(@"Editing", @[
-            [SPKSetting switchCellWithTitle:@"Ask to Replace Original"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Ask to Replace Original")
                                        icon:SPKSettingsIcon(@"left_right")
                                 defaultsKey:@"trim_gallery_prompt_replace"]
         ],
-                        @"When you trim or edit a Gallery item, ask whether to replace the original or save a copy. Off always saves a copy and keeps the original."),
+                        SPKLocalizedString(@"When you trim or edit a Gallery item, ask whether to replace the original or save a copy. Off always saves a copy and keeps the original.")),
         SPKTopicSection(@"Preview", @[
-            [SPKSetting switchCellWithTitle:@"Show Media Info"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Media Info")
                                        icon:SPKSettingsIcon(@"info")
                                 defaultsKey:@"gallery_preview_show_metadata"]
         ],
-                        @"Overlay the username, source, and saved/posted dates on the expanded photo preview."),
+                        SPKLocalizedString(@"Overlay the username, source, and saved/posted dates on the expanded photo preview.")),
         SPKTopicSection(@"Lock", @[
-            [SPKSetting switchCellWithTitle:@"Gallery Passcode Lock"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Gallery Passcode Lock")
                                        icon:SPKSettingsIcon(@"lock")
                                 defaultsKey:@""],
-            [SPKSetting buttonCellWithTitle:@"Change Passcode"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Change Passcode")
                                    subtitle:nil
                                        icon:SPKSettingsIcon(@"key")
                                      action:^{
                                      }]
         ],
-                        @"Lock the Gallery with a passcode or biometrics."),
-        SPKTopicSection(@"Import", @[
+                        SPKLocalizedString(@"Lock the Gallery with a passcode or biometrics.")),
+        SPKTopicSection(SPKLocalizedString(@"Import"), @[
             // A navigation row, not a button: this mirror feeds the settings search index, and a
             // button row's action is what search runs on tap — an empty one silently does nothing.
             // The framework pushes navViewController itself, so the result is actually reachable.
             // No folder context from search, so it imports to the gallery root (nil).
-            [SPKSetting navigationCellWithTitle:@"Import Media"
+            [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Import Media")
                                        subtitle:nil
                                            icon:SPKSettingsIcon(@"media")
                                  viewController:[[SPKGalleryImportViewController alloc] initWithDestinationFolderPath:nil]]
         ],
-                        @"Import media from the Files app with full editable metadata.\n"
-                        @"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over."),
+                        SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n")
+                        SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over.")),
         SPKTopicSection(@"Delete", @[
-            [SPKSetting buttonCellWithTitle:@"Delete Files"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Delete Files")
                                    subtitle:nil
                                        icon:SPKSettingsIcon(@"trash")
                                      action:^{
@@ -157,7 +158,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
 }
 
 - (instancetype)init {
-    return [super initWithTitle:@"Gallery Settings" sections:@[] reduceMargin:NO];
+    return [super initWithTitle:SPKLocalizedString(@"Gallery Settings") sections:@[] reduceMargin:NO];
 }
 
 - (void)viewDidLoad {
@@ -199,9 +200,9 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
 - (void)rebuildSections {
     NSMutableArray *sections = [NSMutableArray array];
 
-    [sections addObject:SPKTopicSection(@"Storage", @[
-                  [SPKSetting valueCellWithTitle:@"Total"
-                                        subtitle:[NSString stringWithFormat:@"%ld files • %@", (long)self.stats.totalFiles, [self formattedSize:self.stats.totalSize]]
+    [sections addObject:SPKTopicSection(SPKLocalizedString(@"Storage"), @[
+                  [SPKSetting valueCellWithTitle:SPKLocalizedString(@"Total")
+                                        subtitle:[NSString stringWithFormat:SPKLocalizedString(@"%ld files • %@"), (long)self.stats.totalFiles, [self formattedSize:self.stats.totalSize]]
                                             icon:SPKSettingsIcon(@"info")],
                   [SPKSetting valueCellWithTitle:@"Images"
                                         subtitle:[NSString stringWithFormat:@"%ld", (long)self.stats.imageCount]
@@ -215,12 +216,12 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
               ],
                                         nil)];
 
-    SPKSetting *favoritesRow = [SPKSetting switchCellWithTitle:@"Show Favorites at Top" icon:SPKSettingsIcon(@"heart") defaultsKey:kFavoritesAtTopKey];
+    SPKSetting *favoritesRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Favorites at Top") icon:SPKSettingsIcon(@"heart") defaultsKey:kFavoritesAtTopKey];
     favoritesRow.action = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SPKGalleryFavoritesSortPreferenceChanged" object:nil];
     };
     // Defaults ON; the backing pref stores the *disabled* state, so the switch inverts.
-    SPKSetting *pinFolderRow = [SPKSetting switchCellWithTitle:@"Pin Folder Bar" icon:SPKSettingsIcon(@"pin") defaultsKey:@""];
+    SPKSetting *pinFolderRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Pin Folder Bar") icon:SPKSettingsIcon(@"pin") defaultsKey:@""];
     pinFolderRow.switchValueProvider = ^BOOL {
         return ![[NSUserDefaults standardUserDefaults] boolForKey:kSPKGalleryFolderBarPinDisabledKey];
     };
@@ -228,23 +229,23 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
         [[NSUserDefaults standardUserDefaults] setBool:!isOn forKey:kSPKGalleryFolderBarPinDisabledKey];
         [[NSNotificationCenter defaultCenter] postNotificationName:kSPKGalleryGridControlsChangedNotification object:nil];
     };
-    SPKSetting *flatBrowsingRow = [SPKSetting switchCellWithTitle:@"Show Files From Subfolders" icon:SPKSettingsIcon(@"folder") defaultsKey:kSPKGalleryFlatBrowsingKey];
+    SPKSetting *flatBrowsingRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Files From Subfolders") icon:SPKSettingsIcon(@"folder") defaultsKey:kSPKGalleryFlatBrowsingKey];
     flatBrowsingRow.action = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSPKGalleryBrowsingScopeChangedNotification object:nil];
     };
     [sections addObject:SPKTopicSection(@"Browsing", @[favoritesRow, pinFolderRow, flatBrowsingRow],
-                                        @"1. Pin favorites above other files inside the current sort and folder context.\n"
-                                        @"2. Keep the subfolder bar pinned to the top while scrolling.\n"
-                                        @"3. Show files from all folders instead of only the current folder's files. The folders stay in the bar above and still narrow the list.")];
+                                        SPKLocalizedString(@"1. Pin favorites above other files inside the current sort and folder context.\n")
+                                        SPKLocalizedString(@"2. Keep the subfolder bar pinned to the top while scrolling.\n")
+                                        SPKLocalizedString(@"3. Show files from all folders instead of only the current folder's files. The folders stay in the bar above and still narrow the list."))];
 
     [sections addObject:SPKTopicSection(@"Editing", @[
-                  [SPKSetting switchCellWithTitle:@"Ask to Replace Original"
+                  [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Ask to Replace Original")
                                              icon:SPKSettingsIcon(@"left_right")
                                       defaultsKey:@"trim_gallery_prompt_replace"]
               ],
-                                        @"When you trim or edit a Gallery item, ask whether to replace the original or save a copy. Off always saves a copy and keeps the original.")];
+                                        SPKLocalizedString(@"When you trim or edit a Gallery item, ask whether to replace the original or save a copy. Off always saves a copy and keeps the original."))];
 
-    SPKSetting *accountFilterRow = [SPKSetting switchCellWithTitle:@"This Account Only" icon:SPKSettingsIcon(@"user_circle") defaultsKey:@"gallery_filter_current_account"];
+    SPKSetting *accountFilterRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"This Account Only") icon:SPKSettingsIcon(@"user_circle") defaultsKey:@"gallery_filter_current_account"];
     __weak typeof(self) weakAccountSelf = self;
     accountFilterRow.action = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:SPKGalleryHiddenSourcesDidChangeNotification object:nil];
@@ -254,17 +255,17 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     };
     [sections addObject:SPKTopicSection(@"Visibility", @[
                   accountFilterRow,
-                  [SPKSetting navigationCellWithTitle:@"Hidden Sources"
+                  [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Hidden Sources")
                                              subtitle:@""
                                                  icon:SPKSettingsIcon(@"eye_off")
                                        viewController:[SPKGalleryHiddenSourcesViewController new]]
               ],
-                                        @"1. Show only media saved while logged into the current account, plus older unassigned files; reassign a file's account from its details sheet.\n"
-                                        @"2. Hide selected sources from Gallery browsing and upload picker sheets without deleting their files.")];
+                                        SPKLocalizedString(@"1. Show only media saved while logged into the current account, plus older unassigned files; reassign a file's account from its details sheet.\n")
+                                        SPKLocalizedString(@"2. Hide selected sources from Gallery browsing and upload picker sheets without deleting their files."))];
 
     // Grid section: pinch-to-zoom toggle. Defaults ON; the backing pref stores
     // the *disabled* state, so the switch inverts.
-    SPKSetting *pinchRow = [SPKSetting switchCellWithTitle:@"Pinch to Zoom" icon:SPKSettingsIcon(@"pinch") defaultsKey:@""];
+    SPKSetting *pinchRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Pinch to Zoom") icon:SPKSettingsIcon(@"pinch") defaultsKey:@""];
     pinchRow.switchValueProvider = ^BOOL {
         return ![[NSUserDefaults standardUserDefaults] boolForKey:kSPKGalleryGridPinchDisabledKey];
     };
@@ -273,7 +274,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
         [[NSNotificationCenter defaultCenter] postNotificationName:kSPKGalleryGridControlsChangedNotification object:nil];
     };
 
-    SPKSetting *sourceUsernameRow = [SPKSetting switchCellWithTitle:@"Show Source & Username" icon:SPKSettingsIcon(@"user_circle") defaultsKey:@""];
+    SPKSetting *sourceUsernameRow = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Source & Username") icon:SPKSettingsIcon(@"user_circle") defaultsKey:@""];
     sourceUsernameRow.switchValueProvider = ^BOOL {
         return ![[NSUserDefaults standardUserDefaults] boolForKey:kSPKGalleryGridShowSourceUsernameDisabledKey];
     };
@@ -283,20 +284,20 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     };
 
     [sections addObject:SPKTopicSection(@"Grid", @[ pinchRow, sourceUsernameRow ],
-                                        @"1. Pinch the grid to change density (2, 3 or 5 columns).\n"
-                                        @"2. Overlay the source icon and username on each grid item; the username shows at lower densities.")];
+                                        SPKLocalizedString(@"1. Pinch the grid to change density (2, 3 or 5 columns).\n")
+                                        SPKLocalizedString(@"2. Overlay the source icon and username on each grid item; the username shows at lower densities."))];
 
     [sections addObject:SPKTopicSection(@"Preview", @[
-                  [SPKSetting switchCellWithTitle:@"Show Media Info"
+                  [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Media Info")
                                              icon:SPKSettingsIcon(@"info")
                                       defaultsKey:@"gallery_preview_show_metadata"]
               ],
-                                        @"Overlay the username, source, and saved/posted dates on the expanded photo preview. Tap the media to hide it along with the controls.")];
+                                        SPKLocalizedString(@"Overlay the username, source, and saved/posted dates on the expanded photo preview. Tap the media to hide it along with the controls."))];
 
     NSMutableArray *lockRows = [NSMutableArray array];
 
     __weak typeof(self) weakSelf = self;
-    SPKSetting *lockSwitch = [SPKSetting switchCellWithTitle:@"Gallery Passcode Lock" icon:SPKSettingsIcon(@"lock") defaultsKey:@""];
+    SPKSetting *lockSwitch = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Gallery Passcode Lock") icon:SPKSettingsIcon(@"lock") defaultsKey:@""];
     lockSwitch.switchValueProvider = ^BOOL {
         return [SPKGalleryManager sharedManager].isLockEnabled;
     };
@@ -305,7 +306,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     };
     [lockRows addObject:lockSwitch];
 
-    SPKSetting *changePasscode = [SPKSetting buttonCellWithTitle:@"Change Passcode"
+    SPKSetting *changePasscode = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Change Passcode")
                                                         subtitle:nil
                                                             icon:SPKSettingsIcon(@"key")
                                                           action:^{
@@ -319,20 +320,20 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     };
     [lockRows addObject:changePasscode];
 
-    [sections addObject:SPKTopicSection(@"Lock", lockRows, @"Lock the Gallery with a passcode or biometrics.")];
+    [sections addObject:SPKTopicSection(@"Lock", lockRows, SPKLocalizedString(@"Lock the Gallery with a passcode or biometrics."))];
 
-    SPKSetting *importRow = [SPKSetting buttonCellWithTitle:@"Import Media"
+    SPKSetting *importRow = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Import Media")
                                                    subtitle:nil
                                                        icon:SPKSettingsIcon(@"media")
                                                      action:^{
                                                          SPKGalleryImportViewController *vc = [[SPKGalleryImportViewController alloc] initWithDestinationFolderPath:self.importDestinationFolderPath];
                                                          [self.navigationController pushViewController:vc animated:YES];
                                                      }];
-    [sections addObject:SPKTopicSection(@"Import", @[ importRow ],
-                                        @"Import media from the Files app with full editable metadata.\n"
-                                        @"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over.")];
+    [sections addObject:SPKTopicSection(SPKLocalizedString(@"Import"), @[ importRow ],
+                                        SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n")
+                                        SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over."))];
 
-    SPKSetting *deleteRow = [SPKSetting buttonCellWithTitle:@"Delete Files"
+    SPKSetting *deleteRow = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Delete Files")
                                                    subtitle:nil
                                                        icon:SPKSettingsIcon(@"trash")
                                                      action:^{
@@ -362,8 +363,8 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
         return;
 
     NSString *username = [SPKAccountManager currentAccountUsername];
-    NSString *who = username.length > 0 ? [@"@" stringByAppendingString:username] : @"this account";
-    NSString *message = [NSString stringWithFormat:@"%lu existing file%@ %@ no account and won't show under This Account Only. Assign %@ to %@?",
+    NSString *who = username.length > 0 ? [@"@" stringByAppendingString:username] : SPKLocalizedString(@"this account");
+    NSString *message = [NSString stringWithFormat:SPKLocalizedString(@"%lu existing file%@ %@ no account and won't show under This Account Only. Assign %@ to %@?"),
                                                    (unsigned long)count,
                                                    count == 1 ? @"" : @"s",
                                                    count == 1 ? @"has" : @"have",
@@ -371,10 +372,10 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
                                                    who];
 
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Claim Existing Files?"
+                                                  title:SPKLocalizedString(@"Claim Existing Files?")
                                                 message:message
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Not Now"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Not Now")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
                                                     [SPKIGAlertAction actionWithTitle:@"Assign"
@@ -409,15 +410,15 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     }
 
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Disable Passcode"
-                                                message:@"The gallery will no longer require authentication to open."
+                                                  title:SPKLocalizedString(@"Disable Passcode")
+                                                message:SPKLocalizedString(@"The gallery will no longer require authentication to open.")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:^{
                                                                                   [self rebuildSections];
                                                                               }],
-                                                    [SPKIGAlertAction actionWithTitle:@"Disable"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Disable")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   [mgr removePasscode];
