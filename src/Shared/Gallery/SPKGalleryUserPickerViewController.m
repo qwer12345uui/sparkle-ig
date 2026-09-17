@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKGalleryUserPickerViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -50,7 +51,7 @@
     self.searchController.obscuresBackgroundDuringPresentation = NO;
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"Search users";
+    self.searchController.searchBar.placeholder = SPKLocalizedString(@"Search users");
     self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
     self.definesPresentationContext = YES;
@@ -67,7 +68,7 @@
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(clearSelection)];
-    clear.accessibilityLabel = @"Clear selection";
+    clear.accessibilityLabel = SPKLocalizedString(@"Clear selection");
     self.clearItem = clear;
     self.navigationItem.leftBarButtonItem = clear;
 
@@ -165,7 +166,7 @@
 
 - (void)updateChrome {
     NSUInteger count = self.selected.count;
-    self.title = count > 0 ? [NSString stringWithFormat:@"%lu Selected", (unsigned long)count] : @"Select Users";
+    self.title = count > 0 ? [NSString stringWithFormat:SPKLocalizedString(@"%lu Selected"), (unsigned long)count] : SPKLocalizedString(@"Select Users");
     // Clear stays on the left (checkmark is on the right) but greys out when there
     // is nothing to clear.
     self.clearItem.enabled = count > 0;

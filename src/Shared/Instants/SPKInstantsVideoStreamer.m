@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKInstantsVideoStreamer.h"
 
 #import "../../Utils.h"
@@ -115,7 +116,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:sVideoURL options:nil];
     AVAssetTrack *track = [asset tracksWithMediaType:AVMediaTypeVideo].firstObject;
     if (!track) {
-        SPKLog(@"Instants", @"[Sparkle] video streamer: no video track");
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer: no video track");
         return NO;
     }
     AVVideoComposition *composition = SPKInstantsStreamerComposition(asset, track, width, height);
@@ -125,7 +126,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     NSError *error = nil;
     AVAssetReader *reader = [AVAssetReader assetReaderWithAsset:asset error:&error];
     if (!reader) {
-        SPKLog(@"Instants", @"[Sparkle] video streamer: reader failed (%@)", error.localizedDescription);
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer: reader failed (%@)", error.localizedDescription);
         return NO;
     }
     // The compositor does the scaling, centring and pixel-format conversion, so
@@ -138,12 +139,12 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     output.videoComposition = composition;
     output.alwaysCopiesSampleData = NO;
     if (![reader canAddOutput:output]) {
-        SPKLog(@"Instants", @"[Sparkle] video streamer: output rejected");
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer: output rejected");
         return NO;
     }
     [reader addOutput:output];
     if (![reader startReading]) {
-        SPKLog(@"Instants", @"[Sparkle] video streamer: startReading failed (%@)",
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer: startReading failed (%@)",
                reader.error.localizedDescription);
         return NO;
     }
@@ -151,7 +152,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     sReader = reader;
     sOutput = output;
     sNext = [output copyNextSampleBuffer];
-    SPKLog(@"Instants", @"[Sparkle] video streamer reader built %dx%d fmt=%c%c%c%c firstFrame=%d", width, height,
+    SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer reader built %dx%d fmt=%c%c%c%c firstFrame=%d", width, height,
            (char)((format >> 24) & 0xFF), (char)((format >> 16) & 0xFF), (char)((format >> 8) & 0xFF),
            (char)(format & 0xFF), sNext != NULL);
     return sNext != NULL;
@@ -167,7 +168,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     sPlaying = NO;
     SPKInstantsStreamerTeardownReader();
     [sLock unlock];
-    SPKLog(@"Instants", @"[Sparkle] video streamer armed: %@", videoURL.lastPathComponent);
+    SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer armed: %@", videoURL.lastPathComponent);
 }
 
 + (void)stop {
@@ -194,7 +195,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
         // as the take begins, which is exactly the part we must not miss.
         sEpoch = kCMTimeInvalid;
         sPlaying = YES;
-        SPKLog(@"Instants", @"[Sparkle] video streamer playing");
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer playing");
     }
     [sLock unlock];
 }
@@ -204,7 +205,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     if (sVideoURL && sPlaying) {
         SPKInstantsStreamerTeardownReader();
         sPlaying = NO;
-        SPKLog(@"Instants", @"[Sparkle] video streamer holding first frame");
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer holding first frame");
     }
     [sLock unlock];
 }
@@ -255,7 +256,7 @@ static BOOL SPKInstantsStreamerEnsureReader(int32_t width, int32_t height, OSTyp
     int64_t second = (int64_t)CMTimeGetSeconds(target);
     if (second != sLoggedSecond) {
         sLoggedSecond = second;
-        SPKLog(@"Instants", @"[Sparkle] video streamer serving t=%llds", second);
+        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle] video streamer serving t=%llds", second);
     }
     // Advance while the peeked frame is due, holding the last one that was.
     while (sNext && CMTimeCompare(CMSampleBufferGetPresentationTimeStamp(sNext), target) <= 0) {

@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKInstantsSavedUsersViewController.h"
 
 #import "../../Utils.h"
@@ -131,11 +132,11 @@ static NSArray<SPKInstantsSavedUser *> *SPKInstantsSavedUsers(void) {
 
 - (instancetype)init {
     if ((self = [super init])) {
-        self.title = @"Saved Instants";
+        self.title = SPKLocalizedString(@"Saved Instants");
         self.allowsDelete = NO;
-        self.emptyTitle = @"No saved instants";
-        self.emptySubtitle = @"Instants you save or auto-save show up here, grouped by who sent them.";
-        self.emptySearchSubtitle = @"No accounts match your search.";
+        self.emptyTitle = SPKLocalizedString(@"No saved instants");
+        self.emptySubtitle = SPKLocalizedString(@"Instants you save or auto-save show up here, grouped by who sent them.");
+        self.emptySearchSubtitle = SPKLocalizedString(@"No accounts match your search.");
     }
     return self;
 }
@@ -173,8 +174,8 @@ static NSArray<SPKInstantsSavedUser *> *SPKInstantsSavedUsers(void) {
         SPKUserListItem *item = [SPKUserListItem new];
         item.pk = user.pk;
         item.title = [@"@" stringByAppendingString:user.username];
-        item.subtitle = user.count == 1 ? @"1 instant"
-                                        : [NSString stringWithFormat:@"%lu instants", (unsigned long)user.count];
+        item.subtitle = user.count == 1 ? SPKLocalizedString(@"1 instant")
+                                        : [NSString stringWithFormat:SPKLocalizedString(@"%lu instants"), (unsigned long)user.count];
         if (user.pk.length > 0)
             item.avatarURLString = spkDirectUserResolverProfilePicURLStringForPK(user.pk);
         item.representedObject = user;
