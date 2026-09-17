@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKTrimRenderer.h"
 #import "../MediaDownload/SPKMediaFFmpeg.h"
 
@@ -7,7 +8,7 @@
 static NSError *SPKTrimRendererError(NSString *description) {
     return [NSError errorWithDomain:@"Sparkle.TrimRenderer"
                                code:1
-                           userInfo:@{NSLocalizedDescriptionKey : description ?: @"Render failed"}];
+                           userInfo:@{NSLocalizedDescriptionKey : description ?: SPKLocalizedString(@"Render failed")}];
 }
 
 // The video's size as the viewer sees it — natural size with the track's
@@ -175,7 +176,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
                                                                     presetName:AVAssetExportPresetHighestQuality];
     if (!export) {
         if (completion)
-            completion(nil, SPKTrimRendererError(@"Trimming is not available for this video."));
+            completion(nil, SPKTrimRendererError(SPKLocalizedString(@"Trimming is not available for this video.")));
         return;
     }
 
@@ -200,7 +201,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
                 if (completion)
                     completion(output, nil);
             } else {
-                NSString *desc = export.error.localizedDescription ?: @"The trim could not be completed.";
+                NSString *desc = export.error.localizedDescription ?: SPKLocalizedString(@"The trim could not be completed.");
                 if (completion)
                     completion(nil, SPKTrimRendererError(desc));
             }
@@ -223,7 +224,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
                          cancelOut:(void (^)(dispatch_block_t))cancelOut {
     if (![SPKMediaFFmpeg isAvailable]) {
         if (completion)
-            completion(nil, SPKTrimRendererError(@"FFmpeg is required to merge this quality."));
+            completion(nil, SPKTrimRendererError(SPKLocalizedString(@"FFmpeg is required to merge this quality.")));
         return;
     }
     NSString *cropFilter = nil;
@@ -271,7 +272,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
     if (!export) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion)
-                completion(nil, SPKTrimRendererError(@"Trimming is not available for this audio."));
+                completion(nil, SPKTrimRendererError(SPKLocalizedString(@"Trimming is not available for this audio.")));
         });
         return;
     }
@@ -291,7 +292,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
                 if (completion)
                     completion(output, nil);
             } else {
-                NSString *desc = export.error.localizedDescription ?: @"The audio trim could not be completed.";
+                NSString *desc = export.error.localizedDescription ?: SPKLocalizedString(@"The audio trim could not be completed.");
                 if (completion)
                     completion(nil, SPKTrimRendererError(desc));
             }
@@ -366,7 +367,7 @@ static NSURL *SPKTrimWriteCGImage(CGImageRef image, NSString *basename) {
                                                     completion(output, nil);
                                             } else {
                                                 if (completion)
-                                                    completion(nil, SPKTrimRendererError(@"Could not extract the selected frame."));
+                                                    completion(nil, SPKTrimRendererError(SPKLocalizedString(@"Could not extract the selected frame.")));
                                             }
                                         });
                                     }];

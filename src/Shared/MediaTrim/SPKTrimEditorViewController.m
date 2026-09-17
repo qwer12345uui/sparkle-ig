@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKTrimEditorViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -163,7 +164,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
 
 - (void)setupChrome {
     UIBarButtonItem *cancelItem = SPKMediaChromeTopBarButtonItem(@"close", self, @selector(cancelTapped));
-    cancelItem.accessibilityLabel = @"Cancel";
+    cancelItem.accessibilityLabel = SPKLocalizedString(@"Cancel");
 
     // When the caller supplies destinations, Done is a menu (pick where to save
     // without dismissing first); otherwise it's a plain confirm.
@@ -388,7 +389,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
     _editFrameButton.tintColor = [SPKUtils SPKColor_InstagramPrimaryText] ?: [UIColor whiteColor];
     [_editFrameButton setImage:SPKTrimPlayerIcon(@"crop", 24.0) forState:UIControlStateNormal];
     [_editFrameButton addTarget:self action:@selector(editFrameTapped) forControlEvents:UIControlEventTouchUpInside];
-    _editFrameButton.accessibilityLabel = @"Edit Frame";
+    _editFrameButton.accessibilityLabel = SPKLocalizedString(@"Edit Frame");
     _editFrameButton.hidden = YES;
     [_bottomContent addSubview:_editFrameButton];
 
@@ -399,7 +400,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
     _revertFrameButton.tintColor = [SPKUtils SPKColor_InstagramPrimaryText] ?: [UIColor whiteColor];
     [_revertFrameButton setImage:SPKTrimPlayerIcon(@"arrow_ccw", 24.0) forState:UIControlStateNormal];
     [_revertFrameButton addTarget:self action:@selector(revertFrameTapped) forControlEvents:UIControlEventTouchUpInside];
-    _revertFrameButton.accessibilityLabel = @"Revert Edit";
+    _revertFrameButton.accessibilityLabel = SPKLocalizedString(@"Revert Edit");
     _revertFrameButton.hidden = YES;
     [_bottomContent addSubview:_revertFrameButton];
 
@@ -482,15 +483,15 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
     for (NSNumber *modeNum in self.availableModes) {
         SPKTrimResultMode mode = modeNum.integerValue;
         if (mode == SPKTrimResultModeTrimmedVideo) {
-            [titles addObject:@"Trim Video"];
+            [titles addObject:SPKLocalizedString(@"Trim Video")];
             [symbols addObject:@"video"];
             [selectedSymbols addObject:@"video_filled"];
         } else if (mode == SPKTrimResultModeFrameOnly) {
-            [titles addObject:@"Frame Only"];
+            [titles addObject:SPKLocalizedString(@"Frame Only")];
             [symbols addObject:@"photo"];
             [selectedSymbols addObject:@"photo_filled"];
         } else if (mode == SPKTrimResultModeTrimmedAudio) {
-            [titles addObject:@"Audio Only"];
+            [titles addObject:SPKLocalizedString(@"Audio Only")];
             [symbols addObject:@"audio"];
             [selectedSymbols addObject:@"audio_filled"];
         }
@@ -538,7 +539,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
                                  NSError *err = nil;
                                  AVKeyValueStatus status = [asset statusOfValueForKey:@"duration" error:&err];
                                  if (status != AVKeyValueStatusLoaded) {
-                                     [strongSelf failWithMessage:@"This file could not be opened for trimming."];
+                                     [strongSelf failWithMessage:SPKLocalizedString(@"This file could not be opened for trimming.")];
                                      return;
                                  }
                                  [strongSelf configurePlayerAndScrubber];
@@ -549,7 +550,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
 - (void)configurePlayerAndScrubber {
     NSTimeInterval duration = CMTimeGetSeconds(self.asset.duration);
     if (duration <= 0.0 || !isfinite(duration)) {
-        [self failWithMessage:@"This file has no playable duration."];
+        [self failWithMessage:SPKLocalizedString(@"This file has no playable duration.")];
         return;
     }
 
@@ -731,7 +732,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
                          ? [UIImage imageWithContentsOfFile:self.pendingEditedFrameURL.path]
                          : [self extractFrameAtSeconds:self.scrubber.frameTime];
     if (!frame) {
-        [self failWithMessage:@"Couldn't read this frame."];
+        [self failWithMessage:SPKLocalizedString(@"Couldn't read this frame.")];
         return;
     }
     __weak typeof(self) weakSelf = self;
@@ -836,13 +837,13 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
 
 - (void)updateTimeLabel {
     if (self.scrubber.isFrameOnlyMode) {
-        NSString *suffix = self.pendingEditedFrameURL ? @"  •  edited" : @"";
-        self.timeLabel.text = [NSString stringWithFormat:@"Frame • %@%@",
+        NSString *suffix = self.pendingEditedFrameURL ? SPKLocalizedString(@"  •  edited") : @"";
+        self.timeLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"Frame • %@%@"),
                                                          SPKTrimFormatTime(self.scrubber.frameTime), suffix];
         return;
     }
     NSTimeInterval dur = self.scrubber.endTime - self.scrubber.startTime;
-    self.timeLabel.text = [NSString stringWithFormat:@"%@ – %@  •  %.1fs",
+    self.timeLabel.text = [NSString stringWithFormat:SPKLocalizedString(@"%@ – %@  •  %.1fs"),
                                                      SPKTrimFormatTime(self.scrubber.startTime),
                                                      SPKTrimFormatTime(self.scrubber.endTime),
                                                      dur];
@@ -902,15 +903,15 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
         NSString *iconName = option.iconName;
         if (audioMode) {
             if ([identifier isEqualToString:@"photos"] || [identifier isEqualToString:@"files"]) {
-                title = @"Save Audio to Files";
+                title = SPKLocalizedString(@"Save Audio to Files");
                 identifier = @"files";
                 iconName = @"audio_download";
             } else if ([identifier isEqualToString:@"share"]) {
-                title = @"Share Audio";
+                title = SPKLocalizedString(@"Share Audio");
             } else if ([identifier isEqualToString:@"clipboard"]) {
-                title = @"Copy Audio";
+                title = SPKLocalizedString(@"Copy Audio");
             } else if ([identifier isEqualToString:@"gallery"]) {
-                title = @"Save Audio to Gallery";
+                title = SPKLocalizedString(@"Save Audio to Gallery");
             }
         }
         UIImage *image = iconName.length > 0
@@ -993,7 +994,7 @@ static NSString *SPKTrimFormatTime(NSTimeInterval seconds) {
 #pragma mark - Finish
 
 - (void)failWithMessage:(NSString *)message {
-    SPKNotify(@"spk.trim.editor", @"Trim failed", message, @"error_filled", SPKNotificationToneError);
+    SPKNotify(@"spk.trim.editor", SPKLocalizedString(@"Trim failed"), message, @"error_filled", SPKNotificationToneError);
 }
 
 - (void)finishWithResult:(SPKTrimResult *)result {

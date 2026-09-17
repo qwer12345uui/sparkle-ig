@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKMediaDMUploadCoordinator.h"
 
 #import <objc/message.h>
@@ -83,14 +84,14 @@ static SPKMediaDMUploadCoordinator *sSPKMediaActiveDMUploadCoordinator;
                                         presenter:(UIViewController *)presenter
                                        sourceView:(UIView *)sourceView {
     if (![self senderTargetSupportsMediaUpload:senderTarget] || !presenter) {
-        SPKMediaDMNotify(@"Media upload unavailable", @"This Instagram build does not expose the direct media sender.", NO);
+        SPKMediaDMNotify(SPKLocalizedString(@"Media upload unavailable"), SPKLocalizedString(@"This Instagram build does not expose the direct media sender."), NO);
         SPKWarnLog(@"MediaUpload", @"Missing direct media sender on target: %@", senderTarget);
         return;
     }
 
     NSSet<NSNumber *> *mediaTypes = [NSSet setWithObject:@(SPKGalleryMediaTypeImage)];
     if (![SPKGalleryPickerViewController hasSelectableFilesForAllowedMediaTypes:mediaTypes]) {
-        SPKMediaDMNotify(@"No Gallery photos", @"Save a photo to Gallery first.", NO);
+        SPKMediaDMNotify(SPKLocalizedString(@"No Gallery photos"), SPKLocalizedString(@"Save a photo to Gallery first."), NO);
         return;
     }
 
@@ -100,7 +101,7 @@ static SPKMediaDMUploadCoordinator *sSPKMediaActiveDMUploadCoordinator;
 
     __weak typeof(coordinator) weakCoordinator = coordinator;
     [SPKGalleryPickerViewController presentFromViewController:presenter
-                                                        title:@"Gallery"
+                                                        title:SPKLocalizedString(@"Gallery")
                                             allowedMediaTypes:mediaTypes
                                       allowsMultipleSelection:NO
                                                    completion:^(NSArray<SPKGalleryFile *> *selectedFiles) {
@@ -118,7 +119,7 @@ static SPKMediaDMUploadCoordinator *sSPKMediaActiveDMUploadCoordinator;
 - (void)sendImageFromURL:(NSURL *)url {
     UIImage *image = [UIImage imageWithContentsOfFile:url.path];
     if (!image) {
-        SPKMediaDMNotify(@"Media upload failed", @"Could not read the selected photo.", NO);
+        SPKMediaDMNotify(SPKLocalizedString(@"Media upload failed"), SPKLocalizedString(@"Could not read the selected photo."), NO);
         if (sSPKMediaActiveDMUploadCoordinator == self)
             sSPKMediaActiveDMUploadCoordinator = nil;
         return;
@@ -126,7 +127,7 @@ static SPKMediaDMUploadCoordinator *sSPKMediaActiveDMUploadCoordinator;
 
     id sender = SPKMediaDMMessageSenderFromTarget(self.senderTarget) ?: self.senderTarget;
     if (![sender respondsToSelector:SPKMediaDMSendImageSelector()]) {
-        SPKMediaDMNotify(@"Media upload unavailable", @"The direct media sender disappeared before sending.", NO);
+        SPKMediaDMNotify(SPKLocalizedString(@"Media upload unavailable"), SPKLocalizedString(@"The direct media sender disappeared before sending."), NO);
         if (sSPKMediaActiveDMUploadCoordinator == self)
             sSPKMediaActiveDMUploadCoordinator = nil;
         return;
@@ -134,9 +135,9 @@ static SPKMediaDMUploadCoordinator *sSPKMediaActiveDMUploadCoordinator;
 
     @try {
         ((void (*)(id, SEL, id))objc_msgSend)(sender, SPKMediaDMSendImageSelector(), image);
-        SPKMediaDMNotify(@"Photo sent", @"Sent the selected photo to this chat.", YES);
+        SPKMediaDMNotify(SPKLocalizedString(@"Photo sent"), SPKLocalizedString(@"Sent the selected photo to this chat."), YES);
     } @catch (__unused NSException *exception) {
-        SPKMediaDMNotify(@"Media upload failed", @"Instagram rejected the selected photo.", NO);
+        SPKMediaDMNotify(SPKLocalizedString(@"Media upload failed"), SPKLocalizedString(@"Instagram rejected the selected photo."), NO);
     }
     if (sSPKMediaActiveDMUploadCoordinator == self)
         sSPKMediaActiveDMUploadCoordinator = nil;

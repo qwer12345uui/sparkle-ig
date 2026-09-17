@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKTrimEntry.h"
 #import "SPKTrimConfiguration.h"
 #import "SPKTrimEditorViewController.h"
@@ -78,7 +79,7 @@
                                                                           videoURL:videoURL
                                                                    qualityOverride:nil];
     if (!plan) {
-        SPKNotify(@"spk.trim.entry", @"No video to trim", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(@"spk.trim.entry", SPKLocalizedString(@"No video to trim"), nil, @"error_filled", SPKNotificationToneError);
         [entry finish];
         return;
     }
@@ -99,7 +100,7 @@
     }
     __weak typeof(self) weakSelf = self;
     [self downloadURLs:@[ editURL ]
-                 title:@"Preparing video..."
+                 title:SPKLocalizedString(@"Preparing video...")
                   pill:nil
             completion:^(NSArray<NSURL *> *locals) {
                 if (locals.count > 0) {
@@ -212,7 +213,7 @@
         BOOL gotFile = self.downloadedURLs.count > 0 &&
                        [[NSFileManager defaultManager] fileExistsAtPath:self.downloadedURLs.lastObject.path];
         if (error || !gotFile) {
-            [self.prepPill showError:error.localizedDescription ?: @"Could not download the video."];
+            [self.prepPill showError:error.localizedDescription ?: SPKLocalizedString(@"Could not download the video.")];
             self.prepPill = nil;
             [self cleanupAndFinish];
             return;
@@ -237,7 +238,7 @@
     }
     // Done becomes a menu of destinations (chosen without dismissing first).
     config.doneOptions = @[
-        [SPKTrimDoneOption optionWithTitle:@"Save to Photos"
+        [SPKTrimDoneOption optionWithTitle:SPKLocalizedString(@"Save to Photos")
                                 identifier:@"photos"
                                   iconName:@"download"],
         [SPKTrimDoneOption optionWithTitle:@"Share"
@@ -246,7 +247,7 @@
         [SPKTrimDoneOption optionWithTitle:@"Copy"
                                 identifier:@"clipboard"
                                   iconName:@"copy"],
-        [SPKTrimDoneOption optionWithTitle:@"Save to Gallery"
+        [SPKTrimDoneOption optionWithTitle:SPKLocalizedString(@"Save to Gallery")
                                 identifier:@"gallery"
                                   iconName:@"sparkle_gallery"],
     ];
@@ -283,11 +284,11 @@
         // One continuous pill spans the high-quality download and the render —
         // hand it off rather than stacking a second notification.
         SPKNotificationPillView *pill =
-            [[SPKNotificationCenter shared] beginUnmanagedProgressWithTitle:@"Downloading..."
+            [[SPKNotificationCenter shared] beginUnmanagedProgressWithTitle:SPKLocalizedString(@"Downloading...")
                                                                    onCancel:nil];
         __weak typeof(self) weakSelf = self;
         [self downloadURLs:sources
-                     title:@"Downloading high quality..."
+                     title:SPKLocalizedString(@"Downloading high quality...")
                       pill:pill
                 completion:^(NSArray<NSURL *> *locals) {
                     __strong typeof(weakSelf) self = weakSelf;

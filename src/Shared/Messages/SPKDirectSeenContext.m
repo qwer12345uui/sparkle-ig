@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDirectSeenContext.h"
 
 #import <objc/message.h>
@@ -334,7 +335,7 @@ static SPKDirectThreadContext *SPKDirectContextDirectlyFromObject(id object) {
     }
 
     if (SPKDirectSeenDebugPrintEnabled) {
-        SPKLog(@"Messages", @"SPKDirectContextDirectlyFromObject: object=%@ provider=%@ metadata=%@ target=%@ threadId=%@ name=%@ usersCount=%lu users=%@",
+        SPKLog(SPKLocalizedString(@"Messages"), @"SPKDirectContextDirectlyFromObject: object=%@ provider=%@ metadata=%@ target=%@ threadId=%@ name=%@ usersCount=%lu users=%@",
                NSStringFromClass([object class]),
                provider ? NSStringFromClass([provider class]) : @"nil",
                metadata ? NSStringFromClass([metadata class]) : @"nil",
@@ -675,12 +676,12 @@ void SPKDirectSetActiveThreadContext(SPKDirectThreadContext *context) {
     NSString *newThreadId = context.threadId ?: @"";
     SPKDirectActiveContext = context;
     if (newThreadId.length > 0 && ![oldThreadId isEqualToString:newThreadId]) {
-        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Active thread context set threadId=%@ threadName=%@ isGroup=%d",
+        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Active thread context set threadId=%@ threadName=%@ isGroup=%d",
                newThreadId,
                context.threadName ?: @"",
                context.isGroup);
     } else if (newThreadId.length == 0 && oldThreadId.length > 0) {
-        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Active thread context cleared threadId=%@", oldThreadId);
+        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Active thread context cleared threadId=%@", oldThreadId);
     }
 }
 
@@ -765,7 +766,7 @@ BOOL SPKDirectManualSeenListContainsThreadId(NSString *threadId, BOOL manualSeen
 void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualSeenEnabled) {
     NSString *threadId = SPKDirectStringFromValue(entry[@"threadId"]);
     if (threadId.length == 0) {
-        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Ignored add/update for manual seen list: missing threadId entry=%@", entry);
+        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Ignored add/update for manual seen list: missing threadId entry=%@", entry);
         return;
     }
 
@@ -806,7 +807,7 @@ void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualS
         [threads addObject:merged.copy];
     }
     SPKDirectSetManualSeenThreadList(threads, manualSeenEnabled);
-    SPKLog(@"Messages", @"[Sparkle MessagesSeen] %@ manual seen list entry threadId=%@ threadName=%@ list=%@ count=%lu",
+    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] %@ manual seen list entry threadId=%@ threadName=%@ list=%@ count=%lu",
            existingIndex >= 0 ? @"Updated" : @"Added",
            threadId,
            merged[@"threadName"] ?: @"",
@@ -817,7 +818,7 @@ void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualS
 void SPKDirectRemoveManualSeenThreadId(NSString *threadId, BOOL manualSeenEnabled) {
     NSString *normalizedThreadId = SPKDirectStringFromValue(threadId);
     if (normalizedThreadId.length == 0) {
-        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Ignored remove for manual seen list: missing threadId");
+        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Ignored remove for manual seen list: missing threadId");
         return;
     }
     NSMutableArray<NSDictionary *> *threads = [SPKDirectManualSeenThreadList(manualSeenEnabled) mutableCopy];
@@ -827,7 +828,7 @@ void SPKDirectRemoveManualSeenThreadId(NSString *threadId, BOOL manualSeenEnable
                  return ![entry[@"threadId"] isEqualToString:normalizedThreadId];
              }]];
     SPKDirectSetManualSeenThreadList(threads, manualSeenEnabled);
-    SPKLog(@"Messages", @"[Sparkle MessagesSeen] Removed manual seen list entry threadId=%@ list=%@ before=%lu after=%lu",
+    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Removed manual seen list entry threadId=%@ list=%@ before=%lu after=%lu",
            normalizedThreadId,
            SPKDirectManualSeenListTitle(manualSeenEnabled),
            (unsigned long)beforeCount,
@@ -866,7 +867,7 @@ static void SPKDirectEnrichManualSeenThreadEntryIfNeeded(NSDictionary *entry, BO
     [SPKInstagramAPI resolveUserForUsername:username
                                   completion:^(NSDictionary *resolvedUser, NSError *error) {
                                     if (![resolvedUser isKindOfClass:[NSDictionary class]] || error) {
-                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Thread metadata enrichment failed threadId=%@ username=%@ error=%@",
+                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Thread metadata enrichment failed threadId=%@ username=%@ error=%@",
                                                threadId,
                                                username,
                                                error);
@@ -906,7 +907,7 @@ static void SPKDirectEnrichManualSeenThreadEntryIfNeeded(NSDictionary *entry, BO
 }
 
 NSString *SPKDirectManualSeenListTitle(BOOL manualSeenEnabled) {
-    return manualSeenEnabled ? @"Excluded Chats" : @"Included Chats";
+    return manualSeenEnabled ? SPKLocalizedString(@"Excluded Chats") : SPKLocalizedString(@"Included Chats");
 }
 
 NSUInteger SPKDirectManualSeenThreadCount(BOOL manualSeenEnabled) {
@@ -967,8 +968,8 @@ static NSString *SPKDirectManualSeenListModeTitle(BOOL manualSeenEnabled) {
 
 static NSString *SPKDirectManualSeenListHelpText(BOOL manualSeenEnabled) {
     return manualSeenEnabled
-               ? @"When Manually Mark Seen is enabled, chats in this list use Instagram's normal seen behavior and do not need the eye button. Add group chats from the open chat or inbox long-press menu."
-               : @"When Manually Mark Seen is disabled, only chats in this list require the eye button or auto seen triggers to mark seen. Add group chats from the open chat or inbox long-press menu.";
+               ? SPKLocalizedString(@"When Manually Mark Seen is enabled, chats in this list use Instagram's normal seen behavior and do not need the eye button. Add group chats from the open chat or inbox long-press menu.")
+               : SPKLocalizedString(@"When Manually Mark Seen is disabled, only chats in this list require the eye button or auto seen triggers to mark seen. Add group chats from the open chat or inbox long-press menu.");
 }
 
 BOOL SPKDirectManualSeenAppliesToSource(id source) {
@@ -997,7 +998,7 @@ static BOOL SPKDirectCurrentThreadRuleState(SPKDirectThreadContext *context, NSS
     BOOL manualSeenEnabled = [SPKUtils getBoolPref:@"msgs_manual_seen"];
     BOOL listed = SPKDirectManualSeenListContainsThreadId(threadId, manualSeenEnabled);
     NSString *listTitle = SPKDirectManualSeenListTitle(manualSeenEnabled);
-    NSString *threadName = context.threadName.length > 0 ? context.threadName : @"This chat";
+    NSString *threadName = context.threadName.length > 0 ? context.threadName : SPKLocalizedString(@"This chat");
 
     if (outThreadId)
         *outThreadId = threadId;
@@ -1016,14 +1017,14 @@ NSString *SPKDirectCurrentThreadRuleActionTitle(SPKDirectThreadContext *context)
     if (!context)
         return nil;
     BOOL applies = SPKDirectManualSeenAppliesToSource(context);
-    return applies ? @"Start Marking as Seen" : @"Stop Marking as Seen";
+    return applies ? SPKLocalizedString(@"Start Marking as Seen") : SPKLocalizedString(@"Stop Marking as Seen");
 }
 
 NSString *SPKDirectCurrentThreadRuleConfirmationTitle(SPKDirectThreadContext *context) {
     if (!context)
         return nil;
     BOOL applies = SPKDirectManualSeenAppliesToSource(context);
-    return applies ? @"Confirm Start Marking as Seen" : @"Confirm Stop Marking as Seen";
+    return applies ? SPKLocalizedString(@"Confirm Start Marking as Seen") : SPKLocalizedString(@"Confirm Stop Marking as Seen");
 }
 
 NSString *SPKDirectCurrentThreadRuleConfirmationMessage(SPKDirectThreadContext *context) {
@@ -1032,8 +1033,8 @@ NSString *SPKDirectCurrentThreadRuleConfirmationMessage(SPKDirectThreadContext *
         return nil;
     BOOL applies = SPKDirectManualSeenAppliesToSource(context);
     return applies
-               ? [NSString stringWithFormat:@"Do you want to start marking %@ as seen?", threadName]
-               : [NSString stringWithFormat:@"Do you want to stop marking %@ as seen?", threadName];
+               ? [NSString stringWithFormat:SPKLocalizedString(@"Do you want to start marking %@ as seen?"), threadName]
+               : [NSString stringWithFormat:SPKLocalizedString(@"Do you want to stop marking %@ as seen?"), threadName];
 }
 
 BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString **notificationTitle, NSString **notificationSubtitle) {
@@ -1043,7 +1044,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
     BOOL listed = NO;
     BOOL manualSeenEnabled = NO;
     if (!SPKDirectCurrentThreadRuleState(context, &threadId, &threadName, &listTitle, &listed, &manualSeenEnabled)) {
-        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Toggle thread rule failed: missing current thread context=%@", context);
+        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Toggle thread rule failed: missing current thread context=%@", context);
         return NO;
     }
 
@@ -1058,7 +1059,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
         SPKDirectAddOrUpdateManualSeenThreadEntry(entry, manualSeenEnabled);
         SPKDirectEnrichManualSeenThreadEntryIfNeeded(entry, manualSeenEnabled);
     }
-    SPKLog(@"Messages", @"[Sparkle MessagesSeen] %@ %@ threadId=%@ threadName=%@ manualSeenEnabled=%d",
+    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] %@ %@ threadId=%@ threadName=%@ manualSeenEnabled=%d",
            listed ? @"Removed from" : @"Added to",
            listTitle,
            threadId,
@@ -1067,8 +1068,8 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
 
     if (notificationTitle) {
         *notificationTitle = applies
-                                 ? [NSString stringWithFormat:@"Messages seen on for %@", threadName]
-                                 : [NSString stringWithFormat:@"Messages seen off for %@", threadName];
+                                 ? [NSString stringWithFormat:SPKLocalizedString(@"Messages seen on for %@"), threadName]
+                                 : [NSString stringWithFormat:SPKLocalizedString(@"Messages seen off for %@"), threadName];
     }
     if (notificationSubtitle)
         *notificationSubtitle = listTitle;
@@ -1089,16 +1090,16 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
         self.title = SPKDirectManualSeenListTitle(_manualSeenEnabled);
         self.showsAddButton = YES;
         self.infoText = SPKDirectManualSeenListHelpText(_manualSeenEnabled);
-        self.emptyTitle = @"No chats yet";
+        self.emptyTitle = SPKLocalizedString(@"No chats yet");
         self.emptySubtitle = _manualSeenEnabled
-                                 ? @"Add chats that should keep Instagram's normal seen behavior."
-                                 : @"Add chats that require the eye button to mark seen.";
+                                 ? SPKLocalizedString(@"Add chats that should keep Instagram's normal seen behavior.")
+                                 : SPKLocalizedString(@"Add chats that require the eye button to mark seen.");
     }
     return self;
 }
 
 - (NSString *)displayNameForEntry:(NSDictionary *)entry {
-    return SPKDirectDisplayNameForThreadEntry(entry) ?: @"Unknown Chat";
+    return SPKDirectDisplayNameForThreadEntry(entry) ?: SPKLocalizedString(@"Unknown Chat");
 }
 
 - (NSString *)subtitleForEntry:(NSDictionary *)entry {
@@ -1185,7 +1186,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
     NSString *threadName = [self displayNameForEntry:entry];
     SPKDirectRemoveManualSeenThreadId(threadId, self.manualSeenEnabled);
     SPKNotify(kSPKNotificationDirectThreadSeenRule,
-              [NSString stringWithFormat:@"Removed %@", threadName],
+              [NSString stringWithFormat:SPKLocalizedString(@"Removed %@"), threadName],
               SPKDirectManualSeenListTitle(self.manualSeenEnabled),
               @"circle_check_filled",
               SPKNotificationToneSuccess);
@@ -1194,21 +1195,21 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
 
 - (void)presentError:(NSString *)message {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Unable to Add Chat"
+                                                  title:SPKLocalizedString(@"Unable to Add Chat")
                                                 message:message
-                                                actions:@[ [SPKIGAlertAction actionWithTitle:@"OK" style:SPKIGAlertActionStyleCancel handler:nil] ]];
+                                                actions:@[ [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"OK") style:SPKIGAlertActionStyleCancel handler:nil] ]];
 }
 
 - (void)didTapAdd {
     __weak typeof(self) weakSelf = self;
     [SPKIGAlertPresenter presentTextInputAlertFromViewController:self
-                                                           title:@"Add Chat"
-                                                         message:@"Enter the Instagram username for a 1:1 DM thread."
+                                                           title:SPKLocalizedString(@"Add Chat")
+                                                         message:SPKLocalizedString(@"Enter the Instagram username for a 1:1 DM thread.")
                                                      placeholder:@"username"
                                                      initialText:nil
                                                  autocapitalized:NO
                                                     confirmTitle:@"Search"
-                                                     cancelTitle:@"Cancel"
+                                                     cancelTitle:SPKLocalizedString(@"Cancel")
                                                     confirmStyle:SPKIGAlertActionStyleDefault
                                                     confirmBlock:^(NSString *text) {
                                                         [weakSelf lookupUsername:text];
@@ -1221,7 +1222,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
     if (username.length == 0)
         return;
 
-    SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat lookup started username=%@ list=%@",
+    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat lookup started username=%@ list=%@",
            username, SPKDirectManualSeenListTitle(self.manualSeenEnabled));
 
     __weak typeof(self) weakSelf = self;
@@ -1231,8 +1232,8 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                       if (!strongSelf)
                                           return;
                                       if (![user isKindOfClass:[NSDictionary class]] || error) {
-                                          SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat user lookup failed username=%@ error=%@", username, error);
-                                          [strongSelf presentError:[NSString stringWithFormat:@"User '%@' was not found.", username]];
+                                          SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat user lookup failed username=%@ error=%@", username, error);
+                                          [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"User '%@' was not found."), username]];
                                           return;
                                       }
                                       NSString *pk = SPKDirectStringFromValue(user[@"pk"] ?: user[@"id"]);
@@ -1240,8 +1241,8 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                       NSString *fullName = SPKDirectStringFromValue(user[@"full_name"] ?: user[@"fullName"]) ?: @"";
                                       NSString *profilePicUrl = SPKDirectStringFromValue(user[@"profile_pic_url"] ?: user[@"profile_pic_url_hd"]);
                                       if (pk.length == 0) {
-                                          SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat user lookup missing pk username=%@ response=%@", username, user);
-                                          [strongSelf presentError:@"Could not resolve this user's Instagram id."];
+                                          SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat user lookup missing pk username=%@ response=%@", username, user);
+                                          [strongSelf presentError:SPKLocalizedString(@"Could not resolve this user's Instagram id.")];
                                           return;
                                       }
                                       [strongSelf resolveThreadForPK:pk username:resolvedUsername fullName:fullName profilePicUrl:profilePicUrl];
@@ -1260,14 +1261,14 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                         return;
                                     NSDictionary *thread = threadResponse[@"thread"];
                                     if (![thread isKindOfClass:[NSDictionary class]] || threadError) {
-                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat thread lookup failed username=%@ pk=%@ error=%@", resolvedUsername, pk, threadError);
-                                        [innerSelf presentError:[NSString stringWithFormat:@"No 1:1 DM thread was found with @%@.", resolvedUsername]];
+                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat thread lookup failed username=%@ pk=%@ error=%@", resolvedUsername, pk, threadError);
+                                        [innerSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"No 1:1 DM thread was found with @%@."), resolvedUsername]];
                                         return;
                                     }
                                     NSString *threadId = SPKDirectStringFromValue(thread[@"thread_id"] ?: thread[@"threadId"]);
                                     if (threadId.length == 0) {
-                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat thread lookup missing threadId username=%@ pk=%@ response=%@", resolvedUsername, pk, thread);
-                                        [innerSelf presentError:[NSString stringWithFormat:@"No 1:1 DM thread was found with @%@.", resolvedUsername]];
+                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat thread lookup missing threadId username=%@ pk=%@ response=%@", resolvedUsername, pk, thread);
+                                        [innerSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"No 1:1 DM thread was found with @%@."), resolvedUsername]];
                                         return;
                                     }
                                     NSString *threadName = SPKDirectStringFromValue(thread[@"thread_title"] ?: thread[@"threadName"]) ?: resolvedUsername;
@@ -1275,10 +1276,10 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                                             ? [NSString stringWithFormat:@"@%@ (%@)", resolvedUsername, fullName]
                                                             : [@"@" stringByAppendingString:resolvedUsername];
                                     [SPKIGAlertPresenter presentAlertFromViewController:innerSelf
-                                                                                  title:@"Add to List?"
+                                                                                  title:SPKLocalizedString(@"Add to List?")
                                                                                 message:message
                                                                                 actions:@[
-                                                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                                                 style:SPKIGAlertActionStyleCancel
                                                                                                               handler:nil],
                                                                                     [SPKIGAlertAction actionWithTitle:@"Add"
@@ -1297,7 +1298,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                                                                                                                                               @"users" : @[ usersEntry.copy ] },
                                                                                                                                                             innerSelf.manualSeenEnabled);
                                                                                                                   SPKNotify(kSPKNotificationDirectThreadSeenRule,
-                                                                                                                            [NSString stringWithFormat:@"Added %@", threadName],
+                                                                                                                            [NSString stringWithFormat:SPKLocalizedString(@"Added %@"), threadName],
                                                                                                                             SPKDirectManualSeenListTitle(innerSelf.manualSeenEnabled),
                                                                                                                             @"circle_check_filled",
                                                                                                                             SPKNotificationToneSuccess);
