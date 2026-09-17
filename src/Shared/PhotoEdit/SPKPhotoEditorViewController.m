@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKPhotoEditorViewController.h"
 #import "../../AssetUtils.h"
 #import "../../Utils.h"
@@ -163,7 +164,7 @@ static UIImage *SPKPhotoEditorFlipped(UIImage *image) {
 
 - (void)setupChrome {
     UIBarButtonItem *cancelItem = SPKMediaChromeTopBarButtonItem(@"close", self, @selector(cancelTapped));
-    cancelItem.accessibilityLabel = @"Cancel";
+    cancelItem.accessibilityLabel = SPKLocalizedString(@"Cancel");
     // When the caller supplies destinations, Done is a menu (pick where to save
     // without dismissing first); otherwise it's a plain confirm that just returns
     // the edited image to the caller.

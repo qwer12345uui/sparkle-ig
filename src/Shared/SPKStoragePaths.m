@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKStoragePaths.h"
 #import "../Utils.h"
 
@@ -16,7 +17,7 @@ static BOOL SPKEnsureDirectory(NSString *path) {
     NSError *error = nil;
     BOOL created = [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
     if (!created)
-        SPKWarnLog(@"Storage", @"Failed to create directory %@: %@", path, error);
+        SPKWarnLog(SPKLocalizedString(@"Storage"), @"Failed to create directory %@: %@", path, error);
     return created;
 }
 
@@ -35,7 +36,7 @@ static NSString *SPKStorageFeatureDirectory(NSString *featureName) {
 @implementation SPKStoragePaths
 
 + (NSString *)galleryDirectory {
-    return SPKStorageFeatureDirectory(@"Gallery");
+    return SPKStorageFeatureDirectory(SPKLocalizedString(@"Gallery"));
 }
 
 + (NSString *)deletedMessagesDirectory {
@@ -51,7 +52,7 @@ static NSString *SPKStorageFeatureDirectory(NSString *featureName) {
 }
 
 + (NSString *)downloadsDirectory {
-    return SPKStorageFeatureDirectory(@"Downloads");
+    return SPKStorageFeatureDirectory(SPKLocalizedString(@"Downloads"));
 }
 
 + (NSString *)avatarCacheDirectory {

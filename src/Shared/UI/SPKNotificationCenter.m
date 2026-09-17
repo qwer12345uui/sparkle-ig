@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKNotificationCenter.h"
 #import "../../AssetUtils.h"
 #import "../../Settings/SPKPreferences.h"
@@ -173,101 +174,101 @@ NSString *SPKNotificationHapticDefaultsKey(NSString *identifier) {
 
 NSArray<NSDictionary *> *SPKNotificationPreferenceSections(void) {
     return @[
-        @{@"title" : @"Action Buttons",
+        @{@"title" : SPKLocalizedString(@"Action Buttons"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationDownloadLibrary, @"Save to Photos", @"download"),
+              SPKNotificationItem(kSPKNotificationDownloadLibrary, SPKLocalizedString(@"Save to Photos"), @"download"),
               SPKNotificationItem(kSPKNotificationDownloadShare, @"Share", @"share"),
-              SPKNotificationItem(kSPKNotificationCopyDownloadLink, @"Copy Download URL", @"link"),
-              SPKNotificationItem(kSPKNotificationCopyMedia, @"Copy Media", @"copy"),
-              SPKNotificationItem(kSPKNotificationDownloadGallery, @"Save to Gallery", @"sparkle_gallery"),
-              SPKNotificationItem(kSPKNotificationDownloadAllLibrary, @"Save All to Photos", @"download"),
-              SPKNotificationItem(kSPKNotificationDownloadAllShare, @"Share All", @"share"),
-              SPKNotificationItem(kSPKNotificationDownloadAllGallery, @"Save All to Gallery", @"sparkle_gallery"),
-              SPKNotificationItem(kSPKNotificationDownloadAllClipboard, @"Copy All Media", @"copy"),
-              SPKNotificationItem(kSPKNotificationDownloadAllLinks, @"Copy Download URLs", @"link"),
+              SPKNotificationItem(kSPKNotificationCopyDownloadLink, SPKLocalizedString(@"Copy Download URL"), @"link"),
+              SPKNotificationItem(kSPKNotificationCopyMedia, SPKLocalizedString(@"Copy Media"), @"copy"),
+              SPKNotificationItem(kSPKNotificationDownloadGallery, SPKLocalizedString(@"Save to Gallery"), @"sparkle_gallery"),
+              SPKNotificationItem(kSPKNotificationDownloadAllLibrary, SPKLocalizedString(@"Save All to Photos"), @"download"),
+              SPKNotificationItem(kSPKNotificationDownloadAllShare, SPKLocalizedString(@"Share All"), @"share"),
+              SPKNotificationItem(kSPKNotificationDownloadAllGallery, SPKLocalizedString(@"Save All to Gallery"), @"sparkle_gallery"),
+              SPKNotificationItem(kSPKNotificationDownloadAllClipboard, SPKLocalizedString(@"Copy All Media"), @"copy"),
+              SPKNotificationItem(kSPKNotificationDownloadAllLinks, SPKLocalizedString(@"Copy Download URLs"), @"link"),
               SPKNotificationItem(kSPKNotificationExpand, @"Expand", @"expand"),
-              SPKNotificationItem(kSPKNotificationViewThumbnail, @"View Thumbnail", @"photo_gallery"),
-              SPKNotificationItem(kSPKNotificationCopyCaption, @"Copy Caption", @"caption"),
-              SPKNotificationItem(kSPKNotificationOpenTopicSettings, @"Open Topic Settings", @"settings"),
+              SPKNotificationItem(kSPKNotificationViewThumbnail, SPKLocalizedString(@"View Thumbnail"), @"photo_gallery"),
+              SPKNotificationItem(kSPKNotificationCopyCaption, SPKLocalizedString(@"Copy Caption"), @"caption"),
+              SPKNotificationItem(kSPKNotificationOpenTopicSettings, SPKLocalizedString(@"Open Topic Settings"), @"settings"),
               SPKNotificationItem(kSPKNotificationRepost, @"Repost", @"repost"),
-              SPKNotificationItem(kSPKNotificationDownloadAudio, @"Save Audio to Files", @"audio_download"),
-              SPKNotificationItem(kSPKNotificationDownloadAudioShare, @"Share Audio", @"share"),
-              SPKNotificationItem(kSPKNotificationDownloadAudioGallery, @"Save Audio to Gallery", @"sparkle_gallery"),
-              SPKNotificationItem(kSPKNotificationPlayAudio, @"Play Audio", @"play"),
-              SPKNotificationItem(kSPKNotificationCopyAudioURL, @"Copy Audio Download URL", @"link"),
+              SPKNotificationItem(kSPKNotificationDownloadAudio, SPKLocalizedString(@"Save Audio to Files"), @"audio_download"),
+              SPKNotificationItem(kSPKNotificationDownloadAudioShare, SPKLocalizedString(@"Share Audio"), @"share"),
+              SPKNotificationItem(kSPKNotificationDownloadAudioGallery, SPKLocalizedString(@"Save Audio to Gallery"), @"sparkle_gallery"),
+              SPKNotificationItem(kSPKNotificationPlayAudio, SPKLocalizedString(@"Play Audio"), @"play"),
+              SPKNotificationItem(kSPKNotificationCopyAudioURL, SPKLocalizedString(@"Copy Audio Download URL"), @"link"),
           ]},
         // Every auto-save toast lives here rather than under its surface: they're
         // configured together, and the summary/pending pair isn't per-surface at all.
-        @{@"title" : @"Auto-Save",
+        @{@"title" : SPKLocalizedString(@"Auto-Save"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationStoryAutoSave, @"Story Auto-Save Started", @"story"),
-              SPKNotificationItem(kSPKNotificationDirectAutoSave, @"DM Auto-Save Started", @"messages"),
-              SPKNotificationItem(kSPKNotificationInstantsAutoSave, @"Instants Auto-Save Started", @"instants"),
-              SPKNotificationItem(kSPKNotificationAutoSavePending, @"Auto-Save Still Working", @"history"),
-              SPKNotificationItem(kSPKNotificationAutoSaveSummary, @"Auto-Save Summary", @"download"),
-              SPKNotificationItem(kSPKNotificationStoryAutoSaveUserRule, @"Story Auto-Save List Changes", @"story"),
-              SPKNotificationItem(kSPKNotificationDirectAutoSaveThreadRule, @"DM Auto-Save List Changes", @"messages"),
-              SPKNotificationItem(kSPKNotificationInstantsAutoSaveUserRule, @"Instants Auto-Save List Changes", @"instants"),
+              SPKNotificationItem(kSPKNotificationStoryAutoSave, SPKLocalizedString(@"Story Auto-Save Started"), @"story"),
+              SPKNotificationItem(kSPKNotificationDirectAutoSave, SPKLocalizedString(@"DM Auto-Save Started"), @"messages"),
+              SPKNotificationItem(kSPKNotificationInstantsAutoSave, SPKLocalizedString(@"Instants Auto-Save Started"), @"instants"),
+              SPKNotificationItem(kSPKNotificationAutoSavePending, SPKLocalizedString(@"Auto-Save Still Working"), @"history"),
+              SPKNotificationItem(kSPKNotificationAutoSaveSummary, SPKLocalizedString(@"Auto-Save Summary"), @"download"),
+              SPKNotificationItem(kSPKNotificationStoryAutoSaveUserRule, SPKLocalizedString(@"Story Auto-Save List Changes"), @"story"),
+              SPKNotificationItem(kSPKNotificationDirectAutoSaveThreadRule, SPKLocalizedString(@"DM Auto-Save List Changes"), @"messages"),
+              SPKNotificationItem(kSPKNotificationInstantsAutoSaveUserRule, SPKLocalizedString(@"Instants Auto-Save List Changes"), @"instants"),
           ]},
-        @{@"title" : @"Stories",
+        @{@"title" : SPKLocalizedString(@"Stories"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationStoryMarkSeen, @"Mark Story as Seen", @"story"),
-              SPKNotificationItem(kSPKNotificationStorySeenUserRule, @"Story Seen List Changes", @"eye"),
-              SPKNotificationItem(kSPKNotificationStoryMentionsSheet, @"Open Story Mentions", @"mention"),
+              SPKNotificationItem(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Mark Story as Seen"), @"story"),
+              SPKNotificationItem(kSPKNotificationStorySeenUserRule, SPKLocalizedString(@"Story Seen List Changes"), @"eye"),
+              SPKNotificationItem(kSPKNotificationStoryMentionsSheet, SPKLocalizedString(@"Open Story Mentions"), @"mention"),
           ]},
-        @{@"title" : @"Messages",
+        @{@"title" : SPKLocalizedString(@"Messages"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationDirectVisualMarkSeen, @"Mark Visual Message as Seen", @"view_twice"),
-              SPKNotificationItem(kSPKNotificationThreadMessagesMarkSeen, @"Mark Messages as Seen", @"messages"),
-              SPKNotificationItem(kSPKNotificationDirectThreadSeenRule, @"Chat Seen List Changes", @"eye"),
-              SPKNotificationItem(kSPKNotificationUnsentMessage, @"Unsent Message", @"undo"),
-              SPKNotificationItem(kSPKNotificationUnsentReaction, @"Removed Reaction", @"reactions"),
+              SPKNotificationItem(kSPKNotificationDirectVisualMarkSeen, SPKLocalizedString(@"Mark Visual Message as Seen"), @"view_twice"),
+              SPKNotificationItem(kSPKNotificationThreadMessagesMarkSeen, SPKLocalizedString(@"Mark Messages as Seen"), @"messages"),
+              SPKNotificationItem(kSPKNotificationDirectThreadSeenRule, SPKLocalizedString(@"Chat Seen List Changes"), @"eye"),
+              SPKNotificationItem(kSPKNotificationUnsentMessage, SPKLocalizedString(@"Unsent Message"), @"undo"),
+              SPKNotificationItem(kSPKNotificationUnsentReaction, SPKLocalizedString(@"Removed Reaction"), @"reactions"),
           ]},
-        @{@"title" : @"Instants",
+        @{@"title" : SPKLocalizedString(@"Instants"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationInstantsCaptureBlocked, @"Instant Capture Blocked", @"lock"),
-              SPKNotificationItem(kSPKNotificationInstantsUpload, @"Instant Upload Failed", @"warning"),
+              SPKNotificationItem(kSPKNotificationInstantsCaptureBlocked, SPKLocalizedString(@"Instant Capture Blocked"), @"lock"),
+              SPKNotificationItem(kSPKNotificationInstantsUpload, SPKLocalizedString(@"Instant Upload Failed"), @"warning"),
           ]},
-        @{@"title" : @"Profile",
+        @{@"title" : SPKLocalizedString(@"Profile"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationProfileCopyInfo, @"Copy Profile Info", @"copy"),
-              SPKNotificationItem(kSPKNotificationProfileAnalyzerComplete, @"Profile Analyzer Complete", @"profile_analyzer"),
-              SPKNotificationItem(kSPKNotificationProfileStorySeenUserRule, @"Story Seen List Changes", @"eye"),
-              SPKNotificationItem(kSPKNotificationProfileMessagesSeenUserRule, @"Chat Seen List Changes", @"eye"),
+              SPKNotificationItem(kSPKNotificationProfileCopyInfo, SPKLocalizedString(@"Copy Profile Info"), @"copy"),
+              SPKNotificationItem(kSPKNotificationProfileAnalyzerComplete, SPKLocalizedString(@"Profile Analyzer Complete"), @"profile_analyzer"),
+              SPKNotificationItem(kSPKNotificationProfileStorySeenUserRule, SPKLocalizedString(@"Story Seen List Changes"), @"eye"),
+              SPKNotificationItem(kSPKNotificationProfileMessagesSeenUserRule, SPKLocalizedString(@"Chat Seen List Changes"), @"eye"),
           ]},
         @{@"title" : @"Comments",
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationCopyComment, @"Copy Comment", @"copy"),
-              SPKNotificationItem(kSPKNotificationCopyGIFLink, @"Copy Media Link", @"link"),
+              SPKNotificationItem(kSPKNotificationCopyComment, SPKLocalizedString(@"Copy Comment"), @"copy"),
+              SPKNotificationItem(kSPKNotificationCopyGIFLink, SPKLocalizedString(@"Copy Media Link"), @"link"),
           ]},
         @{@"title" : @"Media",
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationMediaPreviewSavePhotos, @"Save to Photos", @"download"),
-              SPKNotificationItem(kSPKNotificationMediaPreviewSaveGallery, @"Save to Gallery", @"sparkle_gallery"),
+              SPKNotificationItem(kSPKNotificationMediaPreviewSavePhotos, SPKLocalizedString(@"Save to Photos"), @"download"),
+              SPKNotificationItem(kSPKNotificationMediaPreviewSaveGallery, SPKLocalizedString(@"Save to Gallery"), @"sparkle_gallery"),
               SPKNotificationItem(kSPKNotificationMediaPreviewShare, @"Share", @"share"),
-              SPKNotificationItem(kSPKNotificationMediaPreviewCopy, @"Copy Media", @"copy"),
-              SPKNotificationItem(kSPKNotificationMediaPreviewDeleteGallery, @"Delete Media", @"trash"),
-              SPKNotificationItem(kSPKNotificationMediaPreviewOpenGallery, @"Open Media", @"media"),
-              SPKNotificationItem(kSPKNotificationMediaEncodingLogs, @"Encoding Logs", @"logs"),
+              SPKNotificationItem(kSPKNotificationMediaPreviewCopy, SPKLocalizedString(@"Copy Media"), @"copy"),
+              SPKNotificationItem(kSPKNotificationMediaPreviewDeleteGallery, SPKLocalizedString(@"Delete Media"), @"trash"),
+              SPKNotificationItem(kSPKNotificationMediaPreviewOpenGallery, SPKLocalizedString(@"Open Media"), @"media"),
+              SPKNotificationItem(kSPKNotificationMediaEncodingLogs, SPKLocalizedString(@"Encoding Logs"), @"logs"),
           ]},
-        @{@"title" : @"Gallery",
+        @{@"title" : SPKLocalizedString(@"Gallery"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationGalleryOpenOriginal, @"Open Original Post", @"external_link"),
-              SPKNotificationItem(kSPKNotificationGalleryOpenProfile, @"Open Profile", @"user_circle"),
+              SPKNotificationItem(kSPKNotificationGalleryOpenOriginal, SPKLocalizedString(@"Open Original Post"), @"external_link"),
+              SPKNotificationItem(kSPKNotificationGalleryOpenProfile, SPKLocalizedString(@"Open Profile"), @"user_circle"),
               SPKNotificationItem(kSPKNotificationGalleryDeleteFile, @"Delete File", @"media"),
               SPKNotificationItem(kSPKNotificationGalleryDeleteSelected, @"Delete Selected Files", @"circle_check"),
-              SPKNotificationItem(kSPKNotificationGalleryBulkDelete, @"Bulk Delete", @"trash"),
-              SPKNotificationItem(kSPKNotificationGalleryImport, @"Import Media", @"media"),
+              SPKNotificationItem(kSPKNotificationGalleryBulkDelete, SPKLocalizedString(@"Bulk Delete"), @"trash"),
+              SPKNotificationItem(kSPKNotificationGalleryImport, SPKLocalizedString(@"Import Media"), @"media"),
           ]},
-        @{@"title" : @"Settings & Tools",
+        @{@"title" : SPKLocalizedString(@"Settings & Tools"),
           @"items" : @[
-              SPKNotificationItem(kSPKNotificationSettingsExport, @"Export Settings", @"arrow_up"),
-              SPKNotificationItem(kSPKNotificationSettingsImport, @"Import Settings", @"arrow_down"),
-              SPKNotificationItem(kSPKNotificationSettingsClearCache, @"Clear Cache", @"trash"),
-              SPKNotificationItem(kSPKNotificationCopyDescription, @"Copy Description", @"copy"),
-              SPKNotificationItem(kSPKNotificationCopyNoteText, @"Copy Note Text", @"copy"),
-              SPKNotificationItem(kSPKNotificationShareLongPressCopyLink, @"Hold Send to Copy Link", @"link"),
-              SPKNotificationItem(kSPKNotificationFlexUnavailable, @"FLEX Unavailable", @"warning"),
+              SPKNotificationItem(kSPKNotificationSettingsExport, SPKLocalizedString(@"Export Settings"), @"arrow_up"),
+              SPKNotificationItem(kSPKNotificationSettingsImport, SPKLocalizedString(@"Import Settings"), @"arrow_down"),
+              SPKNotificationItem(kSPKNotificationSettingsClearCache, SPKLocalizedString(@"Clear Cache"), @"trash"),
+              SPKNotificationItem(kSPKNotificationCopyDescription, SPKLocalizedString(@"Copy Description"), @"copy"),
+              SPKNotificationItem(kSPKNotificationCopyNoteText, SPKLocalizedString(@"Copy Note Text"), @"copy"),
+              SPKNotificationItem(kSPKNotificationShareLongPressCopyLink, SPKLocalizedString(@"Hold Send to Copy Link"), @"link"),
+              SPKNotificationItem(kSPKNotificationFlexUnavailable, SPKLocalizedString(@"FLEX Unavailable"), @"warning"),
           ]},
     ];
 }
@@ -689,13 +690,13 @@ static BOOL SPKManualSeenSettingsUIVisible(void) {
             if ([identifier isEqualToString:kSPKNotificationStorySeenUserRule] ||
                 [identifier isEqualToString:kSPKNotificationProfileStorySeenUserRule]) {
                 BOOL manualSeenEnabled = [SPKUtils getBoolPref:@"stories_manual_seen"];
-                resolvedSubtitle = [NSString stringWithFormat:@"Tap to open %@", manualSeenEnabled ? @"excluded list" : @"included list"];
+                resolvedSubtitle = [NSString stringWithFormat:SPKLocalizedString(@"Tap to open %@"), manualSeenEnabled ? SPKLocalizedString(@"excluded list") : SPKLocalizedString(@"included list")];
             } else if ([identifier isEqualToString:kSPKNotificationDirectThreadSeenRule] ||
                        [identifier isEqualToString:kSPKNotificationProfileMessagesSeenUserRule]) {
                 BOOL manualSeenEnabled = [SPKUtils getBoolPref:@"msgs_manual_seen"];
-                resolvedSubtitle = [NSString stringWithFormat:@"Tap to open %@", manualSeenEnabled ? @"excluded list" : @"included list"];
+                resolvedSubtitle = [NSString stringWithFormat:SPKLocalizedString(@"Tap to open %@"), manualSeenEnabled ? SPKLocalizedString(@"excluded list") : SPKLocalizedString(@"included list")];
             } else if (SPKAutoSaveListViewControllerForRuleIdentifier(identifier)) {
-                resolvedSubtitle = @"Tap to open auto-save list";
+                resolvedSubtitle = SPKLocalizedString(@"Tap to open auto-save list");
             }
         }
 
@@ -787,7 +788,7 @@ static BOOL SPKManualSeenSettingsUIVisible(void) {
             }
         }
         pill = [SPKNotificationPillView progressPill];
-        [pill updateProgressTitle:title ?: @"Downloading..." subtitle:nil];
+        [pill updateProgressTitle:title ?: SPKLocalizedString(@"Downloading...") subtitle:nil];
         pill.onCancel = onCancel;
         __weak SPKNotificationPillView *weakPillRef = pill;
         pill.onTonePresented = ^(SPKNotificationTone tone) {
