@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKProfileAnalyzerService.h"
 #import "../../../Networking/SPKInstagramAPI.h"
 #import "../../../Utils.h"
@@ -93,7 +94,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
     if (self.isRunning) {
         if (completion)
             completion(nil, [self errorWithCode:SPKProfileAnalyzerErrorAlreadyRunning
-                                        message:@"Another analysis is already running"]);
+                                        message:SPKLocalizedString(@"Another analysis is already running")]);
         return;
     }
     self.isRunning = YES;
@@ -102,13 +103,13 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
     NSString *selfPK = [SPKUtils currentUserPK];
     if (!selfPK.length) {
         [self finishWithSnapshot:nil
-                           error:[self errorWithCode:SPKProfileAnalyzerErrorNoSession message:@"No active Instagram session found"]
+                           error:[self errorWithCode:SPKProfileAnalyzerErrorNoSession message:SPKLocalizedString(@"No active Instagram session found")]
                       completion:completion];
         return;
     }
 
     __weak typeof(self) weakSelf = self;
-    [self reportProgress:progress status:@"Fetching profile info..." fraction:0.02];
+    [self reportProgress:progress status:SPKLocalizedString(@"Fetching profile info...") fraction:0.02];
 
     [SPKInstagramAPI sendRequestWithMethod:@"GET"
                                       path:[NSString stringWithFormat:@"users/%@/info/", selfPK]
@@ -126,7 +127,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
                                     NSDictionary *user = [resp[@"user"] isKindOfClass:[NSDictionary class]] ? resp[@"user"] : nil;
                                     if (!user) {
                                         [strongSelf finishWithSnapshot:nil
-                                                                 error:[strongSelf errorWithCode:SPKProfileAnalyzerErrorNetwork message:@"Couldn't fetch profile information"]
+                                                                 error:[strongSelf errorWithCode:SPKProfileAnalyzerErrorNetwork message:SPKLocalizedString(@"Couldn't fetch profile information")]
                                                             completion:completion];
                                         return;
                                     }
@@ -136,7 +137,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
                                     if (followerCount + followingCount > SPKProfileAnalyzerMaxConnectionCount) {
                                         [strongSelf finishWithSnapshot:nil
                                                                  error:[strongSelf errorWithCode:SPKProfileAnalyzerErrorTooManyFollowers
-                                                                                         message:@"Too many connections to analyze"]
+                                                                                         message:SPKLocalizedString(@"Too many connections to analyze")]
                                                             completion:completion];
                                         return;
                                     }
@@ -189,7 +190,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
             if (![self stageCount:users.count plausibleForExpected:snap.followerCount]) {
                 [self finishWithSnapshot:nil
                                    error:[self errorWithCode:SPKProfileAnalyzerErrorNetwork
-                                                     message:@"Couldn't fetch the full followers list (Instagram rate limit). Try again in a few minutes."]
+                                                     message:SPKLocalizedString(@"Couldn't fetch the full followers list (Instagram rate limit). Try again in a few minutes.")]
                               completion:completion];
                 return;
             }
@@ -219,7 +220,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
             if (![self stageCount:users.count plausibleForExpected:snap.followingCount]) {
                 [self finishWithSnapshot:nil
                                    error:[self errorWithCode:SPKProfileAnalyzerErrorNetwork
-                                                     message:@"Couldn't fetch the full following list (Instagram rate limit). Try again in a few minutes."]
+                                                     message:SPKLocalizedString(@"Couldn't fetch the full following list (Instagram rate limit). Try again in a few minutes.")]
                               completion:completion];
                 return;
             }
@@ -306,7 +307,7 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
                                             return;
                                         }
                                         // Out of retries — fail loudly rather than persist a partial list.
-                                        NSString *msg = error.localizedDescription ?: @"Instagram is rate-limiting requests. Try again in a few minutes.";
+                                        NSString *msg = error.localizedDescription ?: SPKLocalizedString(@"Instagram is rate-limiting requests. Try again in a few minutes.");
                                         completion(nil, [strongSelf errorWithCode:SPKProfileAnalyzerErrorNetwork message:msg]);
                                         return;
                                     }
@@ -327,8 +328,8 @@ NSNotificationName const SPKProfileAnalyzerProgressDidChangeNotification = @"SPK
                                     double stageLocal = total > 0 ? MIN(1.0, (double)acc.count / (double)total) : 0;
                                     double frac = 0.03 + (stageOffset + stageLocal * stageWeight) * 0.97;
                                     NSString *label = isFollowers
-                                                          ? [NSString stringWithFormat:@"Fetching followers... • %lu of %ld", (unsigned long)acc.count, (long)total]
-                                                          : [NSString stringWithFormat:@"Fetching following... • %lu of %ld", (unsigned long)acc.count, (long)total];
+                                                          ? [NSString stringWithFormat:SPKLocalizedString(@"Fetching followers... • %lu of %ld"), (unsigned long)acc.count, (long)total]
+                                                          : [NSString stringWithFormat:SPKLocalizedString(@"Fetching following... • %lu of %ld"), (unsigned long)acc.count, (long)total];
                                     [strongSelf reportProgress:progress status:label fraction:frac];
 
                                     if (!nextMax.length || strongSelf.cancelled) {

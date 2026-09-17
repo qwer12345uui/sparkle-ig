@@ -1,3 +1,4 @@
+#import "../../../Localization/SPKLocalization.h"
 #import "SPKDeletedMessagesUserDetailViewController.h"
 
 #import "../../../AssetUtils.h"
@@ -99,8 +100,8 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
     // Groups keep the thread title. 1:1 threads use a static title so the
     // sticky profile header can serve as the primary identity anchor.
     self.title = self.group.isGroup
-                     ? (self.group.displayName.length ? self.group.displayName : @"Group Chat")
-                     : @"Deleted Messages";
+                     ? (self.group.displayName.length ? self.group.displayName : SPKLocalizedString(@"Group Chat"))
+                     : SPKLocalizedString(@"Deleted Messages");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramBackground];
 
     if (!self.group.isGroup) {
@@ -119,7 +120,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
         titleLabel.textColor = [SPKUtils SPKColor_InstagramPrimaryText];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        titleLabel.text = @"Deleted Messages";
+        titleLabel.text = SPKLocalizedString(@"Deleted Messages");
         self.navigationItem.titleView = titleLabel;
         self.titleLabel = titleLabel;
     }
@@ -130,7 +131,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.obscuresBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.placeholder = @"Search Messages";
+    self.searchController.searchBar.placeholder = SPKLocalizedString(@"Search Messages");
     [self.searchController.searchBar setImage:[SPKAssetUtils instagramIconNamed:@"search" pointSize:18.0]
                              forSearchBarIcon:UISearchBarIconSearch
                                         state:UIControlStateNormal];
@@ -316,7 +317,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
     if (shouldShowIdentity == self.titleShowingIdentity)
         return;
     self.titleShowingIdentity = shouldShowIdentity;
-    NSString *text = shouldShowIdentity ? [self identityTitleText] : @"Deleted Messages";
+    NSString *text = shouldShowIdentity ? [self identityTitleText] : SPKLocalizedString(@"Deleted Messages");
     [UIView transitionWithView:self.titleLabel
                       duration:0.2
                        options:UIViewAnimationOptionTransitionCrossDissolve
@@ -342,11 +343,11 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
         return;
 
     if (![self.filter isEmpty]) {
-        self.emptyStateTitle.text = @"No matches";
-        self.emptyStateSubtitle.text = @"No messages match the current filters.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No matches");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"No messages match the current filters.");
     } else {
-        self.emptyStateTitle.text = @"Nothing here yet";
-        self.emptyStateSubtitle.text = @"This sender's unsent messages will show up here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"Nothing here yet");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"This sender's unsent messages will show up here.");
     }
 }
 
@@ -406,17 +407,17 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
                                                   weakSelf.group.isBlocked = !weakSelf.group.isBlocked;
                                               }];
 
-    UIAction *deleteAction = [UIAction actionWithTitle:[NSString stringWithFormat:@"Delete %@ Log", noun]
+    UIAction *deleteAction = [UIAction actionWithTitle:[NSString stringWithFormat:SPKLocalizedString(@"Delete %@ Log"), noun]
                                                  image:[SPKAssetUtils menuIconNamed:@"trash"]
                                             identifier:nil
                                                handler:^(__unused UIAction *a) {
                                                    NSString *who = isGroup ? weakSelf.group.displayName
-                                                                           : (weakSelf.group.senderUsername.length ? [@"@" stringByAppendingString:weakSelf.group.senderUsername] : @"this sender");
+                                                                           : (weakSelf.group.senderUsername.length ? [@"@" stringByAppendingString:weakSelf.group.senderUsername] : SPKLocalizedString(@"this sender"));
                                                    [SPKIGAlertPresenter presentAlertFromViewController:weakSelf
-                                                                                                 title:isGroup ? @"Delete group log?" : @"Delete sender log?"
-                                                                                               message:[NSString stringWithFormat:@"This removes all logged messages from %@.", who]
+                                                                                                 title:isGroup ? SPKLocalizedString(@"Delete group log?") : SPKLocalizedString(@"Delete sender log?")
+                                                                                               message:[NSString stringWithFormat:SPKLocalizedString(@"This removes all logged messages from %@."), who]
                                                                                                actions:@[
-                                                                                                   [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                                                                   [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                                                                style:SPKIGAlertActionStyleCancel
                                                                                                                              handler:nil],
                                                                                                    [SPKIGAlertAction actionWithTitle:@"Delete"
@@ -435,7 +436,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
 
     UIMenu *destructiveSection = [UIMenu menuWithTitle:@"" image:nil identifier:nil options:UIMenuOptionsDisplayInline children:@[ deleteAction ]];
 
-    UIAction *refreshAvatarsAction = [UIAction actionWithTitle:@"Refresh Profile Pictures"
+    UIAction *refreshAvatarsAction = [UIAction actionWithTitle:SPKLocalizedString(@"Refresh Profile Pictures")
                                                          image:[SPKAssetUtils menuIconNamed:@"user_circle"]
                                                     identifier:nil
                                                        handler:^(__unused UIAction *a) {
@@ -447,7 +448,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
         NSString *username = self.group.senderUsername;
         // See the header button: passing the pk avoids a lookup round trip.
         NSString *senderPK = self.group.senderPk;
-        UIAction *openProfileAction = [UIAction actionWithTitle:@"Open Profile"
+        UIAction *openProfileAction = [UIAction actionWithTitle:SPKLocalizedString(@"Open Profile")
                                                           image:[SPKAssetUtils menuIconNamed:@"user"]
                                                      identifier:nil
                                                          handler:^(__unused UIAction *a) {
@@ -516,7 +517,7 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
             icon = [UIImage systemImageNamed:@"arrow.up.right"];
         [openBtn setImage:icon forState:UIControlStateNormal];
         openBtn.tintColor = [SPKUtils SPKColor_InstagramSecondaryText];
-        openBtn.accessibilityLabel = @"Open Profile";
+        openBtn.accessibilityLabel = SPKLocalizedString(@"Open Profile");
         [openBtn addAction:[UIAction actionWithTitle:@""
                                                image:nil
                                           identifier:nil
@@ -689,12 +690,12 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
     NSMutableArray<UIMenuElement *> *children = [NSMutableArray array];
 
     if (message.text.length || message.previewText.length) {
-        UIAction *copyAction = [UIAction actionWithTitle:@"Copy Text"
+        UIAction *copyAction = [UIAction actionWithTitle:SPKLocalizedString(@"Copy Text")
                                                    image:[SPKAssetUtils menuIconNamed:@"copy"]
                                               identifier:nil
                                                  handler:^(__unused UIAction *a) {
                                                      UIPasteboard.generalPasteboard.string = message.text ?: message.previewText;
-                                                     SPKNotify(kSPKNotificationUnsentMessage, @"Copied to clipboard", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+                                                     SPKNotify(kSPKNotificationUnsentMessage, SPKLocalizedString(@"Copied to clipboard"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
                                                  }];
         [children addObject:copyAction];
     }
@@ -711,12 +712,12 @@ static SPKDeletedMessageKind SPKDMDetailChipKindForIndex(NSInteger index) {
         [children addObject:shareAction];
 
         if (![mediaURL isFileURL]) {
-            UIAction *copyLinkAction = [UIAction actionWithTitle:@"Copy Link"
+            UIAction *copyLinkAction = [UIAction actionWithTitle:SPKLocalizedString(@"Copy Link")
                                                            image:[SPKAssetUtils menuIconNamed:@"link"]
                                                       identifier:nil
                                                          handler:^(__unused UIAction *a) {
                                                              UIPasteboard.generalPasteboard.string = mediaURL.absoluteString;
-                                                             SPKNotify(kSPKNotificationUnsentMessage, @"Copied link", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+                                                             SPKNotify(kSPKNotificationUnsentMessage, SPKLocalizedString(@"Copied link"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
                                                          }];
             [children addObject:copyLinkAction];
         }
