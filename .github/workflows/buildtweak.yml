@@ -3,7 +3,8 @@ name: Build Sparkle tweak for Rootless (no FFmpeg)
 # Rootless .deb build that does NOT bundle FFmpegKit (small package, ~1.3 MB),
 # matching the IG 333.1.4 / iOS 15 line. Triggers automatically on push to
 # main; can also be run manually. The build log is uploaded as an artifact if
-# the compile/packaging step fails, so the failure reason is always visible.
+# the compile/packaging step fails. On completion the built .deb and a status
+# marker are committed to the `builds` branch so the result is easy to fetch.
 on:
   push:
     branches:
@@ -92,10 +93,20 @@ jobs:
           name: build-failure-log
           path: /tmp/build.log
 
-      - name: Fail job if build failed
+      - name: Publish result to builds branch (failure)
         if: steps.build.outputs.BUILD_EXIT != '0'
         run: |
-          echo "Build failed (exit ${BUILD_EXIT}). See the build-failure-log artifact for details."
+          cd main
+          git config user.email "ci@sparkle.local"
+          git config user.name "Sparkle CI"
+          cat > last_build.json <<JSON
+          {"status":"failed","version":"${SPARKLE_VERSION}","run_id":"${GITHUB_RUN_ID}","commit":"${GITHUB_SHA}","date":"$(date -u +%Y-%m-%dT%H:%M:%SZ)"}
+          JSON
+          cp /tmp/build.log last_build.log
+          git add last_build.json last_build.log
+          git commit -m "ci: build failed marker [skip ci]" || true
+          git push --force origin HEAD:refs/heads/builds || true
+          echo "Build failed (exit ${BUILD_EXIT}). See the build-failure-log artifact / builds/last_build.log."
           exit 1
 
       - name: Rename deb
@@ -116,3 +127,19 @@ jobs:
           name: ${{ steps.package_name.outputs.package }}
           path: ${{ github.workspace }}/main/packages/${{ steps.package_name.outputs.package }}
           if-no-files-found: error
+
+      - name: Publish result to builds branch (success)
+        if: steps.build.outputs.BUILD_EXIT == '0'
+        run: |
+          cd main
+          git config user.email "ci@sparkle.local"
+          git config user.name "Sparkle CI"
+          DEB="Sparkle_v${SPARKLE_VERSION}_rootless_ig333.1.4.deb"
+          cp "packages/${DEB}" "${DEB}"
+          cat > last_build.json <<JSON
+          {"status":"success","version":"${SPARKLE_VERSION}","deb":"${DEB}","run_id":"${GITHUB_RUN_ID}","commit":"${GITHUB_SHA}","date":"$(date -u +%Y-%m-%dT%H:%M:%SZ)"}
+          JSON
+          git add "${DEB}" last_build.json
+          git commit -m "ci: build success — ${DEB} [skip ci]" || true
+          git push --force origin HEAD:refs/heads/builds
+          echo "Published ${DEB} to builds branch."
