@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKTrimConfiguration.h"
 
 @implementation SPKTrimDoneOption
@@ -42,7 +43,7 @@
     config.mediaKind = SPKTrimMediaKindAudio;
     config.allowsFrameOnly = NO;
     config.allowsCrop = NO;
-    config.title = @"Trim Audio";
+    config.title = SPKLocalizedString(@"Trim Audio");
     return config;
 }
 
