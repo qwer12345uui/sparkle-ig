@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKActionDescriptor.h"
 #import "ActionButtonCore.h"
 
@@ -19,112 +20,112 @@
     dispatch_once(&onceToken, ^{
         descriptors = @[
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadLibrary
-                                                    title:@"Save to Photos"
+                                                    title:SPKLocalizedString(@"Save to Photos")
                                                  iconName:@"download"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadShare
                                                     title:@"Share"
                                                  iconName:@"share"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionCopyDownloadLink
-                                                    title:@"Copy Download URL"
+                                                    title:SPKLocalizedString(@"Copy Download URL")
                                                  iconName:@"link"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionCopyMedia
-                                                    title:@"Copy Media"
+                                                    title:SPKLocalizedString(@"Copy Media")
                                                  iconName:@"copy"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadGallery
-                                                    title:@"Save to Gallery"
+                                                    title:SPKLocalizedString(@"Save to Gallery")
                                                  iconName:@"sparkle_gallery"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionTrimSave
-                                                    title:@"Trim & Save"
+                                                    title:SPKLocalizedString(@"Trim & Save")
                                                  iconName:@"trim"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionEditSave
-                                                    title:@"Edit & Save"
+                                                    title:SPKLocalizedString(@"Edit & Save")
                                                  iconName:@"crop"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAudio
-                                                    title:@"Save Audio to Files"
+                                                    title:SPKLocalizedString(@"Save Audio to Files")
                                                  iconName:@"audio_download"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAudioShare
-                                                    title:@"Share Audio"
+                                                    title:SPKLocalizedString(@"Share Audio")
                                                  iconName:@"share"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAudioGallery
-                                                    title:@"Save Audio to Gallery"
+                                                    title:SPKLocalizedString(@"Save Audio to Gallery")
                                                  iconName:@"sparkle_gallery"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionPlayAudio
-                                                    title:@"Play Audio"
+                                                    title:SPKLocalizedString(@"Play Audio")
                                                  iconName:@"play"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionCopyAudioURL
-                                                    title:@"Copy Audio Download URL"
+                                                    title:SPKLocalizedString(@"Copy Audio Download URL")
                                                  iconName:@"link"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAllLibrary
-                                                    title:@"Save All to Photos"
+                                                    title:SPKLocalizedString(@"Save All to Photos")
                                                  iconName:@"download"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAllShare
-                                                    title:@"Share All"
+                                                    title:SPKLocalizedString(@"Share All")
                                                  iconName:@"share"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAllGallery
-                                                    title:@"Save All to Gallery"
+                                                    title:SPKLocalizedString(@"Save All to Gallery")
                                                  iconName:@"sparkle_gallery"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAllClipboard
-                                                    title:@"Copy All Media"
+                                                    title:SPKLocalizedString(@"Copy All Media")
                                                  iconName:@"copy"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAllLinks
-                                                    title:@"Copy Download URLs"
+                                                    title:SPKLocalizedString(@"Copy Download URLs")
                                                  iconName:@"link"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDownloadAll
-                                                    title:@"Download All"
+                                                    title:SPKLocalizedString(@"Download All")
                                                  iconName:@"more"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionExpand
                                                     title:@"Expand"
                                                  iconName:@"expand"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionViewThumbnail
-                                                    title:@"View Thumbnail"
+                                                    title:SPKLocalizedString(@"View Thumbnail")
                                                  iconName:@"photo_gallery"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionCopyCaption
-                                                    title:@"Copy Caption"
+                                                    title:SPKLocalizedString(@"Copy Caption")
                                                  iconName:@"caption"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionOpenTopicSettings
-                                                    title:@"Settings"
+                                                    title:SPKLocalizedString(@"Settings")
                                                  iconName:@"settings"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionDeletedMessagesLog
-                                                    title:@"Deleted Messages"
+                                                    title:SPKLocalizedString(@"Deleted Messages")
                                                  iconName:@"channels"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionRepost
                                                     title:@"Repost"
                                                  iconName:@"repost"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionToggleStorySeenUserRule
-                                                    title:@"Toggle Story User Rule"
+                                                    title:SPKLocalizedString(@"Toggle Story User Rule")
                                                  iconName:@"eye"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionToggleStoryAutoSaveUserRule
-                                                    title:@"Toggle Story Auto-Save"
+                                                    title:SPKLocalizedString(@"Toggle Story Auto-Save")
                                                  iconName:@"download"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionToggleDirectAutoSaveThreadRule
-                                                    title:@"Toggle Chat Auto-Save"
+                                                    title:SPKLocalizedString(@"Toggle Chat Auto-Save")
                                                  iconName:@"download"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionToggleProfileStorySeenUserRule
-                                                    title:@"Toggle Story Seen"
+                                                    title:SPKLocalizedString(@"Toggle Story Seen")
                                                  iconName:@"eye"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionToggleProfileMessagesSeenUserRule
-                                                    title:@"Toggle Messages Seen"
+                                                    title:SPKLocalizedString(@"Toggle Messages Seen")
                                                  iconName:@"eye"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionStoryMentionsSheet
-                                                    title:@"Story Mentions"
+                                                    title:SPKLocalizedString(@"Story Mentions")
                                                  iconName:@"mention"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyInfo
-                                                    title:@"Copy Info"
+                                                    title:SPKLocalizedString(@"Copy Info")
                                                  iconName:@"info"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyID
-                                                    title:@"Copy ID"
+                                                    title:SPKLocalizedString(@"Copy ID")
                                                  iconName:@"key"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyUsername
-                                                    title:@"Copy Username"
+                                                    title:SPKLocalizedString(@"Copy Username")
                                                  iconName:@"username"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyName
-                                                    title:@"Copy Name"
+                                                    title:SPKLocalizedString(@"Copy Name")
                                                  iconName:@"text"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyBio
-                                                    title:@"Copy Bio"
+                                                    title:SPKLocalizedString(@"Copy Bio")
                                                  iconName:@"caption"],
             [SPKActionDescriptor descriptorWithIdentifier:kSPKActionProfileCopyLink
-                                                    title:@"Copy Profile URL"
+                                                    title:SPKLocalizedString(@"Copy Profile URL")
                                                  iconName:@"link"],
             [SPKActionDescriptor descriptorWithIdentifier:@"more"
                                                     title:@"More"
@@ -170,7 +171,7 @@
                                                 title:@"Link"
                                              iconName:@"link"],
         [SPKActionDescriptor descriptorWithIdentifier:@"media"
-                                                title:@"Gallery"
+                                                title:SPKLocalizedString(@"Gallery")
                                              iconName:@"sparkle_gallery"],
         [SPKActionDescriptor descriptorWithIdentifier:@"expand"
                                                 title:@"Expand"
@@ -185,22 +186,22 @@
                                                 title:@"Mentions"
                                              iconName:@"mention"],
         [SPKActionDescriptor descriptorWithIdentifier:@"feed"
-                                                title:@"Feed"
+                                                title:SPKLocalizedString(@"Feed")
                                              iconName:@"feed"],
         [SPKActionDescriptor descriptorWithIdentifier:@"reels"
-                                                title:@"Reels"
+                                                title:SPKLocalizedString(@"Reels")
                                              iconName:@"reels"],
         [SPKActionDescriptor descriptorWithIdentifier:@"story"
-                                                title:@"Stories"
+                                                title:SPKLocalizedString(@"Stories")
                                              iconName:@"story"],
         [SPKActionDescriptor descriptorWithIdentifier:@"messages"
-                                                title:@"Messages"
+                                                title:SPKLocalizedString(@"Messages")
                                              iconName:@"messages"],
         [SPKActionDescriptor descriptorWithIdentifier:@"profile"
-                                                title:@"Profile"
+                                                title:SPKLocalizedString(@"Profile")
                                              iconName:@"user_circle"],
         [SPKActionDescriptor descriptorWithIdentifier:@"settings"
-                                                title:@"Settings"
+                                                title:SPKLocalizedString(@"Settings")
                                              iconName:@"settings"],
         [SPKActionDescriptor descriptorWithIdentifier:@"more"
                                                 title:@"More"
@@ -212,7 +213,7 @@
 
 NSString *SPKActionDescriptorDisplayTitle(NSString *identifier, NSString *topicTitle) {
     if ([identifier isEqualToString:kSPKActionOpenTopicSettings] && topicTitle.length > 0) {
-        return [NSString stringWithFormat:@"%@ Settings", topicTitle];
+        return [NSString stringWithFormat:SPKLocalizedString(@"%@ Settings"), topicTitle];
     }
     SPKActionDescriptor *descriptor = [SPKActionDescriptor descriptorForIdentifier:identifier];
     return descriptor.title ?: @"Action";

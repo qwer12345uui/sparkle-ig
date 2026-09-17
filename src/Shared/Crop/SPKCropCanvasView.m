@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKCropCanvasView.h"
 
 #import "../../AssetUtils.h"
@@ -137,9 +138,9 @@ UIView *SPKCropMakeToolRow(id target, SEL rotateLeft, SEL flip, SEL rotateRight)
                                               pointSize:24.0
                                           renderingMode:UIImageRenderingModeAlwaysTemplate];
     NSArray<UIButton *> *buttons = @[
-        SPKCropToolButton(rotateLeftIcon, @"Rotate Left", target, rotateLeft),
+        SPKCropToolButton(rotateLeftIcon, SPKLocalizedString(@"Rotate Left"), target, rotateLeft),
         SPKCropToolButton(mirror, @"Flip", target, flip),
-        SPKCropToolButton(rotateRightIcon, @"Rotate Right", target, rotateRight),
+        SPKCropToolButton(rotateRightIcon, SPKLocalizedString(@"Rotate Right"), target, rotateRight),
     ];
     UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:buttons];
     stack.axis = UILayoutConstraintAxisHorizontal;

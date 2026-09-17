@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKAutoSaveSurfaceSettingsViewController.h"
 
 #import "../../Settings/SPKSetting.h"
@@ -28,7 +29,7 @@
                                              defaultsKey:filter.enabledKey];
     master.reloadsTableOnSwitchChange = YES; // grey out / re-enable the dependents live
 
-    SPKSetting *filterMode = [SPKSetting menuCellWithTitle:@"Filter Mode"
+    SPKSetting *filterMode = [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Filter Mode")
                                                       icon:SPKSettingsIcon(@"filter")
                                                       menu:SPKAutoSaveFilterModeMenu(filter.filterModeKey, filter.subjectPlural)];
     filterMode.enabledProvider = autoSaveEnabled;

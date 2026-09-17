@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadDestinationWriter.h"
 
 #import "../../Utils.h"
@@ -171,8 +172,8 @@
         if (completion) {
             completion(nil, nil,
                        SPKDownloadError(SPKDownloadErrorAudioPhotosUnsupported,
-                                        @"Audio cannot be saved to Photos.",
-                                        @"Use Gallery or Share instead."));
+                                        SPKLocalizedString(@"Audio cannot be saved to Photos."),
+                                        SPKLocalizedString(@"Use Gallery or Share instead.")));
         }
         return;
     }
@@ -182,8 +183,8 @@
                  completion:^(BOOL success, NSError *error) {
                      if (!success) {
                          NSString *desc = error.localizedDescription
-                                              ?: @"Could not save to Photos. Check "
-                                                 @"photo library permission.";
+                                              ?: SPKLocalizedString(@"Could not save to Photos. Check ")
+                                                 SPKLocalizedString(@"photo library permission.");
                          if (completion)
                              completion(
                                  nil, nil,
@@ -208,7 +209,7 @@
             completion(nil, nil,
                        SPKDownloadError(SPKDownloadErrorGallerySaveFailed,
                                         error.localizedDescription
-                                            ?: @"Could not save to Gallery.",
+                                            ?: SPKLocalizedString(@"Could not save to Gallery."),
                                         nil));
         return;
     }
@@ -226,7 +227,7 @@
         if (completion)
             completion(nil, nil,
                        SPKDownloadError(SPKDownloadErrorSharePresentationFailed,
-                                        @"Could not present share sheet.", nil));
+                                        SPKLocalizedString(@"Could not present share sheet."), nil));
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -266,7 +267,7 @@
             completion(nil, nil,
                        SPKDownloadError(
                            SPKDownloadErrorClipboardTooLarge,
-                           @"File is too large to copy to the clipboard.", nil));
+                           SPKLocalizedString(@"File is too large to copy to the clipboard."), nil));
         return;
     }
     NSString *ext = fileURL.pathExtension.lowercaseString;
@@ -290,7 +291,7 @@
         if (completion)
             completion(nil, nil,
                        SPKDownloadError(SPKDownloadErrorFileMoveFailed,
-                                        @"Could not read file for clipboard.", nil));
+                                        SPKLocalizedString(@"Could not read file for clipboard."), nil));
         return;
     }
     [UIPasteboard generalPasteboard].items = @[ @{uti : data} ];
