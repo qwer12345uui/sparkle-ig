@@ -190,7 +190,7 @@ static NSDictionary<NSString *, SPKAssetDescriptor *> *SPKAssetOverrides(void) {
             @"left_right" : @{@"candidates" : @[ @"ig_icon_replace_outline_24", @"ig_icon_replace_2_outline_24" ]},
             @"link" : @{@"candidates" : @[ @"ig_icon_link_outline_24" ]},
             @"link_reels" : @{@"candidates" : @[ @"ig_icon_link_outline_44" ]},
-            @"list" : @{"candidates" : @[ @"ig_icon_edit_list_outline_24" ]},
+            @"list" : @{@"candidates" : @[ @"ig_icon_edit_list_outline_24" ]},
             @"lock" : @{@"candidates" : @[ @"ig_icon_lock_prism_outline_24", @"ig_icon_lock_outline_24" ]},
             @"lock_filled" : @{@"candidates" : @[ @"ig_icon_lock_prism_filled_24", @"ig_icon_lock_filled_24" ]},
             @"logs" : @{@"candidates" : @[ @"ig_icon_document_lined_prism_outline_24", @"ig_icon_document_lined_outline_24" ]},
@@ -236,6 +236,10 @@ static NSDictionary<NSString *, SPKAssetDescriptor *> *SPKAssetOverrides(void) {
             @"reply" : @{@"candidates" : @[ @"ig_icon_reply_outline_24" ]},
             @"repost" : @{@"candidates" : @[ @"ig_icon_reshare_pano_outline_24", @"ig_icon_reshare_outline_24" ]},
             @"repost_reels" : @{@"candidates" : @[ @"reshare-unshadowed_outline_44" ]},
+            // Modern IG uses the bend arrow (flipped into the two directions in
+            // SPKPhotoEditor); IG 410 lacks it, so fall back to the older filled
+            // bend arrow — which points the right way already and only needs the
+            // horizontal flip for "left" (no vertical flip). See SPKPhotoEditor.
             @"rotate_left" : @{@"candidates" : @[ @"ig_icon_arrow_bottom_right_bend_outline_24", @"ig_icon_arrow_right_bend_filled_24" ]},
             @"rotate_right" : @{@"candidates" : @[ @"ig_icon_arrow_bottom_right_bend_outline_24", @"ig_icon_arrow_right_bend_filled_24" ]},
             @"save" : @{@"candidates" : @[ @"ig_icon_save_pano_outline_24", @"ig_icon_save_outline_24" ]},
