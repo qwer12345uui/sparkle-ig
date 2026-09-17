@@ -95,9 +95,7 @@
     profileAnalyzerRow.userInfo = @{@"checkmarked" : @(self.includeProfileAnalyzer)};
 
     NSString *footer = self.importMode
-                           ? SPKLocalizedString(@"Preferences are restored, replacing your current values for the imported scope. ")
-                             SPKLocalizedString(@"Gallery, Deleted Messages, and Profile Analyzer data are merged in — existing items are never deleted. ")
-                             SPKLocalizedString(@"A restart prompt appears only when preferences change.")
+                           ? [[SPKLocalizedString(@"Preferences are restored, replacing your current values for the imported scope. ") stringByAppendingString:SPKLocalizedString(@"Gallery, Deleted Messages, and Profile Analyzer data are merged in — existing items are never deleted. ")] stringByAppendingString:SPKLocalizedString(@"A restart prompt appears only when preferences change.")]
                            : nil;
     NSArray *sections = @[ SPKTopicSection(@"", @[ settingsRow, galleryRow, deletedMessagesRow, profileAnalyzerRow ], footer) ];
     [self replaceSections:sections];

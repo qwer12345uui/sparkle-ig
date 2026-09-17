@@ -1781,10 +1781,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                       @"", @[ [SPKSetting
                                switchCellWithTitle:SPKLocalizedString(@"Advanced Encoding")
                                        defaultsKey:@"downloads_adv_encoding"] ],
-                      SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, ")
-                      SPKLocalizedString(@"resolution, and audio overrides. In advanced mode, the ")
-                      SPKLocalizedString(@"selected video codec is used for DASH merges while audio ")
-                      SPKLocalizedString(@"remains copied."))];
+                      [[[SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, ") stringByAppendingString:SPKLocalizedString(@"resolution, and audio overrides. In advanced mode, the ")] stringByAppendingString:SPKLocalizedString(@"selected video codec is used for DASH merges while audio ")] stringByAppendingString:SPKLocalizedString(@"remains copied.")])];
 
     if ([SPKUtils getBoolPref:@"downloads_adv_encoding"]) {
         [sections addObject:SPKTopicSection(
@@ -1854,9 +1851,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                             switchCellWithTitle:SPKLocalizedString(@"Fast Start")
                                     defaultsKey:@"downloads_encoding_faststart"]
                     ],
-                    SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the ")
-                    SPKLocalizedString(@"file, allowing the video to start playing immediately ")
-                    SPKLocalizedString(@"when shared online or streamed."))];
+                    [[SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the ") stringByAppendingString:SPKLocalizedString(@"file, allowing the video to start playing immediately ")] stringByAppendingString:SPKLocalizedString(@"when shared online or streamed.")])];
 
         __weak typeof(self) weakSelf = self;
         SPKSetting *resetEncoding = 
@@ -1905,9 +1900,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                     @"Video", @[ [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Encoding Speed")
                                                       subtitle:nil
                                                           menu:[self speedMenu]] ],
-                    SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take ")
-                    SPKLocalizedString(@"longer but produce smaller files at the same visual quality. ")
-                    SPKLocalizedString(@"Ultrafast is fastest but produces larger files."))];
+                    [[SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take ") stringByAppendingString:SPKLocalizedString(@"longer but produce smaller files at the same visual quality. ")] stringByAppendingString:SPKLocalizedString(@"Ultrafast is fastest but produces larger files.")])];
     }
 
     return sections;
@@ -1925,9 +1918,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
         SPKTopicSection(
             @"", @[ [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Advanced Encoding")
                                         defaultsKey:@"downloads_adv_encoding"] ],
-            SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, resolution, ")
-            SPKLocalizedString(@"and audio overrides. In advanced mode, the selected video codec is ")
-            SPKLocalizedString(@"used for DASH merges while audio remains copied.")),
+            [[SPKLocalizedString(@"Advanced Encoding exposes codec, preset, bitrate, CRF, resolution, ") stringByAppendingString:SPKLocalizedString(@"and audio overrides. In advanced mode, the selected video codec is ")] stringByAppendingString:SPKLocalizedString(@"used for DASH merges while audio remains copied.")]),
         SPKTopicSection(
             @"Video",
             @[
@@ -1947,9 +1938,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                                      subtitle:nil
                                          menu:[self levelMenu]]
             ],
-            SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take longer but ")
-            SPKLocalizedString(@"produce smaller files at the same visual quality. Ultrafast is ")
-            SPKLocalizedString(@"fastest but produces larger files.")),
+            [[SPKLocalizedString(@"Controls the libx264 encoding effort. Slower presets take longer but ") stringByAppendingString:SPKLocalizedString(@"produce smaller files at the same visual quality. Ultrafast is ")] stringByAppendingString:SPKLocalizedString(@"fastest but produces larger files.")]),
         SPKTopicSection(
             @"Quality",
             @[
@@ -1989,9 +1978,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
                 [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Fast Start")
                                     defaultsKey:@"downloads_encoding_faststart"]
             ],
-            SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the file, allowing ")
-            SPKLocalizedString(@"the video to start playing immediately when shared online or ")
-            SPKLocalizedString(@"streamed.")),
+            [[SPKLocalizedString(@"Fast Start moves MP4 metadata to the beginning of the file, allowing ") stringByAppendingString:SPKLocalizedString(@"the video to start playing immediately when shared online or ")] stringByAppendingString:SPKLocalizedString(@"streamed.")]),
         SPKTopicSection(@"", @[ ffmpegInfo ], nil)
     ];
 }
@@ -2191,8 +2178,7 @@ static NSString *SPKMediaCodecBadge(NSString *codec) {
     SPKMediaOptionSection *infoSection = self.sections[section];
     if ([infoSection.title isEqualToString:SPKLocalizedString(@"Video + Audio")] &&
         !self.analysis.ffmpegAvailable) {
-        return SPKLocalizedString(@"FFmpegKit is not available in the active build, so merged DASH ")
-               SPKLocalizedString(@"rows are disabled.");
+        return [SPKLocalizedString(@"FFmpegKit is not available in the active build, so merged DASH ") stringByAppendingString:SPKLocalizedString(@"rows are disabled.")];
     }
     return nil;
 }

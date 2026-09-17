@@ -183,8 +183,7 @@
                  completion:^(BOOL success, NSError *error) {
                      if (!success) {
                          NSString *desc = error.localizedDescription
-                                              ?: SPKLocalizedString(@"Could not save to Photos. Check ")
-                                                 SPKLocalizedString(@"photo library permission.");
+                                              ?: [SPKLocalizedString(@"Could not save to Photos. Check ") stringByAppendingString:SPKLocalizedString(@"photo library permission.")];
                          if (completion)
                              completion(
                                  nil, nil,

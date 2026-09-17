@@ -233,10 +233,8 @@ void SPKDirectPresentAutoSaveThreadRuleToggle(SPKDirectThreadContext *context) {
         BOOL allChats = SPKDirectAutoSaveAllChatsMode();
         self.showsAddButton = YES;
         self.infoText = allChats
-                            ? SPKLocalizedString(@"Filter Mode is All Chats, so every view-once photo and video you open is saved except in ")
-                              SPKLocalizedString(@"chats in this list. Media you already have is skipped.")
-                            : SPKLocalizedString(@"Filter Mode is Selected Chats, so only view-once media in chats in this list is saved. ")
-                              SPKLocalizedString(@"Media you already have is skipped.");
+                            ? [SPKLocalizedString(@"Filter Mode is All Chats, so every view-once photo and video you open is saved except in ") stringByAppendingString:SPKLocalizedString(@"chats in this list. Media you already have is skipped.")]
+                            : [SPKLocalizedString(@"Filter Mode is Selected Chats, so only view-once media in chats in this list is saved. ") stringByAppendingString:SPKLocalizedString(@"Media you already have is skipped.")];
         self.emptyTitle = SPKLocalizedString(@"No chats yet");
         self.emptySubtitle = allChats
                                  ? SPKLocalizedString(@"Add chats whose view-once media should never be auto-saved.")

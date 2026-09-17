@@ -51,9 +51,7 @@ static NSString *const kSPKReelsActionButtonEnabledKey = @"reels_action_btn";
                                        label:@"reels"
                                singularLabel:@"reel"]
         ],
-                        SPKLocalizedString(@"1. Stop vertical swiping between reels so the current reel stays put.\n")
-                        SPKLocalizedString(@"2. Stop loading more reels once the limit below is reached.\n")
-                        SPKLocalizedString(@"3. How many reels load before Prevent Doom Scrolling kicks in.")),
+                        [[SPKLocalizedString(@"1. Stop vertical swiping between reels so the current reel stays put.\n") stringByAppendingString:SPKLocalizedString(@"2. Stop loading more reels once the limit below is reached.\n")] stringByAppendingString:SPKLocalizedString(@"3. How many reels load before Prevent Doom Scrolling kicks in.")]),
         SPKTopicSection(@"Layout", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Reels Header")
                                        icon:SPKSettingsIcon(@"reels")

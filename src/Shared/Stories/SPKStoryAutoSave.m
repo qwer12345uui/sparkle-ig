@@ -243,10 +243,8 @@ BOOL SPKStoryToggleAutoSaveCurrentUser(SPKStoryContext *context, NSString **noti
         BOOL allUsers = SPKStoryAutoSaveAllUsersMode();
         self.showsAddButton = YES;
         self.infoText = allUsers
-                            ? SPKLocalizedString(@"Filter Mode is All Users, so every story you watch is saved except from users in this ")
-                              SPKLocalizedString(@"list. Stories you already have are skipped, so re-watching never saves one twice.")
-                            : SPKLocalizedString(@"Filter Mode is Selected Users, so only stories from users in this list are saved. ")
-                              SPKLocalizedString(@"Stories you already have are skipped, so re-watching never saves one twice.");
+                            ? [SPKLocalizedString(@"Filter Mode is All Users, so every story you watch is saved except from users in this ") stringByAppendingString:SPKLocalizedString(@"list. Stories you already have are skipped, so re-watching never saves one twice.")]
+                            : [SPKLocalizedString(@"Filter Mode is Selected Users, so only stories from users in this list are saved. ") stringByAppendingString:SPKLocalizedString(@"Stories you already have are skipped, so re-watching never saves one twice.")];
         self.emptyTitle = SPKLocalizedString(@"No users yet");
         self.emptySubtitle = allUsers
                                  ? SPKLocalizedString(@"Add users whose stories should never be auto-saved.")

@@ -793,14 +793,7 @@ typedef NS_ENUM(NSInteger, SPKPASectionKind) {
 
 - (void)showAbout {
     NSString *message =
-        SPKLocalizedString(@"Profile Analyzer fetches your full followers and following lists and stores them on-device. ")
-        SPKLocalizedString(@"Each analysis is compared to the previous one to surface new and lost followers, who you started ")
-        @"following or unfollowed, and profile changes. These changes accumulate into a history that isn't "
-        @"cleared by re-running. Anything you haven't looked at yet is badged and grouped under “Latest.”\n\n"
-        @"Because Instagram limits how many requests can be made in a short window, accounts with more than "
-        SPKLocalizedString(@"13,000 total connections (followers, following) can't be analyzed.\n\n")
-        SPKLocalizedString(@"Analysis runs in the background; you'll get a notification when it finishes.\n\n")
-        SPKLocalizedString(@"All data stays on your device and is never uploaded.");
+        [[[[[[[SPKLocalizedString(@"Profile Analyzer fetches your full followers and following lists and stores them on-device. ") stringByAppendingString:SPKLocalizedString(@"Each analysis is compared to the previous one to surface new and lost followers, who you started ")] stringByAppendingString:@"following or unfollowed, and profile changes. These changes accumulate into a history that isn't "] stringByAppendingString:@"cleared by re-running. Anything you haven't looked at yet is badged and grouped under “Latest.”\n\n"] stringByAppendingString:@"Because Instagram limits how many requests can be made in a short window, accounts with more than "] stringByAppendingString:SPKLocalizedString(@"13,000 total connections (followers, following) can't be analyzed.\n\n")] stringByAppendingString:SPKLocalizedString(@"Analysis runs in the background; you'll get a notification when it finishes.\n\n")] stringByAppendingString:SPKLocalizedString(@"All data stays on your device and is never uploaded.")];
     [SPKIGAlertPresenter presentAlertFromViewController:self
                                                   title:SPKLocalizedString(@"About Profile Analyzer")
                                                 message:message

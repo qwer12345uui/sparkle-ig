@@ -62,15 +62,8 @@
     encodingLogs.userInfo = @{@"enabled" : @YES};
 
     NSString *qualityFooter = ffmpegAvailable
-        ? SPKLocalizedString(@"1. Request 4K image candidates by mimicking a web browser (extra call to the web API).\n")
-          SPKLocalizedString(@"2. Fetch the highest-resolution variant Instagram exposes for photos and videos.\n")
-          SPKLocalizedString(@"3. Preferred quality for downloaded photos.\n")
-          SPKLocalizedString(@"4. \"High\" merges DASH files for best quality, \"Default\" uses ready-to-play files, \"Always Ask\" prompts for selection each time.\n")
-          SPKLocalizedString(@"5. Configure how merged videos are re-encoded (codec, container, bitrate).\n")
-          SPKLocalizedString(@"6. Review the FFmpeg output from recent encoding jobs.")
-        : SPKLocalizedString(@"1. Request 4K image candidates by mimicking a web browser (extra call to the web API).\n")
-          SPKLocalizedString(@"2. Fetch the highest-resolution variant Instagram exposes for photos and videos.\n")
-          SPKLocalizedString(@"FFmpegKit is required for video quality options and encoding features.");
+        ? [[[[[SPKLocalizedString(@"1. Request 4K image candidates by mimicking a web browser (extra call to the web API).\n") stringByAppendingString:SPKLocalizedString(@"2. Fetch the highest-resolution variant Instagram exposes for photos and videos.\n")] stringByAppendingString:SPKLocalizedString(@"3. Preferred quality for downloaded photos.\n")] stringByAppendingString:SPKLocalizedString(@"4. \"High\" merges DASH files for best quality, \"Default\" uses ready-to-play files, \"Always Ask\" prompts for selection each time.\n")] stringByAppendingString:SPKLocalizedString(@"5. Configure how merged videos are re-encoded (codec, container, bitrate).\n")] stringByAppendingString:SPKLocalizedString(@"6. Review the FFmpeg output from recent encoding jobs.")]
+        : [[SPKLocalizedString(@"1. Request 4K image candidates by mimicking a web browser (extra call to the web API).\n") stringByAppendingString:SPKLocalizedString(@"2. Fetch the highest-resolution variant Instagram exposes for photos and videos.\n")] stringByAppendingString:SPKLocalizedString(@"FFmpegKit is required for video quality options and encoding features.")];
 
     SPKSetting *autoSave = [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Auto-Save")
                                                       subtitle:@""
@@ -124,10 +117,7 @@
                 album;
             }),
         ],
-                        SPKLocalizedString(@"1. Check before downloading and skip media already saved. Gallery checks are exact; Photos checks cover media Sparkle saved while tracking is enabled.\n")
-                        SPKLocalizedString(@"2. How many downloads may run at the same time.\n")
-                        SPKLocalizedString(@"3. How many finished entries the download history keeps before trimming the oldest.\n")
-                        SPKLocalizedString(@"4. Group saved Photos media under a specific custom album.")),
+                        [[[SPKLocalizedString(@"1. Check before downloading and skip media already saved. Gallery checks are exact; Photos checks cover media Sparkle saved while tracking is enabled.\n") stringByAppendingString:SPKLocalizedString(@"2. How many downloads may run at the same time.\n")] stringByAppendingString:SPKLocalizedString(@"3. How many finished entries the download history keeps before trimming the oldest.\n")] stringByAppendingString:SPKLocalizedString(@"4. Group saved Photos media under a specific custom album.")]),
         SPKTopicSection(@"Quality", @[
             ({
                 SPKSetting *toggle = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Fetch 4K Images")

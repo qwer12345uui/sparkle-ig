@@ -144,8 +144,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
                                            icon:SPKSettingsIcon(@"media")
                                  viewController:[[SPKGalleryImportViewController alloc] initWithDestinationFolderPath:nil]]
         ],
-                        SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n")
-                        SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over.")),
+                        [SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n") stringByAppendingString:SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over.")]),
         SPKTopicSection(@"Delete", @[
             [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Delete Files")
                                    subtitle:nil
@@ -234,9 +233,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
         [[NSNotificationCenter defaultCenter] postNotificationName:kSPKGalleryBrowsingScopeChangedNotification object:nil];
     };
     [sections addObject:SPKTopicSection(@"Browsing", @[favoritesRow, pinFolderRow, flatBrowsingRow],
-                                        SPKLocalizedString(@"1. Pin favorites above other files inside the current sort and folder context.\n")
-                                        SPKLocalizedString(@"2. Keep the subfolder bar pinned to the top while scrolling.\n")
-                                        SPKLocalizedString(@"3. Show files from all folders instead of only the current folder's files. The folders stay in the bar above and still narrow the list."))];
+                                        [[SPKLocalizedString(@"1. Pin favorites above other files inside the current sort and folder context.\n") stringByAppendingString:SPKLocalizedString(@"2. Keep the subfolder bar pinned to the top while scrolling.\n")] stringByAppendingString:SPKLocalizedString(@"3. Show files from all folders instead of only the current folder's files. The folders stay in the bar above and still narrow the list.")])];
 
     [sections addObject:SPKTopicSection(@"Editing", @[
                   [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Ask to Replace Original")
@@ -260,8 +257,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
                                                  icon:SPKSettingsIcon(@"eye_off")
                                        viewController:[SPKGalleryHiddenSourcesViewController new]]
               ],
-                                        SPKLocalizedString(@"1. Show only media saved while logged into the current account, plus older unassigned files; reassign a file's account from its details sheet.\n")
-                                        SPKLocalizedString(@"2. Hide selected sources from Gallery browsing and upload picker sheets without deleting their files."))];
+                                        [SPKLocalizedString(@"1. Show only media saved while logged into the current account, plus older unassigned files; reassign a file's account from its details sheet.\n") stringByAppendingString:SPKLocalizedString(@"2. Hide selected sources from Gallery browsing and upload picker sheets without deleting their files.")])];
 
     // Grid section: pinch-to-zoom toggle. Defaults ON; the backing pref stores
     // the *disabled* state, so the switch inverts.
@@ -284,8 +280,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
     };
 
     [sections addObject:SPKTopicSection(@"Grid", @[ pinchRow, sourceUsernameRow ],
-                                        SPKLocalizedString(@"1. Pinch the grid to change density (2, 3 or 5 columns).\n")
-                                        SPKLocalizedString(@"2. Overlay the source icon and username on each grid item; the username shows at lower densities."))];
+                                        [SPKLocalizedString(@"1. Pinch the grid to change density (2, 3 or 5 columns).\n") stringByAppendingString:SPKLocalizedString(@"2. Overlay the source icon and username on each grid item; the username shows at lower densities.")])];
 
     [sections addObject:SPKTopicSection(@"Preview", @[
                   [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Show Media Info")
@@ -330,8 +325,7 @@ static NSString *const kGalleryQuickAccessDisabledValue = @"none";
                                                          [self.navigationController pushViewController:vc animated:YES];
                                                      }];
     [sections addObject:SPKTopicSection(SPKLocalizedString(@"Import"), @[ importRow ],
-                                        SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n")
-                                        SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over."))];
+                                        [SPKLocalizedString(@"Import media from the Files app with full editable metadata.\n") stringByAppendingString:SPKLocalizedString(@"Coming from Regram? Pick your exported folder or MediaVault.zip here to bring your whole Media Vault over.")])];
 
     SPKSetting *deleteRow = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Delete Files")
                                                    subtitle:nil

@@ -36,14 +36,8 @@ static NSArray *SPKStoriesSettingsSections(void);
 static NSDictionary *SPKStoriesSeenReceiptsSection(void) {
     BOOL manualSeen = [SPKUtils getBoolPref:@"stories_manual_seen"];
     NSString *footer = manualSeen
-                           ? SPKLocalizedString(@"1. Stories are not marked seen automatically, except users in Excluded Users.\n")
-                             SPKLocalizedString(@"2. Mark the story as seen when you press like.\n")
-                             SPKLocalizedString(@"3. Mark the story as seen when you send a reply.\n")
-                             SPKLocalizedString(@"4. Excluded Users use Instagram's normal seen behavior and do not need the eye button.")
-                           : SPKLocalizedString(@"1. Stories use Instagram's normal seen behavior, except users in Included Users.\n")
-                             SPKLocalizedString(@"2. Mark the story as seen when you press like.\n")
-                             SPKLocalizedString(@"3. Mark the story as seen when you send a reply.\n")
-                             SPKLocalizedString(@"4. Included Users require the eye button, story like, or story reply to mark seen.");
+                           ? [[[SPKLocalizedString(@"1. Stories are not marked seen automatically, except users in Excluded Users.\n") stringByAppendingString:SPKLocalizedString(@"2. Mark the story as seen when you press like.\n")] stringByAppendingString:SPKLocalizedString(@"3. Mark the story as seen when you send a reply.\n")] stringByAppendingString:SPKLocalizedString(@"4. Excluded Users use Instagram's normal seen behavior and do not need the eye button.")]
+                           : [[[SPKLocalizedString(@"1. Stories use Instagram's normal seen behavior, except users in Included Users.\n") stringByAppendingString:SPKLocalizedString(@"2. Mark the story as seen when you press like.\n")] stringByAppendingString:SPKLocalizedString(@"3. Mark the story as seen when you send a reply.\n")] stringByAppendingString:SPKLocalizedString(@"4. Included Users require the eye button, story like, or story reply to mark seen.")];
     SPKSetting *manualSeenList = [SPKSetting navigationCellWithTitle:SPKStoryManualSeenListTitle(manualSeen)
                                                             subtitle:@""
                                                                 icon:SPKSettingsIcon(@"users")
@@ -81,8 +75,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
             SPKActionButtonDefaultActionNavigationSetting(SPKActionButtonSourceStories),
             SPKActionButtonConfigurationNavigationSetting(SPKActionButtonSourceStories, SPKLocalizedString(@"Stories"), SPKActionButtonSupportedActionsForSource(SPKActionButtonSourceStories), SPKActionButtonDefaultSectionsForSource(SPKActionButtonSourceStories))
         ],
-                        SPKLocalizedString(@"1. Add an action button above the bottom story bar.\n")
-                        SPKLocalizedString(@"2. Choose the default action. Long press opens the full menu.")),
+                        [SPKLocalizedString(@"1. Add an action button above the bottom story bar.\n") stringByAppendingString:SPKLocalizedString(@"2. Choose the default action. Long press opens the full menu.")]),
         SPKStoriesSeenReceiptsSection(), SPKTopicSection(SPKLocalizedString(@"Story Navigation"), @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Stop Auto Advance")
                                        icon:SPKSettingsIcon(@"autoscroll")
@@ -97,10 +90,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"reply")
                                 defaultsKey:@"stories_advance_on_reply_seen"],
         ],
-                                                         SPKLocalizedString(@"1. Prevent automatically moving to the next story.\n")
-                                                         SPKLocalizedString(@"2. Move to the next story when you press the eye button.\n")
-                                                         SPKLocalizedString(@"3. Move to the next story when you press like.\n")
-                                                         SPKLocalizedString(@"4. Move to the next story when you reply.")),
+                                                         [[[SPKLocalizedString(@"1. Prevent automatically moving to the next story.\n") stringByAppendingString:SPKLocalizedString(@"2. Move to the next story when you press the eye button.\n")] stringByAppendingString:SPKLocalizedString(@"3. Move to the next story when you press like.\n")] stringByAppendingString:SPKLocalizedString(@"4. Move to the next story when you reply.")]),
         SPKTopicSection(@"Confirmations", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Confirm Like")
                                        icon:SPKSettingsIcon(@"heart")
@@ -112,9 +102,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"sticker")
                                 defaultsKey:@"stories_confirm_sticker"]
         ],
-                        SPKLocalizedString(@"1. Show a confirmation alert when you try to like a story.\n")
-                        SPKLocalizedString(@"2. Show a confirmation alert when you tap a quick reaction emoji.\n")
-                        SPKLocalizedString(@"3. Show a confirmation alert when a story has a sticker and you tap on it.")),
+                        [[SPKLocalizedString(@"1. Show a confirmation alert when you try to like a story.\n") stringByAppendingString:SPKLocalizedString(@"2. Show a confirmation alert when you tap a quick reaction emoji.\n")] stringByAppendingString:SPKLocalizedString(@"3. Show a confirmation alert when a story has a sticker and you tap on it.")]),
         
         SPKTopicSection(@"Instagram Plus", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Unlock Story Preview")
@@ -124,8 +112,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"aura")
                                 defaultsKey:@"stories_hide_ig_plus_button"]
         ],
-                        SPKLocalizedString(@"1. Unlock \"Story Preview\": the story long-press menu shows the actual story without appearing on the viewer list.\n")
-                        SPKLocalizedString(@"2. Hide the Instagram Plus button in your story's viewer list.")),
+                        [SPKLocalizedString(@"1. Unlock \"Story Preview\": the story long-press menu shows the actual story without appearing on the viewer list.\n") stringByAppendingString:SPKLocalizedString(@"2. Hide the Instagram Plus button in your story's viewer list.")]),
 
         SPKTopicSection(@"Creation", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Allow Videos in Photo Sticker")
@@ -138,9 +125,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"eyedropper")
                                 defaultsKey:@"stories_detailed_color_picker"]
         ],
-                        SPKLocalizedString(@"1. Allow selecting videos from your library in the story photo sticker.\n")
-                        SPKLocalizedString(@"2. Use media from Sparkle Gallery as stickers.\n")
-                        SPKLocalizedString(@"3. Long press on the eyedropper tool in stories to customize text color more precisely.")),
+                        [[SPKLocalizedString(@"1. Allow selecting videos from your library in the story photo sticker.\n") stringByAppendingString:SPKLocalizedString(@"2. Use media from Sparkle Gallery as stickers.\n")] stringByAppendingString:SPKLocalizedString(@"3. Long press on the eyedropper tool in stories to customize text color more precisely.")]),
 
         SPKTopicSection(@"Other", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Search Viewer List")
@@ -156,10 +141,7 @@ static NSArray *SPKStoriesSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"poll")
                                 defaultsKey:@"stories_poll_vote_counts"],
         ],
-                        SPKLocalizedString(@"1. Add a search button to your story's viewer list to search and filter anyone who viewed it.\n")
-                        SPKLocalizedString(@"2. Hide the the \"Join a trending\" / \"Add Yours\" promo cards from stories.\n")
-                        SPKLocalizedString(@"3. Enabling this will add a button above the bottom story bar, where you can see all mentioned users.\n")
-                        SPKLocalizedString(@"4. Display the vote counts for each option the poll has."))
+                        [[[SPKLocalizedString(@"1. Add a search button to your story's viewer list to search and filter anyone who viewed it.\n") stringByAppendingString:SPKLocalizedString(@"2. Hide the the \"Join a trending\" / \"Add Yours\" promo cards from stories.\n")] stringByAppendingString:SPKLocalizedString(@"3. Enabling this will add a button above the bottom story bar, where you can see all mentioned users.\n")] stringByAppendingString:SPKLocalizedString(@"4. Display the vote counts for each option the poll has.")])
     ];
 }
 

@@ -1101,8 +1101,7 @@ static void SPKAudioDownloadForSaveToFiles(SPKAudioItem *item, BOOL convert,
     NSString *scheme = item.url.scheme.lowercaseString;
     if (!item.url.isFileURL && ![@[ @"http", @"https" ] containsObject:scheme]) {
         SPKNotify(identifier, SPKLocalizedString(@"Audio download failed"),
-                  SPKLocalizedString(@"Instagram exposed an unsupported audio URL. Refresh the thread ")
-                  SPKLocalizedString(@"and try again."),
+                  [SPKLocalizedString(@"Instagram exposed an unsupported audio URL. Refresh the thread ") stringByAppendingString:SPKLocalizedString(@"and try again.")],
                   @"error_filled", SPKNotificationToneError);
         return;
     }
