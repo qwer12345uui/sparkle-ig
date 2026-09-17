@@ -56,18 +56,34 @@ static void SPKLoadTranslations(void) {
     if (gSPKTranslationsLoaded) {
         return;
     }
+    // Flip the flag first: building the table below touches Foundation, which
+    // can re-enter this module's own hooks, and we must not recurse.
     gSPKTranslationsLoaded = YES;
 
+    NSMutableDictionary<NSString *, NSString *> *merged = [NSMutableDictionary dictionary];
+
+    // Embedded table first; it ships inside the dylib so it is always present.
+    NSDictionary<NSString *, NSString *> *embedded = SPKEmbeddedTranslations();
+    if (embedded.count > 0) {
+        [merged addEntriesFromDictionary:embedded];
+    }
+
+    // An installed Sparkle.bundle (only exists for .deb installs) overrides
+    // individual entries, letting translations be refreshed without a rebuild.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     for (NSString *path in SPKStringsFileCandidates()) {
         if (![fileManager fileExistsAtPath:path]) {
             continue;
         }
-        NSDictionary *table = [NSDictionary dictionaryWithContentsOfFile:path];
-        if (table.count > 0) {
-            gSPKTranslations = table;
-            return;
+        NSDictionary *external = [NSDictionary dictionaryWithContentsOfFile:path];
+        if (external.count > 0) {
+            [merged addEntriesFromDictionary:external];
+            break;
         }
+    }
+
+    if (merged.count > 0) {
+        gSPKTranslations = merged;
     }
 }
 

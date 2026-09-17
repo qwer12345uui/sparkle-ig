@@ -11,10 +11,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPKLocalizer : NSObject
 
-/// Translations currently loaded from Sparkle.bundle (may be nil).
+/// Table merged from the embedded translations plus (when present) Sparkle.bundle
+/// (may be nil before the first lookup).
 + (NSDictionary<NSString *, NSString *> * _Nullable)loadedTranslations;
 
 @end
+
+/// Translations compiled straight into the binary (see SPKTranslations.m).
+/// This is the source of truth when no Sparkle.bundle is installed, and is what
+/// lets a bare .dylib injection (TrollFools and friends) render Chinese.
+FOUNDATION_EXPORT NSDictionary<NSString *, NSString *> * _Nonnull SPKEmbeddedTranslations(void);
 
 /// Returns the localized (Chinese) form of `text` when a translation is
 /// available, otherwise returns `text` unchanged. Never returns nil.
