@@ -64,22 +64,7 @@
                                       icon:SPKSettingsIcon(@"info")
                                     action:^{
                                         NSString *message =
-                                            SPKLocalizedString(@"Each logged-in account gets its own Sparkle settings. A newly seen ")
-                                            SPKLocalizedString(@"account starts from your current settings until you change something.\n\n")
-                                            SPKLocalizedString(@"These stay shared across all accounts:\n")
-                                            SPKLocalizedString(@"•  App icon\n")
-                                            SPKLocalizedString(@"•  Appearance & Liquid Glass\n")
-                                            SPKLocalizedString(@"•  Tab bar order & visibility\n")
-                                            @"•  Quick access shortcuts (Settings & Gallery)\n"
-                                            @"•  Main feed mode (For You / Following)\n"
-                                            SPKLocalizedString(@"•  Disable video autoplay\n")
-                                            SPKLocalizedString(@"•  Reels doom scroll & limits\n")
-                                            SPKLocalizedString(@"•  Hide UI on capture\n")
-                                            SPKLocalizedString(@"•  Download encoding settings\n")
-                                            SPKLocalizedString(@"•  Gallery view, sort & lock\n")
-                                            SPKLocalizedString(@"•  Fix duplicate notifications\n")
-                                            SPKLocalizedString(@"•  Disable All (master switch)\n\n")
-                                            SPKLocalizedString(@"Gallery media ownership is controlled separately in Gallery settings.");
+                                            [[[[[[[[[[[[[[[SPKLocalizedString(@"Each logged-in account gets its own Sparkle settings. A newly seen ") stringByAppendingString:SPKLocalizedString(@"account starts from your current settings until you change something.\n\n")] stringByAppendingString:SPKLocalizedString(@"These stay shared across all accounts:\n")] stringByAppendingString:SPKLocalizedString(@"•  App icon\n")] stringByAppendingString:SPKLocalizedString(@"•  Appearance & Liquid Glass\n")] stringByAppendingString:SPKLocalizedString(@"•  Tab bar order & visibility\n")] stringByAppendingString:@"•  Quick access shortcuts (Settings & Gallery)\n"] stringByAppendingString:@"•  Main feed mode (For You / Following)\n"] stringByAppendingString:SPKLocalizedString(@"•  Disable video autoplay\n")] stringByAppendingString:SPKLocalizedString(@"•  Reels doom scroll & limits\n")] stringByAppendingString:SPKLocalizedString(@"•  Hide UI on capture\n")] stringByAppendingString:SPKLocalizedString(@"•  Download encoding settings\n")] stringByAppendingString:SPKLocalizedString(@"•  Gallery view, sort & lock\n")] stringByAppendingString:SPKLocalizedString(@"•  Fix duplicate notifications\n")] stringByAppendingString:SPKLocalizedString(@"•  Disable All (master switch)\n\n")] stringByAppendingString:SPKLocalizedString(@"Gallery media ownership is controlled separately in Gallery settings.")];
 
                                         [SPKIGAlertPresenter presentAlertFromViewController:topMostController()
                                                                                       title:SPKLocalizedString(@"Per-Account Settings")
@@ -120,10 +105,7 @@
                                        icon:SPKSettingsIcon(@"link")
                                 defaultsKey:@"general_hold_send_copy_link"],
         ],
-                        SPKLocalizedString(@"1. Long press on text fields across the app to copy.\n")
-                        SPKLocalizedString(@"2. Search bars will no longer save recent searches.\n")
-                        SPKLocalizedString(@"3. Remove the user and tracking identifiers from copied links.\n")
-                        SPKLocalizedString(@"4. Long press the send/share button to copy the post link.")),
+                        [[[SPKLocalizedString(@"1. Long press on text fields across the app to copy.\n") stringByAppendingString:SPKLocalizedString(@"2. Search bars will no longer save recent searches.\n")] stringByAppendingString:SPKLocalizedString(@"3. Remove the user and tracking identifiers from copied links.\n")] stringByAppendingString:SPKLocalizedString(@"4. Long press the send/share button to copy the post link.")]),
         SPKTopicSection(@"Sharing", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Create Group Button")
                                        icon:SPKSettingsIcon(@"group")
@@ -135,9 +117,7 @@
                                        icon:SPKSettingsIcon(@"messages")
                                 defaultsKey:@"general_confirm_send"],
         ],
-                        SPKLocalizedString(@"1. Hide the create group button from the Instagram send/share sheet.\n")
-                        SPKLocalizedString(@"2. Show a confirmation alert when you try to create a group.\n")
-                        SPKLocalizedString(@"3. Show a confirmation alert when sending a post.")),
+                        [[SPKLocalizedString(@"1. Hide the create group button from the Instagram send/share sheet.\n") stringByAppendingString:SPKLocalizedString(@"2. Show a confirmation alert when you try to create a group.\n")] stringByAppendingString:SPKLocalizedString(@"3. Show a confirmation alert when sending a post.")]),
         SPKTopicSection(@"Recommendations", @[
             [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Ads")
                                        subtitle:@""
@@ -209,8 +189,7 @@
                                        icon:SPKSettingsIcon(@"calendar")
                                 defaultsKey:@"general_action_btn_show_date"],
         ],
-                        SPKLocalizedString(@"1. Overlay the author and post date on the expanded photo preview.\n")
-                        SPKLocalizedString(@"2. Show the exact date and time a post was made in the action button menu.")),
+                        [SPKLocalizedString(@"1. Overlay the author and post date on the expanded photo preview.\n") stringByAppendingString:SPKLocalizedString(@"2. Show the exact date and time a post was made in the action button menu.")]),
         SPKTopicSection(@"Comments", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Copy Comment")
                                        icon:SPKSettingsIcon(@"copy")
@@ -222,9 +201,7 @@
                                        icon:SPKSettingsIcon(@"photo")
                                 defaultsKey:@"general_comments_gallery_upload"]
         ],
-                        SPKLocalizedString(@"1. Adds a copy action to comment menus.\n")
-                        SPKLocalizedString(@"2. Adds Photos, Share, Gallery, and link actions for GIF and photo comments.\n")
-                        SPKLocalizedString(@"3. Long-press the composer's photo button to attach an image from your Sparkle Gallery.")),
+                        [[SPKLocalizedString(@"1. Adds a copy action to comment menus.\n") stringByAppendingString:SPKLocalizedString(@"2. Adds Photos, Share, Gallery, and link actions for GIF and photo comments.\n")] stringByAppendingString:SPKLocalizedString(@"3. Long-press the composer's photo button to attach an image from your Sparkle Gallery.")]),
         SPKTopicSection(@"", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Swipe to Close Comments")
                                        icon:SPKSettingsIcon(@"left_right")
@@ -243,9 +220,7 @@
                                        icon:SPKSettingsIcon(@"gift")
                                 defaultsKey:@"general_comments_hide_gifts_button"],
         ],
-                        SPKLocalizedString(@"1. Shows a confirmation alert before liking a comment.\n")
-                        SPKLocalizedString(@"2. Removes commerce carousels in comment threads.\n")
-                        SPKLocalizedString(@"3. Removes the gift shortcut from the comment composer.")),
+                        [[SPKLocalizedString(@"1. Shows a confirmation alert before liking a comment.\n") stringByAppendingString:SPKLocalizedString(@"2. Removes commerce carousels in comment threads.\n")] stringByAppendingString:SPKLocalizedString(@"3. Removes the gift shortcut from the comment composer.")]),
         SPKTopicSection(@"Accounts", @[
             [self perAccountSetting],
             [self perAccountInfoSetting]

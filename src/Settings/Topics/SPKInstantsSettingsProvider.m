@@ -64,9 +64,7 @@ static NSArray *SPKInstantsSettingsSections(void) {
                 s;
             }),
         ],
-                        SPKLocalizedString(@"1. Blocks Instant capture (photo and video) without disabling received Instants. The shutter is darkened.\n")
-                        SPKLocalizedString(@"2. Skips the camera page Instagram opens after viewing the last Instant.\n")
-                        SPKLocalizedString(@"3. Stops the hardware Camera Control button (iPhone 16/17) from taking an Instant.")),
+                        [[SPKLocalizedString(@"1. Blocks Instant capture (photo and video) without disabling received Instants. The shutter is darkened.\n") stringByAppendingString:SPKLocalizedString(@"2. Skips the camera page Instagram opens after viewing the last Instant.\n")] stringByAppendingString:SPKLocalizedString(@"3. Stops the hardware Camera Control button (iPhone 16/17) from taking an Instant.")]),
         SPKTopicSection(@"", @[
             // Same glyph the button itself wears: the global "Open Menu Icon" choice.
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Camera View Button")
@@ -88,8 +86,7 @@ static NSArray *SPKInstantsSettingsSections(void) {
                                        icon:SPKSettingsIcon(@"reactions")
                                 defaultsKey:@"instants_confirm_reaction"],
         ],
-                        SPKLocalizedString(@"1. Asks for confirmation when you send a captured Instant. Temporarily unavailable.\n")
-                        SPKLocalizedString(@"2. Shows a confirmation alert before an Instant reaction is sent.")),
+                        [SPKLocalizedString(@"1. Asks for confirmation when you send a captured Instant. Temporarily unavailable.\n") stringByAppendingString:SPKLocalizedString(@"2. Shows a confirmation alert before an Instant reaction is sent.")]),
     ];
 }
 

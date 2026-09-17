@@ -48,8 +48,7 @@ static NSString *const kSPKFeedActionButtonEnabledKey = @"feed_action_btn";
                                                         SPKLocalizedString(@"Choose which sheets the header button can open. Enable one for a direct tap, or several to pick from the long-press menu."))
                                     ]],
         ],
-                        SPKLocalizedString(@"Adds a Sparkle button to the home feed header. ")
-                        SPKLocalizedString(@"Tap opens the selected destination. Long press opens the menu of enabled destinations.")),
+                        [SPKLocalizedString(@"Adds a Sparkle button to the home feed header. ") stringByAppendingString:SPKLocalizedString(@"Tap opens the selected destination. Long press opens the menu of enabled destinations.")]),
         SPKTopicSection(@"Layout", @[
             SPKSettingApplySelectedMenuIcon([SPKSetting menuCellWithTitle:SPKLocalizedString(@"Main Feed") icon:SPKSettingsIcon(@"feed") menu:SPKMainFeedModeMenu()], SPKSettingsIcon(@"feed")),
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Disable App Icon Gesture")
@@ -75,14 +74,7 @@ static NSString *const kSPKFeedActionButtonEnabledKey = @"feed_action_btn";
                                 defaultsKey:@"feed_hide_repost_btn"
                             requiresRestart:YES]
         ],
-                        SPKLocalizedString(@"1. Force Instagram's chronological Following feed instead of the algorithmic For You feed. Title stays \"For you\".\n")
-                        SPKLocalizedString(@"2. Stop the feed header logo long-press from opening Instagram's app icon picker. Sparkle has its own in Settings.\n")
-                        SPKLocalizedString(@"3. Hide the horizontal stories tray at the top of the feed.\n")
-                        SPKLocalizedString(@"4. Hide the entire home feed, leaving only the header.\n")
-                        SPKLocalizedString(@"5. Remove algorithmically suggested posts from the feed.\n")
-                        SPKLocalizedString(@"6. Remove suggested reels from the feed.\n")
-                        SPKLocalizedString(@"7. Remove suggested Threads posts from the feed.\n")
-                        SPKLocalizedString(@"8. Hide the repost button on feed posts.")),
+                        [[[[[[[SPKLocalizedString(@"1. Force Instagram's chronological Following feed instead of the algorithmic For You feed. Title stays \"For you\".\n") stringByAppendingString:SPKLocalizedString(@"2. Stop the feed header logo long-press from opening Instagram's app icon picker. Sparkle has its own in Settings.\n")] stringByAppendingString:SPKLocalizedString(@"3. Hide the horizontal stories tray at the top of the feed.\n")] stringByAppendingString:SPKLocalizedString(@"4. Hide the entire home feed, leaving only the header.\n")] stringByAppendingString:SPKLocalizedString(@"5. Remove algorithmically suggested posts from the feed.\n")] stringByAppendingString:SPKLocalizedString(@"6. Remove suggested reels from the feed.\n")] stringByAppendingString:SPKLocalizedString(@"7. Remove suggested Threads posts from the feed.\n")] stringByAppendingString:SPKLocalizedString(@"8. Hide the repost button on feed posts.")]),
         SPKTopicSection(@"Metrics", @[
             [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Like Count")
                                        icon:SPKSettingsIcon(@"heart")
