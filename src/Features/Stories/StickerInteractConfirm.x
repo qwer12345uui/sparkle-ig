@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../Utils.h"
 
 %group SPKStickerInteractConfirmHooks
@@ -11,8 +12,8 @@
             showConfirmation:^(void) {
                 %orig;
             }
-                       title:@"Confirm Sticker Interaction"
-                     message:@"Are you sure you want to interact with this story sticker?"];
+                       title:SPKLocalizedString(@"Confirm Sticker Interaction")
+                     message:SPKLocalizedString(@"Are you sure you want to interact with this story sticker?")];
     } else {
         return %orig;
     }

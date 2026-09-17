@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Accelerate/Accelerate.h>
 #import <CoreMedia/CoreMedia.h>
@@ -323,7 +324,7 @@ static NSURL *SPKInstantsImportPickedVideo(NSURL *sourceURL) {
 /// enough that copying it on the main thread would visibly hang. Copy on a work
 /// queue behind a progress pill and hand back the local URL on the main thread.
 static void SPKInstantsImportPickedVideoAsync(NSURL *sourceURL, void (^completion)(NSURL *_Nullable)) {
-    SPKNotificationPillView *pill = SPKNotifyProgress(kSPKNotificationInstantsUpload, @"Importing video", nil);
+    SPKNotificationPillView *pill = SPKNotifyProgress(kSPKNotificationInstantsUpload, SPKLocalizedString(@"Importing video"), nil);
     [pill setProgressIndeterminate:YES];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         NSURL *localURL = SPKInstantsImportPickedVideo(sourceURL);
@@ -331,8 +332,8 @@ static void SPKInstantsImportPickedVideoAsync(NSURL *sourceURL, void (^completio
             if (localURL) {
                 [pill dismiss];
             } else {
-                [pill showErrorWithTitle:@"Could not open video"
-                                subtitle:@"The picked file could not be read."
+                [pill showErrorWithTitle:SPKLocalizedString(@"Could not open video")
+                                subtitle:SPKLocalizedString(@"The picked file could not be read.")
                                     icon:nil];
             }
             completion(localURL);
@@ -828,7 +829,7 @@ static void SPKInstantsPresentVideoForPositioning(NSURL *videoURL) {
     if (!videoURL)
         return;
     SPKTrimConfiguration *configuration = [SPKTrimConfiguration configurationWithVideoURL:videoURL];
-    configuration.title = @"Trim Instant";
+    configuration.title = SPKLocalizedString(@"Trim Instant");
     configuration.allowsFrameOnly = NO;
     configuration.allowsAudioOnly = NO;
     configuration.allowsCrop = YES;
@@ -841,7 +842,7 @@ static void SPKInstantsPresentVideoForPositioning(NSURL *videoURL) {
                                                   if (!result)
                                                       return;
                                                   [SPKTrimSaveCoordinator renderResult:result
-                                                      progressTitle:@"Preparing instant..."
+                                                      progressTitle:SPKLocalizedString(@"Preparing instant...")
                                                        existingPill:nil
                                                               store:^(NSURL *renderedURL, SPKTrimStoreCompletion done) {
                                                                   NSURL *destination = SPKInstantsPendingVideoURL();
@@ -857,7 +858,7 @@ static void SPKInstantsPresentVideoForPositioning(NSURL *videoURL) {
                                                                       SPKLog(@"Instants", @"[Sparkle] instant video copy failed: %@",
                                                                              error.localizedDescription);
                                                                   }
-                                                                  done(ok, ok ? @"Press and hold to record" : @"Could not prepare video");
+                                                                  done(ok, ok ? SPKLocalizedString(@"Press and hold to record") : SPKLocalizedString(@"Could not prepare video"));
                                                               }
                                                        onSuccessTap:nil
                                                          completion:nil];
@@ -882,7 +883,7 @@ static NSSet<NSNumber *> *SPKInstantsUploadableMediaTypes(void) {
 
 static void SPKInstantsPickFromGallery(void) {
     [SPKGalleryPickerViewController presentFromViewController:SPKInstantsTopPresenter()
-                                                        title:@"Choose Media"
+                                                        title:SPKLocalizedString(@"Choose Media")
                                             allowedMediaTypes:SPKInstantsUploadableMediaTypes()
                                       allowsMultipleSelection:NO
                                                    completion:^(NSArray<SPKGalleryFile *> *selectedFiles) {
@@ -911,39 +912,39 @@ static void SPKInstantsPickFromFiles(void) {
 /// then settings -- each its own inline group, so the three concerns read as separate.
 static NSArray<UIMenuElement *> *SPKInstantsCameraButtonMenuGroups(void) {
     NSMutableArray<UIAction *> *sourceActions = [NSMutableArray array];
-    [sourceActions addObject:[UIAction actionWithTitle:@"Select from Photos"
+    [sourceActions addObject:[UIAction actionWithTitle:SPKLocalizedString(@"Select from Photos")
                                                  image:[SPKAssetUtils menuIconNamed:@"photo_gallery"]
                                             identifier:nil
                                                handler:^(__unused UIAction *action) {
                                                    SPKInstantsPickFromPhotos();
                                                }]];
     if ([SPKGalleryPickerViewController hasSelectableFilesForAllowedMediaTypes:SPKInstantsUploadableMediaTypes()]) {
-        [sourceActions addObject:[UIAction actionWithTitle:@"Select from Gallery"
+        [sourceActions addObject:[UIAction actionWithTitle:SPKLocalizedString(@"Select from Gallery")
                                                      image:[SPKAssetUtils menuIconNamed:@"sparkle_gallery"]
                                                 identifier:nil
                                                    handler:^(__unused UIAction *action) {
                                                        SPKInstantsPickFromGallery();
                                                    }]];
     }
-    [sourceActions addObject:[UIAction actionWithTitle:@"Select from Files"
+    [sourceActions addObject:[UIAction actionWithTitle:SPKLocalizedString(@"Select from Files")
                                                  image:[SPKAssetUtils menuIconNamed:@"folder"]
                                             identifier:nil
                                                handler:^(__unused UIAction *action) {
                                                    SPKInstantsPickFromFiles();
                                                }]];
 
-    UIAction *browseAction = [UIAction actionWithTitle:@"Browse Saved"
+    UIAction *browseAction = [UIAction actionWithTitle:SPKLocalizedString(@"Browse Saved")
                                                  image:[SPKAssetUtils menuIconNamed:@"instants"]
                                             identifier:nil
                                                handler:^(__unused UIAction *action) {
                                                    [SPKInstantsSavedUsersViewController presentFromViewController:SPKInstantsTopPresenter()];
                                                }];
 
-    UIAction *settingsAction = [UIAction actionWithTitle:@"Instants Settings"
+    UIAction *settingsAction = [UIAction actionWithTitle:SPKLocalizedString(@"Instants Settings")
                                                    image:[SPKAssetUtils menuIconNamed:@"settings"]
                                               identifier:nil
                                                  handler:^(__unused UIAction *action) {
-                                                     [SPKUtils showSettingsForTopicTitle:@"Instants"];
+                                                     [SPKUtils showSettingsForTopicTitle:SPKLocalizedString(@"Instants")];
                                                  }];
 
     return @[

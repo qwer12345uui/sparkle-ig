@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../Utils.h"
 
 %group SPKReelsPlaybackHooks
@@ -57,8 +58,8 @@
                     [self finishPullToRefreshLoading];
                 }
             }
-            title:@"Confirm Reels Refresh"
-            message:@"Are you sure you want to refresh the reels feed?"];
+            title:SPKLocalizedString(@"Confirm Reels Refresh")
+            message:SPKLocalizedString(@"Are you sure you want to refresh the reels feed?")];
     } else {
         return %orig(arg1, arg2);
     }
@@ -71,8 +72,8 @@
                 %orig;
             }
                cancelHandler:nil
-                       title:@"Confirm Reels Refresh"
-                     message:@"Are you sure you want to refresh the reels feed?"];
+                       title:SPKLocalizedString(@"Confirm Reels Refresh")
+                     message:SPKLocalizedString(@"Are you sure you want to refresh the reels feed?")];
     } else {
         %orig;
     }

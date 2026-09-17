@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../InstagramHeaders.h"
 #import "../../Utils.h"
 #import "../../App/SPKPerfMeter.h"
@@ -32,7 +33,7 @@ if (sender.state != UIGestureRecognizerStateBegan)
 UIColorPickerViewController *colorPickerController = [[UIColorPickerViewController alloc] init];
 
 colorPickerController.delegate = (id<UIColorPickerViewControllerDelegate>)self; // cast to suppress warnings
-colorPickerController.title = @"Select color";
+colorPickerController.title = SPKLocalizedString(@"Select color");
 colorPickerController.modalPresentationStyle = UIModalPresentationPopover;
 colorPickerController.supportsAlpha = NO;
 colorPickerController.selectedColor = self.color;

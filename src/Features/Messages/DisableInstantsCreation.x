@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 // Instants (QuickSnap) creation controls.
 //
 // Three user-facing behaviours:
@@ -110,7 +111,7 @@ static BOOL SPKQuickSnapSkipCameraAfterViewingEnabled(void) {
 
 static void SPKQuickSnapNotifyBlocked(void) {
     SPKNotify(kSPKNotificationInstantsCaptureBlocked,
-              @"Instant capture blocked",
+              SPKLocalizedString(@"Instant capture blocked"),
               nil,
               @"lock_filled",
               SPKNotificationToneInfo);
@@ -164,8 +165,8 @@ static void SPKQuickSnapHandleCaptureDelegate(id self, SEL _cmd, SPKQuickSnapVoi
                 sSPKQuickSnapSendConfirmVisible = NO;
                 [SPKInstantsFrameInjector clearFrozen];
             }
-            title:@"Send Instant?"
-            message:@"Capture and send this Instant?"];
+            title:SPKLocalizedString(@"Send Instant?")
+            message:SPKLocalizedString(@"Capture and send this Instant?")];
         return;
     }
 

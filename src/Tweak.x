@@ -1,3 +1,4 @@
+#import "Localization/SPKLocalization.h"
 #import "App/SPKFlexLoader.h"
 #import "InstagramHeaders.h"
 #import "Shared/ActionButton/ActionButtonCore.h"
@@ -424,7 +425,7 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             }
 
             // Meta AI (catch-all)
-            else if ([[[obj recipient] threadName] isEqualToString:@"Meta AI"]) {
+            else if ([[[obj recipient] threadName] isEqualToString:SPKLocalizedString(@"Meta AI")]) {
                 if ([SPKUtils getBoolPref:@"general_hide_meta_ai_msgs"]) {
                     SPKLog(@"General", @"[Sparkle] Hiding meta ai suggested chats (meta ai recipient)");
 
@@ -469,7 +470,7 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             else if ([obj isKindOfClass:%c(IGDirectRecipientCellViewModel)]) {
 
                 // Meta AI suggested user
-                if ([[[obj recipient] threadName] isEqualToString:@"Meta AI"]) {
+                if ([[[obj recipient] threadName] isEqualToString:SPKLocalizedString(@"Meta AI")]) {
                     SPKLog(@"General", @"[Sparkle] Hiding meta ai: direct thread creation ai suggestion");
 
                     shouldHide = YES;
@@ -573,7 +574,7 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             if ([obj isKindOfClass:%c(IGLabelItemViewModel)]) {
 
                 // "Suggested for you" search results header
-                if ([[obj valueForKey:@"labelTitle"] isEqualToString:@"Suggested for you"]) {
+                if ([[obj valueForKey:@"labelTitle"] isEqualToString:SPKLocalizedString(@"Suggested for you")]) {
                     shouldHide = YES;
                 }
 
@@ -669,7 +670,7 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
 
         // Meta AI
         if (
-            [[obj valueForKey:@"title"] isEqualToString:@"AI images"] || [[obj valueForKey:@"title"] isEqualToString:@"Meta AI"]) {
+            [[obj valueForKey:@"title"] isEqualToString:@"AI images"] || [[obj valueForKey:@"title"] isEqualToString:SPKLocalizedString(@"Meta AI")]) {
 
             if ([SPKUtils getBoolPref:@"general_hide_meta_ai_global"]) {
                 SPKLog(@"General", @"[Sparkle] Hiding meta ai from IGDS menu");
@@ -713,8 +714,8 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             cancelHandler:^{
                 SPKConsumePendingRepostFeedback(SPKActionButtonSourceFeed);
             }
-            title:@"Confirm Repost"
-            message:@"Are you sure you want to repost this post?"];
+            title:SPKLocalizedString(@"Confirm Repost")
+            message:SPKLocalizedString(@"Are you sure you want to repost this post?")];
     } else {
         %orig;
         SPKShowPendingRepostFeedbackIfNeeded(SPKActionButtonSourceFeed);
@@ -756,8 +757,8 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             cancelHandler:^{
                 SPKConsumePendingRepostFeedback(SPKActionButtonSourceReels);
             }
-            title:@"Confirm Reel Repost"
-            message:@"Are you sure you want to repost this reel?"];
+            title:SPKLocalizedString(@"Confirm Reel Repost")
+            message:SPKLocalizedString(@"Are you sure you want to repost this reel?")];
     } else {
         %orig;
         SPKShowPendingRepostFeedbackIfNeeded(SPKActionButtonSourceReels);
@@ -777,8 +778,8 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             cancelHandler:^{
                 SPKConsumePendingRepostFeedback(SPKActionButtonSourceReels);
             }
-            title:@"Confirm Reel Repost"
-            message:@"Are you sure you want to repost this reel?"];
+            title:SPKLocalizedString(@"Confirm Reel Repost")
+            message:SPKLocalizedString(@"Are you sure you want to repost this reel?")];
     } else {
         %orig;
         SPKShowPendingRepostFeedbackIfNeeded(SPKActionButtonSourceReels);
@@ -798,8 +799,8 @@ BOOL showSearchSectionLabelForTag(NSInteger tag) {
             cancelHandler:^{
                 SPKConsumePendingRepostFeedback(SPKActionButtonSourceReels);
             }
-            title:@"Confirm Reel Repost"
-            message:@"Are you sure you want to repost this reel?"];
+            title:SPKLocalizedString(@"Confirm Reel Repost")
+            message:SPKLocalizedString(@"Are you sure you want to repost this reel?")];
     } else {
         %orig;
         SPKShowPendingRepostFeedbackIfNeeded(SPKActionButtonSourceReels);

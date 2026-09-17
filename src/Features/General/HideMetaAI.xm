@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "../../InstagramHeaders.h"
 #import "../../Utils.h"
 #import "../../App/SPKPerfMeter.h"
@@ -72,7 +73,7 @@ static inline BOOL SPKHideMetaAIGlobal(void) {
                 if (_commandResult_command != nil) {
 
                     // Meta AI
-                    if ([[_commandResult_command title] isEqualToString:@"Meta AI"]) {
+                    if ([[_commandResult_command title] isEqualToString:SPKLocalizedString(@"Meta AI")]) {
                         SPKLog(@"General", @"[Sparkle] Hiding meta ai: direct message composer suggestion");
 
                         shouldHide = YES;
@@ -516,7 +517,7 @@ if (SPKHideMetaAIGlobal()) {
 
     NSString *placeholder = [config valueForKey:@"placeholder"];
 
-    if ([placeholder containsString:@"Meta AI"]) {
+    if ([placeholder containsString:SPKLocalizedString(@"Meta AI")]) {
 
         // placeholder
         @try {
@@ -605,7 +606,7 @@ static BOOL SPKShortcutViewIsMetaAI(UIView *shortcutView) {
         // Last-resort English label match (localized: only helps on English).
         NSString *label = [iconButton accessibilityLabel] ?: @"";
         return ([label caseInsensitiveCompare:@"Restyle"] == NSOrderedSame ||
-                [label caseInsensitiveCompare:@"Create with Meta AI"] == NSOrderedSame);
+                [label caseInsensitiveCompare:SPKLocalizedString(@"Create with Meta AI")] == NSOrderedSame);
     }
     @catch (NSException *exception) {
         return NO;
@@ -766,7 +767,7 @@ static BOOL SPKHasShortcutManager(void) {
             if ([obj isKindOfClass:%c(IGDirectRecipientCellViewModel)]) {
 
                 // Meta AI (catch-all)
-                if ([[[obj recipient] threadName] isEqualToString:@"Meta AI"]) {
+                if ([[[obj recipient] threadName] isEqualToString:SPKLocalizedString(@"Meta AI")]) {
                     SPKLog(@"General", @"[Sparkle] Hiding meta ai suggested as recipient (share menu)");
 
                     shouldHide = YES;

@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 
@@ -603,7 +604,7 @@ static BOOL SPKFeedViewIsNearbyMediaContainer(UIView *candidate, UIView *sourceV
         return YES;
 
     NSString *className = NSStringFromClass([candidate class]);
-    for (NSString *fragment in @[ @"Feed", @"Media", @"Photo", @"Video", @"Page", @"Carousel" ]) {
+    for (NSString *fragment in @[ SPKLocalizedString(@"Feed"), @"Media", @"Photo", @"Video", @"Page", @"Carousel" ]) {
         if ([className containsString:fragment])
             return YES;
     }
@@ -704,7 +705,7 @@ static void SPKHandleFeedExpandLongPress(UIView *view, UILongPressGestureRecogni
             NSInteger index = SPKFeedCarouselPageIndexFromView(view);
             if (index < 0 || index >= (NSInteger)items.count)
                 index = 0;
-            SPKNotify(kSPKActionExpand, @"Expanded media", nil, @"expand", SPKNotificationToneForIconResource(@"expand"));
+            SPKNotify(kSPKActionExpand, SPKLocalizedString(@"Expanded media"), nil, @"expand", SPKNotificationToneForIconResource(@"expand"));
             [SPKFullScreenMediaPlayer showMediaItems:items
                                      startingAtIndex:index
                                             metadata:metadata
@@ -730,7 +731,7 @@ static void SPKHandleFeedExpandLongPress(UIView *view, UILongPressGestureRecogni
     if (username.length > 0)
         item.title = username;
 
-    SPKNotify(kSPKActionExpand, @"Expanded media", nil, @"expand", SPKNotificationToneForIconResource(@"expand"));
+    SPKNotify(kSPKActionExpand, SPKLocalizedString(@"Expanded media"), nil, @"expand", SPKNotificationToneForIconResource(@"expand"));
     [SPKFullScreenMediaPlayer showMediaItems:@[ item ]
                              startingAtIndex:0
                                     metadata:metadata

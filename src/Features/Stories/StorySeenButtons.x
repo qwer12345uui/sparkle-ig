@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <substrate.h>
@@ -368,15 +369,15 @@ static void SPKMarkCurrentStoryAsSeenFromOverlayWithAdvancePref(UIView *overlayV
     SPKStoryContext *sharedContext = SPKStoryContextFromOverlay(overlayView);
     if (sharedContext) {
         if (!sharedContext.markSeenTarget || !sharedContext.sectionController || !sharedContext.media) {
-            SPKNotify(kSPKNotificationStoryMarkSeen, @"Unable to mark story as seen", nil, @"error_filled", SPKNotificationToneError);
+            SPKNotify(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Unable to mark story as seen"), nil, @"error_filled", SPKNotificationToneError);
             return;
         }
         if (!SPKStoryMarkContextAsSeen(sharedContext)) {
-            SPKNotify(kSPKNotificationStoryMarkSeen, @"Unable to mark story as seen", nil, @"error_filled", SPKNotificationToneError);
+            SPKNotify(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Unable to mark story as seen"), nil, @"error_filled", SPKNotificationToneError);
             return;
         }
         SPKStoryAdvanceContextIfNeeded(sharedContext, advancePrefKey);
-        SPKNotify(kSPKNotificationStoryMarkSeen, @"Marked story as seen", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+        SPKNotify(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Marked story as seen"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
         return;
     }
 
@@ -385,7 +386,7 @@ static void SPKMarkCurrentStoryAsSeenFromOverlayWithAdvancePref(UIView *overlayV
     id media = nil;
     BOOL resolved = SPKResolveStoryContextFromOverlay(overlayView, &markTarget, &sectionController, &media);
     if (!markTarget || !sectionController || !media) {
-        SPKNotify(kSPKNotificationStoryMarkSeen, @"Unable to mark story as seen", nil, @"error_filled", SPKNotificationToneError);
+        SPKNotify(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Unable to mark story as seen"), nil, @"error_filled", SPKNotificationToneError);
         return;
     }
 
@@ -403,7 +404,7 @@ static void SPKMarkCurrentStoryAsSeenFromOverlayWithAdvancePref(UIView *overlayV
         SPKAdvanceStoryAfterManualSeenIfNeeded(overlayView, advancePrefKey);
     }
 
-    SPKNotify(kSPKNotificationStoryMarkSeen, @"Marked story as seen", nil, @"circle_check_filled", SPKNotificationToneSuccess);
+    SPKNotify(kSPKNotificationStoryMarkSeen, SPKLocalizedString(@"Marked story as seen"), nil, @"circle_check_filled", SPKNotificationToneSuccess);
 }
 
 static void SPKMarkCurrentStoryAsSeenFromOverlay(UIView *overlayView) {
@@ -557,7 +558,7 @@ SPKStoryContext *context = SPKStoryContextFromOverlay((UIView *)self);
 NSString *title = SPKStoryCurrentUserRuleConfirmationTitle(context);
 NSString *message = SPKStoryCurrentUserRuleConfirmationMessage(context);
 if (title.length == 0 || message.length == 0) {
-    SPKNotify(kSPKNotificationStorySeenUserRule, @"Story user not found", nil, @"error_filled", SPKNotificationToneError);
+    SPKNotify(kSPKNotificationStorySeenUserRule, SPKLocalizedString(@"Story user not found"), nil, @"error_filled", SPKNotificationToneError);
     return;
 }
 [SPKUtils
@@ -565,7 +566,7 @@ if (title.length == 0 || message.length == 0) {
         NSString *notificationTitle = nil;
         NSString *notificationSubtitle = nil;
         if (!SPKStoryToggleCurrentUserRule(context, &notificationTitle, &notificationSubtitle)) {
-            SPKNotify(kSPKNotificationStorySeenUserRule, @"Story user not found", nil, @"error_filled", SPKNotificationToneError);
+            SPKNotify(kSPKNotificationStorySeenUserRule, SPKLocalizedString(@"Story user not found"), nil, @"error_filled", SPKNotificationToneError);
             return;
         }
         SPKNotify(kSPKNotificationStorySeenUserRule, notificationTitle, notificationSubtitle, @"circle_check_filled", SPKNotificationToneSuccess);
