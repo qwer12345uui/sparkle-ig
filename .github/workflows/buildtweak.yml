@@ -14,7 +14,9 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Do NOT cancel in-progress runs: a queued run that gets cancelled by a new
+  # push can never reach a runner. Let runs finish so the .deb is actually produced.
+  cancel-in-progress: false
 
 permissions:
   contents: write
