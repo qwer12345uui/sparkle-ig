@@ -109,7 +109,7 @@ void SPKInstantsAutoSaveConsiderSnap(id snap, NSString *username, NSString *snap
     SPKGallerySaveMetadata *metadata = nil;
     if (!SPKResolveGalleryDownloadForMedia(snap, SPKActionButtonSourceInstants, normalized,
                                            &photoURL, &videoURL, &metadata)) {
-        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle AutoSave] No downloadable media for snap=%@ user=@%@", SPKInstantsAutoSaveLoggableKey(snapKey), normalized);
+        SPKLog(@"Instants", @"[Sparkle AutoSave] No downloadable media for snap=%@ user=@%@", SPKInstantsAutoSaveLoggableKey(snapKey), normalized);
         return;
     }
 
@@ -119,16 +119,16 @@ void SPKInstantsAutoSaveConsiderSnap(id snap, NSString *username, NSString *snap
     if ([SPKDownloadDuplicatePolicy destinationContainsMediaForMetadata:metadata
                                                               mediaType:mediaType
                                                             destination:destination]) {
-        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle AutoSave] Already in %@, skipping snap=%@ user=@%@",
+        SPKLog(@"Instants", @"[Sparkle AutoSave] Already in %@, skipping snap=%@ user=@%@",
                SPKDownloadDestinationDisplayName(destination), SPKInstantsAutoSaveLoggableKey(snapKey), normalized);
         return;
     }
 
-    SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle AutoSave] Saving instant snap=%@ user=@%@ video=%d", SPKInstantsAutoSaveLoggableKey(snapKey), normalized, videoURL != nil);
+    SPKLog(@"Instants", @"[Sparkle AutoSave] Saving instant snap=%@ user=@%@ video=%d", SPKInstantsAutoSaveLoggableKey(snapKey), normalized, videoURL != nil);
     if (!SPKAutoSaveSubmitMedia(snap, SPKActionButtonSourceInstants, normalized, kSPKNotificationInstantsAutoSave)) {
         // Nothing was queued, so let the snap be retried while it's still displayed.
         [sessionKeys removeObject:snapKey];
-        SPKLog(SPKLocalizedString(@"Instants"), @"[Sparkle AutoSave] Failed to submit snap=%@ user=@%@", SPKInstantsAutoSaveLoggableKey(snapKey), normalized);
+        SPKLog(@"Instants", @"[Sparkle AutoSave] Failed to submit snap=%@ user=@%@", SPKInstantsAutoSaveLoggableKey(snapKey), normalized);
     }
 }
 

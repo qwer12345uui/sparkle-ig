@@ -335,7 +335,7 @@ static SPKDirectThreadContext *SPKDirectContextDirectlyFromObject(id object) {
     }
 
     if (SPKDirectSeenDebugPrintEnabled) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"SPKDirectContextDirectlyFromObject: object=%@ provider=%@ metadata=%@ target=%@ threadId=%@ name=%@ usersCount=%lu users=%@",
+        SPKLog(@"Messages", @"SPKDirectContextDirectlyFromObject: object=%@ provider=%@ metadata=%@ target=%@ threadId=%@ name=%@ usersCount=%lu users=%@",
                NSStringFromClass([object class]),
                provider ? NSStringFromClass([provider class]) : @"nil",
                metadata ? NSStringFromClass([metadata class]) : @"nil",
@@ -676,12 +676,12 @@ void SPKDirectSetActiveThreadContext(SPKDirectThreadContext *context) {
     NSString *newThreadId = context.threadId ?: @"";
     SPKDirectActiveContext = context;
     if (newThreadId.length > 0 && ![oldThreadId isEqualToString:newThreadId]) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Active thread context set threadId=%@ threadName=%@ isGroup=%d",
+        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Active thread context set threadId=%@ threadName=%@ isGroup=%d",
                newThreadId,
                context.threadName ?: @"",
                context.isGroup);
     } else if (newThreadId.length == 0 && oldThreadId.length > 0) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Active thread context cleared threadId=%@", oldThreadId);
+        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Active thread context cleared threadId=%@", oldThreadId);
     }
 }
 
@@ -766,7 +766,7 @@ BOOL SPKDirectManualSeenListContainsThreadId(NSString *threadId, BOOL manualSeen
 void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualSeenEnabled) {
     NSString *threadId = SPKDirectStringFromValue(entry[@"threadId"]);
     if (threadId.length == 0) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Ignored add/update for manual seen list: missing threadId entry=%@", entry);
+        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Ignored add/update for manual seen list: missing threadId entry=%@", entry);
         return;
     }
 
@@ -807,7 +807,7 @@ void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualS
         [threads addObject:merged.copy];
     }
     SPKDirectSetManualSeenThreadList(threads, manualSeenEnabled);
-    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] %@ manual seen list entry threadId=%@ threadName=%@ list=%@ count=%lu",
+    SPKLog(@"Messages", @"[Sparkle MessagesSeen] %@ manual seen list entry threadId=%@ threadName=%@ list=%@ count=%lu",
            existingIndex >= 0 ? @"Updated" : @"Added",
            threadId,
            merged[@"threadName"] ?: @"",
@@ -818,7 +818,7 @@ void SPKDirectAddOrUpdateManualSeenThreadEntry(NSDictionary *entry, BOOL manualS
 void SPKDirectRemoveManualSeenThreadId(NSString *threadId, BOOL manualSeenEnabled) {
     NSString *normalizedThreadId = SPKDirectStringFromValue(threadId);
     if (normalizedThreadId.length == 0) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Ignored remove for manual seen list: missing threadId");
+        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Ignored remove for manual seen list: missing threadId");
         return;
     }
     NSMutableArray<NSDictionary *> *threads = [SPKDirectManualSeenThreadList(manualSeenEnabled) mutableCopy];
@@ -828,7 +828,7 @@ void SPKDirectRemoveManualSeenThreadId(NSString *threadId, BOOL manualSeenEnable
                  return ![entry[@"threadId"] isEqualToString:normalizedThreadId];
              }]];
     SPKDirectSetManualSeenThreadList(threads, manualSeenEnabled);
-    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Removed manual seen list entry threadId=%@ list=%@ before=%lu after=%lu",
+    SPKLog(@"Messages", @"[Sparkle MessagesSeen] Removed manual seen list entry threadId=%@ list=%@ before=%lu after=%lu",
            normalizedThreadId,
            SPKDirectManualSeenListTitle(manualSeenEnabled),
            (unsigned long)beforeCount,
@@ -867,7 +867,7 @@ static void SPKDirectEnrichManualSeenThreadEntryIfNeeded(NSDictionary *entry, BO
     [SPKInstagramAPI resolveUserForUsername:username
                                   completion:^(NSDictionary *resolvedUser, NSError *error) {
                                     if (![resolvedUser isKindOfClass:[NSDictionary class]] || error) {
-                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Thread metadata enrichment failed threadId=%@ username=%@ error=%@",
+                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Thread metadata enrichment failed threadId=%@ username=%@ error=%@",
                                                threadId,
                                                username,
                                                error);
@@ -1044,7 +1044,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
     BOOL listed = NO;
     BOOL manualSeenEnabled = NO;
     if (!SPKDirectCurrentThreadRuleState(context, &threadId, &threadName, &listTitle, &listed, &manualSeenEnabled)) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Toggle thread rule failed: missing current thread context=%@", context);
+        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Toggle thread rule failed: missing current thread context=%@", context);
         return NO;
     }
 
@@ -1059,7 +1059,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
         SPKDirectAddOrUpdateManualSeenThreadEntry(entry, manualSeenEnabled);
         SPKDirectEnrichManualSeenThreadEntryIfNeeded(entry, manualSeenEnabled);
     }
-    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] %@ %@ threadId=%@ threadName=%@ manualSeenEnabled=%d",
+    SPKLog(@"Messages", @"[Sparkle MessagesSeen] %@ %@ threadId=%@ threadName=%@ manualSeenEnabled=%d",
            listed ? @"Removed from" : @"Added to",
            listTitle,
            threadId,
@@ -1222,7 +1222,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
     if (username.length == 0)
         return;
 
-    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat lookup started username=%@ list=%@",
+    SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat lookup started username=%@ list=%@",
            username, SPKDirectManualSeenListTitle(self.manualSeenEnabled));
 
     __weak typeof(self) weakSelf = self;
@@ -1232,7 +1232,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                       if (!strongSelf)
                                           return;
                                       if (![user isKindOfClass:[NSDictionary class]] || error) {
-                                          SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat user lookup failed username=%@ error=%@", username, error);
+                                          SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat user lookup failed username=%@ error=%@", username, error);
                                           [strongSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"User '%@' was not found."), username]];
                                           return;
                                       }
@@ -1241,7 +1241,7 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                       NSString *fullName = SPKDirectStringFromValue(user[@"full_name"] ?: user[@"fullName"]) ?: @"";
                                       NSString *profilePicUrl = SPKDirectStringFromValue(user[@"profile_pic_url"] ?: user[@"profile_pic_url_hd"]);
                                       if (pk.length == 0) {
-                                          SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat user lookup missing pk username=%@ response=%@", username, user);
+                                          SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat user lookup missing pk username=%@ response=%@", username, user);
                                           [strongSelf presentError:SPKLocalizedString(@"Could not resolve this user's Instagram id.")];
                                           return;
                                       }
@@ -1261,13 +1261,13 @@ BOOL SPKDirectToggleCurrentThreadRule(SPKDirectThreadContext *context, NSString 
                                         return;
                                     NSDictionary *thread = threadResponse[@"thread"];
                                     if (![thread isKindOfClass:[NSDictionary class]] || threadError) {
-                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat thread lookup failed username=%@ pk=%@ error=%@", resolvedUsername, pk, threadError);
+                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat thread lookup failed username=%@ pk=%@ error=%@", resolvedUsername, pk, threadError);
                                         [innerSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"No 1:1 DM thread was found with @%@."), resolvedUsername]];
                                         return;
                                     }
                                     NSString *threadId = SPKDirectStringFromValue(thread[@"thread_id"] ?: thread[@"threadId"]);
                                     if (threadId.length == 0) {
-                                        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle MessagesSeen] Settings add chat thread lookup missing threadId username=%@ pk=%@ response=%@", resolvedUsername, pk, thread);
+                                        SPKLog(@"Messages", @"[Sparkle MessagesSeen] Settings add chat thread lookup missing threadId username=%@ pk=%@ response=%@", resolvedUsername, pk, thread);
                                         [innerSelf presentError:[NSString stringWithFormat:SPKLocalizedString(@"No 1:1 DM thread was found with @%@."), resolvedUsername]];
                                         return;
                                     }

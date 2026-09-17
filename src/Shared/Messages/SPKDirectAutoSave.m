@@ -94,7 +94,7 @@ void SPKDirectAutoSaveConsiderController(UIViewController *controller) {
     SPKGallerySaveMetadata *metadata = nil;
     if (!SPKResolveGalleryDownloadForMedia(media, SPKActionButtonSourceDirect, username,
                                            &photoURL, &videoURL, &metadata)) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle AutoSave] No downloadable media for DM thread=%@ user=@%@", threadId, username);
+        SPKLog(@"Messages", @"[Sparkle AutoSave] No downloadable media for DM thread=%@ user=@%@", threadId, username);
         return;
     }
     BOOL isVideo = (videoURL != nil);
@@ -120,16 +120,16 @@ void SPKDirectAutoSaveConsiderController(UIViewController *controller) {
     if ([SPKDownloadDuplicatePolicy destinationContainsMediaForMetadata:metadata
                                                               mediaType:mediaType
                                                             destination:destination]) {
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle AutoSave] Already in %@, skipping DM item thread=%@ user=@%@",
+        SPKLog(@"Messages", @"[Sparkle AutoSave] Already in %@, skipping DM item thread=%@ user=@%@",
                SPKDownloadDestinationDisplayName(destination), threadId, username);
         return;
     }
 
-    SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle AutoSave] Saving DM media thread=%@ user=@%@ video=%d", threadId, username, isVideo);
+    SPKLog(@"Messages", @"[Sparkle AutoSave] Saving DM media thread=%@ user=@%@ video=%d", threadId, username, isVideo);
     if (!SPKAutoSaveSubmitMedia(media, SPKActionButtonSourceDirect, username, kSPKNotificationDirectAutoSave)) {
         // Nothing was queued, so let the item be retried next time it's displayed.
         [sessionKeys removeObject:itemKey];
-        SPKLog(SPKLocalizedString(@"Messages"), @"[Sparkle AutoSave] Failed to submit DM item thread=%@ user=@%@", threadId, username);
+        SPKLog(@"Messages", @"[Sparkle AutoSave] Failed to submit DM item thread=%@ user=@%@", threadId, username);
     }
 }
 
