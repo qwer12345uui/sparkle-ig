@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKPagedSheetViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "../../AssetUtils.h"
@@ -137,7 +138,7 @@
 
 - (NSArray<SPKPagedSheetPage *> *)buildPages { return @[]; }
 - (NSString *)continueButtonTitle { return @"Continue"; }
-- (NSString *)finishButtonTitle { return @"Get Started"; }
+- (NSString *)finishButtonTitle { return SPKLocalizedString(@"Get Started"); }
 - (BOOL)allowsInteractiveDismiss { return NO; }
 
 #pragma mark - Presentation
