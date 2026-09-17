@@ -331,9 +331,7 @@ static void SPKPerfUpdateHUD(void) {
     }
 
     spkPerfHUDLabel.text = [NSString stringWithFormat:
-                                         SPKLocalizedString(@"stall %.0fms/3s  max %.0fms\n")
-                                         SPKLocalizedString(@"total %.1fs/%.0fs  %.1f%%\n")
-                                         @"vc %@  views %@  gr %@  depth %@%@",
+                                         [[SPKLocalizedString(@"stall %.0fms/3s  max %.0fms\n") stringByAppendingString:SPKLocalizedString(@"total %.1fs/%.0fs  %.1f%%\n")] stringByAppendingString:@"vc %@  views %@  gr %@  depth %@%@"],
                                          recent * 1000.0,
                                          spkPerfWorst * 1000.0,
                                          spkPerfBlocked,
