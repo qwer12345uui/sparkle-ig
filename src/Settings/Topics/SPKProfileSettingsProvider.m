@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKProfileSettingsProvider.h"
 
 #import "../../AssetUtils.h"
@@ -38,12 +39,12 @@ static UICommand *SPKProfileActionDefaultCommand(NSString *title, NSString *reso
 
 static UIMenu *SPKProfileActionDefaultMenu(void) {
     return [UIMenu menuWithChildren:@[
-        SPKProfileActionDefaultCommand(@"Open Menu", @"action", kSPKProfileActionNone),
-        SPKProfileActionDefaultCommand(@"Copy Info", @"copy", kSPKProfileActionCopyInfo),
-        SPKProfileActionDefaultCommand(@"View Picture", @"photo", kSPKProfileActionViewPicture),
-        SPKProfileActionDefaultCommand(@"Share Picture", @"share", kSPKProfileActionSharePicture),
-        SPKProfileActionDefaultCommand(@"Save to Gallery", @"sparkle_gallery", kSPKProfileActionSavePictureToGallery),
-        SPKProfileActionDefaultCommand(@"Profile Settings", @"settings", kSPKProfileActionOpenSettings)
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"Open Menu"), @"action", kSPKProfileActionNone),
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"Copy Info"), @"copy", kSPKProfileActionCopyInfo),
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"View Picture"), @"photo", kSPKProfileActionViewPicture),
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"Share Picture"), @"share", kSPKProfileActionSharePicture),
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"Save to Gallery"), @"sparkle_gallery", kSPKProfileActionSavePictureToGallery),
+        SPKProfileActionDefaultCommand(SPKLocalizedString(@"Profile Settings"), @"settings", kSPKProfileActionOpenSettings)
     ]];
 }
 
@@ -65,7 +66,7 @@ static UIMenu *SPKProfileDefaultCopyInfoMenu(void) {
         SPKProfileDefaultCopyInfoCommand(@"Username", @"username", kSPKProfileCopyInfoUsername),
         SPKProfileDefaultCopyInfoCommand(@"Name", @"text", kSPKProfileCopyInfoName),
         SPKProfileDefaultCopyInfoCommand(@"Bio", @"caption", kSPKProfileCopyInfoBio),
-        SPKProfileDefaultCopyInfoCommand(@"Profile Link", @"link", kSPKProfileCopyInfoLink)
+        SPKProfileDefaultCopyInfoCommand(SPKLocalizedString(@"Profile Link"), @"link", kSPKProfileCopyInfoLink)
     ]];
 }
 
@@ -113,32 +114,32 @@ static UIMenu *SPKFollowIndicatorModeMenu(void) {
         SPKFollowIndicatorModeCommand(@"Off", kSPKFollowIndicatorModeOff),
         SPKFollowIndicatorModeCommand(@"Icon", kSPKFollowIndicatorModeIcon),
         SPKFollowIndicatorModeCommand(@"Text", kSPKFollowIndicatorModeText),
-        SPKFollowIndicatorModeCommand(@"Icon & Text", kSPKFollowIndicatorModeIconText)
+        SPKFollowIndicatorModeCommand(SPKLocalizedString(@"Icon & Text"), kSPKFollowIndicatorModeIconText)
     ]];
 }
 
 @implementation SPKProfileSettingsProvider
 
 + (SPKSetting *)rootSetting {
-    return SPKTopicNavigationSetting(@"Profile", @"user_circle", 24.0, @[
-        SPKTopicSection(@"Action Button", @[
-            [SPKSetting switchCellWithTitle:@"Profile Action Button"
+    return SPKTopicNavigationSetting(SPKLocalizedString(@"Profile"), @"user_circle", 24.0, @[
+        SPKTopicSection(SPKLocalizedString(@"Action Button"), @[
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Profile Action Button")
                                        icon:SPKSettingsIcon(@"action")
                                 defaultsKey:@"profile_action_btn"],
             SPKActionButtonDefaultActionNavigationSetting(SPKActionButtonSourceProfile),
-            SPKActionButtonConfigurationNavigationSetting(SPKActionButtonSourceProfile, @"Profile", SPKActionButtonSupportedActionsForSource(SPKActionButtonSourceProfile), SPKActionButtonDefaultSectionsForSource(SPKActionButtonSourceProfile)),
-            SPKSettingApplySelectedMenuIcon([SPKSetting menuCellWithTitle:@"Copy Info Default" icon:SPKSettingsIcon(@"copy") menu:SPKProfileDefaultCopyInfoMenu()], SPKSettingsIcon(@"copy"))
+            SPKActionButtonConfigurationNavigationSetting(SPKActionButtonSourceProfile, SPKLocalizedString(@"Profile"), SPKActionButtonSupportedActionsForSource(SPKActionButtonSourceProfile), SPKActionButtonDefaultSectionsForSource(SPKActionButtonSourceProfile)),
+            SPKSettingApplySelectedMenuIcon([SPKSetting menuCellWithTitle:SPKLocalizedString(@"Copy Info Default") icon:SPKSettingsIcon(@"copy") menu:SPKProfileDefaultCopyInfoMenu()], SPKSettingsIcon(@"copy"))
         ],
-                        @"Choose what tapping the action button does. Copy Info Default controls what gets copied when Default Tap Action is Copy Info."),
-        SPKTopicSection(@"Profile Picture", @[
-            [SPKSetting switchCellWithTitle:@"Long Press to Expand"
+                        SPKLocalizedString(@"Choose what tapping the action button does. Copy Info Default controls what gets copied when Default Tap Action is Copy Info.")),
+        SPKTopicSection(SPKLocalizedString(@"Profile Picture"), @[
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Long Press to Expand")
                                        icon:SPKSettingsIcon(@"expand")
                                 defaultsKey:@"profile_photo_zoom"]
         ],
-                        @"Long press a profile picture to open it expanded."),
+                        SPKLocalizedString(@"Long press a profile picture to open it expanded.")),
         SPKTopicSection(@"Indicators", @[
             ({
-                SPKSetting *mode = [SPKSetting menuCellWithTitle:@"Following Indicator"
+                SPKSetting *mode = [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Following Indicator")
                                                             icon:SPKSettingsIcon(@"user_check")
                                                             menu:SPKFollowIndicatorModeMenu()];
                 mode.accessoryTextProvider = ^NSString * {
@@ -158,7 +159,7 @@ static UIMenu *SPKFollowIndicatorModeMenu(void) {
                 // doesn't stand out as modded. On = the colored green/red. Uses a
                 // custom value provider so the legacy fallback (pre-menu users who
                 // had the indicator on keep colored) is reflected accurately.
-                SPKSetting *colorful = [SPKSetting switchCellWithTitle:@"Colorful Indicator"
+                SPKSetting *colorful = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Colorful Indicator")
                                                                   icon:SPKSettingsIcon(@"palette")
                                                            defaultsKey:kSPKFollowIndicatorColorfulKey];
                 colorful.switchValueProvider = ^BOOL {
@@ -173,23 +174,23 @@ static UIMenu *SPKFollowIndicatorModeMenu(void) {
                 };
                 colorful;
             }),
-            [SPKSetting switchCellWithTitle:@"Hide Notes Bubble"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Notes Bubble")
                                        icon:SPKSettingsIcon(@"notes")
                                 defaultsKey:@"profile_hide_notes_bubble"],
-            [SPKSetting switchCellWithTitle:@"Hide Threads Button"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Threads Button")
                                        icon:SPKSettingsIcon(@"threads")
                                 defaultsKey:@"profile_hide_threads_btn"]
         ],
-                        @"Following Indicator shows whether a profile follows you back, under their stats. Text or Icon; it's Instagram's native gray unless you turn on Colorful Indicator for green/red."),
+                        SPKLocalizedString(@"Following Indicator shows whether a profile follows you back, under their stats. Text or Icon; it's Instagram's native gray unless you turn on Colorful Indicator for green/red.")),
         SPKTopicSection(@"Confirmation", @[
-            [SPKSetting switchCellWithTitle:@"Confirm Follow"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Confirm Follow")
                                        icon:SPKSettingsIcon(@"user_follow")
                                 defaultsKey:@"profile_confirm_follow"],
-            [SPKSetting switchCellWithTitle:@"Confirm Unfollow"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Confirm Unfollow")
                                        icon:SPKSettingsIcon(@"user_unfollow")
                                 defaultsKey:@"profile_confirm_unfollow"]
         ],
-                        @"Shows confirmation alerts before the enabled profile actions are performed.")
+                        SPKLocalizedString(@"Shows confirmation alerts before the enabled profile actions are performed."))
     ]);
 }
 

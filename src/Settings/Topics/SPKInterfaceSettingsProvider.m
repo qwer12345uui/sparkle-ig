@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKInterfaceSettingsProvider.h"
 #import "../../Shared/UI/SPKChrome.h"
 #import "../../Utils.h"
@@ -72,49 +73,49 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
 
 + (SPKSetting *)rootSetting {
     NSMutableArray *sections = [NSMutableArray arrayWithArray:@[
-        SPKTopicSection(@"Notifications", @[
-            [SPKSetting navigationCellWithTitle:@"Notifications"
+        SPKTopicSection(SPKLocalizedString(@"Notifications"), @[
+            [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Notifications")
                                        subtitle:nil
                                            icon:SPKSettingsIcon(@"notification")
                                     navSections:[SPKNotificationSettingsProvider sections]]
         ],
                         nil),
         SPKTopicSection(@"Tabs", @[
-            [SPKSetting menuCellWithTitle:@"Launch Tab"
+            [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Launch Tab")
                                      icon:SPKSettingsIcon(@"home")
                                      menu:SPKLaunchTabMenu()],
-            [SPKSetting menuCellWithTitle:@"Tab Icon Order"
+            [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Tab Icon Order")
                                      icon:SPKSettingsIcon(@"sort")
                                      menu:SPKNavigationIconOrderingMenu()],
-            [SPKSetting menuCellWithTitle:@"Swipe Between Tabs"
+            [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Swipe Between Tabs")
                                      icon:SPKSettingsIcon(@"left_right")
                                      menu:SPKSwipeBetweenTabsMenu()],
         ],
-                        @"Control the order of the tabs:\n"
-                        @"   - Default: Instagram default\n"
-                        @"   - Standard: Home, Reels, Messages, Explore, Profile\n"
-                        @"   - Classic: Messages in the top right corner\n"
-                        @"   - Alternate: Home and Reels tabs swapped\n"
-                        @"To get the old layout back, use Classic and disable swiping between tabs."),
+                        SPKLocalizedString(@"Control the order of the tabs:\n")
+                        SPKLocalizedString(@"   - Default: Instagram default\n")
+                        SPKLocalizedString(@"   - Standard: Home, Reels, Messages, Explore, Profile\n")
+                        SPKLocalizedString(@"   - Classic: Messages in the top right corner\n")
+                        SPKLocalizedString(@"   - Alternate: Home and Reels tabs swapped\n")
+                        SPKLocalizedString(@"To get the old layout back, use Classic and disable swiping between tabs.")),
         SPKTopicSection(@"", @[
-            SPKHideTabSwitch(@"Hide Feed Tab", @"home", @"interface_hide_feed_tab"),
-            SPKHideTabSwitch(@"Hide Explore Tab", @"search", @"interface_hide_explore_tab"),
+            SPKHideTabSwitch(SPKLocalizedString(@"Hide Feed Tab"), @"home", @"interface_hide_feed_tab"),
+            SPKHideTabSwitch(SPKLocalizedString(@"Hide Explore Tab"), @"search", @"interface_hide_explore_tab"),
             ({
                 // Classic puts Messages back in the top-right corner instead of the
                 // bottom bar (that layout is where the Create "+" becomes a tab), so
                 // the "tab" toggle doesn't apply — hide it whenever Create's does show.
-                SPKSetting *hideMessagesTab = SPKHideTabSwitch(@"Hide Messages Tab", @"messages", @"interface_hide_msgs_tab");
+                SPKSetting *hideMessagesTab = SPKHideTabSwitch(SPKLocalizedString(@"Hide Messages Tab"), @"messages", @"interface_hide_msgs_tab");
                 hideMessagesTab.hiddenProvider = ^BOOL {
                     return [[SPKUtils getStringPref:@"interface_nav_order"] isEqualToString:@"classic"];
                 };
                 hideMessagesTab;
             }),
-            SPKHideTabSwitch(@"Hide Reels Tab", @"reels", @"interface_hide_reels_tab"),
+            SPKHideTabSwitch(SPKLocalizedString(@"Hide Reels Tab"), @"reels", @"interface_hide_reels_tab"),
             ({
                 // The create button is only a dedicated tab in the Classic tab
                 // order; the other layouts fold it into the composer, so the
                 // toggle is meaningless there and is hidden.
-                SPKSetting *hideCreateTab = [SPKSetting switchCellWithTitle:@"Hide Create Tab"
+                SPKSetting *hideCreateTab = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Create Tab")
                                                                        icon:SPKSettingsIcon(@"plus")
                                                                 defaultsKey:@"interface_hide_create_tab"
                                                             requiresRestart:YES];
@@ -123,12 +124,12 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 };
                 hideCreateTab;
             }),
-            SPKHideTabSwitch(@"Hide Profile Tab", @"user_circle", @"interface_hide_profile_tab")
+            SPKHideTabSwitch(SPKLocalizedString(@"Hide Profile Tab"), @"user_circle", @"interface_hide_profile_tab")
         ],
                         nil),
-        SPKTopicSection(@"Messages Only Mode", @[
+        SPKTopicSection(SPKLocalizedString(@"Messages Only Mode"), @[
             ({
-                SPKSetting *s = [SPKSetting switchCellWithTitle:@"Hide Tab Bar"
+                SPKSetting *s = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Tab Bar")
                                                            icon:nil
                                                     defaultsKey:@"interface_hide_tab_bar_in_messages_only"];
                 s.enabledProvider = ^BOOL {
@@ -137,7 +138,7 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 s;
             }),
             ({
-                SPKSetting *s = [SPKSetting switchCellWithTitle:@"Header Shortcut Button"
+                SPKSetting *s = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Header Shortcut Button")
                                                            icon:nil
                                                     defaultsKey:@"interface_show_header_button_in_messages_only"];
                 s.enabledProvider = ^BOOL {
@@ -146,26 +147,26 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 s;
             })
         ],
-                        @"These settings are accessible when only the Messages tab is enabled.\n"
-                        @"1. Hides the tab bar to free up screen space. Sparkle settings can be accessed via long pressing the right navigation bar button.\n"
-                        @"2. Shows the feed header shortcut on the left side of the Messages navigation bar."),
-        SPKTopicSection(@"Explore & Search", @[
-            [SPKSetting switchCellWithTitle:@"Hide Explore Posts Grid"
+                        SPKLocalizedString(@"These settings are accessible when only the Messages tab is enabled.\n")
+                        SPKLocalizedString(@"1. Hides the tab bar to free up screen space. Sparkle settings can be accessed via long pressing the right navigation bar button.\n")
+                        SPKLocalizedString(@"2. Shows the feed header shortcut on the left side of the Messages navigation bar.")),
+        SPKTopicSection(SPKLocalizedString(@"Explore & Search"), @[
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Explore Posts Grid")
                                        icon:SPKSettingsIcon(@"explore_grid")
                                 defaultsKey:@"interface_hide_explore_grid"],
-            [SPKSetting switchCellWithTitle:@"Hide Trending Searches"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide Trending Searches")
                                        icon:SPKSettingsIcon(@"trending")
                                 defaultsKey:@"interface_hide_trending_searches"],
-            [SPKSetting switchCellWithTitle:@"Open Clipboard Link"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Open Clipboard Link")
                                        icon:SPKSettingsIcon(@"link")
                                 defaultsKey:@"interface_open_clipboard_link"]
         ],
-                        @"1. Hide the grid of suggested posts on the explore tab.\n"
-                        @"2. Hide the trending searches under the explore search bar.\n"
-                        @"3. Long press the Explore tab to open the Instagram URL in your clipboard."),
+                        SPKLocalizedString(@"1. Hide the grid of suggested posts on the explore tab.\n")
+                        SPKLocalizedString(@"2. Hide the trending searches under the explore search bar.\n")
+                        SPKLocalizedString(@"3. Long press the Explore tab to open the Instagram URL in your clipboard.")),
         SPKTopicSection(@"Capture", @[
             ({
-                SPKSetting *s = [SPKSetting switchCellWithTitle:@"Hide UI on Capture"
+                SPKSetting *s = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Hide UI on Capture")
                                                            icon:nil
                                                     defaultsKey:@"interface_hide_ui_on_capture"];
                 s.switchChangeHandler = ^(BOOL isOn) {
@@ -175,7 +176,7 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 s;
             })
         ],
-                        @"Redacts Sparkle UI elements from screenshots, screen recordings, and mirroring.")
+                        SPKLocalizedString(@"Redacts Sparkle UI elements from screenshots, screen recordings, and mirroring."))
     ]];
 
     {
@@ -183,7 +184,7 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
         // scroll behavior of the (pill/glass) tab bar and is enabled whenever
         // the Liquid Glass pref is on.
         SPKSetting *(^tabBarBehaviorCell)(void) = ^SPKSetting * {
-            SPKSetting *tabBarBehavior = [SPKSetting menuCellWithTitle:@"Tab Bar Behavior"
+            SPKSetting *tabBarBehavior = [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Tab Bar Behavior")
                                                                   icon:nil
                                                                   menu:SPKLiquidGlassTabBarStateMenu()];
             tabBarBehavior.defaultsKey = kSPKPrefInterfaceLiquidGlassTabBarMode;
@@ -195,7 +196,7 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
 
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"26.0")) {
             // Full Liquid Glass: real glass material, progressive blur, tab bar.
-            SPKSetting *liquidGlass = [SPKSetting switchCellWithTitle:@"Liquid Glass"
+            SPKSetting *liquidGlass = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Liquid Glass")
                                                           defaultsKey:kSPKPrefInterfaceLiquidGlass
                                                       requiresRestart:YES];
             liquidGlass.switchValueProvider = ^BOOL {
@@ -205,11 +206,11 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kSPKPrefInterfaceLiquidGlass];
                 [SPKUtils showRestartConfirmation];
             };
-            SPKSetting *progressiveBlur = [SPKSetting switchCellWithTitle:@"Progressive Blur"
+            SPKSetting *progressiveBlur = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Progressive Blur")
                                                              defaultsKey:kSPKPrefInterfaceProgressiveBlur
                                                           requiresRestart:YES];
 
-            [sections addObject:SPKTopicSection(@"Liquid Glass & Blur", @[
+            [sections addObject:SPKTopicSection(SPKLocalizedString(@"Liquid Glass & Blur"), @[
                           liquidGlass,
                           progressiveBlur,
                           tabBarBehaviorCell(),
@@ -221,7 +222,7 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
             // Pre-iOS 26 can't render the glass material, but the same tab bar
             // experiment gates still reshape the bar into the floating pill.
             // Expose that as a focused toggle sharing the Liquid Glass pref.
-            SPKSetting *pillTabBar = [SPKSetting switchCellWithTitle:@"Pill-Shaped Tab Bar"
+            SPKSetting *pillTabBar = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Pill-Shaped Tab Bar")
                                                         defaultsKey:kSPKPrefInterfaceLiquidGlass
                                                     requiresRestart:YES];
             pillTabBar.switchValueProvider = ^BOOL {
@@ -232,17 +233,17 @@ static SPKSetting *SPKHideTabSwitch(NSString *title, NSString *iconName, NSStrin
                 [SPKUtils showRestartConfirmation];
             };
 
-            [sections addObject:SPKTopicSection(@"Tab Bar", @[
+            [sections addObject:SPKTopicSection(SPKLocalizedString(@"Tab Bar"), @[
                           pillTabBar,
                           tabBarBehaviorCell(),
                       ],
-                                                @"Reshape the tab bar into the iOS 26-style floating pill. "
-                                                @"The Liquid Glass material itself requires iOS 26, so on this "
-                                                @"device only the pill shape is applied.")];
+                                                SPKLocalizedString(@"Reshape the tab bar into the iOS 26-style floating pill. ")
+                                                SPKLocalizedString(@"The Liquid Glass material itself requires iOS 26, so on this ")
+                                                SPKLocalizedString(@"device only the pill shape is applied."))];
         }
     }
 
-    return SPKTopicNavigationSetting(@"Interface", @"interface", 24.0, sections);
+    return SPKTopicNavigationSetting(SPKLocalizedString(@"Interface"), @"interface", 24.0, sections);
 }
 
 @end

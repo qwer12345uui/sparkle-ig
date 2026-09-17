@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKActionButtonConfiguration.h"
 #import "../../Settings/SPKPreferences.h"
 #import "../../Utils.h"
@@ -37,17 +38,17 @@ NSString *SPKActionButtonTopicKeyForSource(SPKActionButtonSource source) {
 NSString *SPKActionButtonTopicTitleForSource(SPKActionButtonSource source) {
     switch (source) {
     case SPKActionButtonSourceFeed:
-        return @"Feed";
+        return SPKLocalizedString(@"Feed");
     case SPKActionButtonSourceReels:
-        return @"Reels";
+        return SPKLocalizedString(@"Reels");
     case SPKActionButtonSourceStories:
-        return @"Stories";
+        return SPKLocalizedString(@"Stories");
     case SPKActionButtonSourceDirect:
-        return @"Messages";
+        return SPKLocalizedString(@"Messages");
     case SPKActionButtonSourceProfile:
-        return @"Profile";
+        return SPKLocalizedString(@"Profile");
     case SPKActionButtonSourceInstants:
-        return @"Instants";
+        return SPKLocalizedString(@"Instants");
     }
 }
 

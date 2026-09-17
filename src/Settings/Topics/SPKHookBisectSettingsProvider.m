@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKHookBisectSettingsProvider.h"
 
 #if SPK_DEV
@@ -33,7 +34,7 @@ static SPKSetting *SPKHookBisectInstallerRow(NSString *installerName) {
     // ON = installed. Reading "turn the hook off" matches what the user is
     // doing; the underlying pref stores the inverse (skipped).
     SPKSetting *row = [SPKSetting switchCellWithTitle:SPKHookBisectDisplayName(installerName)
-                                             subtitle:essential ? @"Always installed" : @""
+                                             subtitle:essential ? SPKLocalizedString(@"Always installed") : @""
                                           defaultsKey:@""];
     row.requiresRestart = YES;
     row.switchValueProvider = ^BOOL {
@@ -53,7 +54,7 @@ static SPKSetting *SPKHookBisectInstallerRow(NSString *installerName) {
 // The meter is what makes a bisect round decidable: "feels smoother" is not a
 // result, "180ms blocked instead of 4.2s" is.
 static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
-    SPKSetting *meter = [SPKSetting switchCellWithTitle:@"Performance Meter" defaultsKey:@""];
+    SPKSetting *meter = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Performance Meter") defaultsKey:@""];
     meter.switchValueProvider = ^BOOL {
         return SPKPerfMeterIsEnabled();
     };
@@ -65,7 +66,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
         SPKHookBisectReloadVisibleSettings();
     };
 
-    SPKSetting *hud = [SPKSetting switchCellWithTitle:@"On-screen HUD" defaultsKey:@""];
+    SPKSetting *hud = [SPKSetting switchCellWithTitle:SPKLocalizedString(@"On-screen HUD") defaultsKey:@""];
     hud.switchValueProvider = ^BOOL {
         return [SPKUtils getBoolPref:kSPKPerfMeterHUDKey];
     };
@@ -77,7 +78,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
         return SPKPerfMeterIsEnabled();
     };
 
-    SPKSetting *summary = [SPKSetting buttonCellWithTitle:@"Blocked Time"
+    SPKSetting *summary = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Blocked Time")
                                                  subtitle:@""
                                                      icon:nil
                                                    action:^{
@@ -89,7 +90,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
 
     // The whole point of the scope timers: the answer is readable here, without
     // attaching a console.
-    SPKSetting *worst = [SPKSetting buttonCellWithTitle:@"Most Expensive Hook"
+    SPKSetting *worst = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Most Expensive Hook")
                                                subtitle:@""
                                                    icon:nil
                                                  action:^{
@@ -100,7 +101,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
         return SPKPerfMeterWorstScopeSummary();
     };
 
-    SPKSetting *reset = [SPKSetting buttonCellWithTitle:@"Start New Measurement"
+    SPKSetting *reset = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Start New Measurement")
                                                subtitle:@""
                                                    icon:nil
                                                  action:^{
@@ -112,7 +113,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
         return SPKPerfMeterIsEnabled();
     };
 
-    SPKSetting *log = [SPKSetting buttonCellWithTitle:@"Log Snapshot"
+    SPKSetting *log = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Log Snapshot")
                                              subtitle:@""
                                                  icon:nil
                                                action:^{
@@ -133,19 +134,19 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
     // Button rather than static: the live count comes from accessoryTextProvider,
     // which the table only honours for button and navigation cells. Tapping just
     // re-reads the counters.
-    SPKSetting *status = [SPKSetting buttonCellWithTitle:@"Skipped Installers"
+    SPKSetting *status = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Skipped Installers")
                                                 subtitle:@""
                                                     icon:nil
                                                   action:^{
                                                       SPKHookBisectReloadVisibleSettings();
                                                   }];
     status.accessoryTextProvider = ^NSString * {
-        return [NSString stringWithFormat:@"%lu of %lu",
+        return [NSString stringWithFormat:SPKLocalizedString(@"%lu of %lu"),
                                           (unsigned long)SPKHookBisectSkippedCount(),
                                           (unsigned long)SPKHookBisectRegisteredInstallerCount()];
     };
 
-    SPKSetting *skipHalf = [SPKSetting buttonCellWithTitle:@"Skip Half of Remaining"
+    SPKSetting *skipHalf = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Skip Half of Remaining")
                                                   subtitle:@""
                                                       icon:nil
                                                     action:^{
@@ -155,7 +156,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
                                                             [SPKUtils showRestartConfirmation];
                                                     }];
 
-    SPKSetting *skipAll = [SPKSetting buttonCellWithTitle:@"Skip All"
+    SPKSetting *skipAll = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Skip All")
                                                  subtitle:@""
                                                      icon:nil
                                                    action:^{
@@ -164,7 +165,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
                                                        [SPKUtils showRestartConfirmation];
                                                    }];
 
-    SPKSetting *restoreAll = [SPKSetting buttonCellWithTitle:@"Restore All"
+    SPKSetting *restoreAll = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Restore All")
                                                     subtitle:@""
                                                         icon:nil
                                                       action:^{
@@ -176,7 +177,7 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
     // Individual switches use switchChangeHandler, which returns before the
     // table's own requiresRestart prompt, and prompting per row would fight the
     // workflow (a bisect round flips many rows at once). One explicit relaunch.
-    SPKSetting *relaunch = [SPKSetting buttonCellWithTitle:@"Relaunch Instagram"
+    SPKSetting *relaunch = [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Relaunch Instagram")
                                                   subtitle:@""
                                                       icon:nil
                                                     action:^{
@@ -186,19 +187,19 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
     NSMutableArray *sections = [NSMutableArray array];
     [sections addObject:SPKTopicSection(@"Measurement",
                                         SPKPerfMeterRows(),
-                                        @"Measures how long the main thread is blocked, which is what \"laggy\" "
+                                        SPKLocalizedString(@"Measures how long the main thread is blocked, which is what \"laggy\" ")
                                         @"actually is, and counts the view controllers, views and gesture "
                                         @"recognizers alive in the current window.\n\n"
                                         @"Numbers that climb as you navigate and never drop back are a leak: "
                                         @"screens or recognizers are piling up and every one of them keeps doing "
                                         @"work. Start a new measurement before each run so rounds compare.\n\n"
                                         @"Every Sparkle hook that runs during layout is timed, so Most Expensive "
-                                        @"Hook names the one eating the main thread. Turn the meter on, browse "
-                                        @"until it feels slow, then come back and read it. The full ranking goes "
-                                        @"to the log every 15 seconds.")];
+                                        SPKLocalizedString(@"Hook names the one eating the main thread. Turn the meter on, browse ")
+                                        SPKLocalizedString(@"until it feels slow, then come back and read it. The full ranking goes ")
+                                        SPKLocalizedString(@"to the log every 15 seconds."))];
     [sections addObject:SPKTopicSection(@"Bisect",
                                         @[ status, skipHalf, skipAll, restoreAll, relaunch ],
-                                        @"Turn an installer off to keep its hooks from being installed on the next launch. "
+                                        SPKLocalizedString(@"Turn an installer off to keep its hooks from being installed on the next launch. ")
                                         @"This is not the same as turning the feature off: most installers run regardless of "
                                         @"their own preference, so a disabled feature can still have its hooks (and their "
                                         @"per-layout work) in place.\n\n"
@@ -218,13 +219,13 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
 
     if (groups.count == 0) {
         [sections addObject:SPKTopicSection(@"",
-                                            @[ [SPKSetting staticCellWithTitle:@"No installers recorded yet"
-                                                                      subtitle:@"Reopen this page a moment after launch."
+                                            @[ [SPKSetting staticCellWithTitle:SPKLocalizedString(@"No installers recorded yet")
+                                                                      subtitle:SPKLocalizedString(@"Reopen this page a moment after launch.")
                                                                           icon:nil] ],
                                             nil)];
     }
 
-    return [SPKSetting navigationCellWithTitle:@"Hook Bisect"
+    return [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Hook Bisect")
                                       subtitle:@""
                                           icon:SPKSettingsIcon(@"beaker")
                                    navSections:sections];

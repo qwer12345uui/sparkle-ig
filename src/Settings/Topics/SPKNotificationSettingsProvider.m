@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKNotificationSettingsProvider.h"
 #import "../../Shared/UI/SPKNotificationCenter.h"
 #import "../../Utils.h"
@@ -35,20 +36,20 @@
 
     NSArray<NSDictionary *> *configs = @[
         @{
-            @"title" : @"Saved to Gallery",
-            @"subtitle" : @"Notification preview: success tone.",
+            @"title" : SPKLocalizedString(@"Saved to Gallery"),
+            @"subtitle" : SPKLocalizedString(@"Notification preview: success tone."),
             @"iconResource" : @"circle_check_filled",
             @"tone" : @(SPKNotificationToneSuccess)
         },
         @{
-            @"title" : @"Something Went Wrong",
-            @"subtitle" : @"Notification preview: error tone.",
+            @"title" : SPKLocalizedString(@"Something Went Wrong"),
+            @"subtitle" : SPKLocalizedString(@"Notification preview: error tone."),
             @"iconResource" : @"error_filled",
             @"tone" : @(SPKNotificationToneError)
         },
         @{
-            @"title" : @"Heads Up",
-            @"subtitle" : @"Notification preview: info tone.",
+            @"title" : SPKLocalizedString(@"Heads Up"),
+            @"subtitle" : SPKLocalizedString(@"Notification preview: info tone."),
             @"iconResource" : @"info_filled",
             @"tone" : @(SPKNotificationToneInfo)
         }
@@ -67,32 +68,32 @@
 + (NSArray *)sections {
     NSMutableArray *sections = [NSMutableArray arrayWithArray:@[
         SPKTopicSection(@"Appearance", @[
-            [SPKSetting switchCellWithTitle:@"Glow"
-                                   subtitle:@"Show glow effect around notifications"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Glow")
+                                   subtitle:SPKLocalizedString(@"Show glow effect around notifications")
                                 defaultsKey:kSPKNotificationPillGlowEnabledKey],
-            [SPKSetting switchCellWithTitle:@"Liquid Glass"
+            [SPKSetting switchCellWithTitle:SPKLocalizedString(@"Liquid Glass")
                                    subtitle:(SPKPrefIsAvailable(kSPKNotificationPillLiquidGlassEnabledKey)
-                                                 ? @"Render notifications with iOS 26 Liquid Glass"
-                                                 : @"Requires iOS 26 or later")
+                                                 ? SPKLocalizedString(@"Render notifications with iOS 26 Liquid Glass")
+                                                 : SPKLocalizedString(@"Requires iOS 26 or later"))
                                    defaultsKey:kSPKNotificationPillLiquidGlassEnabledKey],
-            [SPKSetting menuCellWithTitle:@"Download Progress"
+            [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Download Progress")
                                  subtitle:@""
                                      menu:SPKNotificationProgressSubtitleStyleMenu()],
-            [SPKSetting menuCellWithTitle:@"Position"
+            [SPKSetting menuCellWithTitle:SPKLocalizedString(@"Position")
                                  subtitle:@""
                                      menu:SPKNotificationPillPositionMenu()],
-            [SPKSetting stepperCellWithTitle:@"Duration"
-                                    subtitle:@"Dismiss after %@%@"
+            [SPKSetting stepperCellWithTitle:SPKLocalizedString(@"Duration")
+                                    subtitle:SPKLocalizedString(@"Dismiss after %@%@")
                                  defaultsKey:kSPKNotificationPillDurationKey
                                          min:0.5
                                          max:5.0
                                         step:0.25
-                                       label:@" seconds"
-                               singularLabel:@" second"]
+                                       label:SPKLocalizedString(@" seconds")
+                               singularLabel:SPKLocalizedString(@" second")]
         ],
                         nil),
         SPKTopicSection(@"Preview", @[
-            [SPKSetting buttonCellWithTitle:@"Test Notification"
+            [SPKSetting buttonCellWithTitle:SPKLocalizedString(@"Test Notification")
                                    subtitle:@""
                                        icon:nil
                                      action:^{
@@ -101,7 +102,7 @@
         ],
                         nil),
         SPKTopicSection(@"", @[
-            [SPKSetting navigationCellWithTitle:@"Haptics"
+            [SPKSetting navigationCellWithTitle:SPKLocalizedString(@"Haptics")
                                        subtitle:@""
                                            icon:SPKSettingsIcon(@"haptics")
                                     navSections:[self spk_featureSectionsForHaptics:YES]]
