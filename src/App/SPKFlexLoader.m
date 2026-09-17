@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKFlexLoader.h"
 
 #import <dlfcn.h>
@@ -133,7 +134,7 @@ BOOL SPKFlexLoadIfNeeded(void) {
 
     NSString *path = SPKFlexBundledPath();
     if (path.length == 0) {
-        sSPKFlexLoadError = @"libFLEX.dylib was not bundled";
+        sSPKFlexLoadError = SPKLocalizedString(@"libFLEX.dylib was not bundled");
         SPKLog(@"FLEX", @"FLEX unavailable: %@", sSPKFlexLoadError);
         return NO;
     }
@@ -141,7 +142,7 @@ BOOL SPKFlexLoadIfNeeded(void) {
     void *handle = dlopen(path.UTF8String, RTLD_NOW | RTLD_GLOBAL);
     if (!handle) {
         const char *error = dlerror();
-        sSPKFlexLoadError = error ? @(error) : @"dlopen failed";
+        sSPKFlexLoadError = error ? @(error) : SPKLocalizedString(@"dlopen failed");
         SPKLog(@"FLEX", @"FLEX dlopen failed at %@: %@", path, sSPKFlexLoadError);
         return NO;
     }
@@ -152,7 +153,7 @@ BOOL SPKFlexLoadIfNeeded(void) {
     sSPKFlexWindowClassGetter = (Class (*)(void))dlsym(handle, "FLXWindowClass");
 
     if (!sSPKFlexGetManager || !sSPKFlexRevealSEL) {
-        sSPKFlexLoadError = @"libFLEX.dylib did not export required symbols";
+        sSPKFlexLoadError = SPKLocalizedString(@"libFLEX.dylib did not export required symbols");
         SPKLog(@"FLEX", @"FLEX symbol resolution failed at %@", path);
         return NO;
     }
@@ -191,13 +192,13 @@ static BOOL SPKFlexShouldSuppressDuplicateShow(NSString *trigger) {
 
 static void SPKFlexShowMissingPill(NSString *trigger) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *subtitle = @"Rebuild with --with-flex";
-        if (sSPKFlexLoadError.length > 0 && ![sSPKFlexLoadError isEqualToString:@"libFLEX.dylib was not bundled"]) {
+        NSString *subtitle = SPKLocalizedString(@"Rebuild with --with-flex");
+        if (sSPKFlexLoadError.length > 0 && ![sSPKFlexLoadError isEqualToString:SPKLocalizedString(@"libFLEX.dylib was not bundled")]) {
             subtitle = sSPKFlexLoadError;
         }
 
         SPKLog(@"FLEX", @"FLEX show requested by %@ but unavailable: %@", trigger, subtitle);
-        SPKNotify(kSPKNotificationFlexUnavailable, @"FLEX unavailable", subtitle, @"info_filled", SPKNotificationToneInfo);
+        SPKNotify(kSPKNotificationFlexUnavailable, SPKLocalizedString(@"FLEX unavailable"), subtitle, @"info_filled", SPKNotificationToneInfo);
     });
 }
 

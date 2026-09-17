@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKPerfMeter.h"
 
 #if SPK_DEV
@@ -323,15 +324,15 @@ static void SPKPerfUpdateHUD(void) {
     NSArray<NSString *> *ranked = SPKPerfScopeNamesByCost(scopeTime);
     for (NSUInteger i = 0; i < MIN((NSUInteger)2, ranked.count); i++) {
         NSString *key = ranked[i];
-        [worstScopes appendFormat:@"\n%@ %.0fms x%@",
+        [worstScopes appendFormat:SPKLocalizedString(@"\n%@ %.0fms x%@"),
                                   key,
                                   [scopeTime[key] doubleValue] * 1000.0,
                                   scopeCalls[key]];
     }
 
     spkPerfHUDLabel.text = [NSString stringWithFormat:
-                                         @"stall %.0fms/3s  max %.0fms\n"
-                                         @"total %.1fs/%.0fs  %.1f%%\n"
+                                         SPKLocalizedString(@"stall %.0fms/3s  max %.0fms\n")
+                                         SPKLocalizedString(@"total %.1fs/%.0fs  %.1f%%\n")
                                          @"vc %@  views %@  gr %@  depth %@%@",
                                          recent * 1000.0,
                                          spkPerfWorst * 1000.0,
@@ -555,7 +556,7 @@ NSString *SPKPerfMeterWorstScopeSummary(void) {
 
     NSString *worst = SPKPerfScopeNamesByCost(scopeTime).firstObject;
     if (!worst)
-        return spkPerfEnabled ? @"Nothing recorded yet" : @"Off";
+        return spkPerfEnabled ? SPKLocalizedString(@"Nothing recorded yet") : @"Off";
     return [NSString stringWithFormat:@"%@ - %.1fs over %@ calls",
                                       worst,
                                       [scopeTime[worst] doubleValue],
