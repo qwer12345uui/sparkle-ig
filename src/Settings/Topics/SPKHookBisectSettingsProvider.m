@@ -187,25 +187,10 @@ static NSArray<SPKSetting *> *SPKPerfMeterRows(void) {
     NSMutableArray *sections = [NSMutableArray array];
     [sections addObject:SPKTopicSection(@"Measurement",
                                         SPKPerfMeterRows(),
-                                        SPKLocalizedString(@"Measures how long the main thread is blocked, which is what \"laggy\" ")
-                                        @"actually is, and counts the view controllers, views and gesture "
-                                        @"recognizers alive in the current window.\n\n"
-                                        @"Numbers that climb as you navigate and never drop back are a leak: "
-                                        @"screens or recognizers are piling up and every one of them keeps doing "
-                                        @"work. Start a new measurement before each run so rounds compare.\n\n"
-                                        @"Every Sparkle hook that runs during layout is timed, so Most Expensive "
-                                        SPKLocalizedString(@"Hook names the one eating the main thread. Turn the meter on, browse ")
-                                        SPKLocalizedString(@"until it feels slow, then come back and read it. The full ranking goes ")
-                                        SPKLocalizedString(@"to the log every 15 seconds."))];
+                                        [[[[[[[[[SPKLocalizedString(@"Measures how long the main thread is blocked, which is what \"laggy\" ") stringByAppendingString:@"actually is, and counts the view controllers, views and gesture "] stringByAppendingString:@"recognizers alive in the current window.\n\n"] stringByAppendingString:@"Numbers that climb as you navigate and never drop back are a leak: "] stringByAppendingString:@"screens or recognizers are piling up and every one of them keeps doing "] stringByAppendingString:@"work. Start a new measurement before each run so rounds compare.\n\n"] stringByAppendingString:@"Every Sparkle hook that runs during layout is timed, so Most Expensive "] stringByAppendingString:SPKLocalizedString(@"Hook names the one eating the main thread. Turn the meter on, browse ")] stringByAppendingString:SPKLocalizedString(@"until it feels slow, then come back and read it. The full ranking goes ")] stringByAppendingString:SPKLocalizedString(@"to the log every 15 seconds.")])];
     [sections addObject:SPKTopicSection(@"Bisect",
                                         @[ status, skipHalf, skipAll, restoreAll, relaunch ],
-                                        SPKLocalizedString(@"Turn an installer off to keep its hooks from being installed on the next launch. ")
-                                        @"This is not the same as turning the feature off: most installers run regardless of "
-                                        @"their own preference, so a disabled feature can still have its hooks (and their "
-                                        @"per-layout work) in place.\n\n"
-                                        @"To find a regression: Skip Half of Remaining, relaunch, test. If the problem is gone "
-                                        @"the cause is in the half that was skipped, so Restore All and skip the other half "
-                                        @"instead. Repeat until one installer is left. Every change needs a relaunch.")];
+                                        [[[[[[SPKLocalizedString(@"Turn an installer off to keep its hooks from being installed on the next launch. ") stringByAppendingString:@"This is not the same as turning the feature off: most installers run regardless of "] stringByAppendingString:@"their own preference, so a disabled feature can still have its hooks (and their "] stringByAppendingString:@"per-layout work) in place.\n\n"] stringByAppendingString:@"To find a regression: Skip Half of Remaining, relaunch, test. If the problem is gone "] stringByAppendingString:@"the cause is in the half that was skipped, so Restore All and skip the other half "] stringByAppendingString:@"instead. Repeat until one installer is left. Every change needs a relaunch."])];
 
     for (NSDictionary *group in groups) {
         NSArray<NSString *> *installers = group[@"installers"];
