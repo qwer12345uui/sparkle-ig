@@ -17,7 +17,7 @@ static BOOL SPKEnsureDirectory(NSString *path) {
     NSError *error = nil;
     BOOL created = [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
     if (!created)
-        SPKWarnLog(SPKLocalizedString(@"Storage"), @"Failed to create directory %@: %@", path, error);
+        SPKWarnLog(@"Storage", @"Failed to create directory %@: %@", path, error);
     return created;
 }
 

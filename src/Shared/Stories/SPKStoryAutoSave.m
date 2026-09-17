@@ -127,7 +127,7 @@ void SPKStoryAutoSaveConsiderOverlay(UIView *overlayView) {
     SPKGallerySaveMetadata *metadata = nil;
     if (!SPKResolveGalleryDownloadForMedia(context.media, SPKActionButtonSourceStories, username,
                                            NULL, &videoURL, &metadata)) {
-        SPKLog(SPKLocalizedString(@"Stories"), @"[Sparkle AutoSave] No downloadable media for story mediaID=%@ user=@%@", mediaID, username);
+        SPKLog(@"Stories", @"[Sparkle AutoSave] No downloadable media for story mediaID=%@ user=@%@", mediaID, username);
         return;
     }
     BOOL isVideo = (videoURL != nil);
@@ -138,16 +138,16 @@ void SPKStoryAutoSaveConsiderOverlay(UIView *overlayView) {
     if ([SPKDownloadDuplicatePolicy destinationContainsMediaForMetadata:metadata
                                                               mediaType:mediaType
                                                             destination:destination]) {
-        SPKLog(SPKLocalizedString(@"Stories"), @"[Sparkle AutoSave] Already in %@, skipping mediaID=%@ user=@%@",
+        SPKLog(@"Stories", @"[Sparkle AutoSave] Already in %@, skipping mediaID=%@ user=@%@",
                SPKDownloadDestinationDisplayName(destination), mediaID, username);
         return;
     }
 
-    SPKLog(SPKLocalizedString(@"Stories"), @"[Sparkle AutoSave] Saving story mediaID=%@ user=@%@ video=%d", mediaID, username, isVideo);
+    SPKLog(@"Stories", @"[Sparkle AutoSave] Saving story mediaID=%@ user=@%@ video=%d", mediaID, username, isVideo);
     if (!SPKAutoSaveSubmitMedia(context.media, SPKActionButtonSourceStories, username, kSPKNotificationStoryAutoSave)) {
         // Nothing was queued, so let the item be retried next time it's displayed.
         [sessionKeys removeObject:mediaID];
-        SPKLog(SPKLocalizedString(@"Stories"), @"[Sparkle AutoSave] Failed to submit mediaID=%@ user=@%@", mediaID, username);
+        SPKLog(@"Stories", @"[Sparkle AutoSave] Failed to submit mediaID=%@ user=@%@", mediaID, username);
     }
 }
 

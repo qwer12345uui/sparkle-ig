@@ -420,7 +420,7 @@ static void SPKStoryResolveAndRememberManualSeenUserName(NSString *username, voi
                                         NSString *fullName = SPKStringFromValue(user[@"full_name"] ?: user[@"fullName"]);
                                         SPKStoryRememberManualSeenUserName(resolvedUsername, fullName);
                                     } else {
-                                        SPKLog(SPKLocalizedString(@"Stories"), @"[Sparkle StorySeen] User display-name lookup failed username=%@ error=%@", normalized, error);
+                                        SPKLog(@"Stories", @"[Sparkle StorySeen] User display-name lookup failed username=%@ error=%@", normalized, error);
                                     }
                                     if (completion)
                                         completion();
