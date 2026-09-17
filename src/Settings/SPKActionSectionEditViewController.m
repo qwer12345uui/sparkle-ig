@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKActionSectionEditViewController.h"
 #import "../Shared/UI/SPKSwitch.h"
 #import "SPKActionSectionIconPickerViewController.h"
@@ -66,7 +67,7 @@ static char kSPKSectionEditSwitchAssocKey;
         _configuration = configuration;
         _sectionIdentifier = [sectionIdentifier copy];
         _onChange = [onChange copy];
-        self.title = @"Edit Section";
+        self.title = SPKLocalizedString(@"Edit Section");
     }
     return self;
 }
@@ -115,18 +116,18 @@ static char kSPKSectionEditSwitchAssocKey;
     if (section == 0)
         return @"Section";
     if (section == 1)
-        return @"Actions in This Section";
-    return @"Available Actions";
+        return SPKLocalizedString(@"Actions in This Section");
+    return SPKLocalizedString(@"Available Actions");
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if ([self isBulkSection]) {
-        return section == 0 ? @"Bulk shows Download All / Copy All / Select Media on carousels. Its actions and order are derived from your single-item Download and Copy actions.\nReorder or rename this section to control where Bulk appears in the menu." : nil;
+        return section == 0 ? SPKLocalizedString(@"Bulk shows Download All / Copy All / Select Media on carousels. Its actions and order are derived from your single-item Download and Copy actions.\nReorder or rename this section to control where Bulk appears in the menu.") : nil;
     }
     if (section == 1)
-        return @"Drag to reorder actions in this section. Remove an action to send it to the unassigned bucket.";
+        return SPKLocalizedString(@"Drag to reorder actions in this section. Remove an action to send it to the unassigned bucket.");
     if (section == 2)
-        return @"Tap an action to assign it here. If it is already in another section, it will move.";
+        return SPKLocalizedString(@"Tap an action to assign it here. If it is already in another section, it will move.");
     return nil;
 }
 
@@ -155,7 +156,7 @@ static char kSPKSectionEditSwitchAssocKey;
             cell.accessoryView = field;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (indexPath.row == 1) {
-            config.text = @"Choose Icon";
+            config.text = SPKLocalizedString(@"Choose Icon");
             config.secondaryText = nil;
             config.image = nil;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

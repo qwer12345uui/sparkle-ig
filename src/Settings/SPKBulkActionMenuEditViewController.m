@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 #import "SPKBulkActionMenuEditViewController.h"
 
 #import "../AssetUtils.h"
@@ -81,13 +82,13 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return section == 0 ? @"Enabled Actions" : @"Available Actions";
+    return section == 0 ? SPKLocalizedString(@"Enabled Actions") : SPKLocalizedString(@"Available Actions");
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0)
-        return @"Drag to reorder. Tap to disable an action.";
-    return @"Tap an action to enable it in this submenu.";
+        return SPKLocalizedString(@"Drag to reorder. Tap to disable an action.");
+    return SPKLocalizedString(@"Tap an action to enable it in this submenu.");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

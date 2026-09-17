@@ -1,3 +1,4 @@
+#import "../Localization/SPKLocalization.h"
 // Reusable IG private API helper. Uses active session auth header.
 
 #import "SPKInstagramAPI.h"
@@ -380,26 +381,26 @@ static NSString *spkNormalizePK(NSString *pk) {
             }
 
 #ifdef SPK_DEV
-            SPKLog(@"Downloads", @"[4K Debug] Cookies merged count: %lu", (unsigned long)cookieDict.count);
+            SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Cookies merged count: %lu", (unsigned long)cookieDict.count);
             for (NSString *name in cookieDict) {
-                SPKLog(@"Downloads", @"[4K Debug] Merged Cookie: %@ = %@", name, cookieDict[name]);
+                SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Merged Cookie: %@ = %@", name, cookieDict[name]);
             }
-            SPKLog(@"Downloads", @"[4K Debug] Request headers: %@", request.allHTTPHeaderFields);
+            SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Request headers: %@", request.allHTTPHeaderFields);
 #else
-            SPKLog(@"Downloads", @"[4K] Merged cookies count: %lu", (unsigned long)cookieDict.count);
+            SPKLog(SPKLocalizedString(@"Downloads"), @"[4K] Merged cookies count: %lu", (unsigned long)cookieDict.count);
 #endif
 
             NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request
                                                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                                                              NSInteger statusCode = httpResponse.statusCode;
-                                                                             SPKLog(@"Downloads", @"[4K] fetchWebMediaInfoForPK request finished. Status: %ld", (long)statusCode);
+                                                                             SPKLog(SPKLocalizedString(@"Downloads"), @"[4K] fetchWebMediaInfoForPK request finished. Status: %ld", (long)statusCode);
 #ifdef SPK_DEV
                                                                              if (error) {
-                                                                                 SPKLog(@"Downloads", @"[4K Debug] Request error: %@", error);
+                                                                                 SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Request error: %@", error);
                                                                              }
                                                                              if (httpResponse) {
-                                                                                 SPKLog(@"Downloads", @"[4K Debug] Response headers: %@", httpResponse.allHeaderFields);
+                                                                                 SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Response headers: %@", httpResponse.allHeaderFields);
                                                                              }
 #endif
 
@@ -412,20 +413,20 @@ static NSString *spkNormalizePK(NSString *pk) {
                                                                                      } else {
 #ifdef SPK_DEV
                                                                                          NSString *rawString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                                                         SPKLog(@"Downloads", @"[4K Debug] Response data is not a dictionary. Raw data snippet: %@", 
+                                                                                         SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Response data is not a dictionary. Raw data snippet: %@", 
                                                                                                 (rawString.length > 1000 ? [rawString substringToIndex:1000] : rawString));
 #endif
                                                                                      }
                                                                                  } @catch (__unused NSException *exception) {
 #ifdef SPK_DEV
                                                                                      NSString *rawString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                                                     SPKLog(@"Downloads", @"[4K Debug] JSON parsing exception. Raw data snippet: %@", 
+                                                                                     SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] JSON parsing exception. Raw data snippet: %@", 
                                                                                             (rawString.length > 1000 ? [rawString substringToIndex:1000] : rawString));
 #endif
                                                                                  }
                                                                              } else {
 #ifdef SPK_DEV
-                                                                                 SPKLog(@"Downloads", @"[4K Debug] Response data is empty");
+                                                                                 SPKLog(SPKLocalizedString(@"Downloads"), @"[4K Debug] Response data is empty");
 #endif
                                                                              }
                                                                              
@@ -451,7 +452,7 @@ static NSString *spkNormalizePK(NSString *pk) {
     NSString *cleanUsername = [SPKUtils sanitizedInstagramUsername:username];
     if (cleanUsername.length == 0) {
         if (completion) {
-            completion(nil, [NSError errorWithDomain:@"SPKInstagramAPI" code:400 userInfo:@{NSLocalizedDescriptionKey: @"Invalid username"}]);
+            completion(nil, [NSError errorWithDomain:@"SPKInstagramAPI" code:400 userInfo:@{NSLocalizedDescriptionKey: SPKLocalizedString(@"Invalid username")}]);
         }
         return;
     }
