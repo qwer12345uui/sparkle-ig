@@ -4,10 +4,14 @@ name: Expose built deb as text chunks
 # This job re-publishes it as small base64 TEXT chunks on the `deb-chunks`
 # branch (plus a manifest with the original name/size) so it can be retrieved
 # piece by piece, then re-assembled and verified locally.
+# Fires right after every build instead of on push, so the chunks always match
+# the freshly published .deb rather than the previous one.
 on:
-  push:
-    branches:
-      - 'main'
+  workflow_run:
+    workflows:
+      - 'Build Sparkle tweak for Rootless (no FFmpeg)'
+    types:
+      - completed
   workflow_dispatch:
 
 concurrency:
