@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadPresenter.h"
 #import "SPKDownloadService.h"
 
@@ -71,29 +72,29 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
 - (NSString *)progressTitleForJob:(SPKDownloadJob *)job {
     if (job.items.count > 1) {
         NSUInteger current = MIN(job.items.count, [self completedItemCount:job] + 1);
-        return [NSString stringWithFormat:@"Downloads [%lu of %lu]", (unsigned long)current, (unsigned long)job.items.count];
+        return [NSString stringWithFormat:SPKLocalizedString(@"Downloads [%lu of %lu]"), (unsigned long)current, (unsigned long)job.items.count];
     }
     SPKDownloadItem *item = job.items.firstObject;
     if (item.state == SPKDownloadStateFinalizing) {
-        return [NSString stringWithFormat:@"Saving to %@", SPKDownloadDestinationDisplayName(job.request.destination)];
+        return [NSString stringWithFormat:SPKLocalizedString(@"Saving to %@"), SPKDownloadDestinationDisplayName(job.request.destination)];
     }
     if (item.detail.length > 0) {
-        if ([item.detail containsString:@"Merging"] || [item.detail containsString:@"Re-encoding"])
+        if ([item.detail containsString:@"Merging"] || [item.detail containsString:SPKLocalizedString(@"Re-encoding")])
             return item.detail;
         if ([item.detail containsString:@"Converting"])
-            return @"Converting audio";
-        if ([item.detail containsString:@"Downloading video"])
-            return @"Downloading video";
-        if ([item.detail containsString:@"Downloading audio"])
-            return @"Downloading audio";
+            return SPKLocalizedString(@"Converting audio");
+        if ([item.detail containsString:SPKLocalizedString(@"Downloading video")])
+            return SPKLocalizedString(@"Downloading video");
+        if ([item.detail containsString:SPKLocalizedString(@"Downloading audio")])
+            return SPKLocalizedString(@"Downloading audio");
     }
     switch (item.mediaKind) {
     case SPKDownloadMediaKindVideo:
-        return @"Downloading video";
+        return SPKLocalizedString(@"Downloading video");
     case SPKDownloadMediaKindAudio:
-        return @"Downloading audio";
+        return SPKLocalizedString(@"Downloading audio");
     case SPKDownloadMediaKindImage:
-        return @"Downloading image";
+        return SPKLocalizedString(@"Downloading image");
     default:
         return @"Downloading";
     }
@@ -151,7 +152,7 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
         formatter.includesUnit = YES;
         formatter.includesCount = YES;
         formatter.zeroPadsFractionDigits = NO;
-        bytesString = [NSString stringWithFormat:@"%@ of %@",
+        bytesString = [NSString stringWithFormat:SPKLocalizedString(@"%@ of %@"),
                                                  [formatter stringFromByteCount:bytesWritten],
                                                  [formatter stringFromByteCount:totalBytesExpected]];
     }
@@ -171,7 +172,7 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
     }
 
     if (activeCount > 1) {
-        [parts addObject:[NSString stringWithFormat:@"%lu of %lu", (unsigned long)activeIndex, (unsigned long)activeCount]];
+        [parts addObject:[NSString stringWithFormat:SPKLocalizedString(@"%lu of %lu"), (unsigned long)activeIndex, (unsigned long)activeCount]];
     }
 
     return [parts componentsJoinedByString:@" • "];
@@ -308,15 +309,15 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
     }
 
     if (job.state == SPKDownloadStateFailed || job.state == SPKDownloadStatePartial) {
-        NSString *message = job.items.firstObject.error.localizedDescription ?: @"Download failed";
-        [self.activePill showErrorWithTitle:job.state == SPKDownloadStatePartial ? @"Some downloads failed" : @"Download failed"
+        NSString *message = job.items.firstObject.error.localizedDescription ?: SPKLocalizedString(@"Download failed");
+        [self.activePill showErrorWithTitle:job.state == SPKDownloadStatePartial ? SPKLocalizedString(@"Some downloads failed") : SPKLocalizedString(@"Download failed")
                                    subtitle:message
                                        icon:nil];
         self.activePill.onTapWhenCompleted = openHistory;
         return;
     }
     if (job.state == SPKDownloadStateCancelled) {
-        [self.activePill showInfoWithTitle:@"Download cancelled" subtitle:@"Tap to open Downloads" icon:nil];
+        [self.activePill showInfoWithTitle:SPKLocalizedString(@"Download cancelled") subtitle:SPKLocalizedString(@"Tap to open Downloads") icon:nil];
         self.activePill.onTapWhenCompleted = openHistory;
         return;
     }
@@ -324,15 +325,15 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
     // Determine terminal title/subtitle/action based on destination
     switch (job.request.destination) {
     case SPKDownloadDestinationPhotos:
-        title = @"Saved to Photos";
-        subtitle = @"Tap to open Photos";
+        title = SPKLocalizedString(@"Saved to Photos");
+        subtitle = SPKLocalizedString(@"Tap to open Photos");
         self.activePill.onTapWhenCompleted = ^{
             [SPKUtils openPhotosApp];
         };
         break;
     case SPKDownloadDestinationGallery:
-        title = @"Saved to Gallery";
-        subtitle = @"Tap to open Gallery";
+        title = SPKLocalizedString(@"Saved to Gallery");
+        subtitle = SPKLocalizedString(@"Tap to open Gallery");
         self.activePill.onTapWhenCompleted = ^{
             [SPKGalleryViewController presentGallery];
         };
@@ -341,12 +342,12 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
         if (job.request.finalizeAsBatchShare) {
             NSUInteger count = [self completedItemCount:job];
             title = count > 1
-                        ? [NSString stringWithFormat:@"Shared %lu items", (unsigned long)count]
+                        ? [NSString stringWithFormat:SPKLocalizedString(@"Shared %lu items"), (unsigned long)count]
                         : @"Shared";
-            subtitle = @"Tap to open Downloads";
+            subtitle = SPKLocalizedString(@"Tap to open Downloads");
             self.activePill.onTapWhenCompleted = openHistory;
         } else {
-            title = @"Ready to share";
+            title = SPKLocalizedString(@"Ready to share");
             subtitle = nil;
             self.activePill.onTapWhenCompleted = nil;
         }
@@ -355,22 +356,22 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
         if (job.request.finalizeAsBatchClipboard) {
             NSUInteger count = [self completedItemCount:job];
             title = count > 1
-                        ? [NSString stringWithFormat:@"Copied %lu items to clipboard", (unsigned long)count]
-                        : @"Copied to clipboard";
+                        ? [NSString stringWithFormat:SPKLocalizedString(@"Copied %lu items to clipboard"), (unsigned long)count]
+                        : SPKLocalizedString(@"Copied to clipboard");
         } else {
             SPKDownloadItem *first = job.items.firstObject;
             switch (first.mediaKind) {
             case SPKDownloadMediaKindVideo:
-                title = @"Copied video to clipboard";
+                title = SPKLocalizedString(@"Copied video to clipboard");
                 break;
             case SPKDownloadMediaKindAudio:
-                title = @"Copied audio to clipboard";
+                title = SPKLocalizedString(@"Copied audio to clipboard");
                 break;
             case SPKDownloadMediaKindImage:
-                title = @"Copied photo to clipboard";
+                title = SPKLocalizedString(@"Copied photo to clipboard");
                 break;
             default:
-                title = @"Copied to clipboard";
+                title = SPKLocalizedString(@"Copied to clipboard");
                 break;
             }
         }
@@ -381,12 +382,12 @@ static NSArray<NSURL *> *SPKDownloadSucceededFileURLsForJob(SPKDownloadJob *job)
     default:
         if (job.items.count > 1) {
             NSUInteger count = [self completedItemCount:job];
-            title = [NSString stringWithFormat:@"%lu items saved", (unsigned long)count];
-            subtitle = @"Tap to open Downloads";
+            title = [NSString stringWithFormat:SPKLocalizedString(@"%lu items saved"), (unsigned long)count];
+            subtitle = SPKLocalizedString(@"Tap to open Downloads");
             self.activePill.onTapWhenCompleted = openHistory;
         } else {
-            title = @"Download complete";
-            subtitle = @"Tap to open Downloads";
+            title = SPKLocalizedString(@"Download complete");
+            subtitle = SPKLocalizedString(@"Tap to open Downloads");
             self.activePill.onTapWhenCompleted = openHistory;
         }
         break;

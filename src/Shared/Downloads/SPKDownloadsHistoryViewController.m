@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadsHistoryViewController.h"
 
 #import "../../AssetUtils.h"
@@ -357,7 +358,7 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Downloads";
+    self.title = SPKLocalizedString(@"Downloads");
     self.view.backgroundColor = [SPKUtils SPKColor_InstagramGroupedBackground];
     self.expandedJobIDs = [NSMutableSet set];
 
@@ -603,24 +604,24 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
     self.emptyStateIcon.image = [SPKAssetUtils instagramIconNamed:@"empty" pointSize:96 renderingMode:UIImageRenderingModeAlwaysTemplate];
     switch ([self currentFilter]) {
     case SPKDownloadHistoryFilterFailed:
-        self.emptyStateTitle.text = @"No failed downloads";
-        self.emptyStateSubtitle.text = @"Any download jobs that fail will show up here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No failed downloads");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Any download jobs that fail will show up here.");
         break;
     case SPKDownloadHistoryFilterActive:
-        self.emptyStateTitle.text = @"No active downloads";
-        self.emptyStateSubtitle.text = @"Currently running download tasks will appear here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No active downloads");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Currently running download tasks will appear here.");
         break;
     case SPKDownloadHistoryFilterQueued:
-        self.emptyStateTitle.text = @"Nothing queued";
-        self.emptyStateSubtitle.text = @"Downloads waiting in the queue will be listed here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"Nothing queued");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Downloads waiting in the queue will be listed here.");
         break;
     case SPKDownloadHistoryFilterRecent:
-        self.emptyStateTitle.text = @"No recent downloads";
-        self.emptyStateSubtitle.text = @"Recently finished or cancelled downloads will show here.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No recent downloads");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Recently finished or cancelled downloads will show here.");
         break;
     default:
-        self.emptyStateTitle.text = @"No downloads yet";
-        self.emptyStateSubtitle.text = @"Start downloading media from feeds, reels, or stories to build your history.";
+        self.emptyStateTitle.text = SPKLocalizedString(@"No downloads yet");
+        self.emptyStateSubtitle.text = SPKLocalizedString(@"Start downloading media from feeds, reels, or stories to build your history.");
         break;
     }
 }
@@ -629,13 +630,13 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
 
 - (void)clearFinished {
     [SPKIGAlertPresenter presentAlertFromViewController:self
-                                                  title:@"Clear Finished Downloads"
-                                                message:@"Removes finished entries and their staged preview copies. Active and queued downloads are kept; media saved to Photos or the Gallery is not affected."
+                                                  title:SPKLocalizedString(@"Clear Finished Downloads")
+                                                message:SPKLocalizedString(@"Removes finished entries and their staged preview copies. Active and queued downloads are kept; media saved to Photos or the Gallery is not affected.")
                                                 actions:@[
-                                                    [SPKIGAlertAction actionWithTitle:@"Cancel"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                                                 style:SPKIGAlertActionStyleCancel
                                                                               handler:nil],
-                                                    [SPKIGAlertAction actionWithTitle:@"Clear"
+                                                    [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Clear")
                                                                                 style:SPKIGAlertActionStyleDestructive
                                                                               handler:^{
                                                                                   [[SPKDownloadService shared] clearFinishedHistory];
@@ -654,13 +655,13 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
 
     // Navigation actions (top)
     NSMutableArray<UIAction *> *nav = [NSMutableArray array];
-    [nav addObject:[UIAction actionWithTitle:@"Open Gallery"
+    [nav addObject:[UIAction actionWithTitle:SPKLocalizedString(@"Open Gallery")
                                        image:[SPKAssetUtils menuIconNamed:@"sparkle_gallery"]
                                   identifier:nil
                                      handler:^(__unused UIAction *a) {
                                          [SPKGalleryViewController presentGallery];
                                      }]];
-    [nav addObject:[UIAction actionWithTitle:@"Open Photos App"
+    [nav addObject:[UIAction actionWithTitle:SPKLocalizedString(@"Open Photos App")
                                        image:[SPKAssetUtils menuIconNamed:@"photo_gallery"]
                                   identifier:nil
                                      handler:^(__unused UIAction *a) {
@@ -671,7 +672,7 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
     // Destructive actions (bottom — inline section keeps them visually grouped last)
     NSMutableArray<UIAction *> *destructive = [NSMutableArray array];
 
-    UIAction *clearAction = [UIAction actionWithTitle:@"Clear Finished"
+    UIAction *clearAction = [UIAction actionWithTitle:SPKLocalizedString(@"Clear Finished")
                                                 image:[SPKAssetUtils menuIconNamed:@"trash"]
                                            identifier:nil
                                               handler:^(__unused UIAction *a) {
@@ -688,7 +689,7 @@ typedef NS_ENUM(NSUInteger, SPKDownloadsHistoryRowKind) {
         }
     }
     if (hasActive) {
-        UIAction *cancelAll = [UIAction actionWithTitle:@"Cancel All Active"
+        UIAction *cancelAll = [UIAction actionWithTitle:SPKLocalizedString(@"Cancel All Active")
                                                   image:[SPKAssetUtils menuIconNamed:@"xmark"]
                                              identifier:nil
                                                 handler:^(__unused UIAction *a) {
@@ -867,7 +868,7 @@ static void SPKApplyStatusBadge(SPKDownloadHistoryCell *cell, SPKDownloadState s
         [parts addObject:[NSString stringWithFormat:@"%d%%", pct]];
     }
     if (job.items.count > 1) {
-        [parts addObject:[NSString stringWithFormat:@"%lu items", (unsigned long)job.items.count]];
+        [parts addObject:[NSString stringWithFormat:SPKLocalizedString(@"%lu items"), (unsigned long)job.items.count]];
     } else {
         SPKDownloadItem *first = job.items.firstObject;
         int64_t size = first.totalBytesExpected > 0 ? first.totalBytesExpected : first.bytesWritten;
@@ -984,7 +985,7 @@ static void SPKApplyStatusBadge(SPKDownloadHistoryCell *cell, SPKDownloadState s
         [parts addObject:@"Photo"];
         break;
     default:
-        [parts addObject:[NSString stringWithFormat:@"Item %ld", (long)(item.index + 1)]];
+        [parts addObject:[NSString stringWithFormat:SPKLocalizedString(@"Item %ld"), (long)(item.index + 1)]];
         break;
     }
     if (item.state == SPKDownloadStateRunning || item.state == SPKDownloadStateFinalizing) {
@@ -1046,9 +1047,9 @@ static void SPKApplyStatusBadge(SPKDownloadHistoryCell *cell, SPKDownloadState s
 
     // Failed/interrupted → show error alert with Retry + Dismiss
     if (item.state == SPKDownloadStateFailed || item.state == SPKDownloadStateInterrupted) {
-        NSString *title = item.state == SPKDownloadStateFailed ? @"Download Failed" : @"Download Interrupted";
+        NSString *title = item.state == SPKDownloadStateFailed ? SPKLocalizedString(@"Download Failed") : SPKLocalizedString(@"Download Interrupted");
         NSString *message = item.error.localizedDescription ?: item.detail ?
-                                                                           : @"An unknown error occurred.";
+                                                                           : SPKLocalizedString(@"An unknown error occurred.");
         NSString *jobID = row.job.jobID;
         NSString *itemID = item.itemID;
         BOOL isChild = (row.kind == SPKDownloadsHistoryRowKindChild);
@@ -1167,7 +1168,7 @@ static void SPKApplyStatusBadge(SPKDownloadHistoryCell *cell, SPKDownloadState s
                                                                            }];
         cancel.image = [SPKAssetUtils menuIconNamed:@"xmark"];
         cancel.backgroundColor = [SPKUtils SPKColor_InstagramDestructive];
-        cancel.accessibilityLabel = @"Cancel";
+        cancel.accessibilityLabel = SPKLocalizedString(@"Cancel");
         [actions addObject:cancel];
     }
 
@@ -1198,7 +1199,7 @@ static void SPKApplyStatusBadge(SPKDownloadHistoryCell *cell, SPKDownloadState s
                                                                          }];
         copy.image = [SPKAssetUtils menuIconNamed:@"copy"];
         copy.backgroundColor = [SPKUtils SPKColor_InstagramSecondaryText];
-        copy.accessibilityLabel = @"Copy Link";
+        copy.accessibilityLabel = SPKLocalizedString(@"Copy Link");
         [actions addObject:copy];
     }
 

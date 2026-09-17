@@ -1,3 +1,4 @@
+#import "../../Localization/SPKLocalization.h"
 #import "SPKDownloadService.h"
 
 #import "../../Utils.h"
@@ -71,13 +72,13 @@
         if (!presenter)
             return;
         [SPKIGAlertPresenter presentAlertFromViewController:presenter
-                                                      title:@"Cancel Pending Downloads"
-                                                    message:@"This stops queued work and any active downloads that can still be cancelled."
+                                                      title:SPKLocalizedString(@"Cancel Pending Downloads")
+                                                    message:SPKLocalizedString(@"This stops queued work and any active downloads that can still be cancelled.")
                                                     actions:@[
                                                         [SPKIGAlertAction actionWithTitle:@"Keep"
                                                                                     style:SPKIGAlertActionStyleCancel
                                                                                   handler:nil],
-                                                        [SPKIGAlertAction actionWithTitle:@"Cancel All"
+                                                        [SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel All")
                                                                                     style:SPKIGAlertActionStyleDestructive
                                                                                   handler:^{
                                                                                       [[SPKDownloadService shared] cancelAllActive];
@@ -193,20 +194,20 @@
 
         if (activeCount > 1) {
             // Cancel current, still blue but not bold
-            [actions addObject:[SPKIGAlertAction actionWithTitle:@"Cancel Current"
+            [actions addObject:[SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel Current")
                                                            style:SPKIGAlertActionStyleDefault
                                                          handler:^{
                                                              [self cancelJobID:jobID];
                                                          }]];
             // Cancel all, red, not bold
-            [actions addObject:[SPKIGAlertAction actionWithTitle:@"Cancel All"
+            [actions addObject:[SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel All")
                                                            style:SPKIGAlertActionStyleDestructive
                                                          handler:^{
                                                              [self cancelAllActive];
                                                          }]];
         } else {
             // Cancel, red not bold
-            [actions addObject:[SPKIGAlertAction actionWithTitle:@"Cancel"
+            [actions addObject:[SPKIGAlertAction actionWithTitle:SPKLocalizedString(@"Cancel")
                                                            style:SPKIGAlertActionStyleDestructive
                                                          handler:^{
                                                              [self cancelJobID:jobID];
@@ -214,8 +215,8 @@
         }
 
         [SPKIGAlertPresenter presentAlertFromViewController:presenterHost
-                                                      title:@"Cancel Download"
-                                                    message:activeCount > 1 ? @"Do you want to cancel the current download or all active downloads?" : @"Are you sure you want to cancel the download?"
+                                                      title:SPKLocalizedString(@"Cancel Download")
+                                                    message:activeCount > 1 ? SPKLocalizedString(@"Do you want to cancel the current download or all active downloads?") : SPKLocalizedString(@"Are you sure you want to cancel the download?")
                                                     actions:actions];
     });
 }
