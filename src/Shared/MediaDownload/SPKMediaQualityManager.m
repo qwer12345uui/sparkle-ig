@@ -90,6 +90,10 @@ static id SPKMediaObjectForSelector(id target, NSString *selectorName) {
     SEL selector = NSSelectorFromString(selectorName);
     if (![target respondsToSelector:selector])
         return nil;
+    NSMethodSignature *spkSig1 = [target methodSignatureForSelector:selector];
+    const char *spkRet1 = spkSig1.methodReturnType;
+    if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
+        return nil;
     @try {
         return ((id (*)(id, SEL))objc_msgSend)(target, selector);
     } @catch (__unused NSException *exception) {

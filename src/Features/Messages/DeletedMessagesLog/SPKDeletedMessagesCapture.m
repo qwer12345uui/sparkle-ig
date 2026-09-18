@@ -178,6 +178,10 @@ static NSString *spkTryStringSelectors(id obj, NSArray<NSString *> *names) {
         SEL s = NSSelectorFromString(n);
         if (![obj respondsToSelector:s])
             continue;
+        NSMethodSignature *spkSig1 = [obj methodSignatureForSelector:s];
+        const char *spkRet1 = spkSig1.methodReturnType;
+        if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
+            continue;
         @try {
             id v = ((id (*)(id, SEL))objc_msgSend)(obj, s);
             NSString *str = nil;
@@ -201,6 +205,10 @@ static NSString *spkTryURLSelectors(id obj, NSArray<NSString *> *names) {
         SEL s = NSSelectorFromString(n);
         if (![obj respondsToSelector:s])
             continue;
+        NSMethodSignature *spkSig2 = [obj methodSignatureForSelector:s];
+        const char *spkRet2 = spkSig2.methodReturnType;
+        if (!spkRet2 || (spkRet2[0] != '@' && spkRet2[0] != '#'))
+            continue;
         @try {
             id v = ((id (*)(id, SEL))objc_msgSend)(obj, s);
             if ([v isKindOfClass:[NSURL class]]) {
@@ -219,6 +227,10 @@ static NSString *spkTryURLSelectors(id obj, NSArray<NSString *> *names) {
 static id spkTryObjectSelector(id obj, NSString *name) {
     SEL sel = NSSelectorFromString(name);
     if (!obj || ![obj respondsToSelector:sel])
+        return nil;
+    NSMethodSignature *spkSig1 = [obj methodSignatureForSelector:sel];
+    const char *spkRet1 = spkSig1.methodReturnType;
+    if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
         return nil;
     @try {
         return ((id (*)(id, SEL))objc_msgSend)(obj, sel);
