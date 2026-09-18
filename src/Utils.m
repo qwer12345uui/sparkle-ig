@@ -546,6 +546,10 @@ static id SPKObjectForSelector(id target, NSString *selectorName) {
     if (![target respondsToSelector:selector])
         return nil;
 
+    NSMethodSignature *spkSig1 = [target methodSignatureForSelector:selector];
+    const char *spkRet1 = spkSig1.methodReturnType;
+    if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
+        return nil;
     return ((id (*)(id, SEL))objc_msgSend)(target, selector);
 }
 
@@ -651,6 +655,10 @@ static UIColor *SPKInstagramColorFromClassSelector(NSString *className, SEL sele
     if (!colorClass || ![colorClass respondsToSelector:selector])
         return nil;
 
+    NSMethodSignature *spkSig2 = [colorClass methodSignatureForSelector:selector];
+    const char *spkRet2 = spkSig2.methodReturnType;
+    if (!spkRet2 || (spkRet2[0] != '@' && spkRet2[0] != '#'))
+        return nil;
     id color = ((id (*)(id, SEL))objc_msgSend)(colorClass, selector);
     return [color isKindOfClass:[UIColor class]] ? color : nil;
 }
