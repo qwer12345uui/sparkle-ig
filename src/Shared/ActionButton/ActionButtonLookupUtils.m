@@ -284,6 +284,11 @@ NSString *SPKCaptionFromMediaObject(id media) {
         if (![media respondsToSelector:selector])
             continue;
 
+        NSMethodSignature *captionSig = [media methodSignatureForSelector:selector];
+        const char *captionReturnType = captionSig.methodReturnType;
+        if (!captionReturnType || (captionReturnType[0] != '@' && captionReturnType[0] != '#'))
+            continue;
+
         @try {
             id result = ((id (*)(id, SEL))objc_msgSend)(media, selector);
             if ([result isKindOfClass:[NSString class]] && [(NSString *)result length] > 0) {
@@ -293,6 +298,11 @@ NSString *SPKCaptionFromMediaObject(id media) {
                 for (NSString *textSelectorName in @[ @"text", @"string", @"commentText", @"attributedString", @"rawText" ]) {
                     SEL textSelector = NSSelectorFromString(textSelectorName);
                     if (![result respondsToSelector:textSelector])
+                        continue;
+
+                    NSMethodSignature *textSig = [result methodSignatureForSelector:textSelector];
+                    const char *textReturnType = textSig.methodReturnType;
+                    if (!textReturnType || (textReturnType[0] != '@' && textReturnType[0] != '#'))
                         continue;
 
                     id text = ((id (*)(id, SEL))objc_msgSend)(result, textSelector);

@@ -74,9 +74,17 @@ static NSString *spkAuthHeader(void) {
         SEL authHeaderManagerSel = NSSelectorFromString(@"authHeaderManager");
         if (!session || ![session respondsToSelector:authHeaderManagerSel])
             return nil;
+        NSMethodSignature *spkSig1 = [session methodSignatureForSelector:authHeaderManagerSel];
+        const char *spkRet1 = spkSig1.methodReturnType;
+        if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
+            return nil;
         id manager = ((id (*)(id, SEL))objc_msgSend)(session, authHeaderManagerSel);
         SEL authHeaderSel = NSSelectorFromString(@"authHeader");
         if (!manager || ![manager respondsToSelector:authHeaderSel])
+            return nil;
+        NSMethodSignature *spkSig2 = [manager methodSignatureForSelector:authHeaderSel];
+        const char *spkRet2 = spkSig2.methodReturnType;
+        if (!spkRet2 || (spkRet2[0] != '@' && spkRet2[0] != '#'))
             return nil;
         id header = ((id (*)(id, SEL))objc_msgSend)(manager, authHeaderSel);
         if ([header isKindOfClass:[NSString class]] && [(NSString *)header length] > 0) {
