@@ -34,6 +34,10 @@ static id SPKMediaDMCall(id object, NSString *selectorName) {
     SEL selector = NSSelectorFromString(selectorName);
     if (!object || ![object respondsToSelector:selector])
         return nil;
+    NSMethodSignature *spkSig1 = [object methodSignatureForSelector:selector];
+    const char *spkRet1 = spkSig1.methodReturnType;
+    if (!spkRet1 || (spkRet1[0] != '@' && spkRet1[0] != '#'))
+        return nil;
     @try {
         return ((id (*)(id, SEL))objc_msgSend)(object, selector);
     } @catch (__unused NSException *exception) {
