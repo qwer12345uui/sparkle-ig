@@ -1,0 +1,445 @@
+[32m==>[0m [1mDownloading bottle manifests[0m
+✔︎ Bottle Manifest ldid (2.1.5_1)
+✔︎ Bottle Manifest dpkg (1.23.7)
+✔︎ Bottle Manifest make (4.4.1)
+[34m==>[0m [1mWould install 3 formulae:[0m
+ldid dpkg make
+[34m==>[0m [1mWould install 1 dependency for ldid:[0m
+libplist
+[34m==>[0m [1mWould install 2 dependencies for dpkg:[0m
+gpatch
+libmd
+[32m==>[0m [1mFetching downloads for: [32mldid[39m, [32mdpkg[39m and [32mmake[39m[0m
+✔︎ Bottle make (4.4.1)
+✔︎ Bottle Manifest libplist (2.7.0)
+✔︎ Bottle Manifest gpatch (2.8)
+✔︎ Bottle ldid (2.1.5_1)
+✔︎ Bottle libplist (2.7.0)
+✔︎ Bottle Manifest libmd (1.2.0)
+✔︎ Bottle gpatch (2.8)
+✔︎ Bottle libmd (1.2.0)
+✔︎ Bottle dpkg (1.23.7)
+[32m==>[0m [1mInstalling ldid dependency: [32mlibplist[39m[0m
+[34m==>[0m [1mPouring libplist--2.7.0.arm64_tahoe.bottle.tar.gz[0m
+🍺  /opt/homebrew/Cellar/libplist/2.7.0: 32 files, 605.5KB
+[32m==>[0m [1mInstalling [32mldid[39m[0m
+[34m==>[0m [1mPouring ldid--2.1.5_1.arm64_tahoe.bottle.1.tar.gz[0m
+🍺  /opt/homebrew/Cellar/ldid/2.1.5_1: 6 files, 271KB
+[32m==>[0m [1mInstalling dependencies for dpkg:[0m [32mgpatch[39m and [32mlibmd[39m[0m
+[32m==>[0m [1mInstalling dpkg dependency: [32mgpatch[39m[0m
+[34m==>[0m [1mPouring gpatch--2.8.arm64_tahoe.bottle.tar.gz[0m
+🍺  /opt/homebrew/Cellar/gpatch/2.8: 12 files, 395KB
+[32m==>[0m [1mInstalling dpkg dependency: [32mlibmd[39m[0m
+[34m==>[0m [1mPouring libmd--1.2.0.arm64_tahoe.bottle.tar.gz[0m
+🍺  /opt/homebrew/Cellar/libmd/1.2.0: 138 files, 1MB
+[32m==>[0m [1mInstalling [32mdpkg[39m[0m
+[34m==>[0m [1mPouring dpkg--1.23.7.arm64_tahoe.bottle.tar.gz[0m
+🍺  /opt/homebrew/Cellar/dpkg/1.23.7: 740 files, 18.3MB
+[34m==>[0m [1mPouring make--4.4.1.arm64_tahoe.bottle.1.tar.gz[0m
+🍺  /opt/homebrew/Cellar/make/4.4.1: 17 files, 1.3MB
+[32m==>[0m [1mCaveats[0m
+[34m==>[0m [1mdpkg[0m
+This installation of dpkg is not configured to install software, so
+commands such as `dpkg -i`, `dpkg --configure` will fail.
+[34m==>[0m [1mmake[0m
+GNU "make" has been installed as "gmake".
+If you need to use it as "make", you can add a "gnubin" directory
+to your PATH from your bashrc like:
+
+    PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+[1;31m> [1;3;39mMaking all for tweak Sparkle…[m
+[0;34m==> [1;39mBuilding Swift support tools…[m
+Building for production...
+[0/7] Write sources
+[2/7] Write swift-version-7974D3F7F03D5E95.txt
+[4/9] Compiling FileMapGenerator main.swift
+[4/9] Write Objects.LinkFileList
+[5/9] Linking generate-output-file-map
+[7/9] Compiling SwiftcOutputParser FileLock.swift
+[7/9] Write Objects.LinkFileList
+[8/9] Linking parse-swiftc-output
+Build complete! (6.50s)
+[0;31m==> [1;39mPreprocessing src/Features/Interface/OpenLinkFromClipboard.xm…[m
+[0;31m==> [1;39mPreprocessing src/App/AppBootstrap.xm…[m
+[0;31m==> [1;39mPreprocessing src/Tweak.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Interface/LiquidGlass.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Interface/Navigation.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Interface/HideTrendingSearches.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Tools/FixDuplicateNotifications.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Interface/HideExploreGrid.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Tools/HideTestFlightPopup.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DMInteractionConfirm.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Tools/SettingsShortcuts.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/ChangeThemeConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/HideFriendsMap.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/CallConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/FullLastActive.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/ConfirmSend.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/VisualMsgModifier.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/HideFlagButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DMAudioMsgConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DisableTypingStatus.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/CreateGroupButtonControls.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/NotesActions.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DMAudioDownload.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/FollowRequestConfirm.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DisableDMStorySeen.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DMRefreshConfirm.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/VanishModeConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/NoSuggestedChats.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/UnlockMessagePreview.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DisableInstantsCreation.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DirectVisualSeenButtons.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/AggregatedMediaActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/KeepDeletedMessages.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/DirectAutoSave.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/HideCallButtons.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/MessageSeenButtons.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Messages/MessagesActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/HideMetrics.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/NoSuggestedUsers.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/SharedLinkCleanup.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/CopyDescription.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/CaptureHiding.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/FollowConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/AudioPageDownload.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/DetailedColorPicker.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/DisableHaptics.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/NoRecentSearches.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/ShareLongPressCopy.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/SearchBarIconRemap.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/EnhancedMediaResolution.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/OpenPostNativePush.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Reels/ReelsPlayback.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/General/HideMetaAI.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Reels/HideReelsHeader.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Reels/DisableScrollingReels.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Reels/ReelsActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsGalleryUpload.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsAllowScreenshot.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsAutoSave.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsReactionConfirm.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Instants/InstantsResolver.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoriesActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/UnlockStoryPreview.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/HideJoinTrending.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoryAutoSave.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/SeenButtons.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StorySeenButtons.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoryVideoSticker.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StickerInteractConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/HideViewerPlusButton.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoryPollVoteCounts.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/DisableStorySeen.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/SearchStoryViewers.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoryMentions.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/StoryMentionsButton.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Profile/FollowIndicator.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerVisitTracker.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Profile/ProfileActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Profile/ProfileHeaderControls.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Profile/ProfilePhotoZoom.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/CommentComposerGalleryUpload.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HideRepostButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HideCommentGiftsButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/SwipeCloseComments.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/DisableBackgroundRefresh.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HideFeedItems.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/PostCommentConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HeaderActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/DisableHomeButtonRefresh.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/DisableFeedAutoplay.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/CommentActions.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/DisableAppIconGesture.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HideThreads.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/HideStoryTray.x…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/FeedActionButton.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/FollowingFeed.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/LikeConfirm.x…[m
+[0;31m==> [1;39mPreprocessing src/Shared/ActionButton/ActionButtonCore.xm…[m
+[0;31m==> [1;39mPreprocessing src/Shared/Account/SPKAccountSwitchHook.xm…[m
+[0;32m==> [1;39mCompiling modules/SPKSideloadFix/fishhook/fishhook.c (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKLiveTextBridge.swift (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKActionSectionIconPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKAppIconCatalog.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKHeaderButtonDefaultActionPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKWhatsNewViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKActionButtonDefaultActionPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKOnboardingViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKIconPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKStorageUsageViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKPreferenceAvailability.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKInstagramIconCatalog.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKPreferences.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKSetting.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKTopicSettingsSupport.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKBulkActionMenuEditViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/TweakSettings.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKEditActionsListViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKAppIconPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKActionSectionEditViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKStoriesSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKSettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKInstantsSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKGallerySettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKProfileAnalyzerSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKHookBisectSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKProfileSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/SPKSettingsTransferManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKNotificationSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKAboutSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKDataSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKFeedSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKInterfaceSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKDownloadsSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKReelsSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKToolsSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKGeneralSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKHookBisect.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKStartupHooks.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Settings/Topics/SPKMessagesSettingsProvider.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKPerfMeter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKStabilityGuard.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKFlexLoader.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKCore.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/SPKStartupProfiler.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Networking/SPKInstagramAPI.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Tweak.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Interface/Navigation.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Interface/OpenLinkFromClipboard.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/App/AppBootstrap.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Interface/HideTrendingSearches.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Interface/HideExploreGrid.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Interface/LiquidGlass.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Tools/FixDuplicateNotifications.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Tools/HideTestFlightPopup.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/ChangeThemeConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DMInteractionConfirm.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Tools/SettingsShortcuts.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/CallConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/HideFriendsMap.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/FullLastActive.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/VisualMsgModifier.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DMAudioMsgConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/ConfirmSend.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/HideFlagButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DisableTypingStatus.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesAvatarView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesFilter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesUserDetailViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesModels.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesStorage.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesDate.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesChipBar.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesStorageViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesSenderCell.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessageBubbleCell.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/CreateGroupButtonControls.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/NotesActions.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DMAudioDownload.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/FollowRequestConfirm.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DisableDMStorySeen.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DeletedMessagesLog/SPKDeletedMessagesCapture.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/VanishModeConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/NoSuggestedChats.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DMRefreshConfirm.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/UnlockMessagePreview.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DisableInstantsCreation.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DirectVisualSeenButtons.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/DirectAutoSave.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/AggregatedMediaActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/HideCallButtons.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/MessagesActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/MessageSeenButtons.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Messages/KeepDeletedMessages.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/HideMetrics.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/NoSuggestedUsers.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/SharedLinkCleanup.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/CopyDescription.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/FollowConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/CaptureHiding.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/DetailedColorPicker.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/DisableHaptics.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/AudioPageDownload.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/NoRecentSearches.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/SearchBarIconRemap.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/EnhancedMediaResolution.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/ShareLongPressCopy.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/OpenPostNativePush.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Reels/HideReelsHeader.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Reels/ReelsPlayback.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Reels/DisableScrollingReels.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/General/HideMetaAI.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Reels/ReelsActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsAllowScreenshot.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsAutoSave.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsReactionConfirm.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsGalleryUpload.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoriesActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/UnlockStoryPreview.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/HideJoinTrending.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/SeenButtons.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Instants/InstantsResolver.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoryAutoSave.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StickerInteractConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StorySeenButtons.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoryVideoSticker.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/HideViewerPlusButton.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/DisableStorySeen.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoryPollVoteCounts.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/SearchStoryViewers.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoryMentionsButton.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/FollowIndicator.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Stories/StoryMentions.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerModels.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerService.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerVisitTracker.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerListViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileAnalyzer/SPKProfileAnalyzerStorage.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileHeaderControls.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfileActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Profile/ProfilePhotoZoom.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HideCommentGiftsButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/CommentComposerGalleryUpload.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HideRepostButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/DisableBackgroundRefresh.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HideFeedItems.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/SwipeCloseComments.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/PostCommentConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HeaderActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/DisableHomeButtonRefresh.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/DisableFeedAutoplay.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/DisableAppIconGesture.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HideThreads.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/CommentActions.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/HideStoryTray.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/FollowingFeed.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/LikeConfirm.x (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/FeedActionButton.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimConfiguration.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimRenderer.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimSourcePlan.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKVideoCropViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimCrop.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimSaveCoordinator.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimEditorViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimResult.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKVideoCropContentView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimEntry.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaUpload/SPKMediaDMUploadCoordinator.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaTrim/SPKTrimScrubberView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKSwitch.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKProgressPillButton.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKChromeGlassMirror.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKMediaChrome.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKNotificationCenter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKGlassButton.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKNotificationPillView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKIGAlertPresenter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKChipBar.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKUserListViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKChipGlass.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKChrome.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Settings/SPKSettingsLockManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKBrandLogoView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKImageFormat.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKMediaPreviewInfoOverlay.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKMediaItem.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/UI/SPKPagedSheetViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKFullScreenImageViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKTransformZoomController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKMediaCacheManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/SPKActionButtonConfiguration.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKFullScreenVideoViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/SPKActionDescriptor.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/ActionButtonLookupUtils.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaPreview/SPKFullScreenMediaPlayer.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/SPKActionMenuSection.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Messages/SPKDirectUserResolver.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/SPKBulkMediaSelectionViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Messages/SPKDirectAutoSave.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryOriginController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Messages/SPKDirectSeenContext.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGallerySortViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryFileDetailsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/ActionButton/ActionButtonCore.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryPaths.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryFile.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryImportMetadataFormViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGallerySettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryFilterViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryCoreDataStack.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryGridCell.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryListCollectionCell.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKRegramImporter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryDeleteViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryFolderCell.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryImportViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryUserPickerViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryLockViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryHiddenSources.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGallerySaveMetadata.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryFolderChipBar.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryGridDensity.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Gallery/SPKGalleryViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/PhotoEdit/SPKPhotoEditEntry.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/PhotoEdit/SPKPhotoEditorViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/SPKStoragePaths.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Crop/SPKCropCanvasView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Instants/SPKInstantsAutoSave.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Instants/SPKInstantsVideoStreamer.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Instants/SPKInstantsSavedUsersViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/AutoSave/SPKAutoSaveSurfaceSettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/AutoSave/SPKAutoSaveSettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/AutoSave/SPKAutoSaveFilter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/AutoSave/SPKAutoSave.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryButtonPlacement.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/AutoSave/SPKAutoSaveStoriesSettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryViewersFetcher.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryViewersSearchViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryDynamicRange.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryContext.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Stories/SPKStoryAutoSave.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Audio/SPKAudioItem.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Audio/SPKAudioDMUploadCoordinator.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaDownload/SPKDashParser.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Audio/SPKAudioDownloadCoordinator.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Account/SPKAccountManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaDownload/SPKMediaFFmpeg.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Avatars/SPKAvatarView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Account/SPKAccountSwitchHook.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadJob.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Avatars/SPKAvatarCache.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/MediaDownload/SPKMediaQualityManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadDuplicatePolicy.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadPresenter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadItem.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadsHistoryViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadsSettingsViewController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadStore.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadTransfer.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadService.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadDestinationWriter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadHelpers.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadRequest.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadTypes.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Shared/Downloads/SPKDownloadScheduler.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/AssetUtils.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Localization/SPKLocalization.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Utils.m (arm64)…[m
+[0;33m==> [1;39mLinking tweak Sparkle (arm64)…[m
+ld: warning: -multiply_defined is obsolete
+[0;34m==> [1;39mGenerating debug symbols for Sparkle…[m
+warning: no debug symbols in executable (-arch arm64)
+[0;34m==> [1;39mStripping Sparkle (arm64)…[m
+[0;34m==> [1;39mSigning Sparkle…[m
+[0;35m==> [1;39mCopying resource directories into the tweak wrapper…[m
+[1;31m> [1;3;39mMaking stage for tweak Sparkle…[m
+od: stdout: Broken pipe
+dm.pl: building package `com.sparkle.sparkle:iphoneos-arm64' in `./packages/com.sparkle.sparkle_1.3.1_iphoneos-arm64.deb'
